@@ -18,4 +18,7 @@ public class Consts {
     返回信息
      */
     public static final String MSG = "msg";
+
+    public static final String NAME = "name";
+
 }
