@@ -35,7 +35,7 @@ public class UserController {
         String user_phone = request.getParameter("user_phone").trim();
         String user_passwd = request.getParameter("user_passwd" ).trim();
         MD5 md = new MD5();
-        user_passwd=md.start(user_passwd);
+        user_passwd=md.start(user_passwd);//对密码进行md5加密，与数据库中的加密数据进行比较
         boolean flag=userService.login(user_phone,user_passwd);//是否登陆成功
         if(flag){
             jsonObject.put(Consts.CODE,1);
@@ -67,7 +67,7 @@ public class UserController {
         String user_company = req.getParameter("user_company").trim();
         String user_depart = req.getParameter("user_depart").trim();
         String user_passwd = req.getParameter("user_passwd").trim();
-        String user_auth = req.getParameter("user_auth").trim();
+        //String user_auth = req.getParameter("user_auth").trim();
 
 
         MD5 md = new MD5();
@@ -80,7 +80,7 @@ public class UserController {
         user.setUser_company(Integer.parseInt(user_company));
         user.setUser_depart(Integer.parseInt(user_depart));
         user.setUser_passwd(user_passwd);
-        user.setUser_auth(Integer.parseInt(user_auth));
+        user.setUser_auth(1);//用户默认权限为1（普通用户，超级管理员可以修改权限）
 
         boolean res = userService.addUser(user);
         if (res){
