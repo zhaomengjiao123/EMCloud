@@ -62,5 +62,24 @@
     </delete>
 
 
+    <update id="updateByPrimaryKeySelective" parameterType="com.server.emcloud.domain.Company">
+        update emdb_company
+        <set>
+            <if test="company_name != null">
+                company_name = #{company_name,jdbcType=VARCHAR},
+            </if>
+            <if test="company_type != null">
+                company_type = #{company_type,jdbcType=VARCHAR},
+            </if>
+            <if test="company_local != null">
+                company_local = #{company_local,jdbcType=VARCHAR},
+            </if>
+            <if test="company_comment != null">
+                company_comment = #{company_comment,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where company_id = #{company_id,jdbcType=INTEGER}
+    </update>
+
 
 </mapper>

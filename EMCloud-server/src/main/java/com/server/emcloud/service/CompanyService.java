@@ -20,4 +20,8 @@ public interface CompanyService {
 
     //删除公司
     public int deleteCompanyOfCid(int company_id);
+
+    //更新公司信息（可以传入Company类的部分属性）
+    int updateByPrimaryKeySelective(Company record);
+
 }

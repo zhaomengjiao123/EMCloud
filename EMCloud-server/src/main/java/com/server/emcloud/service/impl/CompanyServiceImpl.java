@@ -39,4 +39,14 @@ public class CompanyServiceImpl implements CompanyService {
     public int deleteCompanyOfCid(int company_id) {
         return companyMapper.deleteCompanyOfCid(company_id)>0 ? 1 : 0;
     }
+
+
+    //更新公司
+    @Override
+    public int updateByPrimaryKeySelective(Company record){
+        return companyMapper.updateByPrimaryKeySelective(record);
+    }
+
+
+
 }

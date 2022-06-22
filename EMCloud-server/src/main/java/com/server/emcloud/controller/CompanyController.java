@@ -13,9 +13,7 @@ import com.server.emcloud.service.CompanyService;
 import com.server.emcloud.utils.Consts;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -105,6 +103,31 @@ public class CompanyController {
         }else {
             jsonObject.put(Consts.CODE, 0);
             jsonObject.put(Consts.MSG, "删除失败");
+            return jsonObject;
+        }
+    }
+
+    /**
+     * @Description: 更新公司，可以传入部分参数，只更新传入的参数。主键必须传入。
+     * @Param: company对象的json格式字符串，比如：{"company_id":"2022","company_name":"test2"}
+     * @return: java.lang.Object
+     * @Author: 王俊博
+     * @Date: 2022/6/22
+     */
+
+    @PostMapping("/update")
+    public Object updateByPrimaryKeySelective(@RequestBody Company record) {
+        System.out.println("要更新公司的id是："+record.getCompany_id());
+
+        JSONObject jsonObject = new JSONObject();
+        int res = companyService.updateByPrimaryKeySelective(record);
+        if (res == 1){
+            jsonObject.put(Consts.CODE, 1);
+            jsonObject.put(Consts.MSG, "更新成功");
+            return jsonObject;
+        }else {
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "更新失败");
             return jsonObject;
         }
     }
