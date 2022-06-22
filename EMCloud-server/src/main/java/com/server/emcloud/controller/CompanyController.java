@@ -107,6 +107,7 @@ public class CompanyController {
         }
     }
 
+
     /**
      * @Description: 更新公司，可以传入部分参数，只更新传入的参数。主键必须传入。
      * @Param: company对象的json格式字符串，比如：{"company_id":"2022","company_name":"test2"}
