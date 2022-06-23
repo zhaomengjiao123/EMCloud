@@ -13,6 +13,10 @@
         <result column="user_auth" property="user_auth" jdbcType="INTEGER" />
     </resultMap>
 
+    <select id="Base_Column_List">
+        user_name,user_phone,user_tele,user_company,user_depart,user_auth
+    </select>
+
     <select id="login" resultType="java.lang.Integer">
         select count(*) from emdb_user where user_phone=#{user_phone} and user_passwd=#{user_passwd}
     </select>
@@ -66,6 +70,67 @@
             </if>
         </trim>
     </insert>
+
+    <update id="updateInfo" parameterType="com.server.emcloud.domain.User" >
+        update emdb_user
+        <set >
+            <if test="user_name != null" >
+                user_name = #{user_name} ,
+            </if>
+            <if test="user_company != null" >
+                user_company = #{user_company},
+            </if>
+            <if test="user_tele!= null" >
+                user_tele = #{user_tele},
+            </if>
+            <if test="user_depart!= null" >
+                user_depart = #{user_depart},
+            </if>
+        </set>
+        where user_phone = #{user_phone}
+    </update>
+
+    <update id="updatePasswd" parameterType="com.server.emcloud.domain.User" >
+        update emdb_user
+        <set >
+            <if test="user_passwd != null" >
+                user_passwd = #{user_passwd},
+            </if>
+        </set>
+        where user_phone = #{user_phone}
+    </update>
+
+    <update id="updateAuth" parameterType="com.server.emcloud.domain.User" >
+        update emdb_user
+        <set >
+            <if test="user_auth != null" >
+                user_auth = #{user_auth},
+            </if>
+        </set>
+        where user_phone = #{user_phone}
+    </update>
+
+    <delete id="deleteUser" parameterType="java.lang.String" >
+        delete from emdb_user
+        where user_phone = #{user_phone}
+    </delete>
+
+
+    <select id="getUserOfPhone" resultMap="BaseResultMap">
+    select *
+    from emdb_user
+    where user_phone = #{user_phone}
+    </select>
+
+    <select id="getUser" resultMap="BaseResultMap">
+    select *
+    from emdb_user
+    where user_company = #{user_company}
+    </select>
+
+    <select id="getAllUser" resultMap="BaseResultMap">
+        select * from emdb_user
+    </select>
 
 
 </mapper>
