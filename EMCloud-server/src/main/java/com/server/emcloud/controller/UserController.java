@@ -73,20 +73,23 @@ public class UserController {
         String user_passwd = req.getParameter("user_passwd").trim();
         //String user_auth = req.getParameter("user_auth").trim();
 
+        boolean res=false;
 
-        MD5 md = new MD5();
-        user_passwd=md.start(user_passwd);
+        if (user_passwd!=null) {//密码不能为空，为空md5后不为空，在usermapper里查不出来
+            MD5 md = new MD5();
+            user_passwd = md.start(user_passwd);
 
-        User user = new User();
-        user.setUser_name(user_name);
-        user.setUser_phone(user_phone);
-        user.setUser_tele(user_tele);
-        user.setUser_company(Integer.parseInt(user_company));
-        user.setUser_depart(Integer.parseInt(user_depart));
-        user.setUser_passwd(user_passwd);
-        user.setUser_auth(1);//用户默认权限为1（普通用户，超级管理员可以修改权限）
+            User user = new User();
+            user.setUser_name(user_name);
+            user.setUser_phone(user_phone);
+            user.setUser_tele(user_tele);
+            user.setUser_company(Integer.parseInt(user_company));
+            user.setUser_depart(Integer.parseInt(user_depart));
+            user.setUser_passwd(user_passwd);
+            user.setUser_auth(1);//用户默认权限为1（普通用户，超级管理员可以修改权限）
 
-        boolean res = userService.addUser(user);
+            res = userService.addUser(user);
+        }
         if (res){
             jsonObject.put(Consts.CODE, 1);
             jsonObject.put(Consts.MSG, "添加成功");
@@ -277,12 +280,13 @@ public class UserController {
         String user_phone = req.getParameter("user_phone").trim();
         String user_oldpasswd = req.getParameter("user_oldpasswd").trim();
         String user_passwd = req.getParameter("user_passwd").trim();
+
         MD5 md = new MD5();
         user_oldpasswd=md.start(user_oldpasswd);
         boolean res=false;
 
         User user1=userService.getUserOfPhone(user_phone);//获取这个用户原先的密码
-        if(user1.getUser_passwd().equals(user_oldpasswd)){ //旧密码是否一致
+        if(user1.getUser_passwd().equals(user_oldpasswd)&&user_passwd!=null){ //旧密码是否一致，且新密码不为空
             MD5 md1 = new MD5();
             user_passwd=md1.start(user_passwd);
 
@@ -317,14 +321,17 @@ public class UserController {
         JSONObject jsonObject = new JSONObject();
         String user_phone = req.getParameter("user_phone").trim();
         String user_passwd = req.getParameter("user_passwd").trim();
+        boolean res=false;
+        if(user_passwd!=null){
         MD5 md = new MD5();
-            user_passwd=md.start(user_passwd);
+        user_passwd=md.start(user_passwd);
 
-            User user = new User();
-            user.setUser_phone(user_phone);
-            user.setUser_passwd(user_passwd);
+        User user = new User();
+        user.setUser_phone(user_phone);
+        user.setUser_passwd(user_passwd);
 
-        boolean res = userService.updatePasswd(user);
+        res = userService.updatePasswd(user);
+        }
         if (res){
             jsonObject.put(Consts.CODE, 1);
             jsonObject.put(Consts.MSG, "修改成功");
@@ -350,7 +357,6 @@ public class UserController {
         JSONObject jsonObject = new JSONObject();
         String user_phone = req.getParameter("user_phone").trim();
         String user_auth = req.getParameter("user_auth").trim();
-
 
         User user = new User();
         user.setUser_phone(user_phone);
@@ -441,7 +447,10 @@ public class UserController {
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public Object deleteUser(HttpServletRequest req){
         String user_phone = req.getParameter("user_phone");
-        boolean res = userService.deleteUser(user_phone);
+        boolean res=false;
+        if(user_phone!=null){
+            res = userService.deleteUser(user_phone);
+        }
         JSONObject jsonObject = new JSONObject();
         if (res){
         jsonObject.put(Consts.CODE, 1);

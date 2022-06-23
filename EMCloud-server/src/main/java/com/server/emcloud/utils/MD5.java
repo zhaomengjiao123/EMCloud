@@ -1,7 +1,9 @@
 package com.server.emcloud.utils;
 
 /**
- * @author Janking
+ *  密码加密方法，MD5
+ * @Author: lyx
+ * @Date: 2022/6/22
  */
 public class MD5 {
     //存储小组
