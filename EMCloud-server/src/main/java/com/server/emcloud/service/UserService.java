@@ -17,6 +17,8 @@ public interface UserService {
 
     public boolean updateInfo(User user);//用户更新信息
 
+    public boolean updateInfoAdmin(User user);//用户更新信息
+
     public boolean updatePasswd(User user);//用户修改密码
 
     public boolean updateAuth(User user);//管理员更改权限

@@ -77,11 +77,24 @@
             <if test="user_name != null" >
                 user_name = #{user_name} ,
             </if>
-            <if test="user_company != null" >
-                user_company = #{user_company},
+            <if test="user_tele!= null" >
+                user_tele = #{user_tele},
+            </if>
+        </set>
+        where user_phone = #{user_phone}
+    </update>
+
+    <update id="updateInfoAdmin" parameterType="com.server.emcloud.domain.User" >
+        update emdb_user
+        <set >
+            <if test="user_name != null" >
+                user_name = #{user_name} ,
             </if>
             <if test="user_tele!= null" >
                 user_tele = #{user_tele},
+            </if>
+            <if test="user_company != null" >
+                user_company = #{user_company} ,
             </if>
             <if test="user_depart!= null" >
                 user_depart = #{user_depart},
@@ -117,19 +130,20 @@
 
 
     <select id="getUserOfPhone" resultMap="BaseResultMap">
-    select *
+    select user_name,user_phone,user_tele,user_company,user_depart
     from emdb_user
     where user_phone = #{user_phone}
     </select>
 
     <select id="getUser" resultMap="BaseResultMap">
-    select *
+    select user_name,user_phone,user_tele,user_company,user_depart,user_auth
     from emdb_user
     where user_company = #{user_company}
     </select>
 
     <select id="getAllUser" resultMap="BaseResultMap">
-        select * from emdb_user
+        select user_name,user_phone,user_tele,user_company,user_depart,user_auth
+        from emdb_user
     </select>
 
 

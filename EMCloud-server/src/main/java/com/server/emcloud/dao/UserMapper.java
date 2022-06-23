@@ -23,6 +23,9 @@ public interface UserMapper {
     //用户更新信息
     public int updateInfo(User user);
 
+    //用户更新信息
+    public int updateInfoAdmin(User user);
+
     //用户修改密码
     public int updatePasswd(User user);
 

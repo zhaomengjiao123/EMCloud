@@ -104,7 +104,7 @@ public class UserController {
      * @Param: [request]
      * @return: java.lang.Object
      * @Author: lyx
-     * @Date: 2022/6/22
+     * @Date: 2022/6/23
      */
     @RequestMapping(value = "admin/add", method = RequestMethod.POST)
     public Object addUserAdmin(HttpServletRequest req) throws JSONException {
@@ -145,7 +145,7 @@ public class UserController {
 
     /**
      * @Description: POST方法
-     *     管理员添加用户
+     *     超级管理员添加管理员
      * @Param: [request]
      * @return: java.lang.Object
      * @Author: lyx
@@ -205,15 +205,11 @@ public class UserController {
         String user_name = req.getParameter("user_name").trim();
         String user_phone = req.getParameter("user_phone").trim();
         String user_tele = req.getParameter("user_tele").trim();
-        String user_company = req.getParameter("user_company").trim();
-        String user_depart = req.getParameter("user_depart").trim();
 
         User user = new User();
         user.setUser_name(user_name);
         user.setUser_phone(user_phone);
         user.setUser_tele(user_tele);
-        user.setUser_company(Integer.parseInt(user_company));
-        user.setUser_depart(Integer.parseInt(user_depart));
 
 
         boolean res = userService.updateInfo(user);
@@ -254,7 +250,7 @@ public class UserController {
         user.setUser_depart(Integer.parseInt(user_depart));
 
 
-        boolean res = userService.updateInfo(user);
+        boolean res = userService.updateInfoAdmin(user);
         if (res){
             jsonObject.put(Consts.CODE, 1);
             jsonObject.put(Consts.MSG, "修改成功");
@@ -268,7 +264,7 @@ public class UserController {
 
     /**
      * @Description: POST方法
-     *     用户修改信息
+     *     用户修改密码
      * @Param: [request]
      * @return: java.lang.Object
      * @Author: lyx
@@ -290,12 +286,45 @@ public class UserController {
             MD5 md1 = new MD5();
             user_passwd=md1.start(user_passwd);
 
-        User user = new User();
-        user.setUser_phone(user_phone);
-        user.setUser_passwd(user_passwd);
+            User user = new User();
+            user.setUser_phone(user_phone);
+            user.setUser_passwd(user_passwd);
 
-        res = userService.updatePasswd(user);
+            res = userService.updatePasswd(user);
         }
+        if (res){
+            jsonObject.put(Consts.CODE, 1);
+            jsonObject.put(Consts.MSG, "修改成功");
+            return jsonObject;
+        }else {
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "修改失败");
+            return jsonObject;
+        }
+    }
+
+    /**
+     * @Description: POST方法
+     *     管理员修改密码
+     * @Param: [request]
+     * @return: java.lang.Object
+     * @Author: lyx
+     * @Date: 2022/6/23
+     */
+
+    @RequestMapping(value = "admin/updatepasswd", method = RequestMethod.POST)
+    public Object updatePasswdAdmin(HttpServletRequest req){
+        JSONObject jsonObject = new JSONObject();
+        String user_phone = req.getParameter("user_phone").trim();
+        String user_passwd = req.getParameter("user_passwd").trim();
+        MD5 md = new MD5();
+            user_passwd=md.start(user_passwd);
+
+            User user = new User();
+            user.setUser_phone(user_phone);
+            user.setUser_passwd(user_passwd);
+
+        boolean res = userService.updatePasswd(user);
         if (res){
             jsonObject.put(Consts.CODE, 1);
             jsonObject.put(Consts.MSG, "修改成功");
@@ -339,6 +368,8 @@ public class UserController {
             return jsonObject;
         }
     }
+
+
 
     /**
      * @Description: GET法

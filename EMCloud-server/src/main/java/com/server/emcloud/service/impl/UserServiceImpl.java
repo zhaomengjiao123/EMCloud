@@ -32,6 +32,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean updateInfoAdmin(User user) {
+        return userMapper.updateInfoAdmin(user)>0;
+    }
+
+    @Override
     public boolean updatePasswd(User user) {
         return userMapper.updatePasswd(user)>0;
     }
