@@ -2,6 +2,8 @@ package com.server.emcloud.service;
 
 import com.server.emcloud.domain.User;
 
+import java.util.List;
+
 /**
  *  用户
  * @Author: lyx
@@ -12,4 +14,19 @@ public interface UserService {
     public boolean login(String user_phone, String user_passwd);//用户注册
 
     public boolean addUser(User user);  //用户注册
+
+    public boolean updateInfo(User user);//用户更新信息
+
+    public boolean updatePasswd(User user);//用户修改密码
+
+    public boolean updateAuth(User user);//管理员更改权限
+
+    public List<User> getAllUser();//超级管理员获取用户信息
+
+    public List<User> getUser(Integer user_company);//管理员获取用户信息
+
+    public User getUserOfPhone(String user_phone);//用户获取自己信息
+
+    public boolean deleteUser(String user_phone);//管理员删除用户，用户注销
+
 }
