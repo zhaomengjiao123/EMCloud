@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.server.emcloud.dao.EquipmentMapper">
+  <resultMap id="BaseResultMap" type="com.server.emcloud.domain.Equipment">
+    <id column="equipment_id" jdbcType="INTEGER" property="equipment_id" />
+    <result column="equipment_number" jdbcType="VARCHAR" property="equipment_number" />
+    <result column="equipment_warning_count" jdbcType="INTEGER" property="equipment_warning_count" />
+    <result column="equipment_erro_count" jdbcType="INTEGER" property="equipment_erro_count" />
+    <result column="equipment_emergency_warning_count" jdbcType="INTEGER" property="equipment_emergency_warning_count" />
+    <result column="equipment_comment" jdbcType="VARCHAR" property="equipment_comment" />
+    <result column="product_id" jdbcType="INTEGER" property="product_id" />
+    <result column="equipment_state" jdbcType="INTEGER" property="equipment_state" />
+    <result column="company_id" jdbcType="INTEGER" property="company_id" />
+    <result column="salesman_id" jdbcType="INTEGER" property="salesman_id" />
+    <result column="sell_time" jdbcType="VARCHAR" property="sell_time" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List">
+    equipment_id, equipment_number, equipment_warning_count, equipment_erro_count, equipment_emergency_warning_count,
+    equipment_comment, product_id, equipment_state, company_id, salesman_id, sell_time
+  </sql>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.server.emcloud.vo.EquipmentVO">
+    SELECT a.*,b.`product_name`,c.`company_name`,d.`salesman_name`
+    FROM emdb_equipment a JOIN emdb_product b ON a.`product_id`=b.`product_id`
+        INNER JOIN emdb_company c ON a.`company_id`=c.`company_id` JOIN emdb_salesman d ON a.`salesman_id`=d.`salesman_id`
+where a.equipment_id =#{equipment_id,jdbcType=INTEGER}
+  </select>
+  <select id="getAll" resultType="com.server.emcloud.vo.EquipmentVO">
+    SELECT a.*,b.`product_name`,c.`company_name`,d.`salesman_name`
+    FROM emdb_equipment a JOIN emdb_product b ON a.`product_id`=b.`product_id` INNER JOIN emdb_company c ON a.`company_id`=c.`company_id` JOIN emdb_salesman d ON a.`salesman_id`=d.`salesman_id`;
+  </select>
+
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.server.emcloud.domain.Equipment">
+    update emdb_equipment
+    <set>
+      <if test="equipment_number != null">
+        equipment_number = #{equipment_number,jdbcType=VARCHAR},
+      </if>
+      <if test="equipment_warning_count != null">
+        equipment_warning_count = #{equipment_warning_count,jdbcType=INTEGER},
+      </if>
+      <if test="equipment_erro_count != null">
+        equipment_erro_count = #{equipment_erro_count,jdbcType=INTEGER},
+      </if>
+      <if test="equipment_emergency_warning_count != null">
+        equipment_emergency_warning_count = #{equipment_emergency_warning_count,jdbcType=INTEGER},
+      </if>
+      <if test="equipment_comment != null">
+        equipment_comment = #{equipment_comment,jdbcType=VARCHAR},
+      </if>
+      <if test="product_id != null">
+        product_id = #{product_id,jdbcType=INTEGER},
+      </if>
+      <if test="equipment_state != null">
+        equipment_state = #{equipment_state,jdbcType=INTEGER},
+      </if>
+      <if test="company_id != null">
+        company_id = #{company_id,jdbcType=INTEGER},
+      </if>
+      <if test="salesman_id != null">
+        salesman_id = #{salesman_id,jdbcType=INTEGER},
+      </if>
+      <if test="sell_time != null">
+        sell_time = #{sell_time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where equipment_id = #{equipment_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.server.emcloud.domain.Equipment">
+    update emdb_equipment
+    set equipment_number = #{equipment_number,jdbcType=VARCHAR},
+        equipment_warning_count = #{equipment_warning_count,jdbcType=INTEGER},
+        equipment_erro_count = #{equipment_erro_count,jdbcType=INTEGER},
+        equipment_emergency_warning_count = #{equipment_emergency_warning_count,jdbcType=INTEGER},
+        equipment_comment = #{equipment_comment,jdbcType=VARCHAR},
+        product_id = #{product_id,jdbcType=INTEGER},
+        equipment_state = #{equipment_state,jdbcType=INTEGER},
+        company_id = #{company_id,jdbcType=INTEGER},
+        salesman_id = #{salesman_id,jdbcType=INTEGER},
+        sell_time = #{sell_time,jdbcType=VARCHAR}
+    where equipment_id = #{equipment_id,jdbcType=INTEGER}
+  </update>
+</mapper>
