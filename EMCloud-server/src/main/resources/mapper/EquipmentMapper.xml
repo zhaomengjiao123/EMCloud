@@ -85,4 +85,79 @@ where a.equipment_id =#{equipment_id,jdbcType=INTEGER}
         sell_time = #{sell_time,jdbcType=VARCHAR}
     where equipment_id = #{equipment_id,jdbcType=INTEGER}
   </update>
+
+  <delete id="deleteEquipmentByEid" parameterType="java.lang.Integer" >
+    delete from `emdb_equipment`
+    where equipment_id = #{equipment_id,jdbcType=INTEGER};
+  </delete>
+
+  <insert id="addEquipment" parameterType="com.server.emcloud.domain.Equipment" >
+    insert into emdb_equipment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="equipment_number != null" >
+        equipment_number,
+      </if>
+      <if test="equipment_warning_count != null" >
+        equipment_warning_count,
+      </if>
+      <if test="equipment_erro_count != null" >
+        equipment_erro_count,
+      </if>
+      <if test="equipment_emergency_warning_count != null" >
+        equipment_emergency_warning_count,
+      </if>
+      <if test="equipment_comment != null" >
+        equipment_comment,
+      </if>
+      <if test="product_id != null" >
+        product_id,
+      </if>
+      <if test="equipment_state != null" >
+        equipment_state,
+      </if>
+      <if test="company_id != null" >
+        company_id,
+      </if>
+      <if test="salesman_id != null" >
+        salesman_id,
+      </if>
+      <if test="sell_time != null" >
+        sell_time,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="equipment_number != null" >
+        #{equipment_number},
+      </if>
+      <if test="equipment_warning_count != null" >
+        #{equipment_warning_count},
+      </if>
+      <if test="equipment_erro_count != null" >
+        #{equipment_erro_count},
+      </if>
+      <if test="equipment_emergency_warning_count != null" >
+        #{equipment_emergency_warning_count},
+      </if>
+      <if test="equipment_comment != null" >
+        #{equipment_comment},
+      </if>
+      <if test="product_id != null" >
+        #{product_id},
+      </if>
+      <if test="equipment_state != null" >
+        #{equipment_state},
+      </if>
+      <if test="company_id != null" >
+        #{company_id},
+      </if>
+      <if test="salesman_id != null" >
+        #{salesman_id},
+      </if>
+      <if test="sell_time != null" >
+        #{sell_time},
+      </if>
+    </trim>
+  </insert>
+
 </mapper>

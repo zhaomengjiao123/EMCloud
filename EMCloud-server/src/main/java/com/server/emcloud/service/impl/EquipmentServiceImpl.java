@@ -28,4 +28,14 @@ public class EquipmentServiceImpl  implements EquipmentService {
     public EquipmentVO getByPrimaryKey(Integer equipment_id) {
         return equipmentMapper.selectByPrimaryKey(equipment_id);
     }
+
+    @Override
+    public int addEquipment(Equipment equipment) {
+        return equipmentMapper.addEquipment(equipment)>0 ? 1 : 0;
+    }
+
+    @Override
+    public int deleteEquipmentByEid(int equipment_id) {
+        return equipmentMapper.deleteEquipmentByEid(equipment_id) > 0 ? 1:0;
+    }
 }

@@ -5,7 +5,9 @@ import com.server.emcloud.domain.Equipment;
 
 import com.server.emcloud.vo.EquipmentVO;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface EquipmentMapper {
 
 
@@ -25,4 +27,9 @@ public interface EquipmentMapper {
     int updateByPrimaryKey(Equipment record);
 
     List<EquipmentVO> getAll();
+
+    //添加设备
+    public int addEquipment(Equipment equipment);
+    //删除设备
+    public int deleteEquipmentByEid(int equipment_id);
 }

@@ -11,4 +11,9 @@ public interface EquipmentService {
     int update(Equipment equipment);
 
     EquipmentVO getByPrimaryKey(Integer equipment_id);
+
+    //添加设备
+    public int addEquipment(Equipment equipment);
+    //删除设备
+    public int deleteEquipmentByEid(int equipment_id);
 }
