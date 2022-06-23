@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.server.emcloud.dao.ProductMapper">
+    <resultMap id="BaseResultMap" type="com.server.emcloud.domain.Product" >
+<!--        <id column="id" jdbcType="INTEGER" property="id"/>-->
+        <result column="product_id" jdbcType="INTEGER" property="product_id"/>
+        <result column="product_name" jdbcType="VARCHAR" property="product_name"/>
+        <result column="product_version" jdbcType="VARCHAR" property="product_version"/>
+        <result column="product_release_date" jdbcType="VARCHAR" property="product_release_date"/>
+        <result column="product_update_time" jdbcType="VARCHAR" property="product_update_time"/>
+        <result column="product_pic_url" jdbcType="VARCHAR" property="product_pic_url"/>
+        <result column="product_number" jdbcType="VARCHAR" property="product_number"/>
+        <result column="product_file_url" jdbcType="VARCHAR" property="product_file_url"/>
+        <result column="product_comment" jdbcType="VARCHAR" property="product_comment"/>
+        <result column="product_type_id" jdbcType="INTEGER" property="product_type_id"/>
+    </resultMap>
+
+    <select id="Base_Column_List">
+        product_id,product_name,product_version,product_release_date,product_update_time,product_pic_url,product_number,
+            product_file_url,product_comment,product_type_id
+    </select>
+
+    <insert id="addProduct" parameterType="com.server.emcloud.domain.Product" >
+        insert into emdb_product
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="product_name != null" >
+                product_name,
+            </if>
+            <if test="product_version != null" >
+                product_version,
+            </if>
+            <if test="product_release_date != null" >
+                product_release_date,
+            </if>
+            <if test="product_number != null" >
+                product_number,
+            </if>
+            <if test="product_update_time != null" >
+                product_update_time,
+            </if>
+            <if test="product_pic_url != null" >
+                product_pic_url,
+            </if>
+            <if test="product_file_url != null" >
+                product_file_url,
+            </if>
+            <if test="product_comment != null" >
+                product_comment,
+            </if>
+            <if test="product_type_id != null" >
+                product_type_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="product_name != null" >
+                #{product_name,jdbcType=VARCHAR} ,
+            </if>
+            <if test="product_version != null" >
+                #{product_version,jdbcType=VARCHAR},
+            </if>
+            <if test="product_release_date != null" >
+                #{product_release_date,jdbcType=VARCHAR},
+            </if>
+            <if test="product_number != null" >
+                #{product_number,jdbcType=VARCHAR},
+            </if>
+            <if test="product_update_time != null" >
+                #{product_update_time,jdbcType=VARCHAR},
+            </if>
+            <if test="product_pic_url != null" >
+                #{product_pic_url,jdbcType=VARCHAR},
+            </if>
+            <if test="product_file_url != null" >
+                #{product_file_url,jdbcType=VARCHAR},
+            </if>
+            <if test="product_comment != null" >
+                #{product_comment,jdbcType=VARCHAR},
+            </if>
+            <if test="product_type_id != null" >
+                #{product_type_id,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+    <select id="getAllProduct" resultMap="BaseResultMap">
+        select *
+        from `emdb_product`
+    </select>
+
+    <update id="updateProduct" parameterType="com.server.emcloud.domain.Product">
+        update emdb_product
+        <set>
+            <if test="product_version != null">
+                product_version = #{product_version,jdbcType=VARCHAR},
+            </if>
+            <if test="product_update_time != null">
+                product_update_time = #{product_update_time,jdbcType=VARCHAR},
+            </if>
+            <if test="product_number != null">
+                product_number = #{product_number,jdbcType=VARCHAR},
+            </if>
+            <if test="product_type_id != null">
+                product_type_id = #{product_type_id,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where product_id = #{product_id,jdbcType=INTEGER}
+    </update>
+
+
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.server.emcloud.dao.ProductTypeAttributeMapper">
+    <resultMap id="BaseResultMap" type="com.server.emcloud.domain.ProductTypeAttribute" >
+<!--        <id column="id" jdbcType="INTEGER" property="id"/>-->
+        <result column="product_attribute_id" jdbcType="INTEGER" property="product_attribute_id"/>
+        <result column="product_attribute_number" jdbcType="VARCHAR" property="product_attribute_number"/>
+        <result column="product_attribute_name" jdbcType="VARCHAR" property="product_attribute_name"/>
+        <result column="product_attribute_value" jdbcType="VARCHAR" property="product_attribute_value"/>
+        <result column="product_attribute_update_time" jdbcType="VARCHAR" property="product_attribute_update_time"/>
+        <result column="product_attribute_repair" jdbcType="VARCHAR" property="product_attribute_repair"/>
+        <result column="product_attribute_warning" jdbcType="VARCHAR" property="product_attribute_warning"/>
+        <result column="product_attribute_erro" jdbcType="VARCHAR" property="product_attribute_erro"/>
+        <result column="product_attribute_comment" jdbcType="VARCHAR" property="product_attribute_comment"/>
+        <result column="product_attribute_monitor" jdbcType="INTEGER" property="product_attribute_monitor"/>
+        <result column="product_type_id" jdbcType="INTEGER" property="product_type_id"/>
+    </resultMap>
+
+    <select id="Base_Column_List">
+        product_attribute_id,product_attribute_number,product_attribute_name,product_attribute_value,product_attribute_update_time,
+            product_attribute_repair,product_attribute_warning,product_attribute_erro,product_attribute_monitor,product_type_id,
+            product_attribute_comment
+    </select>
+
+    <insert id="addProductTypeAttribute" parameterType="com.server.emcloud.domain.ProductTypeAttribute" >
+        insert into emdb_product_attribute
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="product_attribute_number != null" >
+                product_attribute_number,
+            </if>
+            <if test="product_attribute_name != null" >
+                product_attribute_name,
+            </if>
+            <if test="product_attribute_update_time != null" >
+                product_attribute_update_time,
+            </if>
+            <if test="product_attribute_comment != null" >
+                product_attribute_comment,
+            </if>
+            <if test="product_type_id != null" >
+                product_type_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="product_attribute_number != null" >
+                #{product_attribute_number,jdbcType=VARCHAR} ,
+            </if>
+            <if test="product_attribute_name != null" >
+                #{product_attribute_name,jdbcType=VARCHAR},
+            </if>
+            <if test="product_attribute_update_time != null" >
+                #{product_attribute_update_time,jdbcType=VARCHAR},
+            </if>
+            <if test="product_attribute_comment != null" >
+                #{product_attribute_comment,jdbcType=VARCHAR},
+            </if>
+            <if test="product_type_id != null" >
+                #{product_type_id,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+
+    <select id="getAllProductTypeAttribute" resultMap="BaseResultMap">
+        select *
+        from `emdb_product_attribute`
+    </select>
+
+
+
+    <delete id="deleteProductTypeAttributeOfId" parameterType="java.lang.Integer" >
+        delete from `emdb_product_attribute`
+        where product_attribute_id = #{product_attribute_id,jdbcType=INTEGER};
+    </delete>
+
+
+    <update id="updateProductTypeAttribute" parameterType="com.server.emcloud.domain.ProductTypeAttribute">
+        update emdb_product_attribute
+        <set>
+            <if test="product_attribute_name != null">
+                product_attribute_name = #{product_attribute_name,jdbcType=VARCHAR},
+            </if>
+            <if test="product_attribute_number != null">
+                product_attribute_number = #{product_attribute_number,jdbcType=VARCHAR},
+            </if>
+            <if test="product_attribute_update_time != null">
+                product_attribute_update_time = #{product_attribute_update_time,jdbcType=VARCHAR},
+            </if>
+            <if test="product_attribute_comment != null">
+                product_attribute_comment = #{product_attribute_comment,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where product_attribute_id = #{product_attribute_id,jdbcType=INTEGER}
+    </update>
+
+
+</mapper>

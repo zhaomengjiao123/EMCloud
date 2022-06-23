@@ -89,7 +89,7 @@ public class CompanyController {
     * @Date: 2022/6/22
     */
     @RequestMapping(value = "/deleteCompany/detail", method = RequestMethod.GET)
-    public Object deleteOrder(HttpServletRequest req){
+    public Object deleteCompany(HttpServletRequest req){
         JSONObject jsonObject = new JSONObject();
         String company_id = req.getParameter("company_id");
         System.out.println("要删除的公司ID是"+company_id);
