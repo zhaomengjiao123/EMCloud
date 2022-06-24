@@ -88,7 +88,7 @@ public class CompanyController {
     * @Author: zmj
     * @Date: 2022/6/22
     */
-    @RequestMapping(value = "/deleteCompany/detail", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteCompany/detail", method = RequestMethod.DELETE)
     public Object deleteCompany(HttpServletRequest req){
         JSONObject jsonObject = new JSONObject();
         String company_id = req.getParameter("company_id");

@@ -1,6 +1,7 @@
 package com.server.emcloud.service;
 
 import com.server.emcloud.domain.ProductType;
+import com.server.emcloud.domain.ProductTypeAttribute;
 
 import java.util.List;
 
@@ -19,4 +20,5 @@ public interface ProductTypeService {
     public int addProductType(ProductType productType);
     //产品类型信息更新
     public int updateProductType(ProductType productType);
+
 }

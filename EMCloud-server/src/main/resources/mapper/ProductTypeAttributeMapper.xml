@@ -19,8 +19,9 @@
     </resultMap>
 
     <select id="Base_Column_List">
-        product_attribute_id,product_attribute_number,product_attribute_name,product_attribute_value,product_attribute_update_time,
-            product_attribute_repair,product_attribute_warning,product_attribute_erro,product_attribute_monitor,product_type_id,
+        product_attribute_id,product_attribute_number,product_attribute_name,product_attribute_value,
+            product_attribute_update_time,product_attribute_repair,product_attribute_warning,
+            product_attribute_erro,product_attribute_monitor,product_type_id,
             product_attribute_comment
     </select>
 
@@ -84,6 +85,47 @@
             </if>
             <if test="product_attribute_number != null">
                 product_attribute_number = #{product_attribute_number,jdbcType=VARCHAR},
+            </if>
+            <if test="product_attribute_update_time != null">
+                product_attribute_update_time = #{product_attribute_update_time,jdbcType=VARCHAR},
+            </if>
+            <if test="product_attribute_comment != null">
+                product_attribute_comment = #{product_attribute_comment,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where product_attribute_id = #{product_attribute_id,jdbcType=INTEGER}
+    </update>
+
+
+    <select id="getProductTypeAttributeAndProductName" resultType="com.server.emcloud.vo.ProductTypeAttributeVO">
+        select A.*, B.product_name
+        from emdb_product_attribute A, emdb_product B
+        where A.product_type_id = B.product_type_id
+    </select>
+
+    <select id="getProductTypeAttributeAndProductNameOfPid" resultType="com.server.emcloud.vo.ProductTypeAttributeVO">
+        select A.*, B.product_name
+        from emdb_product_attribute A, emdb_product B
+        where A.product_type_id = B.product_type_id and B.product_id = #{product_id,jdbcType=INTEGER}
+    </select>
+
+    <update id="updateProductTypeAttributeValues" parameterType="com.server.emcloud.domain.ProductTypeAttribute">
+        update emdb_product_attribute
+        <set>
+            <if test="product_attribute_value != null">
+                product_attribute_value = #{product_attribute_value,jdbcType=VARCHAR},
+            </if>
+            <if test="product_attribute_warning != null">
+                product_attribute_warning = #{product_attribute_warning,jdbcType=VARCHAR},
+            </if>
+            <if test="product_attribute_erro != null">
+                product_attribute_erro = #{product_attribute_erro,jdbcType=VARCHAR},
+            </if>
+            <if test="product_attribute_repair != null">
+                product_attribute_repair = #{product_attribute_repair,jdbcType=VARCHAR},
+            </if>
+            <if test="product_attribute_monitor != null">
+                product_attribute_monitor = #{product_attribute_monitor,jdbcType=INTEGER},
             </if>
             <if test="product_attribute_update_time != null">
                 product_attribute_update_time = #{product_attribute_update_time,jdbcType=VARCHAR},

@@ -3,6 +3,7 @@ package com.server.emcloud.service.impl;
 import com.server.emcloud.dao.ProductTypeMapper;
 import com.server.emcloud.domain.Product;
 import com.server.emcloud.domain.ProductType;
+import com.server.emcloud.domain.ProductTypeAttribute;
 import com.server.emcloud.service.ProductService;
 import com.server.emcloud.service.ProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,8 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     public int updateProductType(ProductType productType) {
         return productTypeMapper.updateProductType(productType)>0 ? 1 : 0;
     }
+
+
 
 
 }

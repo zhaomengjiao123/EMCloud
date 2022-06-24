@@ -1,6 +1,5 @@
 package com.server.emcloud.controller;
 
-import com.server.emcloud.domain.ProductType;
 import com.server.emcloud.domain.ProductTypeAttribute;
 import com.server.emcloud.service.ProductTypeAttributeService;
 import com.server.emcloud.utils.Consts;
@@ -118,4 +117,61 @@ public class ProductTypeAttributeController {
             return jsonObject;
         }
     }
+
+    /**
+    * @Description: 查询全部的属性信息及其对应的产品名称
+    * @Param: [req]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/6/24
+    */
+    @RequestMapping(value = "/getProductTypeAttributeAndProductName",method = RequestMethod.GET)
+    public Object getProductTypeAttributeAndProductName(HttpServletRequest req){
+        System.out.println("查询全部产品类型属性信息及其对应的产品名称");
+        return productTypeAttributeService.getProductTypeAttributeAndProductName();
+    }
+
+    /**
+    * @Description: 根据属性的ID更新属性的各种值，与上面的属性更新不同
+    * @Param: [productTypeAttribute]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/6/24
+    */
+    @RequestMapping(value = "/updateProductTypeAttributeValues", method = RequestMethod.PUT)
+    public Object updateProductTypeAttributeValues(@RequestBody ProductTypeAttribute productTypeAttribute){
+        JSONObject jsonObject = new JSONObject();
+        System.out.println("更新的某产品类型的属性信息的各种值："+productTypeAttribute.getProduct_attribute_id());
+
+        int res = productTypeAttributeService.updateProductTypeAttributeValues(productTypeAttribute);
+
+        if (res == 1){
+            jsonObject.put(Consts.CODE, 1);
+            jsonObject.put(Consts.MSG, "添加属性值成功");
+            return jsonObject;
+        }else {
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "添加属性值失败");
+            return jsonObject;
+        }
+    }
+
+    /**
+    * @Description: 根据产品ID查询此产品所有属性
+    * @Param: [req]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/6/24
+    */
+    @RequestMapping(value = "/getProductTypeAttributeAndProductNameOfPid",method = RequestMethod.GET)
+    public Object getProductTypeAttributeAndProductNameOfPid(HttpServletRequest req){
+        String product_id = req.getParameter("product_id");
+        System.out.println("查询产品类型属性信息的产品ID是："+product_id);
+        return productTypeAttributeService.getProductTypeAttributeAndProductNameOfPid(new Integer(product_id));
+    }
+
+
+
+
+
 }

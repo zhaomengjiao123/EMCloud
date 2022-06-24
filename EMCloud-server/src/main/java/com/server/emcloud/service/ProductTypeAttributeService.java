@@ -1,6 +1,7 @@
 package com.server.emcloud.service;
 
 import com.server.emcloud.domain.ProductTypeAttribute;
+import com.server.emcloud.vo.ProductTypeAttributeVO;
 
 import java.util.List;
 
@@ -21,5 +22,11 @@ public interface ProductTypeAttributeService {
     public int updateProductTypeAttribute(ProductTypeAttribute productTypeAttribute);
     //删除某个产品类型的属性
     public int deleteProductTypeAttributeOfId(int product_attribute_id);
+    //查询全部属性+对应的产品名 产品属性值列表
+    public List<ProductTypeAttributeVO> getProductTypeAttributeAndProductName();
+    //根据属性ID更新属性的各种值
+    public int updateProductTypeAttributeValues(ProductTypeAttribute productTypeAttribute);
+    //根据产品ID查询这个产品的所有属性
+    public List<ProductTypeAttributeVO> getProductTypeAttributeAndProductNameOfPid(int product_id);
 
 }
