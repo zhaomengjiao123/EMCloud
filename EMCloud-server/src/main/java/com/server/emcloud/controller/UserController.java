@@ -40,12 +40,19 @@ public class UserController {
             MD5 md = new MD5();
             user_passwd = md.start(user_passwd);//对密码进行md5加密，与数据库中的加密数据进行比较
             flag = userService.login(user_phone, user_passwd);//是否登陆成功
+
         }
+        User user=userService.getUserOfPhone(user_phone);
+        System.out.println(user.getUser_auth());
+        Integer user_auth=user.getUser_auth();
         if(flag){
-            HttpSession session = request.getSession();
+            //HttpSession session = request.getSession();
             jsonObject.put(Consts.CODE,1);
             jsonObject.put(Consts.MSG,"登陆成功");
-            session.setAttribute(Consts.NAME,user_phone);
+            jsonObject.put(Consts.NAME,user_phone);
+            jsonObject.put(Consts.AUTH,user_auth);
+
+
             return jsonObject;
         }
         jsonObject.put(Consts.CODE,0);

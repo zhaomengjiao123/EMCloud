@@ -130,7 +130,7 @@
 
 
     <select id="getUserOfPhone" resultMap="BaseResultMap">
-    select user_name,user_phone,user_tele,user_company,user_depart
+    select user_name,user_phone,user_tele,user_company,user_depart,user_auth
     from emdb_user
     where user_phone = #{user_phone}
     </select>
