@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.server.emcloud.dao.MenuMapper">
+    <resultMap id="BaseResultMap" type="com.server.emcloud.domain.Menu" >
+        <result column="menu_id" property="menu_id" jdbcType="INTEGER" />
+        <result column="menu_name" property="menu_name" jdbcType="VARCHAR" />
+        <result column="menu_link" property="menu_link" jdbcType="VARCHAR" />
+        <result column="menu_parentid" property="menu_parentid" jdbcType="INTEGER" />
+        <result column="menu_visible_user" property="menu_visible_user" jdbcType="INTEGER" />
+        <result column="menu_visible_admin" property="menu_visible_admin" jdbcType="INTEGER" />
+        <result column="menu_visible_superadmin" property="menu_visible_superadmin" jdbcType="INTEGER" />
+    </resultMap>
+
+    <select id="Base_Column_List">
+        menu_id,menu_name,menu_link,menu_parentid,menu_visible_user,menu_visible_admin,menu_visible_superadmin
+    </select>
+
+
+
+    <select id="getMenu" resultMap="BaseResultMap">
+    select  menu_id,menu_name,menu_link,menu_parentid
+    from emdb_menu
+    where menu_visible_user = 1
+    </select>
+
+    <select id="getMenuAdmin" resultMap="BaseResultMap">
+    select  menu_id,menu_name,menu_link,menu_parentid
+    from emdb_menu
+    where menu_visible_admin = 1
+    </select>
+
+    <select id="getMenuSuperAdmin" resultMap="BaseResultMap">
+    select  menu_id,menu_name,menu_link,menu_parentid
+    from emdb_menu
+    where menu_visible_superadmin = 1
+    </select>
+
+    <select id="getMenuToAdmin" resultMap="BaseResultMap">
+    select  menu_id,menu_name,menu_link,menu_parentid
+    from emdb_menu
+    where menu_visible_user = 1
+    </select>
+
+    <select id="getMenuToSuperAdmin" resultMap="BaseResultMap">
+    select  menu_id,menu_name,menu_link,menu_parentid
+    from emdb_menu
+    where menu_visible_user = 1
+    </select>
+
+    <select id="getMenuAdminToSuperAdmin" resultMap="BaseResultMap">
+    select  menu_id,menu_name,menu_link,menu_parentid
+    from emdb_menu
+    where menu_visible_admin = 1
+    </select>
+
+    <select id="getMenuOfId" resultMap="BaseResultMap">
+    select  menu_id,menu_name,menu_link,menu_parentid,menu_visible_admin,menu_visible_user,menu_visible_superadmin
+    from emdb_menu
+    where menu_id  = #{menu_id}
+    </select>
+
+    <update id="updateMenuUserVis" >
+    update emdb_menu
+    <set >
+            menu_visible_user = 1 ,
+    </set>
+    where menu_id = #{menu_id}
+</update>
+
+    <update id="updateMenuUserInvis"  >
+        update emdb_menu
+        <set >
+             menu_visible_user = 0 ,
+        </set>
+        where menu_id = #{menu_id}
+    </update>
+
+    <update id="updateMenuAdminVis"  >
+        update emdb_menu
+        <set >
+                menu_visible_admin = 1 ,
+        </set>
+        where menu_id = #{menu_id}
+    </update>
+
+    <update id="updateMenuAdminInvis"  >
+        update emdb_menu
+        <set >
+                menu_visible_admin = 0 ,
+        </set>
+        where menu_id = #{menu_id}
+    </update>
+
+
+</mapper>

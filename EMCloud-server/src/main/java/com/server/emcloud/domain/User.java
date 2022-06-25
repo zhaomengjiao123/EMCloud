@@ -16,7 +16,7 @@ public class User implements Serializable {
     private Integer user_company;       //归属公司id
     private Integer user_depart;       //归属部门id
     private String user_passwd;       //用户密码
-    private Integer user_auth;       //用户权限
+    private Integer user_auth;       //用户权限,1为超级管理员，2为企业管理员，3为超级管理员
     public String getUser_name() {
         return user_name;
     }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -43,13 +42,15 @@ public class UserController {
 
         }
         User user=userService.getUserOfPhone(user_phone);
+        String user_name=user.getUser_name();
         System.out.println(user.getUser_auth());
         Integer user_auth=user.getUser_auth();
         if(flag){
             //HttpSession session = request.getSession();
             jsonObject.put(Consts.CODE,1);
             jsonObject.put(Consts.MSG,"登陆成功");
-            jsonObject.put(Consts.NAME,user_phone);
+            jsonObject.put(Consts.NAME,user_name);
+            jsonObject.put(Consts.PHONE,user_phone);
             jsonObject.put(Consts.AUTH,user_auth);
 
 
@@ -73,12 +74,21 @@ public class UserController {
 
         JSONObject jsonObject = new JSONObject();
         String user_name = req.getParameter("user_name").trim();
+        System.out.println(user_name);
         String user_phone = req.getParameter("user_phone").trim();
         String user_tele = req.getParameter("user_tele").trim();
         String user_company = req.getParameter("user_company").trim();
         String user_depart = req.getParameter("user_depart").trim();
         String user_passwd = req.getParameter("user_passwd").trim();
-        //String user_auth = req.getParameter("user_auth").trim();
+       // String user_auth = req.getParameter("user_auth").trim();
+
+        User user1=new User();
+        user1=userService.getUserOfPhone(user_phone);
+        if(user1!=null&&user1.getUser_phone().equals(user_phone)){
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "该用户已注册");
+            return jsonObject;
+        }
 
         boolean res=false;
 
@@ -93,7 +103,7 @@ public class UserController {
             user.setUser_company(Integer.parseInt(user_company));
             user.setUser_depart(Integer.parseInt(user_depart));
             user.setUser_passwd(user_passwd);
-            user.setUser_auth(1);//用户默认权限为1（普通用户，超级管理员可以修改权限）
+            user.setUser_auth(3);//用户默认权限为3（普通用户，超级管理员可以修改权限）
 
             res = userService.addUser(user);
         }
@@ -128,6 +138,13 @@ public class UserController {
         String user_passwd = "123456";//默认密码123456
         //String user_auth = req.getParameter("user_auth").trim();
 
+        User user1=new User();
+        user1=userService.getUserOfPhone(user_phone);
+        if(user1!=null&&user1.getUser_phone().equals(user_phone)){
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "该用户已存在");
+            return jsonObject;
+        }
 
         MD5 md = new MD5();
         user_passwd=md.start(user_passwd);
@@ -139,7 +156,7 @@ public class UserController {
         user.setUser_company(Integer.parseInt(user_company));
         user.setUser_depart(Integer.parseInt(user_depart));
         user.setUser_passwd(user_passwd);
-        user.setUser_auth(1);//用户默认权限为1（管理员添加普通用户）
+        user.setUser_auth(3);//用户默认权限为3（管理员添加普通用户）
 
         boolean res = userService.addUser(user);
         if (res){
@@ -173,6 +190,13 @@ public class UserController {
         String user_passwd = "123456";//默认密码123456
         //String user_auth = req.getParameter("user_auth").trim();
 
+        User user1=new User();
+        user1=userService.getUserOfPhone(user_phone);
+        if(user1!=null&&user1.getUser_phone().equals(user_phone)){
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "该用户已存在");
+            return jsonObject;
+        }
 
         MD5 md = new MD5();
         user_passwd=md.start(user_passwd);
@@ -209,7 +233,7 @@ public class UserController {
      * @Date: 2022/6/23
      */
 
-    @RequestMapping(value = "updateinfo", method = RequestMethod.POST)
+    @RequestMapping(value = "updateinfo", method = RequestMethod.PUT)
     public Object updateInfo(HttpServletRequest req){
         JSONObject jsonObject = new JSONObject();
         String user_name = req.getParameter("user_name").trim();
@@ -243,7 +267,7 @@ public class UserController {
      * @Author: lyx
      * @Date: 2022/6/23
      */
-    @RequestMapping(value = "/admin/updateinfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/updateinfo", method = RequestMethod.PUT)
     public Object updateInfoAdmin(HttpServletRequest req){
         JSONObject jsonObject = new JSONObject();
         String user_name = req.getParameter("user_name").trim();
@@ -281,7 +305,7 @@ public class UserController {
      * @Date: 2022/6/23
      */
 
-    @RequestMapping(value = "updatepasswd", method = RequestMethod.POST)
+    @RequestMapping(value = "updatepasswd", method = RequestMethod.PUT)
     public Object updatePasswd(HttpServletRequest req){
         JSONObject jsonObject = new JSONObject();
         String user_phone = req.getParameter("user_phone").trim();
@@ -323,7 +347,7 @@ public class UserController {
      * @Date: 2022/6/23
      */
 
-    @RequestMapping(value = "admin/updatepasswd", method = RequestMethod.POST)
+    @RequestMapping(value = "admin/updatepasswd", method = RequestMethod.PUT)
     public Object updatePasswdAdmin(HttpServletRequest req){
         JSONObject jsonObject = new JSONObject();
         String user_phone = req.getParameter("user_phone").trim();
@@ -359,7 +383,7 @@ public class UserController {
      * @Date: 2022/6/23
      */
 
-    @RequestMapping(value = "updateauth", method = RequestMethod.POST)
+    @RequestMapping(value = "updateauth", method = RequestMethod.PUT)
     public Object updateAuth(HttpServletRequest req){
         JSONObject jsonObject = new JSONObject();
         String user_phone = req.getParameter("user_phone").trim();
@@ -451,7 +475,7 @@ public class UserController {
      * @Author: lyx
      * @Date: 2022/6/23
      */
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public Object deleteUser(HttpServletRequest req){
         String user_phone = req.getParameter("user_phone");
         boolean res=false;
