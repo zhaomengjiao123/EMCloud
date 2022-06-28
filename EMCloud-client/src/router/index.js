@@ -98,6 +98,24 @@ Vue.use(Router)
           path: '/equipment/cityMap',
           component: () => import('../components/equipment/equipment_cityMap.vue')
         },
+
+        {
+          path: '/dataanalysis/exception',
+          component: () => import('../components/dataanalysis/Exception.vue')
+        },
+        {
+          path: '/dataanalysis/exceptionanalysis',
+          component: () => import('../components/dataanalysis/ExceptionAnalysis.vue')
+        },
+        {
+          path: '/dataanalysis/task',
+          component: () => import('../components/dataanalysis/Task.vue')
+        },
+        {
+          path: '/dataanalysis/taskanalysis',
+          component: () => import('../components/dataanalysis/TaskAnalysis.vue')
+        },
+
       ]
     }
   ]

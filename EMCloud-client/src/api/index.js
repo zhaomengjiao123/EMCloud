@@ -78,3 +78,16 @@ export const getCollectionOfUser = (userId) => get(`collection/detail?userId=${u
 // 添加收藏的歌曲 type: 0 代表歌曲， 1 代表歌单
 export const setCollection = (params) => post(`collection/add`, params)
 
+export const getEquipState = () => get(`getEquipState`);
+export const getEquipExType = () => get(`getEquipExType`);
+export const getEquipTaskType = () => get(`getEquipTaskType`);
+
+export const getExceptionByDay= (params) => get(`getExceptionByDay`, params);
+export const getExceptionByMouth= (params) => get(`getExceptionByMouth`, params);
+export const getExceptionTypeByDay= (params) => get(`getExceptionTypeByDay`, params);
+export const getExceptionTypeByMouth = (params) => get(`getExceptionTypeByMouth`, params);
+
+export const getTaskByDay= (params) => get(`getTaskByDay`, params);
+export const getTaskByMouth= (params) => get(`getTaskByMouth`, params);
+export const getTaskTypeByDay= (params) => get(`getTaskTypeByDay`, params);
+export const getTaskTypeByMouth = (params) => get(`getTaskTypeByMouth`, params);
