@@ -19,17 +19,7 @@ function formatToDate(time) {
   return `${year}-${month}-${day}`
 }
 
-/**
- * 随机生成三位数
- * @returns {number}
- */
-function mathRandom1000 (){
-  return (Math.random() * 1000).toFixed(0) * 1
-}
-
-
 export default {
   formatToTime,
-  formatToDate,
-  mathRandom1000
+  formatToDate
 }
