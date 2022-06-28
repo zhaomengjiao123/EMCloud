@@ -25,5 +25,6 @@ public class Consts {
 
     public static final String AUTH = "auth";
 
+    public static final String LIST = "list";
 
 }

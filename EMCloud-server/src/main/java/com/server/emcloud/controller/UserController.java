@@ -46,6 +46,7 @@ public class UserController {
         System.out.println(user.getUser_auth());
         Integer user_auth=user.getUser_auth();
         if(flag){
+            System.out.println("登陆成功");
             //HttpSession session = request.getSession();
             jsonObject.put(Consts.CODE,1);
             jsonObject.put(Consts.MSG,"登陆成功");
