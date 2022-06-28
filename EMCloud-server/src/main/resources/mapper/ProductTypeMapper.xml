@@ -53,6 +53,21 @@
         select *
         from `emdb_product_type`
     </select>
+    <select id="getAllProductTypeExceptionNum" resultType="com.server.emcloud.vo.ProductTypeExceptionNum">
+        SELECT IFNULL (SUM(equipment_warning_count+equipment_erro_count+equipment_emergency_warning_count),0) AS exception_num ,d.`product_type_name`  AS product_type
+        FROM
+            (
+                SELECT a.`product_type_id`,b.* FROM  emdb_product a, emdb_equipment b
+                WHERE
+                    a.`product_id`=b.`product_id`
+            ) c
+                RIGHT JOIN
+            emdb_product_type d
+            ON c.product_type_id=d.product_type_id
+        GROUP BY
+            d.`product_type_name`
+
+    </select>
 
 
     <update id="updateProductType" parameterType="com.server.emcloud.domain.ProductType">

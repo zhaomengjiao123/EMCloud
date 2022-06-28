@@ -20,4 +20,10 @@ public interface EquipmentService {
 
     // 查询每个城市的设备数量
     List<EquipmentNumAndCity> getAllEquipmentNumAndCity();
+
+    // 获取在线设备数量
+    Integer getOnlineNum();
+
+    // 获取不在线设备数量
+    Integer getNotOnlineNum();
 }

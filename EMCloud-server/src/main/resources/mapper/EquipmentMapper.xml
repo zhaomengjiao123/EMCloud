@@ -38,8 +38,13 @@ where a.equipment_id =#{equipment_id,jdbcType=INTEGER}
      ( SELECT a.`company_id`,a.`company_local`,b.`equipment_id` FROM emdb_company a JOIN emdb_equipment b ON a.`company_id`=b.`company_id`)d
     GROUP BY company_local;
   </select>
-
-  <update id="updateByPrimaryKeySelective" parameterType="com.server.emcloud.domain.Equipment">
+    <select id="getOnlineNum" resultType="java.lang.Integer">
+      SELECT COUNT(*) FROM emdb_equipment WHERE equipment_state = 1
+    </select>
+  <select id="getNotOnlineNum" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM emdb_equipment WHERE equipment_state = 0
+  </select>
+    <update id="updateByPrimaryKeySelective" parameterType="com.server.emcloud.domain.Equipment">
     update emdb_equipment
     <set>
       <if test="equipment_number != null">

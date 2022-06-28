@@ -12,11 +12,11 @@ import org.springframework.stereotype.Repository;
 public interface EquipmentMapper {
 
 
-    int deleteByPrimaryKey(Integer equipment_id);
-
-    int insert(Equipment record);
-
-    int insertSelective(Equipment record);
+//    int deleteByPrimaryKey(Integer equipment_id);
+//
+//    int insert(Equipment record);
+//
+//    int insertSelective(Equipment record);
 
 
     EquipmentVO selectByPrimaryKey(Integer equipment_id);
@@ -36,4 +36,10 @@ public interface EquipmentMapper {
 
     // 查询每个城市的设备总数
     List<EquipmentNumAndCity> getAllEquipmentNumAndCity();
+
+    // 获取在线设备数量
+    Integer getOnlineNum();
+
+    // 获取不在线设备数量
+    Integer getNotOnlineNum();
 }
