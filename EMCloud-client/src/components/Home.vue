@@ -159,17 +159,17 @@ export default {
             },
             {
               authName: "设备异常分析",
-              id: '110',
+              id: '105',
               path: "dataanalysis/exceptionanalysis"
             },
             {
               authName: "设备任务信息",
-              id: '110',
+              id: '106',
               path: "dataanalysis/task"
             },
             {
               authName: "设备任务分析",
-              id: '110',
+              id: '107',
               path: "dataanalysis/taskanalysis"
             },
           ],

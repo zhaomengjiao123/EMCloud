@@ -1,5 +1,6 @@
 package com.server.emcloud.controller;
 
+import com.server.emcloud.service.UserService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,10 @@ import javax.servlet.http.HttpSession;
 //
 //import javax.json.JsonWriter;
 
-
 @RestController
 public class CeshiController {
+    @Autowired
+    private UserService userService;
     @RequestMapping(value = "getEquipState",method = RequestMethod.GET)
     public Object a(HttpServletRequest request) {
         JSONObject jsonObject = new JSONObject();
