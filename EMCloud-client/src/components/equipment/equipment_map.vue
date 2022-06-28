@@ -94,13 +94,14 @@ export default {
       tooltipAutoplay: null, // 提示框自动播放
       tooltipAutoplayIndex: 0, // 提示框自动播放index
       tempData :[			//模拟数据
-        {name:'北京',value:'20'},
-        {name:'济南',value:'170'},
-        {name:'枣庄',value:'10'},
-        {name:'深圳',value:'50'},
-        {name:'齐齐哈尔',value:'90'},
-        {name: '潍坊',value: '70'}
+        // {name:'北京',value:'20'},
+        // {name:'济南',value:'170'},
+        // {name:'枣庄',value:'10'},
+        // {name:'深圳',value:'50'},
+        // {name:'齐齐哈尔',value:'90'},
+        // {name: '潍坊',value: '70'}
       ],
+      numData:[],
       paramsMap:{
         areaCode:'',
         areaLevel:'',
@@ -115,7 +116,7 @@ export default {
     },
   },
   created() {
-
+    //this.getCityEquipmentNum()
   },
   beforeDestroy() {
     if (!this.chart) {
@@ -126,6 +127,7 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
+      this.getCityEquipmentNum()
       this.initEcharts();
       this.chart.on('click', this.echartsMapClick);
       this.chart.on('mouseover', this.echartsMapMouseover);
@@ -135,14 +137,15 @@ export default {
   watch: {
     areaStatistic: {
       handler(val) {
-        var objValue = {}, objData = {}
+        let objValue = {}, objData = {}
         for (var i = 0; i < val.length; i++) {
           objValue[val[i]['areaCode'].substr(0, 6)] = val[i].amounts * 1
           objData[val[i]['areaCode'].substr(0, 6)] = val[i]
         }
         this.areaStatisticMapValue = objValue
         this.areaStatisticMapData = objData
-        this.initEcharts()
+        this.getCityEquipmentNum()
+        //this.initEcharts()
       },
       deep: true,
     }
@@ -150,17 +153,23 @@ export default {
   methods: {
     // 初次加载绘制地图
     initEcharts() {
+      //this.getCityEquipmentNum();
       //地图容器
       this.chart = this.$echarts.init(document.getElementById('map'));
       if (this.areaLevel === 0) {
         this.requestGetChinaJson();
       }else if (this.areaLevel === 1) {
         this.requestGetProvinceJSON({name: this.areaName, level: 'province', adcode: this.areaCode.substr(0, 6)})
-      } else if (this.areaLevel === 2) {
-        this.requestGetCityJSON({name: this.areaName, level: 'city', adcode: this.areaCode.substr(0, 6)})
-      } else {
-        return false
       }
+    },
+    //查询城市设备数量
+    getCityEquipmentNum(){
+      axios.get("http://121.5.74.11:8080/equipment/getAllEquipmentNumAndCity").then(res=>{
+        console.log("NUM:",res.data)
+        this.numData = res.data
+        console.log("CITYDATA:",this.numData.length)
+        this.initEcharts()
+      })
     },
     // 地图点击
     echartsMapClick(params) {
@@ -176,15 +185,8 @@ export default {
         }
       })
 
-
       if (this.areaLevel === 'province') {
         this.requestGetProvinceJSON(this.paramsMap);
-      } else if (params.data.level === 'city') {
-        this.requestGetCityJSON(params.data)
-      } else if (params.data.level === 'district' && this.mapDataList.length > 1) {
-        this.requestGetDistrictJSON(params.data)
-      } else {
-        return false
       }
     },
     //绘制全国地图areaStatistic
@@ -194,30 +196,27 @@ export default {
     },
     // 加载省级地图
     requestGetProvinceJSON(params) {
-      console.log("URL:","https://geo.datav.aliyun.com/areas_v3/bound/"+this.areaCode+"_full.json")
-      axios.get("https://geo.datav.aliyun.com/areas_v3/bound/"+this.areaCode+"_full.json").then(res => {
-         console.log('province--->', res)
+      let par = new URLSearchParams()
+      par.append('adcode', this.areaCode)
+      axios.get("http://121.5.74.11:8080/util/getMapJson",{
+        params:{
+          adcode:this.areaCode
+        }
+        }).then(res => {
+         console.log('province--->', res.data)
         this.$emit('update:areaLevel', 1)
         this.setJsonData(res.data, params)
       });
     },
-    // 加载市级地图
-    requestGetCityJSON(params) {
-        axios.get("https://geo.datav.aliyun.com/areas_v3/bound/"+this.areaCode+"_full.json").then(res => {
-        console.log('city--->', res)
-        this.$emit('update:areaLevel', 2)
-        this.setJsonData(res.data, params)
-      })
-    },
 
     // 设置数据
     setJsonData(res, params) {
-      var mapDataList = [];
-      var mapNameList = [];
-      var mapCodeList = [];
-      for (var i = 0; i < res.features.length; i++) {
-        console.log("当前：",res.features[i].properties)
-        var obj = {
+      let mapDataList = [];
+      let mapNameList = [];
+      let mapCodeList = [];
+      for (let i = 0; i < res.features.length; i++) {
+        //console.log("当前：",res.features[i].properties)
+        let obj = {
           ...res.features[i].properties,
            value: (Math.random() * 1000).toFixed(0) * 1,
            valueData: (Math.random() * 1000).toFixed(0) * 1,
@@ -251,7 +250,8 @@ export default {
     },
     // 渲染地图
     renderMap(map, data) {
-      var mapDataList = data.map(item => {
+      console.log("渲染地图:",this.numData.length)
+      let mapDataList = data.map(item => {
         return {
           name: item.name,
           value: item.value
@@ -260,9 +260,6 @@ export default {
       mapDataList = mapDataList.sort(function (a, b) {
         return b.value - a.value
       });
-      // 设置左下角数量范围值
-      //this.option.visualMap.min = mapDataList.length > 1 ? mapDataList[mapDataList.length - 2].value : 0
-      //this.option.visualMap.max = mapDataList.length > 0 ? mapDataList[0].value : 0
       // 设置左上角当前位置
       this.option.title[0].text = this.areaName
       console.log("map:::",map)
@@ -285,7 +282,8 @@ export default {
             max: 10
           },
           ...mapOption.seriesOption,
-          data: this.getPointData(this.tempData)
+          data: this.getPointData(this.numData)
+
         },
         {
           name: '散点',//series名称
@@ -315,9 +313,9 @@ export default {
           },
           symbol: "circle", 				//点的样式
           cursor: "pointer", 			//鼠标放上去的效果
-          data: this.getPointData(this.tempData),
+          data: this.getPointData(this.numData),
           symbolSize: function (val) {
-             return val[2] / 10;
+             return val[2]*10 ;
           },
           showEffectOn: 'render', //加载完毕显示特效
         },
@@ -345,13 +343,13 @@ export default {
       if (this.deepTree.length > 1) {
         this.deepTree.pop();
         this.mapDataList = this.deepTree[this.deepTree.length - 1].mapDataList;
-        var areaName = this.deepTree[this.deepTree.length - 1].params.name;
-        var areaCode = this.deepTree[this.deepTree.length - 1].params.adcode;
-        var areaLevel = this.deepTree[this.deepTree.length - 1].params.level;
-        var mapNameList = this.mapDataList.map(item => {
+        let areaName = this.deepTree[this.deepTree.length - 1].params.name;
+        let areaCode = this.deepTree[this.deepTree.length - 1].params.adcode;
+        let areaLevel = this.deepTree[this.deepTree.length - 1].params.level;
+        let mapNameList = this.mapDataList.map(item => {
           return item.name
         })
-        var mapCodeList = this.mapDataList.map(item => {
+        let mapCodeList = this.mapDataList.map(item => {
           return item.adcode + '000000'
         })
         this.$emit('update:areaCode', (areaCode === '100000' ? '000000' : areaCode) + '000000')
@@ -363,26 +361,27 @@ export default {
       }
 
     },
-    getPointData(tempData){ 				//通过该方法获取自己数据中各地区的经纬度
+    getPointData(numData){ 				//通过该方法获取自己数据中各地区的经纬度
+      numData = this.numData
+      console.log("HHHHH",this.numData.length)
       let geoCoordMap = {}
       let mapFeatures = this.$echarts.getMap('china').geoJson.features;	//获取全国地区的经纬度（只包含了一级城市、省份经纬度）
       //this.chart.json.hideLoading();			//隐藏loading样式
-      console.log("MAPfeatures:",mapFeatures)
+      //console.log("MAPfeatures:",mapFeatures)
       mapFeatures.forEach(function (v) { //获取一级城市、省份经纬度
         let name = v.properties.name; // 地区名称
         let value = v.properties.cp;
         geoCoordMap[name] = value; // 地区经纬度
-        console.log("name:",name,"LT:",geoCoordMap[name])
+        //console.log("name:",name,"LT:",geoCoordMap[name])
       });
 
       let tempRes = [];
-      for (let i = 0; i < tempData.length; i++) {
-        let geoCoord = geoCoordMap[tempData[i].name] || [];
-        console.log("geoCoord:",geoCoord)
+      for (let i = 0; i < numData.length; i++) {
+        let geoCoord = geoCoordMap[numData[i].city] || [];
         if (geoCoord) {
           tempRes.push({
-            name: tempData[i].name,
-            value: geoCoord.concat(tempData[i].value) || [],
+            name: numData[i].city,
+            value: geoCoord.concat(numData[i].num) || [],
           });
         }
       }
@@ -397,8 +396,6 @@ export default {
       return tempRes;
     }
   }
-
-
 
 
 

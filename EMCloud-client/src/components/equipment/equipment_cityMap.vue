@@ -3,26 +3,23 @@
   <div class="content" >
 <!--    <div class="info">-->
       <dv-border-box8 class="info">
+        <div class="header" >
+          XXX公司
+        </div>
         <div class="up">
           <div
             class="bg-color-black item"
             v-for="item in titleItem"
-            :key="item.title" @click="test">
+            :key="item.title" @click="toInfoList">
             <p class="colorBlue fw-b" style="text-align: center;color: white">
               {{ item.title }}
             </p>
             <span>{{item.number}}</span>
-            <div>
-              <dv-digital-flop
-                :config="item.number"
-                style="width:100%; height: 100%; text-align: center" />
-              <!-- padding:0rem 0.9rem 0rem 0.9rem; -->
             </div>
           </div>
-        </div>>
+        <el-button class="moreBtn" type="primary" size="mini">查看更多</el-button>
 
       </dv-border-box8>
-<!--    </div>-->
     <div id="bmap" class="bmap" :style="{ height: '100%', width: '100%' }">城市地图</div>
 
   </div>
@@ -38,72 +35,30 @@ export default {
   name: "equipment_cityMap",
   data() {
     return {
+      company_name:'',
+      company_name_1:'',
+      company_id: '',
+      // company:{
+      //   company_name:'nna',
+      //   company_id:''
+      // },
       cityMap: null,
       option: {},
       titleItem: [
         {
           title: "报警警告",
-          number: {
-            number: [120],
-            toFixed: 1,
-            content: "{nt}",
-            style: {
-              fontSize: 15,
-              fill: "#ffffff",
-            },
-          },
+          number: 200,
         },
         {
           title: "预警警告",
-          number: {
-            number: [18],
-            toFixed: 1,
-            content: "{nt}",
-            style: {
-              fontSize: 15,
-              fill: "#3de7c9",
-            },
-          },
+          number: 200,
         },
         {
           title: "紧急警告",
-          number: {
-            number: [2],
-            toFixed: 1,
-            content: "{nt}",
-            style: {
-              fontSize: 15,
-              fill: "#3de7c9",
-            },
-          },
+          number: 200,
         },
 
       ],
-      config: {
-        header: ["主办单位", "数量"],
-        data: [
-          ['<span style="color:#9fe6b8;">海淀区政府</span>', "23"],
-          ['<span style="color:#9fe6b8;">市发展改革委</span>', "26"],
-          ['<span style="color:#9fe6b8;">市民政局</span>', "35"],
-          ['<span style="color:#9fe6b8;">市城市管理委</span>', "39"],
-          ['<span style="color:#9fe6b8;">市规划自然资源委</span>', "39"],
-          ['<span style="color:#9fe6b8;">市住房城乡建设委</span>', "45"],
-          ['<span style="color:#9fe6b8;">市公安局</span>', "53"],
-          ['<span style="color:#9fe6b8;">市教委</span>', "55"],
-          ['<span style="color:#9fe6b8;">市卫生健康委</span>', "60"],
-          ['<span style="color:#9fe6b8;">市交通委</span>', "153"],
-        ],
-        rowNum: 5, //表格行数
-        headerHeight: 35,
-        headerBGC: "#0f1325", //表头
-        oddRowBGC: "#0f1325", //奇数行
-        evenRowBGC: "#171c33", //偶数行
-        index: true,
-        columnWidth: [30,150,50],
-        align: ["center"],
-        waitTime: 3000,
-        carousel: "page",
-      },
 
 
     }
@@ -111,11 +66,23 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
+      // this.cityMap.on('click', this.cityMapClick(e));
       loadBMap("XMpRSRWH7DbM5A5gL8ShHhWWOG2XAuIg").then(() => {
         this.initEcharts()
       });
-        this.cityMap.on('click', this.cityMapClick);
+
     })
+
+  },
+  watch:{
+    company_name:{
+      handler(val, newval) {
+        console.log("company_name改变了！！1:",this.company_name)
+        //this.company_name = newval
+      },
+      immediate: true
+
+    }
 
   },
   methods: {
@@ -170,16 +137,27 @@ export default {
       this.cityMap.setOption(this.option)
       // 点击每个站点可以进行相关操作
       this.cityMap.on('click', function (e) {
-        console.log(e) //  每个标识点的信息
+        console.log("信息",e.name) //  每个标识点的信息
+        this.company_name = e.name
+        console.log("Company_name:",this.company_name) //  每个标识点的信息
+
+        //this.company.company_name=e.name
+
       })
 
     },
-    cityMapClick(params){
-      //console.log("点击的点是；",)
-      console.log("KKKK:",params.name)
-    },
-    test(params){
+
+    toInfoList(params){
       console.log("click:",params.target.innerText)
+      let type = params.target.innerText
+      if(type=="预警警告"){
+        this.$router.push("/equipment/warning")
+      }else if(type=="报警警告"){
+        this.$router.push("/equipment/erro")
+      }else if(type=="紧急警告"){
+        this.$router.push("/equipment/emergency")
+      }
+      //
     }
 
   }
@@ -195,10 +173,18 @@ export default {
     position: relative;
     float: left;
     width: 200px;
-    height: 400px;
+    height: 200px;
     //background-color: gray;
     background: rgba(0, 0, 1, 0.7);
     z-index: 5;
+
+    .header {
+      color: white;
+      text-align: center;
+      margin-top: 15px;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
 
     .up {
       width: 100%;
@@ -210,10 +196,17 @@ export default {
         border-radius: 5px;
         padding-top: 5px;
         margin-top: 5px;
-        width: 100px;
-        height: 20px;
+        width: 100%;
+        height: 40px;
         font-size: 10px;
+        text-align: center;
+        color: white;
       }
+    }
+
+    .moreBtn {
+      margin: 60px;
+      position: center;
     }
   }
   .bmap{
