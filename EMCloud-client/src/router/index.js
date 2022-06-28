@@ -91,8 +91,12 @@ Vue.use(Router)
           component: () => import('../components/equipment/equipment_map.vue')
         },
         {
-          path: '/equipment/json',
+          path: '/equipment/bigScreen',
           component: () => import('../components/equipment/equipment_map.vue')
+        },
+        {
+          path: '/equipment/cityMap',
+          component: () => import('../components/equipment/equipment_cityMap.vue')
         },
       ]
     }

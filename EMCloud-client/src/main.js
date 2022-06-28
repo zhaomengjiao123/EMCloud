@@ -24,6 +24,7 @@ import ZKtable from 'vue-table-with-tree-grid'
 import utils from  "./libs/utils"
 import dataV from '@jiaminghi/data-view'
 // import VueLazyload from 'vue-lazyload'
+import 'echarts/extension/bmap/bmap'
 
 // main.js
 import * as echarts from "echarts"

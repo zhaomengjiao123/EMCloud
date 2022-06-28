@@ -155,10 +155,16 @@ export default {
               authName: "设备分布",
               id: '104',
               order: 2,
-              path: "equipment/json"
+              path: "equipment/bigScreen"
+            },
+            {
+              authName: "城市地图",
+              id: '105',
+              order: 3,
+              path: "equipment/cityMap"
             }
           ],
-          id: "101",
+          id: "102",
           order: 4,
           path: "equipment"
         }
