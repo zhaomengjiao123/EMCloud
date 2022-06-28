@@ -13,6 +13,7 @@ import com.server.emcloud.domain.Equipment;
 import com.server.emcloud.service.CompanyService;
 import com.server.emcloud.service.EquipmentService;
 import com.server.emcloud.utils.Consts;
+import com.server.emcloud.vo.EquipmentNumAndCity;
 import com.server.emcloud.vo.EquipmentVO;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -170,6 +171,17 @@ public class EquipmentController {
             jsonObject.put(Consts.MSG, "删除失败");
             return jsonObject;
         }
+    }
+
+    /**
+     * author：王俊博
+     * 查询每个城市的设备总数
+     * 要求返回：
+     * 城市名：城市中所有设备的数量
+     */
+    @GetMapping("getAllEquipmentNumAndCity")
+    public List<EquipmentNumAndCity> getAllEquipmentNumAndCity(){
+        return equipmentService.getAllEquipmentNumAndCity();
     }
 
 }

@@ -3,6 +3,7 @@ package com.server.emcloud.dao;
 import com.server.emcloud.domain.Equipment;
  import java.util.List;
 
+import com.server.emcloud.vo.EquipmentNumAndCity;
 import com.server.emcloud.vo.EquipmentVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -32,4 +33,7 @@ public interface EquipmentMapper {
     public int addEquipment(Equipment equipment);
     //删除设备
     public int deleteEquipmentByEid(int equipment_id);
+
+    // 查询每个城市的设备总数
+    List<EquipmentNumAndCity> getAllEquipmentNumAndCity();
 }

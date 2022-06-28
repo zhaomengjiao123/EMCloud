@@ -3,6 +3,7 @@ package com.server.emcloud.service.impl;
 import com.server.emcloud.dao.EquipmentMapper;
 import com.server.emcloud.domain.Equipment;
 import com.server.emcloud.service.EquipmentService;
+import com.server.emcloud.vo.EquipmentNumAndCity;
 import com.server.emcloud.vo.EquipmentVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,10 @@ public class EquipmentServiceImpl  implements EquipmentService {
     @Override
     public int deleteEquipmentByEid(int equipment_id) {
         return equipmentMapper.deleteEquipmentByEid(equipment_id) > 0 ? 1:0;
+    }
+
+    @Override
+    public List<EquipmentNumAndCity> getAllEquipmentNumAndCity() {
+        return equipmentMapper.getAllEquipmentNumAndCity();
     }
 }
