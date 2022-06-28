@@ -181,6 +181,7 @@ public class EquipmentController {
      */
     @GetMapping("getAllEquipmentNumAndCity")
     public List<EquipmentNumAndCity> getAllEquipmentNumAndCity(){
+        System.out.println("获取所有城市的设备数量");
         return equipmentService.getAllEquipmentNumAndCity();
     }
 
