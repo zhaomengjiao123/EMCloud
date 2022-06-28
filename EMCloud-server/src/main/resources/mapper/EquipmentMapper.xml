@@ -32,8 +32,12 @@ where a.equipment_id =#{equipment_id,jdbcType=INTEGER}
     SELECT a.*,b.`product_name`,c.`company_name`,d.`salesman_name`
     FROM emdb_equipment a JOIN emdb_product b ON a.`product_id`=b.`product_id` INNER JOIN emdb_company c ON a.`company_id`=c.`company_id` JOIN emdb_salesman d ON a.`salesman_id`=d.`salesman_id`;
   </select>
-
-
+  <select id="getAllEquipmentNumAndCity" resultType="com.server.emcloud.vo.EquipmentNumAndCity">
+    SELECT COUNT(equipment_id) as num,company_local as city
+    FROM
+     ( SELECT a.`company_id`,a.`company_local`,b.`equipment_id` FROM emdb_company a JOIN emdb_equipment b ON a.`company_id`=b.`company_id`)d
+    GROUP BY company_local;
+  </select>
 
   <update id="updateByPrimaryKeySelective" parameterType="com.server.emcloud.domain.Equipment">
     update emdb_equipment
