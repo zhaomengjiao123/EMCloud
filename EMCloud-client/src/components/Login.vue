@@ -13,10 +13,10 @@
 
       <el-form ref="loginFormRef" class="login-form" :model="loginForm" :rules="loginRules">
         <el-form-item prop="username">
-          <el-input prefix-icon="iconfont icon-user" placeholder="请输入用户名" v-model="loginForm.username"></el-input>
+          <el-input prefix-icon="iconfont icon-user" placeholder="请输入用户名" v-model="loginForm.username" clearable></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input prefix-icon="iconfont icon-lock_fill" show-password placeholder="请输入密码" v-model="loginForm.password"></el-input>
+          <el-input prefix-icon="iconfont icon-lock_fill" show-password placeholder="请输入密码" v-model="loginForm.password" clearable></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" class="login-btn" @click="login">登录</el-button>
@@ -49,15 +49,15 @@ export default {
   },
   methods: {
     login() {
-       this.$refs.loginFormRef.validate(async valid => { //validate：任意表单元素被校验后返回布尔值
-         if(!valid)
-           return;
-         //const {data:res} = await this.$http.post('login',this.loginForm);
-      //
-      //   if(res.meta.status != 200)
-      //     return this.$message.error('登陆失败！');
+      this.$refs.loginFormRef.validate(async valid => { //validate：任意表单元素被校验后返回布尔值
+        if(!valid)
+          return;
+        const {data:res} = await this.$http.post('login',this.loginForm);
+
+        if(res.meta.status != 200)
+          return this.$message.error('登陆失败！');
         this.$message.success('登陆成功！');
-        //sessionStorage.setItem('userInfo',JSON.stringify("user_name:1"));
+        sessionStorage.setItem('userInfo',JSON.stringify(res.data));
         this.$router.push('/home');
       })
     }

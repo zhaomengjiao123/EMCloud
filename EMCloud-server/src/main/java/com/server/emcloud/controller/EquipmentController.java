@@ -14,12 +14,14 @@ import com.server.emcloud.service.CompanyService;
 import com.server.emcloud.service.EquipmentService;
 import com.server.emcloud.utils.Consts;
 import com.server.emcloud.vo.EquipmentNumAndCity;
+import com.server.emcloud.vo.EquipmentStateVo;
 import com.server.emcloud.vo.EquipmentVO;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -182,6 +184,21 @@ public class EquipmentController {
     @GetMapping("getAllEquipmentNumAndCity")
     public List<EquipmentNumAndCity> getAllEquipmentNumAndCity(){
         return equipmentService.getAllEquipmentNumAndCity();
+    }
+
+    /**
+     * author：王俊博
+     * 查询设备在线和不在线数量
+     */
+    @GetMapping("getOnlineAndNotOnlineEquipmentNum")
+    public List<EquipmentStateVo> getOnlineAndNotOnlineEquipmentNum(){
+        List<EquipmentStateVo> res = new ArrayList<>();
+        EquipmentStateVo vo1 = new EquipmentStateVo(1,equipmentService.getOnlineNum());
+
+        EquipmentStateVo vo2 = new EquipmentStateVo(0,equipmentService.getNotOnlineNum());
+        res.add(vo1);
+        res.add(vo2);
+        return res;
     }
 
 }

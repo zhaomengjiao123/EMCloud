@@ -2,7 +2,6 @@ package com.server.emcloud.dao;
 
 import com.server.emcloud.domain.Product;
 import com.server.emcloud.domain.ProductType;
-import com.server.emcloud.vo.ProductTypeAndTaskNum;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,6 +22,4 @@ public interface ProductTypeMapper {
     public int addProductType(ProductType productType);
     //产品类型信息更新
     public int updateProductType(ProductType productType);
-    //查询不同类型产品的任务数量
-    public List<ProductTypeAndTaskNum> getProductTypeAndTaskNum();
 }

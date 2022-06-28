@@ -44,4 +44,14 @@ public class EquipmentServiceImpl  implements EquipmentService {
     public List<EquipmentNumAndCity> getAllEquipmentNumAndCity() {
         return equipmentMapper.getAllEquipmentNumAndCity();
     }
+
+    @Override
+    public Integer getOnlineNum() {
+        return equipmentMapper.getOnlineNum();
+    }
+
+    @Override
+    public Integer getNotOnlineNum() {
+        return equipmentMapper.getNotOnlineNum();
+    }
 }
