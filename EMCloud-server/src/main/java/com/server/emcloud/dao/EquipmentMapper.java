@@ -36,4 +36,8 @@ public interface EquipmentMapper {
 
     // 查询每个城市的设备总数
     List<EquipmentNumAndCity> getAllEquipmentNumAndCity();
+
+    Integer getOnlineNum();
+
+    Integer getNotOnlineNum();
 }

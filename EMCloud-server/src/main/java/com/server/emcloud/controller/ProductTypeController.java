@@ -4,14 +4,13 @@ import com.server.emcloud.domain.Product;
 import com.server.emcloud.domain.ProductType;
 import com.server.emcloud.service.ProductTypeService;
 import com.server.emcloud.utils.Consts;
+import com.server.emcloud.vo.ProductTypeExceptionNum;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -89,5 +88,13 @@ public class ProductTypeController {
         }
     }
 
+    /**
+     * author：王俊博
+     * 查询不同类型产品的异常数量
+     */
+    @GetMapping("/getAllProductTypeExceptionNum")
+    public List<ProductTypeExceptionNum> getAllProductTypeExceptionNum(){
+        return productTypeService.getAllProductTypeExceptionNum();
+    }
 
 }
