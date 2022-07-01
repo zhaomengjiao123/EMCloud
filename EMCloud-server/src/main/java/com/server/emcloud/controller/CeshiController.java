@@ -67,6 +67,31 @@ public class CeshiController {
 
         return jsonObject;
     }
+
+
+    @RequestMapping(value = "getProExceptionByDay",method = RequestMethod.GET)
+    public Object abcccc(HttpServletRequest request) {
+        JSONObject jsonObject = new JSONObject();
+        System.out.println("proday");
+
+        String json = "[{'time':'2022-06-15','count':90},{'time':'2022-06-16','count':100},{'time':'2022-06-18','count':55},{'time':'2022-06-19','count':45},{'time':'2022-06-22','count':200},{'time':'2022-06-24','count':40},{'time':'2022-06-25','count':100},{'time':'2022-06-26','count':100},{'time':'2022-06-27','count':50}]";
+        JSONArray jsonArray = JSONArray.fromObject(json);
+        jsonObject.put("list", jsonArray);
+
+        return jsonObject;
+    }
+    @RequestMapping(value = "getProExceptionByMouth",method = RequestMethod.GET)
+    public Object abcdddd(HttpServletRequest request) {
+        JSONObject jsonObject = new JSONObject();
+        System.out.println("pro");
+
+        String json = "[{'time':'2021-06','count':100},{'time':'2021-07','count':100},{'time':'2021-08','count':55},{'time':'2021-10','count':45},{'time':'2022-01','count':20}]";
+        JSONArray jsonArray = JSONArray.fromObject(json);
+        jsonObject.put("list", jsonArray);
+
+        return jsonObject;
+    }
+
     @RequestMapping(value = "getExceptionTypeByDay",method = RequestMethod.GET)
     public Object abcc(HttpServletRequest request) {
         JSONObject jsonObject = new JSONObject();
@@ -125,6 +150,31 @@ public class CeshiController {
 
         return jsonObject;
     }
+
+    @RequestMapping(value = "getProTaskByDay",method = RequestMethod.GET)
+    public Object abcfgg(HttpServletRequest request) {
+        JSONObject jsonObject = new JSONObject();
+        System.out.println("hhhhh");
+
+        String json = "[{'time':'2022-06-15','count':100},{'time':'2022-06-16','count':100},{'time':'2022-06-18','count':55},{'time':'2022-06-19','count':45},{'time':'2022-06-22','count':200},{'time':'2022-06-24','count':40},{'time':'2022-06-25','count':100},{'time':'2022-06-26','count':100},{'time':'2022-06-27','count':50}]";
+        JSONArray jsonArray = JSONArray.fromObject(json);
+        jsonObject.put("list", jsonArray);
+
+        return jsonObject;
+    }
+    @RequestMapping(value = "getProTaskByMouth",method = RequestMethod.GET)
+    public Object abcdggg(HttpServletRequest request) {
+        JSONObject jsonObject = new JSONObject();
+        System.out.println("aaa");
+
+        String json = "[{'time':'2021-06','count':100},{'time':'2021-07','count':100},{'time':'2021-08','count':55},{'time':'2021-10','count':45},{'time':'2022-01','count':200}]";
+        JSONArray jsonArray = JSONArray.fromObject(json);
+        jsonObject.put("list", jsonArray);
+
+        return jsonObject;
+    }
+
+
     @RequestMapping(value = "getTaskTypeByDay",method = RequestMethod.GET)
     public Object abcch(HttpServletRequest request) {
         JSONObject jsonObject = new JSONObject();

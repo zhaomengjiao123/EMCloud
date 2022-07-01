@@ -115,6 +115,14 @@ Vue.use(Router)
           path: '/dataanalysis/taskanalysis',
           component: () => import('../components/dataanalysis/TaskAnalysis.vue')
         },
+        {
+          path: '/dataanalysis/tasktype',
+          component: () => import('../components/dataanalysis/TaskType.vue')
+        },
+        {
+          path: '/dataanalysis/exceptiontype',
+          component: () => import('../components/dataanalysis/ExceptionType.vue')
+        },
 
       ]
     }

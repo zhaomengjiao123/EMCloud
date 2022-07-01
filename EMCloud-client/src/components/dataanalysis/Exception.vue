@@ -123,15 +123,15 @@ export default {
           orient: 'vertical',
           left: 'left'
         },
-        color:['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc'],
+        color: ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc'],
         series: [
           {
             name: '设备状态',
             type: 'pie',
             radius: '50%',
             data: [
-              { value: this.online, name: '在线' },
-              { value: this.notonline, name: '离线' }
+              {value: this.online, name: '在线'},
+              {value: this.notonline, name: '离线'}
             ],
             emphasis: {
               itemStyle: {
@@ -153,11 +153,11 @@ export default {
         },
         tooltip: {
           trigger: 'item',
-          //formatter: "{b} : {c} ({d}%)"
+          formatter: '{a} <br/>{b} : {c} ({d}%)'
         },
         legend: {
           orient: 'vertical',
-          left: 'left'
+          left: 'left',
         },
         series: [
           {
@@ -173,15 +173,15 @@ export default {
               }
             }
           }
-        ]
+        ],
+
       }
     }
+    },
 
-  },
-
-  destroyed() {
-    clearInterval(this.timer)
-  }
+    destroyed() {
+      clearInterval(this.timer)
+    }
 
 
 }
