@@ -64,4 +64,36 @@
             LEFT(emergency_warning_time,7)
     </select>
 
+    <select id="getExceptionOfProductByDay" parameterType="java.lang.Integer" resultType="com.server.emcloud.vo.AllExceptionAndTimeVO">
+        SELECT  COUNT(warning_id) as count ,warning_time  as time FROM
+            (
+                SELECT * FROM
+                    (SELECT * FROM `emdb_equipment_warning` UNION ALL SELECT * FROM  `emdb_equipment_erro` ) a UNION ALL SELECT * FROM  `emdb_equipment_emergency_warning`
+            ) b
+        WHERE equipment_id IN
+              (
+                  SELECT equipment_id
+                  FROM
+                      `emdb_equipment`
+                  WHERE product_id = #{product_id,jdbcType=INTEGER }
+              )
+        GROUP BY
+            warning_time
+    </select>
+    <select id="getExceptionOfProductByMonth" parameterType="java.lang.Integer" resultType="com.server.emcloud.vo.AllExceptionAndTimeVO">
+        SELECT  COUNT(warning_id) as count ,left(warning_time,7)  as time FROM
+            (
+            SELECT * FROM
+            (SELECT * FROM `emdb_equipment_warning` UNION ALL SELECT * FROM  `emdb_equipment_erro` ) a UNION ALL SELECT * FROM  `emdb_equipment_emergency_warning`
+            ) b
+        WHERE equipment_id IN
+            (
+            SELECT equipment_id
+            FROM
+            `emdb_equipment`
+            WHERE product_id = #{product_id,jdbcType=INTEGER }
+            )
+        GROUP BY
+            left(warning_time,7)
+    </select>
 </mapper>

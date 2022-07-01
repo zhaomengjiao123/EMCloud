@@ -51,12 +51,14 @@ public class CompanyController {
         JSONObject jsonObject = new JSONObject();
         String company_name = req.getParameter("company_name").trim();
         String company_type = req.getParameter("company_type").trim();
-        String company_local = req.getParameter("company_local").trim();
+        String company_local_province = req.getParameter("company_local_province").trim();
+        String company_local_city = req.getParameter("company_local_city").trim();
+
         String company_comment = req.getParameter("company_comment").trim();
         System.out.println("添加公司："+company_name);
 
         //判空
-        if(company_name.isEmpty() || company_type.isEmpty() || company_local.isEmpty()){
+        if(company_name.isEmpty() || company_type.isEmpty() || company_local_city.isEmpty()||company_local_province.isEmpty()){
             jsonObject.put(Consts.CODE, 0);
             jsonObject.put(Consts.MSG, "添加失败");
             return jsonObject;
@@ -66,7 +68,8 @@ public class CompanyController {
         Company company = new Company();
         company.setCompany_name(company_name);        
         company.setCompany_type(company_type);
-        company.setCompany_local(company_local);
+        company.setCompany_local_province(company_local_province);
+        company.setCompany_local_city(company_local_city);
         company.setCompany_comment(company_comment);
         int res = companyService.addCompany(company);
         
