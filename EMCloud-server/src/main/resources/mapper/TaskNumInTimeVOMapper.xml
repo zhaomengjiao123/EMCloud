@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.server.emcloud.dao.TaskNumInTimeVOMapper">
+    <select id="getAllTaskNumInTimeByDay" resultType="com.server.emcloud.vo.TaskNumInTimeVO">
+        SELECT et.task_end_time AS time, COUNT(et.task_id) AS count
+        FROM emdb_equipment_task AS et
+        GROUP BY et.task_end_time
+    </select>
+
+    <select id="getAllTaskNumInTimeByMouth" resultType="com.server.emcloud.vo.TaskNumInTimeVO">
+        SELECT SUBSTRING_INDEX(et.task_end_time, '/', 2) AS time, COUNT(et.task_id) AS count
+        FROM emdb_equipment_task AS et
+        GROUP BY SUBSTRING_INDEX(et.task_end_time, '/', 2)
+    </select>
+
+    <select id="getProductTypeHasTask" resultType="Integer">
+        SELECT DISTINCT p.product_type_id AS productTypeID
+        FROM emdb_equipment_task AS et, emdb_equipment AS e, emdb_product AS p
+        WHERE et.equipment_id = e.equipment_id AND e.product_id = p.product_id
+    </select>
+
+    <select id="getProductNameById" resultType="String">
+        SELECT pt.product_type_name AS procuctTypeName
+        FROM emdb_product_type AS pt
+        WHERE pt.product_type_id = #{productTypeId, jdbcType=INTEGER}
+    </select>
+
+    <select id="getProductTypeTaskNumInTimeByIdByDay" resultType="com.server.emcloud.vo.TaskNumInTimeVO">
+        SELECT et.task_end_time AS TIME, COUNT(et.task_id) AS COUNT
+        FROM emdb_equipment_task AS et, emdb_equipment AS e
+        WHERE e.product_id = #{productTypeID, jdbcType=INTEGER}
+        GROUP BY et.task_end_time
+    </select>
+
+    <select id="getProductTypeTaskNumInTimeByIdByMouth" resultType="com.server.emcloud.vo.TaskNumInTimeVO">
+        SELECT SUBSTRING_INDEX(et.task_end_time, '/', 2) AS TIME, COUNT(et.task_id) AS COUNT
+        FROM emdb_equipment_task AS et, emdb_equipment AS e
+        WHERE e.product_id = #{productTypeID, jdbcType=INTEGER}
+        GROUP BY SUBSTRING_INDEX(et.task_end_time, '/', 2)
+    </select>
+
+
+</mapper>

@@ -101,8 +101,8 @@ public class ProductTypeController {
 
     /**
      * @Description: 查询不同类型产品的任务数量
-     * @Param: 无
-     * @return:
+     * @Param: [req]
+     * @return: java.lang.Object
      * @Author: mcj
      * @Date: 2022/6/28
      */

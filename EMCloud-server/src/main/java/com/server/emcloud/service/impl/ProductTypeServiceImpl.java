@@ -47,6 +47,7 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         return productTypeMapper.getAllProductTypeExceptionNum();
     }
 
+    //查询不同类型产品的任务数量
     @Override
     public List<ProductTypeAndTaskNum> getProductTypeAndTaskNum() {
         return productTypeMapper.getProductTypeAndTaskNum();
