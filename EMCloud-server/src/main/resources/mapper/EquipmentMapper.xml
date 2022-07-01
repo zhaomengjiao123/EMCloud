@@ -28,6 +28,24 @@
         INNER JOIN emdb_company c ON a.`company_id`=c.`company_id` JOIN emdb_salesman d ON a.`salesman_id`=d.`salesman_id`
 where a.equipment_id =#{equipment_id,jdbcType=INTEGER}
   </select>
+
+  <select id="getEquipmentCountOfCompany" resultType="com.server.emcloud.vo.EquipmentCountOfCompanyVO">
+
+    SELECT d.`company_id`,COUNT(equipment_id) AS COUNT,d.`company_name`,d.`company_local`
+    FROM
+      (
+      SELECT a.`company_id` AS company_id, b.`equipment_id`
+      FROM
+      `emdb_company` a,`emdb_equipment` b
+      WHERE
+      a.`company_id`=b.`company_id`
+      ) c
+      RIGHT JOIN
+      `emdb_company` d
+    ON d.`company_id`=c.company_id
+    GROUP BY
+      d.`company_id`
+  </select>
   <select id="getAll" resultType="com.server.emcloud.vo.EquipmentVO">
     SELECT a.*,b.`product_name`,c.`company_name`,d.`salesman_name`
     FROM emdb_equipment a JOIN emdb_product b ON a.`product_id`=b.`product_id` INNER JOIN emdb_company c ON a.`company_id`=c.`company_id` JOIN emdb_salesman d ON a.`salesman_id`=d.`salesman_id`;

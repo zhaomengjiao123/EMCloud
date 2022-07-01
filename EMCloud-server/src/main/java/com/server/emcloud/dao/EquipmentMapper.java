@@ -3,6 +3,7 @@ package com.server.emcloud.dao;
 import com.server.emcloud.domain.Equipment;
  import java.util.List;
 
+import com.server.emcloud.vo.EquipmentCountOfCompanyVO;
 import com.server.emcloud.vo.EquipmentNumAndCity;
 import com.server.emcloud.vo.EquipmentVO;
 import org.apache.ibatis.annotations.Param;
@@ -12,16 +13,18 @@ import org.springframework.stereotype.Repository;
 public interface EquipmentMapper {
 
 
-    int deleteByPrimaryKey(Integer equipment_id);
-
-    int insert(Equipment record);
-
-    int insertSelective(Equipment record);
+//    int deleteByPrimaryKey(Integer equipment_id);
+//
+//    int insert(Equipment record);
+//
+//    int insertSelective(Equipment record);
 
 
     EquipmentVO selectByPrimaryKey(Integer equipment_id);
 
 
+    //查询每个公司的所有设备数
+    List<EquipmentCountOfCompanyVO> getEquipmentCountOfCompany();
 
     int updateByPrimaryKeySelective(Equipment record);
 

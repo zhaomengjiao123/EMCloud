@@ -13,6 +13,7 @@ import com.server.emcloud.domain.Equipment;
 import com.server.emcloud.service.CompanyService;
 import com.server.emcloud.service.EquipmentService;
 import com.server.emcloud.utils.Consts;
+import com.server.emcloud.vo.EquipmentCountOfCompanyVO;
 import com.server.emcloud.vo.EquipmentNumAndCity;
 import com.server.emcloud.vo.EquipmentStateVo;
 import com.server.emcloud.vo.EquipmentVO;
@@ -200,6 +201,15 @@ public class EquipmentController {
         res.add(vo1);
         res.add(vo2);
         return res;
+    }
+
+    /**
+     * author：王俊博
+     * 查询每个公司的所有设备数
+     */
+    @GetMapping("getEquipmentCountOfCompany")
+    public List<EquipmentCountOfCompanyVO> getEquipmentCountOfCompany() {
+        return equipmentService.getEquipmentCountOfCompany();
     }
 
 }

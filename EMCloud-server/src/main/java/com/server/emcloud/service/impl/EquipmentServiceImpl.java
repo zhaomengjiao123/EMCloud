@@ -3,6 +3,7 @@ package com.server.emcloud.service.impl;
 import com.server.emcloud.dao.EquipmentMapper;
 import com.server.emcloud.domain.Equipment;
 import com.server.emcloud.service.EquipmentService;
+import com.server.emcloud.vo.EquipmentCountOfCompanyVO;
 import com.server.emcloud.vo.EquipmentNumAndCity;
 import com.server.emcloud.vo.EquipmentVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,10 @@ public class EquipmentServiceImpl  implements EquipmentService {
     @Override
     public Integer getNotOnlineNum() {
         return equipmentMapper.getNotOnlineNum();
+    }
+
+    @Override
+    public List<EquipmentCountOfCompanyVO> getEquipmentCountOfCompany() {
+        return equipmentMapper.getEquipmentCountOfCompany();
     }
 }

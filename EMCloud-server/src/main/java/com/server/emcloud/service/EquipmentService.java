@@ -1,6 +1,7 @@
 package com.server.emcloud.service;
 
 import com.server.emcloud.domain.Equipment;
+import com.server.emcloud.vo.EquipmentCountOfCompanyVO;
 import com.server.emcloud.vo.EquipmentNumAndCity;
 import com.server.emcloud.vo.EquipmentVO;
 
@@ -26,4 +27,8 @@ public interface EquipmentService {
 
     // 获取不在线设备数量
     Integer getNotOnlineNum();
+
+    // 获取每个城市的设备数量
+    List<EquipmentCountOfCompanyVO> getEquipmentCountOfCompany();
+
 }
