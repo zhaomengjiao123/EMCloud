@@ -43,4 +43,12 @@ public interface EquipmentMapper {
     Integer getOnlineNum();
 
     Integer getNotOnlineNum();
+
+    //查询某公司所有预警数量
+    int getWarningNumByCid(int company_id);
+    //查询某公司所有报警数量
+    int getErroNumByCid(int company_id);
+    //查询某公司所有紧急预警数量
+    int getEmergencyNumByCid(int company_id);
+
 }

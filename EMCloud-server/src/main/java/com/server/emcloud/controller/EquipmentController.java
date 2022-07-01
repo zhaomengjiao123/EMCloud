@@ -207,9 +207,52 @@ public class EquipmentController {
      * author：王俊博
      * 查询每个公司的所有设备数
      */
-    @GetMapping("getEquipmentCountOfCompany")
+    @GetMapping("/getEquipmentCountOfCompany")
     public List<EquipmentCountOfCompanyVO> getEquipmentCountOfCompany() {
         return equipmentService.getEquipmentCountOfCompany();
+    }
+
+
+    /**
+    * @Description: 得到某公司的所有设备的预警数量
+    * @Param: [request]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/7/1
+    */
+    @RequestMapping(value = "/getWarningNumByCid",method = RequestMethod.GET)
+    public Object getWarningNumByCid(HttpServletRequest request){
+        String company_id = request.getParameter("company_id");
+        System.out.println("请求得到某公司的所有设备的预警数量："+company_id);
+        return equipmentService.getWarningNumByCid(new Integer(company_id));
+    }
+
+    /**
+    * @Description: 得到某公司的所有设备的报警数量
+    * @Param: [request]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/7/1
+    */
+    @RequestMapping(value = "/getErroNumByCid",method = RequestMethod.GET)
+    public Object getErroNumByCid(HttpServletRequest request){
+        String company_id = request.getParameter("company_id");
+        System.out.println("请求得到某公司的所有设备的报警数量："+company_id);
+        return equipmentService.getErroNumByCid(new Integer(company_id));
+    }
+
+    /**
+    * @Description: 得到某公司的所有设备的紧急告警数量
+    * @Param: [request]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/7/1
+    */
+    @RequestMapping(value = "/getEmergencyNumByCid",method = RequestMethod.GET)
+    public Object getEmergencyNumByCid(HttpServletRequest request){
+        String company_id = request.getParameter("company_id");
+        System.out.println("请求得到某公司的所有设备的紧急告警数量："+company_id);
+        return equipmentService.getEmergencyNumByCid(new Integer(company_id));
     }
 
 }

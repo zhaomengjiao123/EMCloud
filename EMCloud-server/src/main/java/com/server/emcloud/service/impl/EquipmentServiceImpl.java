@@ -60,4 +60,19 @@ public class EquipmentServiceImpl  implements EquipmentService {
     public List<EquipmentCountOfCompanyVO> getEquipmentCountOfCompany() {
         return equipmentMapper.getEquipmentCountOfCompany();
     }
+
+    @Override
+    public int getWarningNumByCid(int company_id) {
+        return equipmentMapper.getWarningNumByCid(company_id);
+    }
+
+    @Override
+    public int getErroNumByCid(int company_id) {
+        return equipmentMapper.getErroNumByCid(company_id);
+    }
+
+    @Override
+    public int getEmergencyNumByCid(int company_id) {
+        return equipmentMapper.getEmergencyNumByCid(company_id);
+    }
 }

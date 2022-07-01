@@ -187,4 +187,18 @@ where a.equipment_id =#{equipment_id,jdbcType=INTEGER}
     </trim>
   </insert>
 
+  <select id="getWarningNumByCid" resultType="java.lang.Integer">
+    SELECT SUM(equipment_warning_count) as warningNum FROM emdb_equipment WHERE company_id = #{company_id,jdbcType=INTEGER}
+  </select>
+
+  <select id="getErroNumByCid" resultType="java.lang.Integer">
+    SELECT SUM(equipment_erro_count) as erroNum FROM emdb_equipment WHERE company_id = #{company_id,jdbcType=INTEGER}
+  </select>
+
+  <select id="getEmergencyNumByCid" resultType="java.lang.Integer">
+    SELECT SUM(equipment_emergency_warning_count) as emergencyWarningNum FROM emdb_equipment WHERE company_id = #{company_id,jdbcType=INTEGER}
+  </select>
+
+
+
 </mapper>
