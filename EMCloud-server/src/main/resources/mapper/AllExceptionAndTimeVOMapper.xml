@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.server.emcloud.dao.AllExceptionAndTimeVOMapper">
+
+    <select id="getAllExceptionAndTimeByDay" resultType="com.server.emcloud.vo.AllExceptionAndTimeVO">
+        SELECT COUNT(warning_id) AS COUNT,warning_time AS TIME  FROM
+            (
+            SELECT* FROM
+            (SELECT * FROM `emdb_equipment_warning` UNION ALL SELECT * FROM  `emdb_equipment_erro` ) a UNION ALL SELECT * FROM  `emdb_equipment_emergency_warning`
+            ) a
+        GROUP BY
+            warning_time
+    </select>
+
+    <select id="getAllExceptionAndTimeByMonth" resultType="com.server.emcloud.vo.AllExceptionAndTimeVO">
+        SELECT COUNT(warning_id) AS COUNT,LEFT(warning_time,7) AS TIME  FROM
+            (
+            SELECT* FROM
+            (SELECT * FROM `emdb_equipment_warning` UNION ALL SELECT * FROM  `emdb_equipment_erro` ) a UNION ALL SELECT * FROM  `emdb_equipment_emergency_warning`
+            ) a
+        GROUP BY
+            LEFT(warning_time,7)
+    </select>
+
+    <select id="getYUJINGByDay" resultType="com.server.emcloud.vo.AllExceptionAndTimeVO">
+        SELECT COUNT(warning_id) AS COUNT ,warning_time AS TIME
+        FROM `emdb_equipment_warning`
+        GROUP BY
+            warning_time
+    </select>
+
+    <select id="getBAOJINGByDay" resultType="com.server.emcloud.vo.AllExceptionAndTimeVO">
+        SELECT COUNT(erro_id) AS COUNT ,erro_time AS TIME
+        FROM `emdb_equipment_erro`
+        GROUP BY
+            erro_time
+    </select>
+    <select id="getJINJIJINGGAOByDay" resultType="com.server.emcloud.vo.AllExceptionAndTimeVO">
+        SELECT COUNT(emergency_warning_id) AS COUNT ,emergency_warning_time AS TIME
+        FROM `emdb_equipment_emergency_warning`
+        GROUP BY
+            emergency_warning_time
+    </select>
+
+    <select id="getYUJINGByMonth" resultType="com.server.emcloud.vo.AllExceptionAndTimeVO">
+        SELECT COUNT(warning_id) AS COUNT ,LEFT(warning_time,7) AS TIME
+        FROM `emdb_equipment_warning`
+        GROUP BY
+            LEFT(warning_time,7)
+    </select>
+
+    <select id="getBAOJINGByMonth" resultType="com.server.emcloud.vo.AllExceptionAndTimeVO">
+        SELECT COUNT(erro_id) AS COUNT ,LEFT(erro_time,7) AS TIME
+        FROM `emdb_equipment_erro`
+        GROUP BY
+            LEFT(erro_time,7)
+    </select>
+    <select id="getJINJIJINGGAOByMonth" resultType="com.server.emcloud.vo.AllExceptionAndTimeVO">
+        SELECT COUNT(emergency_warning_id) AS COUNT ,LEFT(emergency_warning_time,7) AS TIME
+        FROM `emdb_equipment_emergency_warning`
+        GROUP BY
+            LEFT(emergency_warning_time,7)
+    </select>
+
+</mapper>
