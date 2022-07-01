@@ -152,7 +152,8 @@ export default {
           left: 'center'
         },
         tooltip: {
-          trigger: 'item'
+          trigger: 'item',
+          //formatter: "{b} : {c} ({d}%)"
         },
         legend: {
           orient: 'vertical',

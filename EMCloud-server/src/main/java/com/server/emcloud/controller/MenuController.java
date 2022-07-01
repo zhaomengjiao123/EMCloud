@@ -43,7 +43,6 @@ public class MenuController {
         String user_phone = request.getParameter("user_phone").trim();
         System.out.println(user_phone);
         User user = userService.getUserOfPhone(user_phone);
-        System.out.println(user.getUser_company());
         System.out.println("用户权限是："+user.getUser_auth());
         Integer user_auth=user.getUser_auth();
 

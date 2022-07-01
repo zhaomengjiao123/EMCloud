@@ -72,7 +72,7 @@ public class CeshiController {
         JSONObject jsonObject = new JSONObject();
         System.out.println("lalalalala");
 
-        String json = "[{'name':'a','data':[{'time':'2022-06-15','count':100},{'time':'2022-06-16','count':100},{'time':'2022-06-18','count':55},{'time':'2022-06-19','count':45},{'time':'2022-06-22','count':200}, {'time':'2022-06-24','count':40}]},{'name':'b','data':[{'time':'2022-06-16','count':10},{'time':'2022-06-17','count':110},{'time':'2022-06-18','count':50},{'time':'2022-06-100','count':45},{'time':'2022-06-22','count':190}, {'time':'2022-06-24','count':40}]}]" ;
+        String json = "[{'name':'a','data':[{'time':'2022-06-15','count':100},{'time':'2022-06-16','count':100},{'time':'2022-06-18','count':55},{'time':'2022-06-19','count':45},{'time':'2022-06-22','count':200}, {'time':'2022-06-24','count':40},{'time':'2022-06-26','count':50},{'time':'2022-06-28','count':150}]},{'name':'b','data':[{'time':'2022-06-16','count':10},{'time':'2022-06-17','count':110},{'time':'2022-06-18','count':50},{'time':'2022-06-100','count':45},{'time':'2022-06-22','count':190}, {'time':'2022-06-24','count':40},{'time':'2022-06-26','count':70},{'time':'2022-06-28','count':100}]}]" ;
         JSONArray jsonArray = JSONArray.fromObject(json);
         jsonObject.put("list", jsonArray);
 
@@ -96,7 +96,7 @@ public class CeshiController {
         JSONObject jsonObject = new JSONObject();
         System.out.println("nihao");
 
-        String json = "[{'exception_name':'achanpin','exception_num':55},{'exception_name':'bchanpin','exception_num':75},{'exception_name':'cchanpin','exception_num':100}]";
+        String json = "[{'exception_name':'achanpin','exception_num':10},{'exception_name':'bchanpin','exception_num':150},{'exception_name':'cchanpin','exception_num':100}]";
         JSONArray jsonArray = JSONArray.fromObject(json);
         jsonObject.put("list", jsonArray);
 
@@ -130,7 +130,7 @@ public class CeshiController {
         JSONObject jsonObject = new JSONObject();
         System.out.println("lalalalala");
 
-        String json = "[{'name':'a','data':[{'time':'2022-06-15','count':100},{'time':'2022-06-16','count':100},{'time':'2022-06-18','count':55},{'time':'2022-06-19','count':45},{'time':'2022-06-22','count':200}, {'time':'2022-06-24','count':40}]},{'name':'b','data':[{'time':'2022-06-16','count':10},{'time':'2022-06-17','count':110},{'time':'2022-06-18','count':50},{'time':'2022-06-100','count':45},{'time':'2022-06-22','count':190}, {'time':'2022-06-24','count':40}]}]" ;
+        String json = "[{'name':'a','data':[{'time':'2022-06-18','count':55},{'time':'2022-06-19','count':45},{'time':'2022-06-22','count':200}, {'time':'2022-06-24','count':40},{'time':'2022-06-26','count':50},{'time':'2022-06-28','count':150}]},{'name':'b','data':[{'time':'2022-06-16','count':10},{'time':'2022-06-17','count':110},{'time':'2022-06-18','count':50},{'time':'2022-06-100','count':45},{'time':'2022-06-22','count':190}, {'time':'2022-06-24','count':40},{'time':'2022-06-26','count':80},{'time':'2022-06-28','count':120}]}]" ;
         JSONArray jsonArray = JSONArray.fromObject(json);
         jsonObject.put("list", jsonArray);
 
