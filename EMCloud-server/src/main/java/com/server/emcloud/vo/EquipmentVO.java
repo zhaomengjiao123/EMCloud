@@ -44,6 +44,8 @@ public class EquipmentVO {
 
     private String sell_time;
 
+
+
     public String getProduct_name() {
         return product_name;
     }

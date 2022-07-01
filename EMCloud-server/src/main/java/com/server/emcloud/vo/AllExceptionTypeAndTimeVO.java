@@ -4,11 +4,11 @@ import java.util.List;
 
 /**
  * author：王俊博
- * 查询一段之间内不同类型异常数量（月，天）
+ * 查询一段之间内不同类型产品的异常数量（月，天）
  * 此类和AllExceptionAndTimeVO公用一个mapper，dao，service，controller
  */
 public class AllExceptionTypeAndTimeVO {
-    String name;//类型名称
+    String name;//产品类型名称
     List<AllExceptionAndTimeVO> list;
 
     public String getName() {
