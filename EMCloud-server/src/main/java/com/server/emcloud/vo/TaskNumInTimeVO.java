@@ -29,4 +29,12 @@ public class TaskNumInTimeVO {
     public void setCount(Integer count) {
         Count = count;
     }
+
+    @Override
+    public String toString() {
+        return "TaskNumInTimeVO{" +
+                "time='" + time + '\'' +
+                ", Count=" + Count +
+                '}';
+    }
 }

@@ -22,5 +22,9 @@ public interface TaskNumInTimeVOService {
     List<DiffProductTypeAndTaskNumInTimeVO> getDiffProductTypeAndTaskNumInTimeByDay();
     //查询一段时间内不同类型产品的任务数量（时间是月）
     List<DiffProductTypeAndTaskNumInTimeVO> getDiffProductTypeAndTaskNumInTimeByMouth();
+    //查询一段时间内某个产品任务数量（时间是天）
+    List<TaskNumInTimeVO> getProductTaskNumInTimeByPidByDay(int productId);
+    //查询一段时间内某个产品任务数量（时间是月）
+    List<TaskNumInTimeVO> getProductTaskNumInTimeByPidByMouth(int productId);
 
 }

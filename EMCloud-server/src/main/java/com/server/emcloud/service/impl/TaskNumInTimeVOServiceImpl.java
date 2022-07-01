@@ -78,4 +78,16 @@ public class TaskNumInTimeVOServiceImpl implements TaskNumInTimeVOService {
         }
         return resultList;
     }
+
+    //查询一段时间内某个产品任务数量（时间是天）
+    @Override
+    public List<TaskNumInTimeVO> getProductTaskNumInTimeByPidByDay(int productId) {
+        return taskNumInTimeVOMapper.getProductTaskNumInTimeByPidByDay(productId);
+    }
+
+    //查询一段时间内某个产品任务数量（时间是月）
+    @Override
+    public List<TaskNumInTimeVO> getProductTaskNumInTimeByPidByMouth(int productId) {
+        return taskNumInTimeVOMapper.getProductTaskNumInTimeByPidByMouth(productId);
+    }
 }

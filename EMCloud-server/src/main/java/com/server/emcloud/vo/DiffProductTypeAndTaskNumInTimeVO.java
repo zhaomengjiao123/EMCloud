@@ -31,4 +31,12 @@ public class DiffProductTypeAndTaskNumInTimeVO {
     public void setData(List<TaskNumInTimeVO> data) {
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        return "DiffProductTypeAndTaskNumInTimeVO{" +
+                "name='" + name + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

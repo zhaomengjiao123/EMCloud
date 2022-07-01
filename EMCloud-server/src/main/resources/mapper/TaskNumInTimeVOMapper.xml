@@ -41,5 +41,18 @@
         GROUP BY SUBSTRING_INDEX(et.task_end_time, '/', 2)
     </select>
 
+    <select id="getProductTaskNumInTimeByPidByDay" resultType="com.server.emcloud.vo.TaskNumInTimeVO">
+        SELECT et.task_end_time AS TIME, COUNT(et.task_id) AS COUNT
+        FROM emdb_equipment_task AS et, emdb_equipment AS e
+        WHERE et.equipment_id = e.equipment_id AND e.product_id = #{productID, jdbcType=INTEGER}
+        GROUP BY et.task_end_time
+    </select>
+
+    <select id="getProductTaskNumInTimeByPidByMouth" resultType="com.server.emcloud.vo.TaskNumInTimeVO">
+        SELECT SUBSTRING_INDEX(et.task_end_time, '/', 2) AS TIME, COUNT(et.task_id) AS COUNT
+        FROM emdb_equipment_task AS et, emdb_equipment AS e
+        WHERE et.equipment_id = e.equipment_id AND e.product_id = #{productID, jdbcType=INTEGER}
+        GROUP BY SUBSTRING_INDEX(et.task_end_time, '/', 2)
+    </select>
 
 </mapper>
