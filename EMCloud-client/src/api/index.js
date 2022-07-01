@@ -78,16 +78,52 @@ export const getCollectionOfUser = (userId) => get(`collection/detail?userId=${u
 // 添加收藏的歌曲 type: 0 代表歌曲， 1 代表歌单
 export const setCollection = (params) => post(`collection/add`, params)
 
+//查询设备在线和不在线的数量
 export const getEquipState = () => get(`getEquipState`);
+
+//查询不同类型产品的异常数量
 export const getEquipExType = () => get(`getEquipExType`);
+
+//查询不同类型产品的任务数量
 export const getEquipTaskType = () => get(`getEquipTaskType`);
 
+//查询一段时间内所有异常数量（时间是天）
 export const getExceptionByDay= (params) => get(`getExceptionByDay`, params);
+
+//查询一段时间内所有异常数量（时间是月）
 export const getExceptionByMouth= (params) => get(`getExceptionByMouth`, params);
+
+//查询一段时间内某个产品异常数量（时间是天）
+export const getProExceptionByDay= (params) => get(`getProExceptionByDay`, params);
+
+//查询一段时间内某个产品异常数量（时间是月）
+export const getProExceptionByMouth= (params) => get(`getProExceptionByMouth`, params);
+
+//查询一段时间内不同类型产品的异常数量（时间是天）
 export const getExceptionTypeByDay= (params) => get(`getExceptionTypeByDay`, params);
+
+//查询一段时间内不同类型产品的异常数量（时间是月）
 export const getExceptionTypeByMouth = (params) => get(`getExceptionTypeByMouth`, params);
 
+//查询一段时间内所有任务数量（时间是天）
 export const getTaskByDay= (params) => get(`getTaskByDay`, params);
+
+//查询一段时间内所有任务数量（时间是月）
 export const getTaskByMouth= (params) => get(`getTaskByMouth`, params);
+
+//查询一段时间内某个产品任务数量（时间是天）
+export const getProTaskByDay= (params) => get(`getProTaskByDay`, params);
+
+//查询一段时间内某个产品任务数量（时间是月）
+export const getProTaskByMouth= (params) => get(`getProTaskByMouth`, params);
+
+//查询一段时间内不同类型产品的任务数量（时间是天）
 export const getTaskTypeByDay= (params) => get(`getTaskTypeByDay`, params);
+
+//查询一段时间内不同类型产品的任务数量（时间是月）
 export const getTaskTypeByMouth = (params) => get(`getTaskTypeByMouth`, params);
+
+
+//获取所有产品类型
+export const getProType= () => get(`productType/getAllProductType`);
+
