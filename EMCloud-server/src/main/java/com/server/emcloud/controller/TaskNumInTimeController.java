@@ -85,7 +85,7 @@ public class TaskNumInTimeController {
      */
     @GetMapping("/getProductTaskNumInTimeByPidByDay")
     public List<TaskNumInTimeVO> getProductTaskNumInTimeByPidByDay(HttpServletRequest req) {
-        int productId = new Integer(req.getParameter("productId"));
+        int productId = new Integer(req.getParameter("product_id"));
         System.out.println("请求查询某一产品在该时间段内每日的任务数量："
                 +taskNumInTimeVOService.getProductTaskNumInTimeByPidByDay(productId));
         return taskNumInTimeVOService.getProductTaskNumInTimeByPidByDay(productId);
@@ -100,7 +100,7 @@ public class TaskNumInTimeController {
      */
     @GetMapping("/getProductTaskNumInTimeByPidByMouth")
     public List<TaskNumInTimeVO> getProductTaskNumInTimeByPidByMouth(HttpServletRequest req) {
-        int productId = new Integer(req.getParameter("productId"));
+        int productId = new Integer(req.getParameter("product_id"));
         System.out.println("请求查询某一产品在该时间段内每月的任务数量："
                 +taskNumInTimeVOService.getProductTaskNumInTimeByPidByDay(productId));
         return taskNumInTimeVOService.getProductTaskNumInTimeByPidByMouth(productId);
