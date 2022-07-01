@@ -181,7 +181,7 @@ public class EquipmentController {
      * 要求返回：
      * 城市名：城市中所有设备的数量
      */
-    @GetMapping("getAllEquipmentNumAndCity")
+    @GetMapping("/getAllEquipmentNumAndCity")
     public List<EquipmentNumAndCity> getAllEquipmentNumAndCity(){
         System.out.println("获取所有城市的设备数量");
         return equipmentService.getAllEquipmentNumAndCity();
@@ -191,7 +191,7 @@ public class EquipmentController {
      * author：王俊博
      * 查询设备在线和不在线数量
      */
-    @GetMapping("getOnlineAndNotOnlineEquipmentNum")
+    @GetMapping("/getOnlineAndNotOnlineEquipmentNum")
     public List<EquipmentStateVo> getOnlineAndNotOnlineEquipmentNum(){
         List<EquipmentStateVo> res = new ArrayList<>();
         EquipmentStateVo vo1 = new EquipmentStateVo(1,equipmentService.getOnlineNum());
