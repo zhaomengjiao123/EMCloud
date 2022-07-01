@@ -31,4 +31,8 @@ public interface AllExceptionAndTimeVOMapper {
 
     List<AllExceptionAndTimeVO> getJINJIJINGGAOByMonth();
 
+    List<AllExceptionAndTimeVO> getExceptionOfProductByDay(Integer product_id);
+
+    List<AllExceptionAndTimeVO> getExceptionOfProductByMonth(Integer product_id);
+
 }

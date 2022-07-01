@@ -8,7 +8,15 @@ public class EquipmentCountOfCompanyVO {
     Integer company_id;
     String company_name;
     Integer count;
-    String company_local;
+    String company_local_city;
+
+    public String getCompany_local_city() {
+        return company_local_city;
+    }
+
+    public void setCompany_local_city(String company_local_city) {
+        this.company_local_city = company_local_city;
+    }
 
     public Integer getCompany_id() {
         return company_id;
@@ -34,11 +42,5 @@ public class EquipmentCountOfCompanyVO {
         this.count = count;
     }
 
-    public String getCompany_local() {
-        return company_local;
-    }
 
-    public void setCompany_local(String company_local) {
-        this.company_local = company_local;
-    }
 }

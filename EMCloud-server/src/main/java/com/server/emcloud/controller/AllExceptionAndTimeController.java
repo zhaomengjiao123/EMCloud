@@ -46,7 +46,7 @@ public class AllExceptionAndTimeController {
     }
 
     /**
-     查询一段时间内不同类型的异常数量（时间是天）
+     查询一段时间内不同类型产品的异常数量（时间是天）
      author:王俊博
      */
     @GetMapping("getAllExceptionTypeAndTimeVOByDay")
@@ -55,7 +55,7 @@ public class AllExceptionAndTimeController {
     }
 
     /**
-     查询一段时间内不同类型的异常数量（时间是月）
+     查询一段时间内不同类型产品的异常数量（时间是月）
      author:王俊博
      */
     @GetMapping("getAllExceptionTypeAndTimeVOByMonth")
