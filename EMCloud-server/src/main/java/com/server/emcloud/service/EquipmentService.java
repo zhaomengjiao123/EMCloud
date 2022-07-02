@@ -40,4 +40,7 @@ public interface EquipmentService {
     //查询某公司所有紧急预警数量
     int getEmergencyNumByCid(int company_id);
 
+    //查询全部的设备数
+    int getAllEquipmentCount();
+
 }

@@ -16,4 +16,7 @@ public interface EquipmentWarningService {
 
     //得到某公司所有设备的预警信息
     List<EquipmentWarningVO> getWarningByCid(int company_id);
+
+    //查询全部的预警信息数量
+    int getAllWarningCount();
 }

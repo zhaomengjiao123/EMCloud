@@ -75,4 +75,9 @@ public class EquipmentServiceImpl  implements EquipmentService {
     public int getEmergencyNumByCid(int company_id) {
         return equipmentMapper.getEmergencyNumByCid(company_id);
     }
+
+    @Override
+    public int getAllEquipmentCount() {
+        return equipmentMapper.getAllEquipmentCount();
+    }
 }

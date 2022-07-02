@@ -199,6 +199,14 @@ where a.equipment_id =#{equipment_id,jdbcType=INTEGER}
     SELECT SUM(equipment_emergency_warning_count) as emergencyWarningNum FROM emdb_equipment WHERE company_id = #{company_id,jdbcType=INTEGER}
   </select>
 
+  <select id="getAllEquipmentCount" resultType="java.lang.Integer">
+    SELECT COUNT(equipment_id) as equipmentCount FROM `emdb_equipment`
+  </select>
+
+
+
+
+
 
 
 </mapper>

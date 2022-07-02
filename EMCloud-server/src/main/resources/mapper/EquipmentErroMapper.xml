@@ -22,6 +22,11 @@
     where a.company_id = #{company_id,jdbcType=INTEGER}
   </select>
 
+  <select id="getAllErroCount" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM `emdb_equipment_erro`
+  </select>
+
+
 
 
 

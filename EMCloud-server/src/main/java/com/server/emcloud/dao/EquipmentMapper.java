@@ -13,12 +13,6 @@ import org.springframework.stereotype.Repository;
 public interface EquipmentMapper {
 
 
-//    int deleteByPrimaryKey(Integer equipment_id);
-//
-//    int insert(Equipment record);
-//
-//    int insertSelective(Equipment record);
-
 
     EquipmentVO selectByPrimaryKey(Integer equipment_id);
 
@@ -50,5 +44,8 @@ public interface EquipmentMapper {
     int getErroNumByCid(int company_id);
     //查询某公司所有紧急预警数量
     int getEmergencyNumByCid(int company_id);
+
+    //查询全部的设备数
+    int getAllEquipmentCount();
 
 }

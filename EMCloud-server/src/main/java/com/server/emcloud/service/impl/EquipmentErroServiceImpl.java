@@ -25,4 +25,9 @@ public class EquipmentErroServiceImpl implements EquipmentErroService {
     public List<EquipmentErroVO> getErroByCid(int company_id) {
         return equipmentErroMapper.getErroByCid(company_id);
     }
+
+    @Override
+    public int getAllErroCount() {
+        return equipmentErroMapper.getAllErroCount();
+    }
 }

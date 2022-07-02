@@ -8,8 +8,7 @@ package com.server.emcloud.controller;
  */
 
 import com.server.emcloud.domain.Company;
-import com.server.emcloud.service.AllExceptionAndTimeVOService;
-import com.server.emcloud.service.CompanyService;
+import com.server.emcloud.service.*;
 import com.server.emcloud.utils.Consts;
 import com.server.emcloud.vo.AllExceptionAndTimeVO;
 import com.server.emcloud.vo.AllExceptionTypeAndTimeVO;
@@ -26,6 +25,7 @@ public class AllExceptionAndTimeController {
 
     @Autowired
     private AllExceptionAndTimeVOService allExceptionAndTimeVOService;
+
 
     /**
      查询一段时间内所有异常数量（时间是天）
@@ -62,6 +62,8 @@ public class AllExceptionAndTimeController {
     public List<AllExceptionTypeAndTimeVO> getAllExceptionTypeAndTimeVOByMonth(){
         return allExceptionAndTimeVOService.getAllExceptionTypeAndTimeVOByMonth();
     }
+
+
 
 
 }
