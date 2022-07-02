@@ -114,8 +114,8 @@ export default {
       },
       startTime: '',
       endTime: '',
-      provalue:'',
-      prolabel:'',
+      provalue:'',//类型id
+      prolabel:'',//类型名称
       form: {
         exceptionDate: '',
       },

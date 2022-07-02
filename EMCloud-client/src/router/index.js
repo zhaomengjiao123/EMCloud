@@ -116,14 +116,17 @@ Vue.use(Router)
           component: () => import('../components/dataanalysis/TaskAnalysis.vue')
         },
         {
-          path: '/dataanalysis/tasktype',
-          component: () => import('../components/dataanalysis/TaskType.vue')
+          path: '/user/superadmin',
+          component: () => import('../components/user/SuperAdmin.vue')
         },
         {
-          path: '/dataanalysis/exceptiontype',
-          component: () => import('../components/dataanalysis/ExceptionType.vue')
+          path: '/user/admin',
+          component: () => import('../components/user/Admin.vue')
         },
-
+        {
+          path: '/user/user',
+          component: () => import('../components/user/User.vue')
+        },
       ]
     }
   ]

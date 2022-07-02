@@ -127,3 +127,40 @@ export const getTaskTypeByMouth = (params) => get(`getTaskTypeByMouth`, params);
 //获取所有产品类型
 export const getProType= () => get(`productType/getAllProductType`);
 
+//获取所有用户
+export const getUser= () => get(`user/getalluser`);
+
+//获取该公司用户
+export const getUserByCompany= (params) => get(`user/admin/getuser`,params);
+
+//获取某个用户
+export const getUserByPhone= (params) => get(`user/getuserofphone1`,params);
+
+//获取公司某个用户
+export const getUserByPhoneInCompany= (params) => get(`user/getuserofphone2`,params);
+
+//添加管理员
+export const addAdmin = (params) => post(`user/superadmin/add`,params)
+
+//添加用户
+export const addUser = (params) => post(`user/admin/add`,params)
+
+//修改用户信息
+export const updateUser = (params) => put(`user/admin/updateinfo`,params)
+
+//用户修改用户信息
+export const updateUserInfo = (params) => put(`user/updateinfo`,params)
+
+//超级管理员修改用户信息（带权限）
+export const updateUserSuper = (params) => put(`user/admin/updateinfosuper`,params)
+
+//重置用户信密码
+export const updatePasswd = (params) => put(`user/admin/updatepasswd`,params)
+
+//修改用户信密码
+export const updateUserPasswd = (params) => put(`user/updatepasswd`,params)
+
+//删除用户信息
+export const deleteUser = (params) => post(`user/delete`,params)
+
+
