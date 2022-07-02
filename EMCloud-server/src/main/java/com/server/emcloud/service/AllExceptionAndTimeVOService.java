@@ -23,4 +23,7 @@ public interface AllExceptionAndTimeVOService {
   List<AllExceptionTypeAndTimeVO> getAllExceptionTypeAndTimeVOByMonth();
 
 
+  List<AllExceptionAndTimeVO> getExceptionTypeAndTimeVOByMonth(Integer product_id);
+
+  List<AllExceptionAndTimeVO> getExceptionTypeAndTimeVOByDay(Integer product_id);
 }

@@ -63,6 +63,22 @@ public class AllExceptionAndTimeController {
         return allExceptionAndTimeVOService.getAllExceptionTypeAndTimeVOByMonth();
     }
 
+    /**
+     * 查询一段时间内某个产品异常数量（时间是天）
+     * 王俊博
+     */
+    @GetMapping("getExceptionTypeAndTimeVOByDay")
+    public List<AllExceptionAndTimeVO> getExceptionTypeAndTimeVOByDay(Integer product_id){
+        return allExceptionAndTimeVOService.getExceptionTypeAndTimeVOByDay(product_id);
+    }
+    /**
+     * 查询一段时间内某个产品异常数量（时间是月）
+     * 王俊博
+     */
+    @GetMapping("getExceptionTypeAndTimeVOByMonth")
+    public   List<AllExceptionAndTimeVO> getExceptionTypeAndTimeVOByMonth(Integer product_id){
+        return allExceptionAndTimeVOService.getExceptionTypeAndTimeVOByMonth(product_id);
+    }
 
 
 
