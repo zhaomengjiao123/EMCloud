@@ -70,4 +70,14 @@ public class AllExceptionAndTimeVOServiceImpl implements AllExceptionAndTimeVOSe
 
         return result;
     }
+
+    @Override
+    public List<AllExceptionAndTimeVO> getExceptionTypeAndTimeVOByMonth(Integer product_id) {
+        return allExceptionAndTimeVOMapper.getExceptionOfProductByMonth(product_id) ;
+    }
+
+    @Override
+    public  List<AllExceptionAndTimeVO> getExceptionTypeAndTimeVOByDay(Integer product_id) {
+        return allExceptionAndTimeVOMapper.getExceptionOfProductByDay(product_id);
+    }
 }

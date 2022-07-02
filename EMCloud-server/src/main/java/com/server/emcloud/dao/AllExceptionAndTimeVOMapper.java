@@ -35,4 +35,6 @@ public interface AllExceptionAndTimeVOMapper {
 
     List<AllExceptionAndTimeVO> getExceptionOfProductByMonth(Integer product_id);
 
+
+
 }
