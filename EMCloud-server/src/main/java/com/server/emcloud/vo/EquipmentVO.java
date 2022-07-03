@@ -44,16 +44,6 @@ public class EquipmentVO {
 
     private String sell_time;
 
-    private int equipmentCount;
-
-    public int getEquipmentCount() {
-        return equipmentCount;
-    }
-
-    public void setEquipmentCount(int equipmentCount) {
-        this.equipmentCount = equipmentCount;
-    }
-
     public String getProduct_name() {
         return product_name;
     }

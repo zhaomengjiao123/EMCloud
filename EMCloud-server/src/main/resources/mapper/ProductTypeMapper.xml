@@ -53,21 +53,6 @@
         select *
         from `emdb_product_type`
     </select>
-    <select id="getAllProductTypeExceptionNum" resultType="com.server.emcloud.vo.ProductTypeExceptionNum">
-        SELECT IFNULL (SUM(equipment_warning_count+equipment_erro_count+equipment_emergency_warning_count),0) AS exception_num ,d.`product_type_name`  AS product_type
-        FROM
-            (
-                SELECT a.`product_type_id`,b.* FROM  emdb_product a, emdb_equipment b
-                WHERE
-                    a.`product_id`=b.`product_id`
-            ) c
-                RIGHT JOIN
-            emdb_product_type d
-            ON c.product_type_id=d.product_type_id
-        GROUP BY
-            d.`product_type_name`
-
-    </select>
 
 
     <update id="updateProductType" parameterType="com.server.emcloud.domain.ProductType">
@@ -88,13 +73,6 @@
         </set>
         where product_type_id = #{product_type_id,jdbcType=INTEGER}
     </update>
-
-    <select id="getProductTypeAndTaskNum" resultType="com.server.emcloud.vo.ProductTypeAndTaskNum">
-        SELECT pt.product_type_name AS product_type, COUNT(e.equipment_id) AS task_num
-        FROM emdb_equipment AS e ,emdb_product AS p, emdb_equipment_task AS et, emdb_product_type AS pt
-        WHERE e.product_id = p.product_id AND et.equipment_id = e.equipment_id AND pt.product_type_id = p.product_type_id
-        GROUP BY pt.product_type_name
-    </select>
 
 
 </mapper>

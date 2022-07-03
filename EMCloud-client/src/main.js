@@ -10,8 +10,8 @@ import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from "axios"
-// axios.defaults.baseURL = '/api'
-axios.defaults.baseURL = "http://121.5.74.11:8080/"
+// axios.defaults.baseURL = "https://121.5.74.11:8080/"
+axios.defaults.baseURL = "http://localhost:8080"
 //拦截所有请求，为请求头添加token认证
 // axios.interceptors.request.use(config => {
 //   const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));

@@ -47,7 +47,8 @@ export default {
         "125": "iconfont icon-users",
         "103": "iconfont icon-tijikongjian",
         "101": "iconfont icon-shangpin",
-        "102": "iconfont icon-danju"
+        "102": "iconfont icon-danju",
+        "406": "iconfont icon-baobiao",
       },
       isCollapse: false,
       menuData2: [
@@ -149,6 +150,34 @@ export default {
           path: "goods"
         },
         {
+          authName: "数据分析",
+          children: [
+            {
+              authName: "设备异常信息",
+              id: '110',
+              path: "dataanalysis/exception"
+            },
+            {
+              authName: "设备异常分析",
+              id: '105',
+              path: "dataanalysis/exceptionanalysis"
+            },
+            {
+              authName: "设备任务信息",
+              id: '106',
+              path: "dataanalysis/task"
+            },
+            {
+              authName: "设备任务分析",
+              id: '107',
+              path: "dataanalysis/taskanalysis"
+            },
+          ],
+          id: "406",
+          order: 2,
+          path: "dataanalysis"
+        },
+        {
           authName: "设备管理",
           children: [
             {
@@ -165,7 +194,7 @@ export default {
             }
           ],
           id: "102",
-          order: 4,
+          order: 5,
           path: "equipment"
         }
         ]

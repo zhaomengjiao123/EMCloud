@@ -20,6 +20,7 @@ function formatToDate(time) {
 }
 
 /**
+<<<<<<< HEAD
  * @param {Date} time 需要转换的时间
  * @param {String} fmt 需要转换的格式 如 yyyy-MM-dd、yyyy-MM-dd HH:mm:ss
  */
@@ -58,4 +59,18 @@ export function formatTime(time, fmt) {
 export default {
   formatToTime,
   formatToDate
+=======
+ * 随机生成三位数
+ * @returns {number}
+ */
+function mathRandom1000 (){
+  return (Math.random() * 1000).toFixed(0) * 1
+}
+
+
+export default {
+  formatToTime,
+  formatToDate,
+  mathRandom1000
+>>>>>>> b8a4ca62808d71934c6fae2f8a46e691c26817b4
 }

@@ -8,13 +8,12 @@
         <result column="company_id" jdbcType="INTEGER" property="company_id"/>
         <result column="company_name" jdbcType="VARCHAR" property="company_name"/>
         <result column="company_type" jdbcType="VARCHAR" property="company_type"/>
-        <result column="company_local_province" jdbcType="VARCHAR" property="company_local_province"/>
-        <result column="company_local_city" jdbcType="VARCHAR" property="company_local_city"/>
+        <result column="company_local" jdbcType="VARCHAR" property="company_local"/>
         <result column="company_comment" jdbcType="VARCHAR" property="company_comment"/>
     </resultMap>
 
     <select id="Base_Column_List">
-        company_id,company_name,company_type,company_local_province,company_local_city,company_comment
+        company_id,company_name,company_type,company_local,company_comment
     </select>
 
     <insert id="addCompany" parameterType="com.server.emcloud.domain.Company" >
@@ -26,11 +25,8 @@
             <if test="company_type != null" >
                 company_type,
             </if>
-            <if test="company_local_province != null" >
-                company_local_province,
-            </if>
-            <if test="company_local_city != null" >
-                company_local_city,
+            <if test="company_local != null" >
+                company_local,
             </if>
             <if test="company_comment != null" >
                 company_comment,
@@ -43,11 +39,8 @@
             <if test="company_type != null" >
                 #{company_type},
             </if>
-            <if test="company_local_province != null" >
-                #{company_local_province},
-            </if>
-            <if test="company_local_city != null" >
-                #{company_local_city},
+            <if test="company_local != null" >
+                #{company_local},
             </if>
             <if test="company_comment != null" >
                 #{company_comment},
@@ -78,11 +71,8 @@
             <if test="company_type != null">
                 company_type = #{company_type,jdbcType=VARCHAR},
             </if>
-            <if test="company_local_province != null">
-                company_local_province = #{company_local_province,jdbcType=VARCHAR},
-            </if>
-            <if test="company_local_city != null">
-                company_local_city = #{company_local_city,jdbcType=VARCHAR},
+            <if test="company_local != null">
+                company_local = #{company_local,jdbcType=VARCHAR},
             </if>
             <if test="company_comment != null">
                 company_comment = #{company_comment,jdbcType=VARCHAR},

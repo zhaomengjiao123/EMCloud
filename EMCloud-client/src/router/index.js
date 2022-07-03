@@ -106,18 +106,41 @@ Vue.use(Router)
           path: '/equipment/cityMap',
           component: () => import('../components/equipment/equipment_cityMap.vue')
         },
+
         {
-          path: '/equipment/warning',
-          component: () => import('../components/equipment/equipment_warningList.vue')
+          path: '/dataanalysis/exception',
+          component: () => import('../components/dataanalysis/Exception.vue')
         },
         {
-          path: '/equipment/erro',
-          component: () => import('../components/equipment/equipment_erroList.vue')
+          path: '/dataanalysis/exceptionanalysis',
+          component: () => import('../components/dataanalysis/ExceptionAnalysis.vue')
         },
         {
+          path: '/dataanalysis/task',
+          component: () => import('../components/dataanalysis/Task.vue')
+        },
+        {
+          path: '/dataanalysis/taskanalysis',
+          component: () => import('../components/dataanalysis/TaskAnalysis.vue')
+        },
+        {
+<<<<<<< HEAD
           path: '/equipment/emergency',
           component: () => import('../components/equipment/equipment_emergencyWarningList.vue')
         }
+=======
+          path: '/user/superadmin',
+          component: () => import('../components/user/SuperAdmin.vue')
+        },
+        {
+          path: '/user/admin',
+          component: () => import('../components/user/Admin.vue')
+        },
+        {
+          path: '/user/user',
+          component: () => import('../components/user/User.vue')
+        },
+>>>>>>> b8a4ca62808d71934c6fae2f8a46e691c26817b4
       ]
     }
   ]
