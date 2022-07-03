@@ -2,6 +2,8 @@ package com.server.emcloud.service;
 
 import com.server.emcloud.domain.ProductType;
 import com.server.emcloud.domain.ProductTypeAttribute;
+import com.server.emcloud.vo.ProductTypeAndTaskNum;
+import com.server.emcloud.vo.ProductTypeExceptionNum;
 
 import java.util.List;
 
@@ -21,4 +23,8 @@ public interface ProductTypeService {
     //产品类型信息更新
     public int updateProductType(ProductType productType);
 
+    List<ProductTypeExceptionNum> getAllProductTypeExceptionNum();
+
+    //查询不同类型产品的任务数量
+    public List<ProductTypeAndTaskNum> getProductTypeAndTaskNum();
 }

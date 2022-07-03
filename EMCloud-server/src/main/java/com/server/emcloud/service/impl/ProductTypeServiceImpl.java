@@ -6,6 +6,8 @@ import com.server.emcloud.domain.ProductType;
 import com.server.emcloud.domain.ProductTypeAttribute;
 import com.server.emcloud.service.ProductService;
 import com.server.emcloud.service.ProductTypeService;
+import com.server.emcloud.vo.ProductTypeAndTaskNum;
+import com.server.emcloud.vo.ProductTypeExceptionNum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +42,15 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         return productTypeMapper.updateProductType(productType)>0 ? 1 : 0;
     }
 
+    @Override
+    public List<ProductTypeExceptionNum> getAllProductTypeExceptionNum() {
+        return productTypeMapper.getAllProductTypeExceptionNum();
+    }
 
-
+    //查询不同类型产品的任务数量
+    @Override
+    public List<ProductTypeAndTaskNum> getProductTypeAndTaskNum() {
+        return productTypeMapper.getProductTypeAndTaskNum();
+    }
 
 }

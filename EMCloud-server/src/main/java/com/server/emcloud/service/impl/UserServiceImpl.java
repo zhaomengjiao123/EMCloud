@@ -62,16 +62,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUserOfPhone1(String user_phone) {
-        return userMapper.getUserOfPhone1(user_phone);
-    }
-
-    @Override
-    public boolean updateInfoSuperAdmin(User user) {
-        return userMapper.updateInfoSuperAdmin(user)>0;
-    }
-
-    @Override
     public User getUserOfPhone(String user_phone) {
         return userMapper.getUserOfPhone(user_phone);
     }

@@ -7,16 +7,14 @@
         <result column="user_name" property="user_name" jdbcType="VARCHAR" />
         <result column="user_phone" property="user_phone" jdbcType="VARCHAR" />
         <result column="user_tele" property="user_tele" jdbcType="VARCHAR" />
-        <result column="company_id" property="company_id" jdbcType="INTEGER" />
-        <result column="depart_id" property="depart_id" jdbcType="INTEGER" />
+        <result column="user_company" property="user_company" jdbcType="INTEGER" />
+        <result column="user_depart" property="user_depart" jdbcType="INTEGER" />
         <result column="user_passwd" property="user_passwd" jdbcType="VARCHAR" />
         <result column="user_auth" property="user_auth" jdbcType="INTEGER" />
-        <result column="user_company" property="user_company" jdbcType="VARCHAR" />
-        <result column="user_depart" property="user_depart" jdbcType="VARCHAR" />
     </resultMap>
 
     <select id="Base_Column_List">
-        user_name,user_phone,user_tele,user_company,user_depart,user_auth,company_id,depart_id
+        user_name,user_phone,user_tele,user_company,user_depart,user_auth
     </select>
 
     <select id="login" resultType="java.lang.Integer">
@@ -35,17 +33,11 @@
             <if test="user_tele != null" >
                 user_tele,
             </if>
-<!--            <if test="user_company != null" >-->
-<!--                user_company,-->
-<!--            </if>-->
-<!--            <if test="user_depart != null" >-->
-<!--                user_depart,-->
-<!--            </if>-->
-            <if test="company_id != null" >
-                company_id,
+            <if test="user_company != null" >
+                user_company,
             </if>
-            <if test="depart_id != null" >
-                depart_id,
+            <if test="user_depart != null" >
+                user_depart,
             </if>
             <if test="user_passwd != null" >
                 user_passwd,
@@ -64,17 +56,11 @@
             <if test="user_tele != null" >
                 #{user_tele},
             </if>
-<!--            <if test="user_company != null" >-->
-<!--                #{user_company},-->
-<!--            </if>-->
-<!--            <if test="user_depart!= null" >-->
-<!--                #{user_depart},-->
-<!--            </if>-->
-            <if test="company_id != null" >
-                #{company_id},
+            <if test="user_company != null" >
+                #{user_company},
             </if>
-            <if test="depart_id!= null" >
-                #{depart_id},
+            <if test="user_depart!= null" >
+                #{user_depart},
             </if>
             <if test="user_passwd != null" >
                 #{user_passwd},
@@ -107,38 +93,15 @@
             <if test="user_tele!= null" >
                 user_tele = #{user_tele},
             </if>
-<!--            <if test="company_id != null" >-->
-<!--                company_id = #{company_id},-->
-<!--            </if>-->
-            <if test="depart_id != null" >
-                depart_id = #{depart_id},
+            <if test="user_company != null" >
+                user_company = #{user_company} ,
+            </if>
+            <if test="user_depart!= null" >
+                user_depart = #{user_depart},
             </if>
         </set>
         where user_phone = #{user_phone}
     </update>
-
-    <update id="updateInfoSuperAdmin" parameterType="com.server.emcloud.domain.User" >
-        update emdb_user
-        <set >
-            <if test="user_name != null" >
-                user_name = #{user_name} ,
-            </if>
-            <if test="user_tele!= null" >
-                user_tele = #{user_tele},
-            </if>
-            <if test="company_id != null" >
-                company_id = #{company_id},
-            </if>
-            <if test="depart_id != null" >
-                depart_id = #{depart_id},
-            </if>
-            <if test="user_auth != null" >
-                user_auth = #{user_auth},
-            </if>
-        </set>
-        where user_phone = #{user_phone}
-    </update>
-
 
     <update id="updatePasswd" parameterType="com.server.emcloud.domain.User" >
         update emdb_user
@@ -167,39 +130,20 @@
 
 
     <select id="getUserOfPhone" resultMap="BaseResultMap">
-    select a.*,b.company_name as user_company,c.depart_name as user_depart
-    from emdb_user a,emdb_company b,emdb_depart c
-    where a.user_phone = #{user_phone}
-    and a.company_id=b.company_id
-    and a.depart_id=c.depart_id
-    and a.company_id =c.company_id
+    select user_name,user_phone,user_tele,user_company,user_depart,user_auth
+    from emdb_user
+    where user_phone = #{user_phone}
     </select>
-
-    <select id="getUserOfPhone1" resultMap="BaseResultMap">
-    select a.user_name,a.user_phone,a.user_tele,a.user_auth,a.company_id,a.depart_id,b.company_name as user_company,c.depart_name as user_depart
-    from emdb_user a,emdb_company b,emdb_depart c
-    where a.user_phone = #{user_phone}
-    and a.company_id=b.company_id
-    and a.depart_id=c.depart_id
-    and a.company_id =c.company_id
-    </select>
-
 
     <select id="getUser" resultMap="BaseResultMap">
-    select a.*,b.company_name as user_company,c.depart_name as user_depart
-    from emdb_user a,emdb_company b,emdb_depart c
-    where a.company_id = #{company_id}
-    and a.company_id=b.company_id
-    and a.company_id =c.company_id
-    and a.depart_id=c.depart_id
+    select user_name,user_phone,user_tele,user_company,user_depart,user_auth
+    from emdb_user
+    where user_company = #{user_company}
     </select>
 
     <select id="getAllUser" resultMap="BaseResultMap">
-    select a.*,b.company_name as user_company,c.depart_name as user_depart
-    from emdb_user a,emdb_company b,emdb_depart c
-    where a.company_id=b.company_id
-    and a.company_id= c.company_id
-    and a.depart_id=c.depart_id
+        select user_name,user_phone,user_tele,user_company,user_depart,user_auth
+        from emdb_user
     </select>
 
 

@@ -15,7 +15,25 @@ public class Company {
     //机构类型
     private String company_type;
     //归属区域
-    private String company_local;
+    private String company_local_province;
+    private String company_local_city;
+
+    public String getCompany_local_province() {
+        return company_local_province;
+    }
+
+    public void setCompany_local_province(String company_local_province) {
+        this.company_local_province = company_local_province;
+    }
+
+    public String getCompany_local_city() {
+        return company_local_city;
+    }
+
+    public void setCompany_local_city(String company_local_city) {
+        this.company_local_city = company_local_city;
+    }
+
     //公司备注
     private String company_comment;
 
@@ -43,13 +61,8 @@ public class Company {
         this.company_type = company_type;
     }
 
-    public String getCompany_local() {
-        return company_local;
-    }
 
-    public void setCompany_local(String company_local) {
-        this.company_local = company_local;
-    }
+
 
     public String getCompany_comment() {
         return company_comment;

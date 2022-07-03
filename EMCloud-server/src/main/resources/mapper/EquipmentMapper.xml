@@ -28,18 +28,41 @@
         INNER JOIN emdb_company c ON a.`company_id`=c.`company_id` JOIN emdb_salesman d ON a.`salesman_id`=d.`salesman_id`
 where a.equipment_id =#{equipment_id,jdbcType=INTEGER}
   </select>
+
+  <select id="getEquipmentCountOfCompany" resultType="com.server.emcloud.vo.EquipmentCountOfCompanyVO">
+
+    SELECT d.`company_id`,COUNT(equipment_id) AS COUNT,d.`company_name`,d.`company_local_city`
+    FROM
+      (
+      SELECT a.`company_id` AS company_id, b.`equipment_id`
+      FROM
+      `emdb_company` a,`emdb_equipment` b
+      WHERE
+      a.`company_id`=b.`company_id`
+      ) c
+      RIGHT JOIN
+      `emdb_company` d
+    ON d.`company_id`=c.company_id
+    GROUP BY
+      d.`company_id`
+  </select>
   <select id="getAll" resultType="com.server.emcloud.vo.EquipmentVO">
     SELECT a.*,b.`product_name`,c.`company_name`,d.`salesman_name`
     FROM emdb_equipment a JOIN emdb_product b ON a.`product_id`=b.`product_id` INNER JOIN emdb_company c ON a.`company_id`=c.`company_id` JOIN emdb_salesman d ON a.`salesman_id`=d.`salesman_id`;
   </select>
   <select id="getAllEquipmentNumAndCity" resultType="com.server.emcloud.vo.EquipmentNumAndCity">
-    SELECT COUNT(equipment_id) as num,company_local as city
+    SELECT COUNT(equipment_id) as num,company_local_city as city
     FROM
-     ( SELECT a.`company_id`,a.`company_local`,b.`equipment_id` FROM emdb_company a JOIN emdb_equipment b ON a.`company_id`=b.`company_id`)d
-    GROUP BY company_local;
+     ( SELECT a.`company_id`,a.`company_local_city`,b.`equipment_id` FROM emdb_company a JOIN emdb_equipment b ON a.`company_id`=b.`company_id`)d
+    GROUP BY company_local_city;
   </select>
-
-  <update id="updateByPrimaryKeySelective" parameterType="com.server.emcloud.domain.Equipment">
+    <select id="getOnlineNum" resultType="java.lang.Integer">
+      SELECT COUNT(*) FROM emdb_equipment WHERE equipment_state = 1
+    </select>
+  <select id="getNotOnlineNum" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM emdb_equipment WHERE equipment_state = 0
+  </select>
+    <update id="updateByPrimaryKeySelective" parameterType="com.server.emcloud.domain.Equipment">
     update emdb_equipment
     <set>
       <if test="equipment_number != null">
@@ -163,5 +186,27 @@ where a.equipment_id =#{equipment_id,jdbcType=INTEGER}
       </if>
     </trim>
   </insert>
+
+  <select id="getWarningNumByCid" resultType="java.lang.Integer">
+    SELECT SUM(equipment_warning_count) as warningNum FROM emdb_equipment WHERE company_id = #{company_id,jdbcType=INTEGER}
+  </select>
+
+  <select id="getErroNumByCid" resultType="java.lang.Integer">
+    SELECT SUM(equipment_erro_count) as erroNum FROM emdb_equipment WHERE company_id = #{company_id,jdbcType=INTEGER}
+  </select>
+
+  <select id="getEmergencyNumByCid" resultType="java.lang.Integer">
+    SELECT SUM(equipment_emergency_warning_count) as emergencyWarningNum FROM emdb_equipment WHERE company_id = #{company_id,jdbcType=INTEGER}
+  </select>
+
+  <select id="getAllEquipmentCount" resultType="java.lang.Integer">
+    SELECT COUNT(equipment_id) as equipmentCount FROM `emdb_equipment`
+  </select>
+
+
+
+
+
+
 
 </mapper>

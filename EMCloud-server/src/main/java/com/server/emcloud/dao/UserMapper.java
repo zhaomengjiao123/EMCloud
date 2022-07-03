@@ -44,7 +44,4 @@ public interface UserMapper {
     //用户获取自己信息
     public User getUserOfPhone(String user_phone);
 
-    public List<User> getUserOfPhone1(String user_phone);
-
-    public int updateInfoSuperAdmin(User user);
 }

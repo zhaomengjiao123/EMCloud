@@ -17,7 +17,7 @@ public interface UserService {
 
     public boolean updateInfo(User user);//用户更新信息
 
-    public boolean updateInfoAdmin(User user);//管理员更新用户信息
+    public boolean updateInfoAdmin(User user);//用户更新信息
 
     public boolean updatePasswd(User user);//用户修改密码
 
@@ -31,7 +31,4 @@ public interface UserService {
 
     public boolean deleteUser(String user_phone);//管理员删除用户，用户注销
 
-    public List<User> getUserOfPhone1(String user_phone);
-
-    public boolean updateInfoSuperAdmin(User user);//超级管理员更新用户信息
 }
