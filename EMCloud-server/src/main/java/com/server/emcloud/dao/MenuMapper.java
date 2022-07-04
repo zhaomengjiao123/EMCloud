@@ -36,4 +36,6 @@ public interface MenuMapper  {
     public int updateMenuAdminInvis(Integer menu_id);  //用户对某功能不可见
 
     public Menu getMenuOfId(String menu_id);
+
+    public List<Menu> getAllMenu();
 }

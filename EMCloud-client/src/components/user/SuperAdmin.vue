@@ -417,6 +417,17 @@ name: "SuperAdmin",
         .then(res => {
           //this.userlist = res
           this.tableData = res;
+
+          for (let i=0;i<res.length;i++){
+            if(this.tableData[i].user_auth=='1'){
+              this.tableData[i].user_auth='超级管理员'
+            }else if(this.tableData[i].user_auth=='2'){
+              this.tableData[i].user_auth='管理员'
+            }else if(this.tableData[i].user_auth=='3'){
+              this.tableData[i].user_auth='普通用户'
+            }
+          }
+
           this.total = res.length;
           //重点：
           let begin = (this.currentPage - 1) * this.pageSize;
@@ -439,6 +450,17 @@ name: "SuperAdmin",
         getUserByCompany(params)
           .then(res => {
             this.tableData = res;
+
+            for (let i=0;i<res.length;i++){
+              if(this.tableData[i].user_auth=='1'){
+                this.tableData[i].user_auth='超级管理员'
+              }else if(this.tableData[i].user_auth=='2'){
+                this.tableData[i].user_auth='管理员'
+              }else if(this.tableData[i].user_auth=='3'){
+                this.tableData[i].user_auth='普通用户'
+              }
+            }
+
             this.total = res.length;
             //重点：
             let begin = (this.currentPage - 1) * this.pageSize;
