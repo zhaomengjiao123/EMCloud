@@ -95,6 +95,7 @@ export default {
       getEquipExType().then((res) => {
         if (res) {
           this.loading = false
+          console.log('产品类型异常')
           console.log(res)
           this.EquipExTypeData = [];
           // for (let i = 0; i < res.list.length; i++) {//有多少类型，循环多少次

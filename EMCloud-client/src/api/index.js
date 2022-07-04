@@ -21,7 +21,8 @@ export const getAllEquipmentCount = () => get(`equipment/getAllEquipmentCount`)
 export const getAllExceptionCount = () => get(`equipment/getAllExceptionCount`)
 
 
-
+//获取所有产品类型
+export const getProType= () => get(`productType/getAllProductType`);
 
 //查询设备在线和不在线的数量
 export const getEquipState = () => get(`equipment/getOnlineAndNotOnlineEquipmentNum`);
@@ -33,22 +34,22 @@ export const getEquipExType = () => get(`productType/getProductTypeAndTaskNum`);
 export const getEquipTaskType = () => get(`productType/getProductTypeAndTaskNum`);
 
 //查询一段时间内所有异常数量（时间是天）
-export const getExceptionByDay= (params) => get(`getExceptionByDay`, params);
+export const getExceptionByDay= (params) => get(`allExceptionAndTime/getAllExceptionAndTimeByDay`, params);
 
 //查询一段时间内所有异常数量（时间是月）
-export const getExceptionByMouth= (params) => get(`getExceptionByMouth`, params);
+export const getExceptionByMouth= (params) => get(`allExceptionAndTime/getAllExceptionAndTimeByMonth`, params);
 
 //查询一段时间内某个产品异常数量（时间是天）
-export const getProExceptionByDay= (params) => get(`getProExceptionByDay`, params);
+export const getProExceptionByDay= (params) => get(`allExceptionAndTime/getExceptionTypeAndTimeVOByDay`, params);
 
 //查询一段时间内某个产品异常数量（时间是月）
-export const getProExceptionByMouth= (params) => get(`getProExceptionByMouth`, params);
+export const getProExceptionByMouth= (params) => get(`allExceptionAndTime/getExceptionTypeAndTimeVOByMonth`, params);
 
 //查询一段时间内不同类型产品的异常数量（时间是天）
-export const getExceptionTypeByDay= (params) => get(`getExceptionTypeByDay`, params);
+export const getExceptionTypeByDay= (params) => get(`allExceptionAndTime/getAllExceptionTypeAndTimeVOByDay`, params);
 
 //查询一段时间内不同类型产品的异常数量（时间是月）
-export const getExceptionTypeByMouth = (params) => get(`getExceptionTypeByMouth`, params);
+export const getExceptionTypeByMouth = (params) => get(`allExceptionAndTime/getAllExceptionTypeAndTimeVOByMonth`, params);
 
 //查询一段时间内所有任务数量（时间是天）
 export const getTaskByDay= (params) => get(`getTaskByDay`, params);
@@ -69,8 +70,9 @@ export const getTaskTypeByDay= (params) => get(`getTaskTypeByDay`, params);
 export const getTaskTypeByMouth = (params) => get(`getTaskTypeByMouth`, params);
 
 
-//获取所有产品类型
-export const getProType= () => get(`productType/getAllProductType`);
+
+
+
 
 //获取所有用户
 export const getUser= () => get(`user/getalluser`);
