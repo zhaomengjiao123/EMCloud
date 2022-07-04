@@ -8,7 +8,7 @@
 
     </div>
     <div class="table" style="min-height: 500px">
-      <el-table :data="warningData" stripe>
+      <el-table :data="warningData" border stripe>
         <el-table-column label="设备编号" prop="equipment_number" />
         <el-table-column label="产品名称" prop="product_name" />
         <el-table-column label="预警信息" prop="warning_content" />

@@ -106,6 +106,18 @@ Vue.use(Router)
           path: '/equipment/cityMap',
           component: () => import('../components/equipment/equipment_cityMap.vue')
         },
+        {
+          path: '/equipment/emergency',
+          component: () => import('../components/equipment/equipment_emergencyWarningList.vue')
+        },
+        {
+          path: '/equipment/warning',
+          component: () => import('../components/equipment/equipment_warningList.vue')
+        },
+        {
+          path: '/equipment/erro',
+          component: () => import('../components/equipment/equipment_erroList.vue')
+        },
 
         {
           path: '/dataanalysis/exception',
@@ -123,10 +135,7 @@ Vue.use(Router)
           path: '/dataanalysis/taskanalysis',
           component: () => import('../components/dataanalysis/TaskAnalysis.vue')
         },
-        {
-          path: '/equipment/emergency',
-          component: () => import('../components/equipment/equipment_emergencyWarningList.vue')
-        },
+
           {
           path: '/user/superadmin',
           component: () => import('../components/user/SuperAdmin.vue')

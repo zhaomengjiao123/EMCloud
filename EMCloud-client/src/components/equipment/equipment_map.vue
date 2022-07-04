@@ -1,6 +1,8 @@
 <template>
   <div class="contents" id="bigScreen">
 
+    <div class="full-screen" @click="enlarge" style="color: white">全屏</div>
+
     <div class="content_left">
       <div class="content_left_1">
         <TitleWrap title="设备总览">
@@ -16,7 +18,7 @@
 
     <div class="content_center">
         <TitleWrap title="分布地图">
-        <el-button type="text" size="large" class="back" @click="back" v-if="deepTree.length > 1">返回</el-button>
+        <el-button class="mapBack" type="text" size="large" @click="back" v-if="deepTree.length > 1">返回</el-button>
         <div id="map" class="echart-map" :style="{ height: '90%', width: '100%' }"></div>
         </TitleWrap>
     </div>
@@ -28,7 +30,7 @@
         </TitleWrap>
       </div>
       <div class="content_right_2">
-        <TitleWrap title="告警提醒">
+        <TitleWrap title="报警统计">
           <RightCenter></RightCenter>
         </TitleWrap>
       </div>
@@ -93,6 +95,7 @@ export default {
   },
   data() {
     return {
+      // FullScreen:false,
       chart: null, // 实例化echarts
       mapDataList: [], // 当前地图上的地区
       option: {...mapOption.basicOption}, // map的相关配置
@@ -327,7 +330,8 @@ export default {
         return b.value - a.value
       });
       // 设置左上角当前位置
-      this.option.title[0].text = this.areaName
+      this.option.title[0].text = this.areaName=='china'?'中国':this.areaName
+      this.option.title[0].left = 'center'
       console.log("map:::",map)
       this.option.geo = {
         show: false,
@@ -578,8 +582,12 @@ export default {
     //background-image: url("../../assets/imgs/center_map.png");
     margin: 30px;
     width: 600px;
-    height: 400px;
+    height: 500px;
+    position: center;
     float: left;
+    .mapBack{
+      margin-left: 20px;
+    }
   }
 }
 .contents{

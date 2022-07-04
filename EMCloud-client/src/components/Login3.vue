@@ -61,7 +61,7 @@ export default {
       userData.append('user_phone', this.loginForm.user_phone)
       userData.append('user_passwd', this.loginForm.user_passwd)
       this.$http//用this.$axios就代表main.js中的Vue.prototype.$axios = axios的axios
-        .post('user/login', userData)
+        .post('http://121.5.74.11:8080/user/login', userData)
         .then((res) => {//回调函数当post成功后执行
           if (res.data.code === 0) {//如果后端返回的状态码是0，失败
             this.$message.error('登陆失败！');

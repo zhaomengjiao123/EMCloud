@@ -7,7 +7,7 @@
       <el-button type="primary" size="mini" @click="back">返回</el-button>
     </div>
     <div class="table" style="min-height: 500px">
-      <el-table :data="emergencyData" stripe>
+      <el-table :data="emergencyData" border stripe>
         <el-table-column label="设备编号" prop="equipment_number" />
         <el-table-column label="产品名称" prop="product_name" />
         <el-table-column label="紧急警告信息" prop="emergency_warning_content" />

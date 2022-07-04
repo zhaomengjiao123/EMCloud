@@ -19,7 +19,10 @@ export const getOnlineAndNotOnlineEquipmentNum = () => get(`equipment/getOnlineA
 export const getAllEquipmentCount = () => get(`equipment/getAllEquipmentCount`)
 //查询全部的异常数量
 export const getAllExceptionCount = () => get(`equipment/getAllExceptionCount`)
-
+//查询大屏设备轮播图信息
+export const getBigScreenEquipmentInfo = () => get(`equipment/getBigScreenEquipmentInfo`)
+//查询每个城市的所有设备的报警数量
+export const getErroCountOfAllCity = () => get('equipmentErro/getErroCountOfAllCity')
 
 
 
