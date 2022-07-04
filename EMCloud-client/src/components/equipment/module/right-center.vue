@@ -1,7 +1,6 @@
 <template>
   <div class="right_center">
     <dv-scroll-ranking-board :config="config" style="width:98%;height:90%" />
-<!--    <dv-capsule-chart :config="config" style="width:100%;height:100%" />-->
   </div>
 </template>
 
@@ -30,94 +29,9 @@ export default {
     this.getData()
 
   },
-  computed:{
-    // config: {
-    //   showValue: true,
-    //   carousel: 'single',
-    //   rowNum: 4,
-    //   sort: true,
-    //   unit: "次",
-    //   waitTime: 2000,
-    //   data: [
-    //     {
-    //       name: 'ss',
-    //       value: 22
-    //     },
-    //     {
-    //       name:'ss',
-    //       value:80
-    //     }
-    //     ,
-    //     {
-    //       name:'ss',
-    //       value:90
-    //     }
-    //     ,
-    //     {
-    //       name:'ss',
-    //       value:10
-    //     }
-    //     ,
-    //     {
-    //       name:'ss',
-    //       value:50
-    //     },
-    //     {
-    //       name:'yy',
-    //       value:50
-    //     }
-    //     ,
-    //     {
-    //       name:'ss',
-    //       value:50
-    //     }
-    //   ]
-    // },
-
-  },
+  computed:{},
   mounted() {
-    // this.config={
-    //   showValue: true,
-    //   carousel: 'single',
-    //   rowNum: 4,
-    //   sort: true,
-    //   unit: "次",
-    //   waitTime: 200,
-    //   data: [
-    //     {
-    //       name: 'ss',
-    //       value: 22
-    //     },
-    //     {
-    //       name:'yy',
-    //       value:80
-    //     }
-    //     ,
-    //     {
-    //       name:'hh',
-    //       value:90
-    //     }
-    //     ,
-    //     {
-    //       name:'ii',
-    //       value:10
-    //     }
-    //     ,
-    //     {
-    //       name:'pp',
-    //       value:50
-    //     },
-    //     {
-    //       name:'nn',
-    //       value:50
-    //     }
-    //     ,
-    //     {
-    //       name:'aa',
-    //       value:50
-    //     }
-    //   ]
-    // }
+
   },
   methods:{
 
@@ -135,12 +49,10 @@ export default {
       let looper = (a) => {
         this.getData()
       };
-      this.timer = setInterval(looper, this.$store.state.setting.echartsAutoTime);
+      this.timer = setInterval(looper, 5000);
     },
     getData() {
       this.pageflag = true
-      // this.pageflag =false
-     // currentGET('big7', { gatewayno: this.gatewayno }).then(res => {
       getErroCountOfAllCity().then(res=>{
         console.log("ErroCountCity:",res)
         this.config = {
@@ -149,9 +61,6 @@ export default {
         }
       })
 
-        if (!this.timer) {
-          //console.log('报警排名', res);
-        }
         if (true) {
           // this.config = {
           //   ...this.config,

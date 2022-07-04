@@ -9,12 +9,20 @@ export const getWarningByCid = (params) => get(`equipmentWarning/getWarningByCid
 export const getErroByCid = (params) => get(`equipmentErro/getErroByCid`,params)
 export const getEmergencyByCid = (params) => get(`equipmentEmergency/getEmergencyByCid`,params)
 
+//================>地图数据接口
+//查询某个城市的地图数据
+export const getMapJson = (params) => get(`util/getMapJson`,params)
+
 //================>设备统计接口大屏
 export const getEquipmentCountOfCompany = () => get(`equipment/getEquipmentCountOfCompany`)
+//查询每个城市的设备数量
+export const getAllEquipmentNumAndCity = () => get('equipment/getAllEquipmentNumAndCity')
 export const getWarningNumByCid = (params) => get(`equipment/getWarningNumByCid`,params)
 export const getErroNumByCid = (params) => get(`equipment/getErroNumByCid`,params)
 export const getEmergencyNumByCid = (params) => get(`equipment/getEmergencyNumByCid`,params)
 export const getOnlineAndNotOnlineEquipmentNum = () => get(`equipment/getOnlineAndNotOnlineEquipmentNum`)
+//查询有异常的设备的数量
+export const getAbnormalEquipmentNum = () => get('equipment/getAbnormalEquipmentNum')
 //查询全部的设备数量
 export const getAllEquipmentCount = () => get(`equipment/getAllEquipmentCount`)
 //查询全部的异常数量
