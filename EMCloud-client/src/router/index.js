@@ -10,8 +10,10 @@ Vue.use(Router)
       redirect: '/shouye'
     },
     {
+      // path: '/login',
+      // component: Login
       path: '/login',
-      component: Login
+      component: () => import('../components/Login.vue')
     },
     {
       path: '/logon',

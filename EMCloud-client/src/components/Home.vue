@@ -49,6 +49,7 @@ export default {
         "101": "iconfont icon-shangpin",
         "102": "iconfont icon-danju",
         "406": "iconfont icon-baobiao",
+        "72c": "iconfont icon-user",
       },
       isCollapse: false,
       menuData2: [
@@ -176,6 +177,29 @@ export default {
           id: "406",
           order: 2,
           path: "dataanalysis"
+        },
+        {
+          authName: "用户管理",
+          children: [
+            {
+              authName: "超级管理员管理用户",
+              id: '110',
+              path: "user/superadmin"
+            },
+            {
+              authName: "管理员管理用户",
+              id: '105',
+              path: "user/admin"
+            },
+            {
+              authName: "用户管理",
+              id: '105',
+              path: "user/user"
+            },
+          ],
+          id: "72c",
+          order: 2,
+          path: "user"
         },
         {
           authName: "设备管理",
