@@ -1,0 +1,2 @@
+webpackJsonp([11],{i1gl:function(e,n){},zbR7:function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var i={render:function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("\n  菜单管理\n")])},staticRenderFns:[]};var r=t("VU/8")({name:"menu"},i,!1,function(e){t("i1gl")},"data-v-270579a7",null);n.default=r.exports}});
+//# sourceMappingURL=11.6272cf91cfba52214db0.js.json

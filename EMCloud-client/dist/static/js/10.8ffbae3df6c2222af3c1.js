@@ -1,0 +1,2 @@
+webpackJsonp([10],{"BO3+":function(e,n){},cHDd:function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var r={render:function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("\n  告警处理\n")])},staticRenderFns:[]};var a=t("VU/8")({name:"pro_warn"},r,!1,function(e){t("BO3+")},"data-v-7b673765",null);n.default=a.exports}});
+//# sourceMappingURL=10.8ffbae3df6c2222af3c1.js.json

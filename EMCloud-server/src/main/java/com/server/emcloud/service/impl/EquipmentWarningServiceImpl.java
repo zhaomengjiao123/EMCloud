@@ -25,4 +25,9 @@ public class EquipmentWarningServiceImpl implements EquipmentWarningService {
     public List<EquipmentWarningVO> getWarningByCid(int company_id) {
         return equipmentWarningMapper.getWarningByCid(company_id);
     }
+
+    @Override
+    public int getAllWarningCount() {
+        return equipmentWarningMapper.getAllWarningCount();
+    }
 }

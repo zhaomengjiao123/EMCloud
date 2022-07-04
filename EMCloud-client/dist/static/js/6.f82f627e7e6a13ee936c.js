@@ -1,0 +1,2 @@
+webpackJsonp([6],{"+af2":function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var a={render:function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("\n  销售管理\n")])},staticRenderFns:[]};var r=t("VU/8")({name:"Sales"},a,!1,function(e){t("RvNL")},"data-v-ddd61826",null);n.default=r.exports},RvNL:function(e,n){}});
+//# sourceMappingURL=6.f82f627e7e6a13ee936c.js.json

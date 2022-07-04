@@ -10,8 +10,7 @@ package com.server.emcloud.controller;
 
 import com.server.emcloud.domain.Company;
 import com.server.emcloud.domain.Equipment;
-import com.server.emcloud.service.CompanyService;
-import com.server.emcloud.service.EquipmentService;
+import com.server.emcloud.service.*;
 import com.server.emcloud.utils.Consts;
 import com.server.emcloud.vo.EquipmentCountOfCompanyVO;
 import com.server.emcloud.vo.EquipmentNumAndCity;
@@ -31,6 +30,13 @@ public class EquipmentController {
 
     @Autowired
     private EquipmentService equipmentService;
+
+    @Autowired
+    private EquipmentWarningService equipmentWarningService;
+    @Autowired
+    private EquipmentErroService equipmentErroService;
+    @Autowired
+    private EquipmentEmergencyService equipmentEmergencyService;
 
     /**
      * 查询所有。由于前端需要展示的数据和数据库表不能对应，所以新建EquipmentVO对象表示前端需要的数据。
@@ -182,7 +188,7 @@ public class EquipmentController {
      * 要求返回：
      * 城市名：城市中所有设备的数量
      */
-    @GetMapping("/getAllEquipmentNumAndCity")
+    @RequestMapping(value = "/getAllEquipmentNumAndCity", method = RequestMethod.GET)
     public List<EquipmentNumAndCity> getAllEquipmentNumAndCity(){
         System.out.println("获取所有城市的设备数量");
         return equipmentService.getAllEquipmentNumAndCity();
@@ -254,5 +260,41 @@ public class EquipmentController {
         System.out.println("请求得到某公司的所有设备的紧急告警数量："+company_id);
         return equipmentService.getEmergencyNumByCid(new Integer(company_id));
     }
+
+    /**
+    * @Description: 请求得到全部的设备数量
+    * @Param: [request]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/7/2
+    */
+    @RequestMapping(value = "/getAllEquipmentCount",method = RequestMethod.GET)
+    public Object getAllEquipmentCount(HttpServletRequest request){
+        System.out.println("请求得到全部的设备数量");
+        return equipmentService.getAllEquipmentCount();
+    }
+
+    /**
+    * @Description: 请求得到全部的异常数量
+    * @Param: [request]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/7/2
+    */
+    @RequestMapping(value = "/getAllExceptionCount",method = RequestMethod.GET)
+    public Object getAllExceptionCount(HttpServletRequest request){
+        int exceptionCount = equipmentEmergencyService.getAllEmergencyCount()+equipmentErroService.getAllErroCount()
+                +equipmentWarningService.getAllWarningCount();
+        JSONObject jsonObject = new JSONObject();
+
+        System.out.println("请求得到全部的异常数量:"+exceptionCount);
+        jsonObject.put("exceptionCount", exceptionCount);
+
+        return jsonObject;
+    }
+
+
+
+
 
 }

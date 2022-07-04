@@ -15,6 +15,18 @@
           format="yyyy/MM/dd"
           value-format="yyyy-MM-dd"
         />
+        <el-select v-model="proType.proTypeData"
+                   @change="getOption"
+                   placeholder="请选择产品类型">
+          <el-option
+            v-for="item in optionData"
+            :key="item.product_type_id"
+            :label="item.product_type_name"
+            :value="item.product_type_id">
+          </el-option>
+        </el-select>
+
+
         <el-button-group class="block-button-picker">
           <el-button
             type="primary"
@@ -82,7 +94,13 @@
 <script>
 
 
-import {getExceptionByDay, getExceptionByMouth, getExceptionTypeByDay, getExceptionTypeByMouth} from "../../api";
+import {
+  getExceptionByDay,
+  getExceptionByMouth,
+  getExceptionTypeByDay,
+  getExceptionTypeByMouth, getProExceptionByDay, getProExceptionByMouth,
+  getProType
+} from "../../api";
 
 export default {
   name: "ExceptionAnalysis",
@@ -99,6 +117,13 @@ export default {
       form: {
         exceptionDate: '',
       },
+      proType: {
+        proTypeData: '',
+      },
+      optionData:[],
+      provalue:'',//类型id
+      prolabel:'',//类型名称
+      title:'',
       color: '#000',
       color1: ['#3AA1FF', '#64BAFF', '#48a5ff', '#3b88e1', '#336fc2', '#325ea1'],
       color2: ['#3fa1ff', '#78e7fc', '#23d8bc', '#7af0c8', '#77ca45', '#addf83', '#ffd05a', '#e88657', '#e55757', '#f7a798', '#a566fb'],
@@ -124,9 +149,9 @@ export default {
     this.chartAll = this.$echarts.init(document.getElementById('chartAll'))
     this.chartAll.setOption(this.optionAll)
 
-    //this.getDate(7);
+    this.getOptionInfo()
+    this.proType.proTypeData=0
     this.getExceptionInfoDefault("day",7)
-
 
   },
 
@@ -146,6 +171,8 @@ export default {
     },
 
     getExceptionInfoDefault(type,days){//默认
+      // this.provalue=this.proType.proTypeData
+      // console.log(this.provalue)
       this.getDate(days)
       this.getException(type)
       this.getExceptionType(type)
@@ -158,6 +185,23 @@ export default {
       this.getExceptionType(type)
     },
 
+    getOptionInfo(){
+      getProType()
+        .then(res => {
+          this.optionData=res;
+          this.optionData.push(
+            {
+              product_type_id:0,
+              product_type_name:"全部产品"
+            }
+          )
+        })
+    },
+
+    getOption (id) {
+      this.prolabel = this.optionData.find(item => item.product_type_id === id).product_type_name
+
+},
 
     getException(type) {
       let params = new URLSearchParams()
@@ -165,68 +209,139 @@ export default {
       params.append('endtime', this.endTime)
       this.xAxisData = [];
       this.yAxisData = [];
-      if (type==='day'){  //按天获取异常
-        this.xAxisData = this.getYearAndMonthAndDay(this.startTime, this.endTime)//获取x轴数据
-        getExceptionByDay(params)
-          .then(res => {
-            if (res) {
-              let time = []
-              for (let i = 0; i < res.list.length; i++) {//不同类型
-                time[i] = res.list[i].time//拿到所有的时间
-              }
-              ;
-              for (let i = 0; i < this.xAxisData.length; i++) {//不同类型
-                if (time.indexOf(this.xAxisData[i]) !== -1) {//判断该坐标轴数据是否在后端数据的时间里，如果没有，该坐标对应的数据为0
-                  this.yAxisData[i] = res.list[time.indexOf(this.xAxisData[i])].count;//如果在里面，就让y轴的值等于x轴数据在time位置那个数据的count
-                } else {
-                  this.yAxisData[i] = 0;
+      this.provalue=this.proType.proTypeData
+      console.log(this.provalue)
+      if(this.provalue==0){  //默认显示所有产品的异常数量
+        this.title="所有产品"
+        if (type==='day'){  //按天获取异常
+          this.xAxisData = this.getYearAndMonthAndDay(this.startTime, this.endTime)//获取x轴数据
+          getExceptionByDay(params)
+            .then(res => {
+              if (res) {
+                let time = []
+                for (let i = 0; i < res.list.length; i++) {//不同类型
+                  time[i] = res.list[i].time//拿到所有的时间
                 }
-              }
-              ;
-
-              this.chartLine.setOption(this.optionLine)
-              this.chartBar.setOption(this.optionBar)
-              window.addEventListener("resize", function () {
-                this.chartLine.resize();
-              }),
-                window.addEventListener("resize", function () {
-                  this.chartBar.resize();
-                })
-            }
-          })
-      }else if(type==='mouth'){ //按月获取异常
-        this.xAxisData = this.getYearAndMonth(this.startTime, this.endTime)
-        getExceptionByMouth(params)
-          .then(res => {
-            if (res) {
-              let time = []
-              for (let i = 0; i < res.list.length; i++) {//不同类型
-                time[i] = res.list[i].time
-              };
-              console.log(time)
-              for (let i = 0; i < this.xAxisData.length; i++) {//不同类型
-                if (time.indexOf(this.xAxisData[i]) !== -1) {
-                  this.yAxisData[i] = res.list[time.indexOf(this.xAxisData[i])].count;
-                  console.log(this.yAxisData[i])
-                } else {
-                  this.yAxisData[i] = 0;
+                ;
+                for (let i = 0; i < this.xAxisData.length; i++) {//不同类型
+                  if (time.indexOf(this.xAxisData[i]) !== -1) {//判断该坐标轴数据是否在后端数据的时间里，如果没有，该坐标对应的数据为0
+                    this.yAxisData[i] = res.list[time.indexOf(this.xAxisData[i])].count;//如果在里面，就让y轴的值等于x轴数据在time位置那个数据的count
+                  } else {
+                    this.yAxisData[i] = 0;
+                  }
                 }
-              };
-
-              this.chartLine.setOption(this.optionLine)
-              this.chartBar.setOption(this.optionBar)
-              window.addEventListener("resize", function () {
-                this.chartLine.resize();
-              }),
+                ;
+                this.chartLine.setOption(this.optionLine)
+                this.chartBar.setOption(this.optionBar)
                 window.addEventListener("resize", function () {
-                  this.chartBar.resize();
-                })
+                  this.chartLine.resize();
+                }),
+                  window.addEventListener("resize", function () {
+                    this.chartBar.resize();
+                  })
+              }
+            })
+        }else if(type==='mouth'){ //按月获取异常
+          this.xAxisData = this.getYearAndMonth(this.startTime, this.endTime)
+          getExceptionByMouth(params)
+            .then(res => {
+              if (res) {
+                let time = []
+                for (let i = 0; i < res.list.length; i++) {//不同类型
+                  time[i] = res.list[i].time
+                };
+                console.log(time)
+                for (let i = 0; i < this.xAxisData.length; i++) {//不同类型
+                  if (time.indexOf(this.xAxisData[i]) !== -1) {
+                    this.yAxisData[i] = res.list[time.indexOf(this.xAxisData[i])].count;
+                    console.log(this.yAxisData[i])
+                  } else {
+                    this.yAxisData[i] = 0;
+                  }
+                };
 
-            }
-          })
+                this.chartLine.setOption(this.optionLine)
+                this.chartBar.setOption(this.optionBar)
+                window.addEventListener("resize", function () {
+                  this.chartLine.resize();
+                }),
+                  window.addEventListener("resize", function () {
+                    this.chartBar.resize();
+                  })
+
+              }
+            })
+        }
+      }else{ //选择某个产品类型
+        this.title=this.prolabel;
+        params.append('product_type_id', this.provalue)
+        if (type==='day'){  //按天获取异常
+          this.xAxisData = this.getYearAndMonthAndDay(this.startTime, this.endTime)//获取x轴数据
+          getProExceptionByDay(params)
+            .then(res => {
+              if (res) {
+                let time = []
+                for (let i = 0; i < res.list.length; i++) {//不同类型
+                  time[i] = res.list[i].time//拿到所有的时间
+                }
+                ;
+                for (let i = 0; i < this.xAxisData.length; i++) {//不同类型
+                  if (time.indexOf(this.xAxisData[i]) !== -1) {//判断该坐标轴数据是否在后端数据的时间里，如果没有，该坐标对应的数据为0
+                    this.yAxisData[i] = res.list[time.indexOf(this.xAxisData[i])].count;//如果在里面，就让y轴的值等于x轴数据在time位置那个数据的count
+                  } else {
+                    this.yAxisData[i] = 0;
+                  }
+                }
+                ;
+
+                this.chartLine.setOption(this.optionLine)
+                this.chartBar.setOption(this.optionBar)
+                window.addEventListener("resize", function () {
+                  this.chartLine.resize();
+                }),
+                  window.addEventListener("resize", function () {
+                    this.chartBar.resize();
+                  })
+              }
+            })
+        }else if(type==='mouth'){ //按月获取异常
+          this.xAxisData = this.getYearAndMonth(this.startTime, this.endTime)
+          getProExceptionByMouth(params)
+            .then(res => {
+              if (res) {
+                let time = []
+                for (let i = 0; i < res.list.length; i++) {//不同类型
+                  time[i] = res.list[i].time
+                };
+                console.log(time)
+                for (let i = 0; i < this.xAxisData.length; i++) {//不同类型
+                  if (time.indexOf(this.xAxisData[i]) !== -1) {
+                    this.yAxisData[i] = res.list[time.indexOf(this.xAxisData[i])].count;
+                    console.log(this.yAxisData[i])
+                  } else {
+                    this.yAxisData[i] = 0;
+                  }
+                };
+
+                this.chartLine.setOption(this.optionLine)
+                this.chartBar.setOption(this.optionBar)
+                window.addEventListener("resize", function () {
+                  this.chartLine.resize();
+                }),
+                  window.addEventListener("resize", function () {
+                    this.chartBar.resize();
+                  })
+
+              }
+            })
+        }
+
       }
 
+
+
     },
+
 
     getExceptionType(type) {
       let params = new URLSearchParams()
@@ -432,7 +547,7 @@ export default {
     optionLine() {   //线形图的option
       return{
         title: {
-          text: '异常数量',
+          text:this.title+ '异常数量',
           textStyle: {
             color: '#1f2d3d'
           },
@@ -504,7 +619,7 @@ export default {
     optionBar() {     //柱状图的option
       return{
         title: {
-          text: '异常数量',
+          text: this.title+'异常数量',
           textStyle: {
             color: '#1f2d3d'
           },
@@ -575,7 +690,7 @@ export default {
     optionAll() {    //不同类型线形图的option
       return{
         title: {
-          text: '异常数量',
+          text: '不同类型产品异常数量',
           textStyle: {
             color: '#1f2d3d'
           },

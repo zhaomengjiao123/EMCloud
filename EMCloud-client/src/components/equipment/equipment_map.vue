@@ -1,27 +1,39 @@
 <template>
-<!--  <dv-full-screen-container>-->
-  <div class="contents">
-    <div class="header" >设备分布总览</div>
+  <div class="contents" id="bigScreen">
+
     <div class="content_left">
       <div class="content_left_1">
-      <dv-border-box1>
-        <Left></Left>
-      </dv-border-box1>
+        <TitleWrap title="设备总览">
+          <LeftTop></LeftTop>
+        </TitleWrap>
       </div>
       <div class="content_left_2">
-        <dv-border-box1>
+        <TitleWrap title="状态总览">
           <LeftCenter></LeftCenter>
-        </dv-border-box1>
+        </TitleWrap>
       </div>
-
     </div>
+
     <div class="content_center">
-<!--      <dv-border-box1>-->
+        <TitleWrap title="分布地图">
         <el-button type="text" size="large" class="back" @click="back" v-if="deepTree.length > 1">返回</el-button>
-        <div id="map" class="echart-map" :style="{ height: '100%', width: '100%' }" ref="myEchart"></div>
+        <div id="map" class="echart-map" :style="{ height: '90%', width: '100%' }"></div>
+        </TitleWrap>
+    </div>
+
+    <div class="content_right">
+      <div class="content_right_1">
+        <TitleWrap title="设备提醒">
+          <RightTop></RightTop>
+        </TitleWrap>
+      </div>
+      <div class="content_right_2">
+        <TitleWrap title="告警提醒">
+          <RightCenter></RightCenter>
+        </TitleWrap>
+      </div>
     </div>
   </div>
-<!--  </dv-full-screen-container>-->
 </template>
 
 <script>
@@ -33,14 +45,17 @@ import cityData from "../../assets/map/china_city.json"
 import "../../libs/utils"
 import axios from "axios";
 import resize from "../../libs/resize";
-import Left from "./module/left";
+import LeftTop from "./module/left-top";
 import LeftCenter from './module/left-center'
-
+import {formatTime} from "../../libs/utils";
+import RightTop from "./module/right-top"
+import TitleWrap from "./module/title-wrap"
+import RightCenter from "./module/right-center"
 
 export default {
   name: "equipment_map",
   mixins:[resize],
-  components: {LeftCenter, Left},
+  components: {LeftCenter, LeftTop, RightTop, TitleWrap, RightCenter},
   props: {
     areaCode: {
       type: String,
@@ -93,20 +108,20 @@ export default {
       },
       tooltipAutoplay: null, // 提示框自动播放
       tooltipAutoplayIndex: 0, // 提示框自动播放index
-      tempData :[			//模拟数据
-        // {name:'北京',value:'20'},
-        // {name:'济南',value:'170'},
-        // {name:'枣庄',value:'10'},
-        // {name:'深圳',value:'50'},
-        // {name:'齐齐哈尔',value:'90'},
-        // {name: '潍坊',value: '70'}
-      ],
+      tempData :[],
       numData:[],
       paramsMap:{
         areaCode:'',
         areaLevel:'',
         areaName:''
-      }
+      },
+      timing: null,
+      loading: true,
+      dateDay: null,
+      dateYear: null,
+      dateWeek: null,
+      weekday: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
+
 
     }
   },
@@ -116,7 +131,6 @@ export default {
     },
   },
   created() {
-    //this.getCityEquipmentNum()
   },
   beforeDestroy() {
     if (!this.chart) {
@@ -127,12 +141,13 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.getCityEquipmentNum()
+      this.getCityEquipmentNum();
       this.initEcharts();
       this.chart.on('click', this.echartsMapClick);
       this.chart.on('mouseover', this.echartsMapMouseover);
       this.chart.on('mouseout', this.echartsMapMouseout);
     });
+    this.timeFn();
   },
   watch: {
     areaStatistic: {
@@ -145,13 +160,65 @@ export default {
         this.areaStatisticMapValue = objValue
         this.areaStatisticMapData = objData
         this.getCityEquipmentNum()
-        //this.initEcharts()
       },
       deep: true,
     }
   },
   methods: {
-    // 初次加载绘制地图
+
+    //点击全屏事件
+    enlarge() {
+      let element = document.getElementById("mapCodeID"); //需要全屏容器的id
+      // 浏览器兼容
+      if (this.FullScreen) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitCancelFullScreen) {
+          document.webkitCancelFullScreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+      } else {
+        if (element.requestFullscreen) {
+          element.requestFullscreen();
+        } else if (element.webkitRequestFullScreen) {
+          element.webkitRequestFullScreen();
+        } else if (element.mozRequestFullScreen) {
+          element.mozRequestFullScreen();
+        } else if (element.msRequestFullscreen) {
+          element.msRequestFullscreen();
+        }
+      }
+      this.FullScreen = !this.FullScreen;
+    },
+
+    timeFn() {
+      this.timing = setInterval(() => {
+        this.dateDay = formatTime(new Date(), "HH: mm: ss");
+        this.dateYear = formatTime(new Date(), "yyyy-MM-dd");
+        this.dateWeek = this.weekday[new Date().getDay()];
+      }, 1000);
+    },
+
+    // 方法
+//     initEchartsM () {
+//   // 新建一个promise对象
+//   let newPromise = new Promise((resolve) => {
+//     resolve()
+//   });
+//
+//   //然后异步执行echarts的初始化函数
+//   newPromise.then(() => {
+//     //	此dom为echarts图标展示dom
+//     this.chart = this.$echarts.init(document.getElementById('map'));
+//   });
+//
+// },
+
+
+// 初次加载绘制地图
     initEcharts() {
       //this.getCityEquipmentNum();
       //地图容器
@@ -165,14 +232,13 @@ export default {
     //查询城市设备数量
     getCityEquipmentNum(){
       axios.get("http://121.5.74.11:8080/equipment/getAllEquipmentNumAndCity").then(res=>{
-        console.log("NUM:",res.data)
         this.numData = res.data
-        console.log("CITYDATA:",this.numData.length)
         this.initEcharts()
       })
     },
     // 地图点击
     echartsMapClick(params) {
+      console.log("点击拉尔电联寄lack那上次男盗女娼进度才能")
       console.log("MAP:",params)
       china.features.forEach(item => {
         if (item.properties.name === params.name) {
@@ -315,12 +381,13 @@ export default {
           cursor: "pointer", 			//鼠标放上去的效果
           data: this.getPointData(this.numData),
           symbolSize: function (val) {
-             return val[2]*10 ;
+             return val[2] ;
           },
           showEffectOn: 'render', //加载完毕显示特效
         },
       ]
       //渲染地图
+
       this.chart.setOption(this.option, true)
       window.onresize = function(){
         this.chart.resize();
@@ -366,13 +433,10 @@ export default {
       console.log("HHHHH",this.numData.length)
       let geoCoordMap = {}
       let mapFeatures = this.$echarts.getMap('china').geoJson.features;	//获取全国地区的经纬度（只包含了一级城市、省份经纬度）
-      //this.chart.json.hideLoading();			//隐藏loading样式
-      //console.log("MAPfeatures:",mapFeatures)
       mapFeatures.forEach(function (v) { //获取一级城市、省份经纬度
         let name = v.properties.name; // 地区名称
         let value = v.properties.cp;
         geoCoordMap[name] = value; // 地区经纬度
-        //console.log("name:",name,"LT:",geoCoordMap[name])
       });
 
       let tempRes = [];
@@ -392,7 +456,6 @@ export default {
           tempRes[i].value.unshift(tempGeoCoord[0].lng)
         }
       }
-      console.log("TEMRES:",tempRes)
       return tempRes;
     }
   }
@@ -411,28 +474,111 @@ export default {
   background-size: cover;
   height: 100%;
   width: 100%;
-  .header{
-    width: 100%;
-    height: 50px;
-    color: white;
-    text-align: center;
+  //.header{
+  //  width: 100%;
+  //  height: 50px;
+  //  color: white;
+  //  text-align: center;
+  //
+  //}
 
+
+  .host-body {
+    height: 100%;
+    .title_wrap {
+      height: 60px;
+      background-image: url("../../assets/imgs/top.png");
+      background-size: cover;
+      background-position: center center;
+      position: relative;
+      margin-bottom: 4px;
+      //.guang {
+      //  position: absolute;
+      //  bottom: -26px;
+      //  background-image: url("../../assets/imgs/guang.png");
+      //  background-position: 80px center;
+      //  width: 100%;
+      //  height: 56px;
+      //}
+
+      //.zuojuxing,
+      //.youjuxing {
+      //  position: absolute;
+      //  top: -2px;
+      //  width: 140px;
+      //  height: 6px;
+      //  background-image: url("../../assets/imgs/headers/juxing1.png");
+      //}
+
+      .zuojuxing {
+        left: 11%;
+      }
+      .youjuxing {
+        right: 11%;
+        transform: rotate(180deg);
+      }
+
+      .timers {
+        position: absolute;
+        right: 0;
+        top: 30px;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+
+        //.blq-icon-shezhi02 {
+        //  cursor: pointer;
+        //}
+      }
+    }
+
+    .title {
+      position: relative;
+      // width: 500px;
+      text-align: center;
+      background-size: cover;
+      color: transparent;
+      height: 60px;
+      line-height: 46px;
+
+      .title-text {
+        font-size: 38px;
+        font-weight: 900;
+        letter-spacing: 6px;
+        width: 100%;
+        background: linear-gradient(92deg, #0072FF 0%, #00EAFF 48.8525390625%, #01AAFF 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
   }
 
+
   .content_left{
-    width: 220px;
+    width: 300px;
     float: left;
     .content_left_1,
     .content_left_2{
-      //margin-top: 40px;
+      margin-top: 40px;
       height: 210px;
     }
   }
+
+  .content_right{
+    width: 300px;
+    float: right;
+    .content_right_1,
+    .content_right_2{
+      margin-top: 40px;
+      height: 210px;
+    }
+  }
+
   .content_center{
     //background-image: url("../../assets/imgs/center_map.png");
-    margin: 20px;
-    width: 900px;
-    height: 500px;
+    margin: 30px;
+    width: 600px;
+    height: 400px;
     float: left;
   }
 }

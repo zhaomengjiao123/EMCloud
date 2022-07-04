@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.server.emcloud.dao.DepartMapper">
+    <resultMap id="BaseResultMap" type="com.server.emcloud.domain.Depart" >
+        <result column="company_id" property="company_id" jdbcType="INTEGER" />
+        <result column="depart_id" property="depart_id" jdbcType="INTEGER" />
+        <result column="depart_name" property="depart_name" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="Base_Column_List">
+        company_id,depart_id,depart_name
+    </select>
+
+
+    <select id="getAllDepart" resultMap="BaseResultMap">
+        select *
+        from emdb_depart
+    </select>
+
+    <select id="getDepartByCompany" resultMap="BaseResultMap">
+        select *
+        from emdb_depart
+        where company_id= #{company_id}
+    </select>
+
+</mapper>

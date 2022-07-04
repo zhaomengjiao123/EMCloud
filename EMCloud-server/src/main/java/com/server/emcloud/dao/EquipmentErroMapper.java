@@ -17,5 +17,7 @@ public interface EquipmentErroMapper {
 
     //根据公司ID查询所有该公司所有设备的报警信息
     List<EquipmentErroVO> getErroByCid(int company_id);
+    //查询全部的报警数量
+    int getAllErroCount();
 
 }

@@ -1,22 +1,30 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '../components/Login.vue'
+import Login from '../components/Login3.vue'
 
 Vue.use(Router)
 //ES6的import方法实现路由懒加载
   const routes =  [
     {
       path: '/',
-      redirect: '/login'
+      redirect: '/shouye'
     },
     {
       path: '/login',
       component: Login
     },
     {
+      path: '/logon',
+      component: () => import('../components/Logon.vue')
+    },
+    {
+      path: '/shouye',
+      component: () => import('../components/Home2.vue')
+    },
+    {
       path: '/home',
       component: () => import('../components/Home.vue'),
-      redirect: '/welcome',
+      //redirect: '/welcome',
       children: [
         {
           path: '/welcome',
@@ -98,17 +106,38 @@ Vue.use(Router)
           path: '/equipment/cityMap',
           component: () => import('../components/equipment/equipment_cityMap.vue')
         },
+
         {
-          path: '/equipment/warning',
-          component: () => import('../components/equipment/equipment_warningList.vue')
+          path: '/dataanalysis/exception',
+          component: () => import('../components/dataanalysis/Exception.vue')
         },
         {
-          path: '/equipment/erro',
-          component: () => import('../components/equipment/equipment_erroList.vue')
+          path: '/dataanalysis/exceptionanalysis',
+          component: () => import('../components/dataanalysis/ExceptionAnalysis.vue')
+        },
+        {
+          path: '/dataanalysis/task',
+          component: () => import('../components/dataanalysis/Task.vue')
+        },
+        {
+          path: '/dataanalysis/taskanalysis',
+          component: () => import('../components/dataanalysis/TaskAnalysis.vue')
         },
         {
           path: '/equipment/emergency',
           component: () => import('../components/equipment/equipment_emergencyWarningList.vue')
+        },
+          {
+          path: '/user/superadmin',
+          component: () => import('../components/user/SuperAdmin.vue')
+        },
+        {
+          path: '/user/admin',
+          component: () => import('../components/user/Admin.vue')
+        },
+        {
+          path: '/user/user',
+          component: () => import('../components/user/User.vue')
         },
       ]
     }
