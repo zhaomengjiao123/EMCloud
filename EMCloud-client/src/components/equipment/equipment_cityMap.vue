@@ -3,7 +3,6 @@
   <div class="content" >
 <!--    <div class="info">-->
       <dv-border-box8 class="info">
-<<<<<<< HEAD
         <div class="header" >
           {{company.company_name}}公司
         </div>
@@ -14,22 +13,6 @@
               预警数
             </p>
             <span>{{warningNum}}</span>
-=======
-        <div class="up">
-          <div
-            class="bg-color-black item"
-            v-for="item in titleItem"
-            :key="item.title" @click="test">
-            <p class="colorBlue fw-b" style="text-align: center;color: white">
-              {{ item.title }}
-            </p>
-            <span>{{item.number}}</span>
-            <div>
-              <dv-digital-flop
-                :config="item.number"
-                style="width:100%; height: 100%; text-align: center" />
-              <!-- padding:0rem 0.9rem 0rem 0.9rem; -->
->>>>>>> b8a4ca62808d71934c6fae2f8a46e691c26817b4
             </div>
           <div
             class="item-erro" @click="toInfoList">
@@ -38,7 +21,6 @@
             </p>
             <span>{{erroNum}}</span>
           </div>
-<<<<<<< HEAD
           <div
             class="item-emergency" @click="toInfoList">
             <p class="colorBlue fw-b" style="text-align: center;color: red">
@@ -48,12 +30,8 @@
           </div>
           </div>
         <el-button class="moreBtn" type="primary" size="mini">查看更多>></el-button>
-=======
-        </div>>
->>>>>>> b8a4ca62808d71934c6fae2f8a46e691c26817b4
 
       </dv-border-box8>
-<!--    </div>-->
     <div id="bmap" class="bmap" :style="{ height: '100%', width: '100%' }">城市地图</div>
 
   </div>
@@ -73,7 +51,6 @@ export default {
   name: "equipment_cityMap",
   data() {
     return {
-<<<<<<< HEAD
       company:{
         company_name:' ',
         company_id:' '
@@ -88,76 +65,6 @@ export default {
       erroNum:'0',
       emergencyNum:'0',
       companyEquipmentData:[],
-=======
-      cityMap: null,
-      option: {},
-      titleItem: [
-        {
-          title: "报警警告",
-          number: {
-            number: [120],
-            toFixed: 1,
-            content: "{nt}",
-            style: {
-              fontSize: 15,
-              fill: "#ffffff",
-            },
-          },
-        },
-        {
-          title: "预警警告",
-          number: {
-            number: [18],
-            toFixed: 1,
-            content: "{nt}",
-            style: {
-              fontSize: 15,
-              fill: "#3de7c9",
-            },
-          },
-        },
-        {
-          title: "紧急警告",
-          number: {
-            number: [2],
-            toFixed: 1,
-            content: "{nt}",
-            style: {
-              fontSize: 15,
-              fill: "#3de7c9",
-            },
-          },
-        },
-
-      ],
-      config: {
-        header: ["主办单位", "数量"],
-        data: [
-          ['<span style="color:#9fe6b8;">海淀区政府</span>', "23"],
-          ['<span style="color:#9fe6b8;">市发展改革委</span>', "26"],
-          ['<span style="color:#9fe6b8;">市民政局</span>', "35"],
-          ['<span style="color:#9fe6b8;">市城市管理委</span>', "39"],
-          ['<span style="color:#9fe6b8;">市规划自然资源委</span>', "39"],
-          ['<span style="color:#9fe6b8;">市住房城乡建设委</span>', "45"],
-          ['<span style="color:#9fe6b8;">市公安局</span>', "53"],
-          ['<span style="color:#9fe6b8;">市教委</span>', "55"],
-          ['<span style="color:#9fe6b8;">市卫生健康委</span>', "60"],
-          ['<span style="color:#9fe6b8;">市交通委</span>', "153"],
-        ],
-        rowNum: 5, //表格行数
-        headerHeight: 35,
-        headerBGC: "#0f1325", //表头
-        oddRowBGC: "#0f1325", //奇数行
-        evenRowBGC: "#171c33", //偶数行
-        index: true,
-        columnWidth: [30,150,50],
-        align: ["center"],
-        waitTime: 3000,
-        carousel: "page",
-      },
-
-
->>>>>>> b8a4ca62808d71934c6fae2f8a46e691c26817b4
     }
 
   },
@@ -169,19 +76,16 @@ export default {
       loadBMap("XMpRSRWH7DbM5A5gL8ShHhWWOG2XAuIg").then(() => {
         this.initEcharts()
       });
-        this.cityMap.on('click', this.cityMapClick);
+
     })
 
   },
-<<<<<<< HEAD
   watch:{
 
   },
   computed:{
 
   },
-=======
->>>>>>> b8a4ca62808d71934c6fae2f8a46e691c26817b4
   methods: {
     // 初次加载绘制地图
     initEcharts() {
@@ -233,7 +137,6 @@ export default {
       // 点击每个站点可以进行相关操作
       let _this=this
       this.cityMap.on('click', function (e) {
-<<<<<<< HEAD
         console.log("EEE:",e.data)
         console.log("信息:",e.data.company_name) //  每个标识点的信息
         console.log("Company_name:",_this.company.company_name) //  每个标识点的信息
@@ -246,19 +149,12 @@ export default {
         _this.getCompanyEmergencyNum()
 
 
-=======
-        console.log(e) //  每个标识点的信息
->>>>>>> b8a4ca62808d71934c6fae2f8a46e691c26817b4
       })
 
     },
-    cityMapClick(params){
-      //console.log("点击的点是；",)
-      console.log("KKKK:",params.name)
-    },
-    test(params){
+
+    toInfoList(params){
       console.log("click:",params.target.innerText)
-<<<<<<< HEAD
       let type = params.target.innerText
       if(type== "预警数"||type=="报警数"||type=="紧急警告数") {
         if (this.company.company_id == ' ') {
@@ -351,8 +247,6 @@ export default {
         }
       }
       return tempRes;
-=======
->>>>>>> b8a4ca62808d71934c6fae2f8a46e691c26817b4
     }
 
   }
@@ -368,12 +262,11 @@ export default {
     position: relative;
     float: left;
     width: 200px;
-    height: 400px;
+    height: 200px;
     //background-color: gray;
     background: rgba(255, 255, 255, 0.7);
     z-index: 5;
 
-<<<<<<< HEAD
     .header {
       color: darkorange;
       text-align: center;
@@ -382,8 +275,6 @@ export default {
       font-size: 20px;
     }
 
-=======
->>>>>>> b8a4ca62808d71934c6fae2f8a46e691c26817b4
     .up {
       width: 100%;
       display: flex;
@@ -414,18 +305,17 @@ export default {
         border-radius: 5px;
         padding-top: 5px;
         margin-top: 5px;
-<<<<<<< HEAD
         width: 100%;
         height: 40px;
         font-size: 12px;
         text-align: center;
         color: red;
-=======
-        width: 100px;
-        height: 20px;
-        font-size: 10px;
->>>>>>> b8a4ca62808d71934c6fae2f8a46e691c26817b4
       }
+    }
+
+    .moreBtn {
+      margin: 60px;
+      position: center;
     }
   }
   .bmap{

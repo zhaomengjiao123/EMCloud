@@ -124,11 +124,10 @@ Vue.use(Router)
           component: () => import('../components/dataanalysis/TaskAnalysis.vue')
         },
         {
-<<<<<<< HEAD
           path: '/equipment/emergency',
           component: () => import('../components/equipment/equipment_emergencyWarningList.vue')
-        }
-=======
+        },
+          {
           path: '/user/superadmin',
           component: () => import('../components/user/SuperAdmin.vue')
         },
@@ -140,7 +139,6 @@ Vue.use(Router)
           path: '/user/user',
           component: () => import('../components/user/User.vue')
         },
->>>>>>> b8a4ca62808d71934c6fae2f8a46e691c26817b4
       ]
     }
   ]
