@@ -85,4 +85,9 @@ public class EquipmentServiceImpl  implements EquipmentService {
     public List<EquipmentVO> getBigScreenEquipmentInfo() {
         return equipmentMapper.getBigScreenEquipmentInfo();
     }
+
+    @Override
+    public int getAbnormalEquipmentNum() {
+        return equipmentMapper.getAbnormalEquipmentNum();
+    }
 }

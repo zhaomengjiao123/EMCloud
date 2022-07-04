@@ -42,7 +42,7 @@ public class EquipemntErroController {
     * @Param: [request]
     * @return: java.lang.Object
     * @Author: zmj
-    * @Date: 2022/7/4
+    * @Date: 2022/7/5
     */
     @RequestMapping(value = "/getErroCountOfAllCity",method = RequestMethod.GET)
     public Object getErroCountOfAllCity(HttpServletRequest request){

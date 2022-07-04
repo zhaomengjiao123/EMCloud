@@ -306,6 +306,22 @@ public class EquipmentController {
         return equipmentService.getBigScreenEquipmentInfo();
     }
 
+    /**
+    * @Description: 查询有异常的设备的数量
+    * @Param: [request]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/7/5
+    */
+    @RequestMapping(value = "/getAbnormalEquipmentNum",method = RequestMethod.GET)
+    public Object getAbnormalEquipmentNum(HttpServletRequest request){
+        int abnormalEquipmentCount = equipmentService.getAbnormalEquipmentNum();
+        JSONObject jsonObject = new JSONObject();
+        System.out.println("请求得到有异常的设备的数量:"+abnormalEquipmentCount);
+        jsonObject.put("abnormalEquipmentCount", abnormalEquipmentCount);
+        return jsonObject;
+    }
+
 
 
 

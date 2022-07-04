@@ -51,4 +51,7 @@ public interface EquipmentMapper {
     //查询大屏轮播图设备信息
     List<EquipmentVO> getBigScreenEquipmentInfo();
 
+    //查询有异常的设备的数量
+    int getAbnormalEquipmentNum();
+
 }

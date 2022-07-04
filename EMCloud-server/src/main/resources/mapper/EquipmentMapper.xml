@@ -208,6 +208,14 @@ where a.equipment_id =#{equipment_id,jdbcType=INTEGER}
     FROM emdb_equipment e JOIN emdb_company c ON e.company_id=c.company_id
   </select>
 
+  <select id="getAbnormalEquipmentNum" resultType="java.lang.Integer">
+    SELECT COUNT(DISTINCT equipment_id) as num FROM
+      (
+          (SELECT equipment_id FROM emdb_equipment_erro) UNION (SELECT equipment_id FROM emdb_equipment_warning)
+          UNION (SELECT equipment_id FROM emdb_equipment_emergency_warning)
+      ) w
+  </select>
+
 
 
 
