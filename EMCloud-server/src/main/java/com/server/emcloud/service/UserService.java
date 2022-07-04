@@ -34,4 +34,8 @@ public interface UserService {
     public List<User> getUserOfPhone1(String user_phone);
 
     public boolean updateInfoSuperAdmin(User user);//超级管理员更新用户信息
+
+    public List<User> getUserOfPhone2(String user_phone);
+
+    public List<User> getUserOfPhone3(String user_phone, String company_id);
 }

@@ -72,6 +72,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getUserOfPhone2(String user_phone) {
+        return userMapper.getUserOfPhone2(user_phone);
+    }
+
+    @Override
+    public List<User> getUserOfPhone3(String user_phone, String company_id) {
+        return userMapper.getUserOfPhone3(user_phone,company_id);
+    }
+
+    @Override
     public User getUserOfPhone(String user_phone) {
         return userMapper.getUserOfPhone(user_phone);
     }
