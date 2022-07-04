@@ -1,5 +1,4 @@
 package com.server.emcloud.controller;
-
 import com.server.emcloud.domain.User;
 import com.server.emcloud.service.UserService;
 import com.server.emcloud.utils.Consts;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.IdentityHashMap;
 import java.util.List;
 
 @RestController
@@ -78,10 +78,12 @@ public class UserController {
         System.out.println(user_name);
         String user_phone = req.getParameter("user_phone").trim();
         String user_tele = req.getParameter("user_tele").trim();
-        String user_company = req.getParameter("user_company").trim();
-        String user_depart = req.getParameter("user_depart").trim();
+//        String user_company = req.getParameter("user_company").trim();
+//        String user_depart = req.getParameter("user_depart").trim();
+        String company_id = req.getParameter("company_id").trim();
+        String depart_id = req.getParameter("depart_id").trim();
         String user_passwd = req.getParameter("user_passwd").trim();
-       // String user_auth = req.getParameter("user_auth").trim();
+        // String user_auth = req.getParameter("user_auth").trim();
 
         User user1=new User();
         user1=userService.getUserOfPhone(user_phone);
@@ -101,8 +103,8 @@ public class UserController {
             user.setUser_name(user_name);
             user.setUser_phone(user_phone);
             user.setUser_tele(user_tele);
-            user.setUser_company(Integer.parseInt(user_company));
-            user.setUser_depart(Integer.parseInt(user_depart));
+            user.setCompany_id(Integer.parseInt(company_id));
+            user.setDepart_id(Integer.parseInt(depart_id));
             user.setUser_passwd(user_passwd);
             user.setUser_auth(3);//用户默认权限为3（普通用户，超级管理员可以修改权限）
 
@@ -134,10 +136,11 @@ public class UserController {
         String user_name = req.getParameter("user_name").trim();
         String user_phone = req.getParameter("user_phone").trim();
         String user_tele = req.getParameter("user_tele").trim();
-        String user_company = req.getParameter("user_company").trim();
-        String user_depart = req.getParameter("user_depart").trim();
+//        String user_company = req.getParameter("user_company").trim();
+//        String user_depart = req.getParameter("user_depart").trim();
+        String company_id = req.getParameter("company_id").trim();
+        String depart_id = req.getParameter("depart_id").trim();
         String user_passwd = "123456";//默认密码123456
-        //String user_auth = req.getParameter("user_auth").trim();
 
         User user1=new User();
         user1=userService.getUserOfPhone(user_phone);
@@ -154,8 +157,10 @@ public class UserController {
         user.setUser_name(user_name);
         user.setUser_phone(user_phone);
         user.setUser_tele(user_tele);
-        user.setUser_company(Integer.parseInt(user_company));
-        user.setUser_depart(Integer.parseInt(user_depart));
+//        user.setCompany_id(Integer.parseInt(company_id));
+//        user.setDepart_id(Integer.parseInt(depart_id));
+        user.setCompany_id(Integer.parseInt(company_id));
+        user.setDepart_id(Integer.parseInt(depart_id));
         user.setUser_passwd(user_passwd);
         user.setUser_auth(3);//用户默认权限为3（管理员添加普通用户）
 
@@ -186,8 +191,10 @@ public class UserController {
         String user_name = req.getParameter("user_name").trim();
         String user_phone = req.getParameter("user_phone").trim();
         String user_tele = req.getParameter("user_tele").trim();
-        String user_company = req.getParameter("user_company").trim();
-        String user_depart = req.getParameter("user_depart").trim();
+//        String user_company = req.getParameter("user_company").trim();
+//        String user_depart = req.getParameter("user_depart").trim();
+        String company_id = req.getParameter("company_id").trim();
+        String depart_id = req.getParameter("depart_id").trim();
         String user_passwd = "123456";//默认密码123456
         //String user_auth = req.getParameter("user_auth").trim();
 
@@ -206,8 +213,10 @@ public class UserController {
         user.setUser_name(user_name);
         user.setUser_phone(user_phone);
         user.setUser_tele(user_tele);
-        user.setUser_company(Integer.parseInt(user_company));
-        user.setUser_depart(Integer.parseInt(user_depart));
+//        user.setUser_company(Integer.parseInt(user_company));
+//        user.setUser_depart(Integer.parseInt(user_depart));
+        user.setCompany_id(Integer.parseInt(company_id));
+        user.setDepart_id(Integer.parseInt(depart_id));
         user.setUser_passwd(user_passwd);
         user.setUser_auth(2);//管理员默认权限为2（超级管理员添加管理员）
 
@@ -274,15 +283,17 @@ public class UserController {
         String user_name = req.getParameter("user_name").trim();
         String user_phone = req.getParameter("user_phone").trim();
         String user_tele = req.getParameter("user_tele").trim();
-        String user_company = req.getParameter("user_company").trim();
-        String user_depart = req.getParameter("user_depart").trim();
+        //String company_id = req.getParameter("company_id").trim();
+        String depart_id = req.getParameter("depart_id").trim();
 
         User user = new User();
         user.setUser_name(user_name);
         user.setUser_phone(user_phone);
         user.setUser_tele(user_tele);
-        user.setUser_company(Integer.parseInt(user_company));
-        user.setUser_depart(Integer.parseInt(user_depart));
+//        user.setUser_company(Integer.parseInt(user_company));
+//        user.setUser_depart(Integer.parseInt(user_depart));
+        //  user.setCompany_id(Integer.parseInt(company_id));
+        user.setDepart_id(Integer.parseInt(depart_id));
 
 
         boolean res = userService.updateInfoAdmin(user);
@@ -296,6 +307,45 @@ public class UserController {
             return jsonObject;
         }
     }
+
+    /**
+     * @Description: POST方法
+     *     超级管理员修改信息，可以修改权限
+     * @Param: [request]
+     * @return: java.lang.Object
+     * @Author: lyx
+     * @Date: 2022/7/2
+     */
+    @RequestMapping(value = "/admin/updateinfosuper", method = RequestMethod.PUT)
+    public Object updateInfoSuperAdmin(HttpServletRequest req){
+        JSONObject jsonObject = new JSONObject();
+        String user_name = req.getParameter("user_name").trim();
+        String user_phone = req.getParameter("user_phone").trim();
+        String user_tele = req.getParameter("user_tele").trim();
+        String company_id = req.getParameter("company_id").trim();
+        String depart_id = req.getParameter("depart_id").trim();
+        String user_auth = req.getParameter("user_auth").trim();
+
+        User user = new User();
+        user.setUser_name(user_name);
+        user.setUser_phone(user_phone);
+        user.setUser_tele(user_tele);
+        user.setCompany_id(Integer.parseInt(company_id));
+        user.setDepart_id(Integer.parseInt(depart_id));
+        user.setUser_auth(Integer.parseInt(user_auth));
+
+        boolean res = userService.updateInfoSuperAdmin(user);
+        if (res){
+            jsonObject.put(Consts.CODE, 1);
+            jsonObject.put(Consts.MSG, "修改成功");
+            return jsonObject;
+        }else {
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "修改失败");
+            return jsonObject;
+        }
+    }
+
 
     /**
      * @Description: POST方法
@@ -341,7 +391,7 @@ public class UserController {
 
     /**
      * @Description: POST方法
-     *     管理员修改密码
+     *     管理员重置密码
      * @Param: [request]
      * @return: java.lang.Object
      * @Author: lyx
@@ -352,18 +402,14 @@ public class UserController {
     public Object updatePasswdAdmin(HttpServletRequest req){
         JSONObject jsonObject = new JSONObject();
         String user_phone = req.getParameter("user_phone").trim();
-        String user_passwd = req.getParameter("user_passwd").trim();
-        boolean res=false;
-        if(user_passwd!=null){
-        MD5 md = new MD5();
-        user_passwd=md.start(user_passwd);
-
-        User user = new User();
+        //String user_passwd = req.getParameter("user_passwd").trim();
+        User user=new User();
         user.setUser_phone(user_phone);
+        MD5 md = new MD5();
+        String user_passwd=md.start("123456");
         user.setUser_passwd(user_passwd);
-
+        boolean res=false;
         res = userService.updatePasswd(user);
-        }
         if (res){
             jsonObject.put(Consts.CODE, 1);
             jsonObject.put(Consts.MSG, "修改成功");
@@ -377,7 +423,7 @@ public class UserController {
 
     /**
      * @Description: POST方法
-     *     管理员修改权限
+     *     超级管理员修改权限
      * @Param: [request]
      * @return: java.lang.Object
      * @Author: lyx
@@ -432,8 +478,8 @@ public class UserController {
      */
     @RequestMapping(value = "admin/getuser", method = RequestMethod.GET)
     public Object getUser(HttpServletRequest req){
-        String user_company = req.getParameter("user_company");
-        return userService.getUser(Integer.parseInt(user_company));
+        String company_id = req.getParameter("company_id");
+        return userService.getUser(Integer.parseInt(company_id));
 
     }
 
@@ -455,19 +501,43 @@ public class UserController {
 
     /**
      * @Description: GET法
-     *     用户获取个人信息
+     *     用户获取个人信息或者超级管理员获取用户信息
      * @Param: [request]
      * @return: java.lang.Object
      * @Author: lyx
      * @Date: 2022/6/23
      */
-    @RequestMapping(value = "/getuserofphone", method = RequestMethod.GET)
-    public Object getUserOfPhone(HttpServletRequest req){
+    @RequestMapping(value = "/getuserofphone1", method = RequestMethod.GET)
+    public Object getUserOfPhone1(HttpServletRequest req){
+        System.out.println("通过手机号获取用户");
         String user_phone = req.getParameter("user_phone");
-        return userService.getUserOfPhone(user_phone);
-
+        return userService.getUserOfPhone1(user_phone);
     }
 
+    /**
+     * @Description: GET法
+     *     管理员获取用户信息
+     * @Param: [request]
+     * @return: java.lang.Object
+     * @Author: lyx
+     * @Date: 2022/6/23
+     */
+    @RequestMapping(value = "/getuserofphone2", method = RequestMethod.GET)
+    public Object getUserOfPhone2(HttpServletRequest req){
+        System.out.println("通过手机号获取用户");
+        String user_phone = req.getParameter("user_phone");
+        String company_id = req.getParameter("company_id");
+        User user=userService.getUserOfPhone(user_phone);
+        JSONObject jsonObject = new JSONObject();
+        if(user.getCompany_id()==Integer.parseInt(company_id)){
+            return userService.getUserOfPhone1(user_phone);
+        }else{
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "该用户不属于本公司");
+            return jsonObject;
+        }
+
+    }
     /**
      * @Description: GET法
      *     管理员删除用户，用户注销
@@ -476,7 +546,7 @@ public class UserController {
      * @Author: lyx
      * @Date: 2022/6/23
      */
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public Object deleteUser(HttpServletRequest req){
         String user_phone = req.getParameter("user_phone");
         boolean res=false;
@@ -485,14 +555,14 @@ public class UserController {
         }
         JSONObject jsonObject = new JSONObject();
         if (res){
-        jsonObject.put(Consts.CODE, 1);
-        jsonObject.put(Consts.MSG, "删除成功");
-        return jsonObject;
-    }else {
-        jsonObject.put(Consts.CODE, 0);
-        jsonObject.put(Consts.MSG, "删除失败");
-        return jsonObject;
-    }
+            jsonObject.put(Consts.CODE, 1);
+            jsonObject.put(Consts.MSG, "删除成功");
+            return jsonObject;
+        }else {
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "删除失败");
+            return jsonObject;
+        }
     }
 
 

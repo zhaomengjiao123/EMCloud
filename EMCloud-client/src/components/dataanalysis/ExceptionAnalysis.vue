@@ -114,8 +114,6 @@ export default {
       },
       startTime: '',
       endTime: '',
-      provalue:'',//类型id
-      prolabel:'',//类型名称
       form: {
         exceptionDate: '',
       },
@@ -123,7 +121,8 @@ export default {
         proTypeData: '',
       },
       optionData:[],
-      optionname:[],
+      provalue:'',//类型id
+      prolabel:'',//类型名称
       title:'',
       color: '#000',
       color1: ['#3AA1FF', '#64BAFF', '#48a5ff', '#3b88e1', '#336fc2', '#325ea1'],

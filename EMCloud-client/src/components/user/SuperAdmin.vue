@@ -14,9 +14,20 @@
           <el-button type="primary" @click="addDialogVisible1 = true">添加普通用户</el-button>
         </el-col>
         <el-col :span="5">
-          <el-input placeholder="请输入内容" v-model="queryInfo.query">
-            <el-button slot="append" icon="el-icon-search" @click="getUserByCompany" ></el-button>
-          </el-input>
+<!--          <el-input placeholder="请输入公司" v-model="queryInfo.query">-->
+<!--            <el-button slot="append" icon="el-icon-search" @click="getUserByCompany" ></el-button>-->
+<!--          </el-input>-->
+          <el-select v-model="queryInfo.query"
+                     @change="getUserByCompany"
+                     placeholder="请选择公司">
+            <el-option
+              v-for="item in optionData"
+              :key="item.company_id"
+              :label="item.company_name"
+              :value="item.company_id">
+            </el-option>
+          </el-select>
+
         </el-col>
         <el-col :span="5">
           <el-input placeholder="请输入用户手机号" v-model="queryInfo1.query1">
@@ -57,34 +68,57 @@
         </el-table-column>
       </el-table>
 
-<!--      <el-pagination-->
-<!--        @size-change="handleSizeChange"-->
-<!--        @current-change="handleCurrentChange"-->
-<!--        :current-page="queryInfo.pagenum"-->
-<!--        :page-sizes="[5, 10, 15, 20]"-->
-<!--        :page-size="queryInfo.pagesize"-->
-<!--        layout="total, sizes, prev, pager, next, jumper"-->
-<!--        :total="total">-->
-<!--      </el-pagination>-->
+      <el-pagination
+        class="page"
+        background
+        layout="prev,pager, next, jumper"
+        :total="total>5000?5000:total"
+        :page-sizes="[10, 20, 30, 40]"
+        :page-size="10"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      ></el-pagination>
+
 
     </el-card>
 
     <el-dialog title="添加管理员" :visible.sync="addDialogVisible" width="40%" >
-      <el-form :model="addAdminForm" ref="addAdminFormRef" label-width="100px">
-        <el-form-item label="用户名" prop="actname">
+      <el-form :model="addAdminForm" :rules="addAdminFormRules" ref="addAdminFormRef"   label-width="100px">
+        <el-form-item label="用户名" prop="user_name">
           <el-input v-model="addAdminForm.user_name"></el-input>
         </el-form-item>
-        <el-form-item label="手机号" prop="actuser_phone">
+        <el-form-item label="手机号" prop="user_phone">
           <el-input v-model="addAdminForm.user_phone"></el-input>
         </el-form-item>
-        <el-form-item label="电话" prop="actuser_tele">
+        <el-form-item label="电话" prop="user_tele">
           <el-input v-model="addAdminForm.user_tele"></el-input>
         </el-form-item>
-        <el-form-item label="公司" prop="actuser_company">
-          <el-input v-model="addAdminForm.user_company"></el-input>
+        <el-form-item label="公司" prop="user_company">
+<!--          <el-input v-model="addAdminForm.user_company"></el-input>-->
+          <el-select v-model="addAdminForm.user_company"
+                     placeholder="请选择公司">
+            <el-option
+              v-for="item in optionData"
+              :key="item.company_id"
+              :label="item.company_name"
+              :value="item.company_id">
+            </el-option>
+          </el-select>
+
         </el-form-item>
-        <el-form-item label="部门" prop="actuser_depart">
-          <el-input v-model="addAdminForm.user_depart"></el-input>
+        <el-form-item label="部门" prop="user_depart">
+
+          <el-select v-model="addAdminForm.user_depart"
+                     placeholder="请选择部门">
+            <el-option
+              v-for="item in optionData1"
+              :key="item.depart_id"
+              :label="item.depart_name"
+              :value="item.depart_id">
+            </el-option>
+          </el-select>
+
+<!--          <el-input v-model="addAdminForm.user_depart"></el-input>-->
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -95,21 +129,39 @@
 
 
     <el-dialog title="添加普通用户" :visible.sync="addDialogVisible1" width="40%" >
-      <el-form :model="addUserForm" ref="addAdminFormRef" label-width="100px">
-        <el-form-item label="用户名" prop="actuser_name">
+      <el-form :model="addUserForm"  :rules="addAdminFormRules" ref="addAdminFormRef" label-width="100px">
+        <el-form-item label="用户名" prop="user_name">
           <el-input v-model="addUserForm.user_name"></el-input>
         </el-form-item>
-        <el-form-item label="手机号" prop="actuser_phone">
+        <el-form-item label="手机号" prop="user_phone">
           <el-input v-model="addUserForm.user_phone"></el-input>
         </el-form-item>
-        <el-form-item label="电话" prop="actuser_tele">
+        <el-form-item label="电话" prop="user_tele">
           <el-input v-model="addUserForm.user_tele"></el-input>
         </el-form-item>
-        <el-form-item label="公司" prop="actuser_company">
-          <el-input v-model="addUserForm.user_company"></el-input>
+        <el-form-item label="公司" prop="user_company">
+          <el-select v-model="addUserForm.user_company"
+                     placeholder="请选择公司">
+            <el-option
+              v-for="item in optionData"
+              :key="item.company_id"
+              :label="item.company_name"
+              :value="item.company_id">
+            </el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="部门" prop="actuser_depart">
-          <el-input  v-model="addUserForm.user_depart"></el-input>
+        <el-form-item label="部门" prop="user_depart">
+          <el-select v-model="addUserForm.user_depart"
+                     placeholder="请选择部门">
+            <el-option
+              v-for="item in optionData1"
+              :key="item.depart_id"
+              :label="item.depart_name"
+              :value="item.depart_id">
+            </el-option>
+          </el-select>
+
+<!--          <el-input  v-model="addUserForm.user_depart"></el-input>-->
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -120,24 +172,50 @@
 
 
     <el-dialog title="修改信息" :visible.sync="addDialogVisible2" width="40%" >
-      <el-form :model="editForm" ref="addAdminFormRef" label-width="100px">
-        <el-form-item label="用户名" prop="actuser_name">
+      <el-form :model="editForm"  ref="addAdminFormRef" label-width="100px">
+        <el-form-item label="用户名" prop="user_name">
           <el-input v-model="editForm.user_name"></el-input>
         </el-form-item>
-        <el-form-item label="手机号" prop="actuser_phone">
+        <el-form-item label="手机号" prop="user_phone">
           <el-input v-model="editForm.user_phone" disabled></el-input>
         </el-form-item>
-        <el-form-item label="电话" prop="actuser_tele">
+        <el-form-item label="电话" prop="user_tele">
           <el-input v-model="editForm.user_tele"></el-input>
         </el-form-item>
-        <el-form-item label="公司" prop="actuser_company">
-          <el-input v-model="editForm.user_company"></el-input>
+        <el-form-item label="公司" prop="user_company">
+          <el-select v-model="editForm.user_company"
+                     placeholder="请选择公司">
+            <el-option
+              v-for="item in optionData"
+              :key="item.company_id"
+              :label="item.company_name"
+              :value="item.company_id">
+            </el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="部门" prop="actuser_depart">
-          <el-input  v-model="editForm.user_depart"></el-input>
+        <el-form-item label="部门" prop="user_depart">
+          <el-select v-model="editForm.user_depart"
+                     placeholder="请选择部门">
+            <el-option
+              v-for="item in optionData1"
+              :key="item.depart_id"
+              :label="item.depart_name"
+              :value="item.depart_id">
+            </el-option>
+          </el-select>
+<!--          <el-input  v-model="editForm.user_depart"></el-input>-->
         </el-form-item>
-        <el-form-item label="权限" prop="actuser_auth">
-          <el-input  v-model="editForm.user_auth"></el-input>
+        <el-form-item label="权限" prop="user_auth">
+          <div>
+            <el-select v-model="editForm.user_auth" placeholder="权限" slot="prepend"
+                       filterable
+                       allow-create
+                       default-first-option
+            >
+              <el-option label="2  管理员" value="2"></el-option>
+              <el-option label="3  普通用户" value="3"></el-option>
+            </el-select>
+          </div>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -153,7 +231,7 @@
 import {
   addAdmin,
   addUser,
-  deleteUser,
+  deleteUser, getCompany, getDepart, getProType,
   getUser,
   getUserByCompany,
   getUserByPhone,
@@ -184,6 +262,8 @@ name: "SuperAdmin",
         user_tele: '',
         user_company: '',
         user_depart: '',
+        // user_company: '',
+        // user_depart: '',
       },
       addUserForm: {
         user_name: '',
@@ -200,59 +280,91 @@ name: "SuperAdmin",
         user_depart: '',
         user_auth:''
       },
-      queryInfo:{
-        query:'',
-        // pagenum:1,
-        // pagesize:5
-      },
 
+      tableData: [
+        {
+          user_name: '',
+          user_phone: '',
+          user_tele: '',
+          user_company: '',
+          user_depart: '',
+          user_auth:''
+        },
+      ],
+      pageSize: 8,
+      currentPage: 1,
       total: 0,
+
       queryInfo1:{
         query1:'',
-      }
+      },
+      queryInfo:{
+        query:'',
+      },
+      optionData:[
+
+      ],
+      optionData1:[
+
+      ],
+      provalue:'',//类型id
+      prolabel:'',//类型名称
+      addAdminFormRules: {
+        user_phone: [
+          {required: true, message: '请输入手机号', trigger: 'blur'},
+          {pattern:/^1(3\d|4[5-9]|5[0-35-9]|6[567]|7[0-8]|8\d|9[0-35-9])\d{8}$/,message: '手机号格式不正确',trigger: 'blur'}
+        ]
+      },
+
     }
   },
   created () {
+    this.queryInfo.query=0
     this.getUser()
-    // this.dataRefreh()
+    this.getOptionInfo()
+    this.getOptionInfo1()
   },
   methods: {
 
-    // dataRefreh() {
-    //   // 计时器正在进行中，退出函数
-    //   if (this.intervalId != null) {
-    //     return;
-    //   }
-    //   // 计时器为空，操作
-    //   this.intervalId = setInterval(() => {
-    //     // console.log("刷新" + new Date());
-    //     this.getUser(); //加载数据函数
-    //   }, 5000);
-    // },
-    // // 停止定时器
-    // clear() {
-    //   clearInterval(this.intervalId); //清除计时器
-    //   this.intervalId = null; //设置为null
-    // },
-    //
-    // handleSizeChange(pagesize) {
-    //   this.queryInfo.pagesize = pagesize;
-    //   this.getUser();
-    // },
-    // handleCurrentChange(pagenum) {
-    //   this.queryInfo.pagenum = pagenum;
-    //   this.getUser();
-    // },
+    getOptionInfo(){
+      getCompany()
+        .then(res => {
+          this.optionData=res;
+          this.optionData.push(
+            {
+              company_id:0,
+              company_name:"全部公司"
+            }
+          )
+        })
+    },
 
+    getOptionInfo1(){
+      getDepart()
+        .then(res => {
+          this.optionData1=res;
+          console.log(this.optionData1)
+        })
+    },
+    handleSizeChange() {},
+    handleCurrentChange(val) {
+      this.currentPage = val;
+      if(this.queryInfo.query==0){
+        this.getUser()
+      }else{
+        this.getUserByCompany()
+      }
+
+    },
     edit(row){
       this.addDialogVisible2 = true
       this.editForm={
         user_name: row.user_name,
         user_phone: row.user_phone,
         user_tele: row.user_tele,
-        user_company: row.user_company,
-        user_depart: row.user_depart,
-        user_auth: row.user_auth
+        // user_company: row.user_company,
+        // user_depart: row.user_depart,
+        // user_auth: row.user_auth
       }
     },
     deleteUser(row){
@@ -303,8 +415,14 @@ name: "SuperAdmin",
       this.userlist=[];
       getUser()
         .then(res => {
-          this.userlist = res
-          console.log(res)
+          //this.userlist = res
+          this.tableData = res;
+          this.total = res.length;
+          //重点：
+          let begin = (this.currentPage - 1) * this.pageSize;
+          let end = this.currentPage * this.pageSize;
+          this.userlist = this.tableData.slice(begin, end);
+
         })
         .catch(err => {
           console.log(err)
@@ -312,18 +430,27 @@ name: "SuperAdmin",
     },
 
     getUserByCompany(){
-      this.userlist=[
-      ];
-      let params = new URLSearchParams()
-      params.append('company_id', this.queryInfo.query)
-      getUserByCompany(params)
-        .then(res => {
-          this.userlist = res
-          console.log(res)
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      this.userlist=[];
+      if(this.queryInfo.query==0){
+        this.getUser()
+      }else{
+        let params = new URLSearchParams()
+        params.append('company_id', this.queryInfo.query)
+        getUserByCompany(params)
+          .then(res => {
+            this.tableData = res;
+            this.total = res.length;
+            //重点：
+            let begin = (this.currentPage - 1) * this.pageSize;
+            let end = this.currentPage * this.pageSize;
+            this.userlist = this.tableData.slice(begin, end);
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      }
+
+
     },
     getUserByPhone(){
       this.userlist=[

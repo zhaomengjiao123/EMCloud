@@ -2,6 +2,28 @@
 import axios from 'axios'
 import { get, post, deletes, put } from './http'
 
+
+
+//================>设备预警/报警/紧急警告接口
+export const getWarningByCid = (params) => get(`equipmentWarning/getWarningByCid`,params)
+export const getErroByCid = (params) => get(`equipmentErro/getErroByCid`,params)
+export const getEmergencyByCid = (params) => get(`equipmentEmergency/getEmergencyByCid`,params)
+
+//================>设备统计接口大屏
+export const getEquipmentCountOfCompany = () => get(`equipment/getEquipmentCountOfCompany`)
+export const getWarningNumByCid = (params) => get(`equipment/getWarningNumByCid`,params)
+export const getErroNumByCid = (params) => get(`equipment/getErroNumByCid`,params)
+export const getEmergencyNumByCid = (params) => get(`equipment/getEmergencyNumByCid`,params)
+export const getOnlineAndNotOnlineEquipmentNum = () => get(`equipment/getOnlineAndNotOnlineEquipmentNum`)
+//查询全部的设备数量
+export const getAllEquipmentCount = () => get(`equipment/getAllEquipmentCount`)
+//查询全部的异常数量
+export const getAllExceptionCount = () => get(`equipment/getAllExceptionCount`)
+
+
+
+
+
 //查询设备在线和不在线的数量
 export const getEquipState = () => get(`getEquipState`);
 
@@ -47,25 +69,6 @@ export const getTaskTypeByDay= (params) => get(`getTaskTypeByDay`, params);
 //查询一段时间内不同类型产品的任务数量（时间是月）
 export const getTaskTypeByMouth = (params) => get(`getTaskTypeByMouth`, params);
 
-//================>设备预警/报警/紧急警告接口
-export const getWarningByCid = (params) => get(`equipmentWarning/getWarningByCid`,params)
-export const getErroByCid = (params) => get(`equipmentErro/getErroByCid`,params)
-export const getEmergencyByCid = (params) => get(`equipmentEmergency/getEmergencyByCid`,params)
-
-//================>设备统计接口大屏
-export const getEquipmentCountOfCompany = () => get(`equipment/getEquipmentCountOfCompany`)
-export const getWarningNumByCid = (params) => get(`equipment/getWarningNumByCid`,params)
-export const getErroNumByCid = (params) => get(`equipment/getErroNumByCid`,params)
-export const getEmergencyNumByCid = (params) => get(`equipment/getEmergencyNumByCid`,params)
-export const getOnlineAndNotOnlineEquipmentNum = () => get(`equipment/getOnlineAndNotOnlineEquipmentNum`)
-//查询全部的设备数量
-export const getAllEquipmentCount = () => get(`equipment/getAllEquipmentCount`)
-//查询全部的异常数量
-export const getAllExceptionCount = () => get(`equipment/getAllExceptionCount`)
-
-
-
-
 
 //获取所有产品类型
 export const getProType= () => get(`productType/getAllProductType`);
@@ -107,3 +110,11 @@ export const updateUserPasswd = (params) => put(`user/updatepasswd`,params)
 export const deleteUser = (params) => post(`user/delete`,params)
 
 
+//获取所有公司
+export const getCompany= () => get(`company/getAllCompany`);
+
+//获取所有部门
+export const getDepart= () => get(`depart/getalldepart`);
+
+//获取某个公司所有部门
+export const getDepartByCompany= (params) => get(`depart/getdepartbycompany`,params);

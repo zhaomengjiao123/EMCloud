@@ -192,7 +192,7 @@ export default {
 
     getUserByPhone() {
       let params = new URLSearchParams()
-      params.append('user_phone', '10')
+      params.append('user_phone', '1')
       getUserByPhone(params)
         .then(res => {
           this.tableData = res
