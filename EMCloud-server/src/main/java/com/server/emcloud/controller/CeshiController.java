@@ -1,5 +1,6 @@
 package com.server.emcloud.controller;
 
+import com.server.emcloud.service.UserService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,10 @@ import javax.servlet.http.HttpSession;
 //
 //import javax.json.JsonWriter;
 
-
 @RestController
 public class CeshiController {
+    @Autowired
+    private UserService userService;
     @RequestMapping(value = "getEquipState",method = RequestMethod.GET)
     public Object a(HttpServletRequest request) {
         JSONObject jsonObject = new JSONObject();
@@ -65,12 +67,37 @@ public class CeshiController {
 
         return jsonObject;
     }
+
+
+    @RequestMapping(value = "getProExceptionByDay",method = RequestMethod.GET)
+    public Object abcccc(HttpServletRequest request) {
+        JSONObject jsonObject = new JSONObject();
+        System.out.println("proday");
+
+        String json = "[{'time':'2022-06-15','count':90},{'time':'2022-06-16','count':100},{'time':'2022-06-18','count':55},{'time':'2022-06-19','count':45},{'time':'2022-06-22','count':200},{'time':'2022-06-24','count':40},{'time':'2022-06-25','count':100},{'time':'2022-06-26','count':100},{'time':'2022-06-27','count':50}]";
+        JSONArray jsonArray = JSONArray.fromObject(json);
+        jsonObject.put("list", jsonArray);
+
+        return jsonObject;
+    }
+    @RequestMapping(value = "getProExceptionByMouth",method = RequestMethod.GET)
+    public Object abcdddd(HttpServletRequest request) {
+        JSONObject jsonObject = new JSONObject();
+        System.out.println("pro");
+
+        String json = "[{'time':'2021-06','count':100},{'time':'2021-07','count':100},{'time':'2021-08','count':55},{'time':'2021-10','count':45},{'time':'2022-01','count':20}]";
+        JSONArray jsonArray = JSONArray.fromObject(json);
+        jsonObject.put("list", jsonArray);
+
+        return jsonObject;
+    }
+
     @RequestMapping(value = "getExceptionTypeByDay",method = RequestMethod.GET)
     public Object abcc(HttpServletRequest request) {
         JSONObject jsonObject = new JSONObject();
         System.out.println("lalalalala");
 
-        String json = "[{'name':'a','data':[{'time':'2022-06-15','count':100},{'time':'2022-06-16','count':100},{'time':'2022-06-18','count':55},{'time':'2022-06-19','count':45},{'time':'2022-06-22','count':200}, {'time':'2022-06-24','count':40}]},{'name':'b','data':[{'time':'2022-06-16','count':10},{'time':'2022-06-17','count':110},{'time':'2022-06-18','count':50},{'time':'2022-06-100','count':45},{'time':'2022-06-22','count':190}, {'time':'2022-06-24','count':40}]}]" ;
+        String json = "[{'name':'a','data':[{'time':'2022-06-15','count':100},{'time':'2022-06-16','count':100},{'time':'2022-06-18','count':55},{'time':'2022-06-19','count':45},{'time':'2022-06-22','count':200}, {'time':'2022-06-24','count':40},{'time':'2022-06-26','count':50},{'time':'2022-06-28','count':150}]},{'name':'b','data':[{'time':'2022-06-16','count':10},{'time':'2022-06-17','count':110},{'time':'2022-06-18','count':50},{'time':'2022-06-100','count':45},{'time':'2022-06-22','count':190}, {'time':'2022-06-24','count':40},{'time':'2022-06-26','count':70},{'time':'2022-06-28','count':100}]}]" ;
         JSONArray jsonArray = JSONArray.fromObject(json);
         jsonObject.put("list", jsonArray);
 
@@ -94,7 +121,7 @@ public class CeshiController {
         JSONObject jsonObject = new JSONObject();
         System.out.println("nihao");
 
-        String json = "[{'exception_name':'achanpin','exception_num':55},{'exception_name':'bchanpin','exception_num':75},{'exception_name':'cchanpin','exception_num':100}]";
+        String json = "[{'exception_name':'achanpin','exception_num':10},{'exception_name':'bchanpin','exception_num':150},{'exception_name':'cchanpin','exception_num':100}]";
         JSONArray jsonArray = JSONArray.fromObject(json);
         jsonObject.put("list", jsonArray);
 
@@ -123,12 +150,37 @@ public class CeshiController {
 
         return jsonObject;
     }
+
+    @RequestMapping(value = "getProTaskByDay",method = RequestMethod.GET)
+    public Object abcfgg(HttpServletRequest request) {
+        JSONObject jsonObject = new JSONObject();
+        System.out.println("hhhhh");
+
+        String json = "[{'time':'2022-06-15','count':100},{'time':'2022-06-16','count':100},{'time':'2022-06-18','count':55},{'time':'2022-06-19','count':45},{'time':'2022-06-22','count':200},{'time':'2022-06-24','count':40},{'time':'2022-06-25','count':100},{'time':'2022-06-26','count':100},{'time':'2022-06-27','count':50}]";
+        JSONArray jsonArray = JSONArray.fromObject(json);
+        jsonObject.put("list", jsonArray);
+
+        return jsonObject;
+    }
+    @RequestMapping(value = "getProTaskByMouth",method = RequestMethod.GET)
+    public Object abcdggg(HttpServletRequest request) {
+        JSONObject jsonObject = new JSONObject();
+        System.out.println("aaa");
+
+        String json = "[{'time':'2021-06','count':100},{'time':'2021-07','count':100},{'time':'2021-08','count':55},{'time':'2021-10','count':45},{'time':'2022-01','count':200}]";
+        JSONArray jsonArray = JSONArray.fromObject(json);
+        jsonObject.put("list", jsonArray);
+
+        return jsonObject;
+    }
+
+
     @RequestMapping(value = "getTaskTypeByDay",method = RequestMethod.GET)
     public Object abcch(HttpServletRequest request) {
         JSONObject jsonObject = new JSONObject();
         System.out.println("lalalalala");
 
-        String json = "[{'name':'a','data':[{'time':'2022-06-15','count':100},{'time':'2022-06-16','count':100},{'time':'2022-06-18','count':55},{'time':'2022-06-19','count':45},{'time':'2022-06-22','count':200}, {'time':'2022-06-24','count':40}]},{'name':'b','data':[{'time':'2022-06-16','count':10},{'time':'2022-06-17','count':110},{'time':'2022-06-18','count':50},{'time':'2022-06-100','count':45},{'time':'2022-06-22','count':190}, {'time':'2022-06-24','count':40}]}]" ;
+        String json = "[{'name':'a','data':[{'time':'2022-06-18','count':55},{'time':'2022-06-19','count':45},{'time':'2022-06-22','count':200}, {'time':'2022-06-24','count':40},{'time':'2022-06-26','count':50},{'time':'2022-06-28','count':150}]},{'name':'b','data':[{'time':'2022-06-16','count':10},{'time':'2022-06-17','count':110},{'time':'2022-06-18','count':50},{'time':'2022-06-100','count':45},{'time':'2022-06-22','count':190}, {'time':'2022-06-24','count':40},{'time':'2022-06-26','count':80},{'time':'2022-06-28','count':120}]}]" ;
         JSONArray jsonArray = JSONArray.fromObject(json);
         jsonObject.put("list", jsonArray);
 

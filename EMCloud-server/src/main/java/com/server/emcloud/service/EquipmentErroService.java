@@ -4,6 +4,7 @@ import com.server.emcloud.vo.EquipmentErroVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,4 +20,7 @@ public interface EquipmentErroService {
 
     //查询全部的报警数量
     int getAllErroCount();
+
+    //监控大屏-查询每个城市的报警数量
+    List<Map<String, Object>> getErroCountOfAllCity();
 }

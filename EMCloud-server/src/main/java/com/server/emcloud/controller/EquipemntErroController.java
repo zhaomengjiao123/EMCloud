@@ -36,4 +36,17 @@ public class EquipemntErroController {
         System.out.println("请求得到某公司的所有设备的报警信息："+company_id);
         return equipmentErroService.getErroByCid(new Integer(company_id));
     }
+
+    /**
+    * @Description: 请求得到每个城市的报警数量
+    * @Param: [request]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/7/4
+    */
+    @RequestMapping(value = "/getErroCountOfAllCity",method = RequestMethod.GET)
+    public Object getErroCountOfAllCity(HttpServletRequest request){
+        System.out.println("请求得到每个城市的报警数量");
+        return equipmentErroService.getErroCountOfAllCity();
+    }
 }

@@ -710,13 +710,16 @@ export default {
         },
         legend: {
           // orient: 'vertical',
-          left: 'left',
-          data: this.legendData,
+          // left: 'left',
+          // data: this.legendData,
           // icon: 'rect',
           // itemWidth: 10,
           // itemHeight: 10,
           // itemGap: 20,
           // left: 30
+          left: 'right',
+          data: this.legendData,
+          top:"10%"
         },
         xAxis: [{
           name:'日期',

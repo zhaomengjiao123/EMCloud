@@ -8,6 +8,11 @@
     <result column="erro_time" jdbcType="VARCHAR" property="erro_time" />
   </resultMap>
 
+  <resultMap id="ErroCountOfAllCity" type="java.util.HashMap">
+    <result column="value" jdbcType="INTEGER" property="value" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+  </resultMap>
+
 
   <sql id="Base_Column_List">
     erro_id, equipment_id, erro_content, erro_time
@@ -25,6 +30,15 @@
   <select id="getAllErroCount" resultType="java.lang.Integer">
     SELECT COUNT(*) FROM `emdb_equipment_erro`
   </select>
+
+  <select id="getErroCountOfAllCity" resultMap="ErroCountOfAllCity">
+    SELECT COUNT(erro_id) as value,company_local_city as name
+    FROM
+      ( SELECT c.company_id,c.company_local_city,e.equipment_id,erro.erro_id FROM emdb_company c
+    JOIN emdb_equipment e ON c.company_id=e.company_id
+    INNER JOIN emdb_equipment_erro erro ON erro.equipment_id=e.equipment_id) d
+    GROUP BY company_local_city;
+    </select>
 
 
 

@@ -203,6 +203,12 @@ where a.equipment_id =#{equipment_id,jdbcType=INTEGER}
     SELECT COUNT(equipment_id) as equipmentCount FROM `emdb_equipment`
   </select>
 
+  <select id="getBigScreenEquipmentInfo" resultType="com.server.emcloud.vo.EquipmentVO">
+    SELECT e.equipment_id,e.equipment_state,c.company_name,c.company_local_province,c.company_local_city
+    FROM emdb_equipment e JOIN emdb_company c ON e.company_id=c.company_id
+  </select>
+
+
 
 
 

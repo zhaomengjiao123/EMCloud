@@ -17,7 +17,10 @@
         menu_id,menu_name,menu_link,menu_parentid,menu_visible_user,menu_visible_admin,menu_visible_superadmin
     </select>
 
-
+    <select id="getAllMenu" resultMap="BaseResultMap">
+    select  menu_id,menu_name,menu_link,menu_parentid,menu_visible_user,menu_visible_admin,menu_visible_superadmin
+    from emdb_menu
+    </select>
 
     <select id="getMenu" resultMap="BaseResultMap">
     select  menu_id,menu_name,menu_link,menu_parentid
@@ -38,19 +41,19 @@
     </select>
 
     <select id="getMenuToAdmin" resultMap="BaseResultMap">
-    select  menu_id,menu_name,menu_link,menu_parentid
+    select  menu_id,menu_name,menu_link,menu_parentid,menu_visible_user
     from emdb_menu
     where menu_visible_user = 1
     </select>
 
     <select id="getMenuToSuperAdmin" resultMap="BaseResultMap">
-    select  menu_id,menu_name,menu_link,menu_parentid
+    select  menu_id,menu_name,menu_link,menu_parentid,menu_visible_user
     from emdb_menu
     where menu_visible_user = 1
     </select>
 
     <select id="getMenuAdminToSuperAdmin" resultMap="BaseResultMap">
-    select  menu_id,menu_name,menu_link,menu_parentid
+    select  menu_id,menu_name,menu_link,menu_parentid,menu_visible_admin
     from emdb_menu
     where menu_visible_admin = 1
     </select>

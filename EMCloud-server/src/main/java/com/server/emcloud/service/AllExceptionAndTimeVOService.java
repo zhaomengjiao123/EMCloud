@@ -1,6 +1,5 @@
 package com.server.emcloud.service;
 
-import com.server.emcloud.domain.Company;
 import com.server.emcloud.vo.AllExceptionAndTimeVO;
 import com.server.emcloud.vo.AllExceptionTypeAndTimeVO;
 
@@ -14,16 +13,16 @@ import java.util.List;
  */
 public interface AllExceptionAndTimeVOService {
 
-  List<AllExceptionAndTimeVO> getAllExceptionAndTimeByDay();
+  List<AllExceptionAndTimeVO> getAllExceptionAndTimeByDay(String startTime, String endTime);
 
-  List<AllExceptionAndTimeVO> getAllExceptionAndTimeByMonth();
+  List<AllExceptionAndTimeVO> getAllExceptionAndTimeByMonth(String startTime, String endTime);
 
-  List<AllExceptionTypeAndTimeVO> getAllExceptionTypeAndTimeVOByDay();
+  List<AllExceptionTypeAndTimeVO> getAllExceptionTypeAndTimeVOByDay(String startTime, String endTime);
 
-  List<AllExceptionTypeAndTimeVO> getAllExceptionTypeAndTimeVOByMonth();
+  List<AllExceptionTypeAndTimeVO> getAllExceptionTypeAndTimeVOByMonth(String startTime, String endTime);
 
 
-  List<AllExceptionAndTimeVO> getExceptionTypeAndTimeVOByMonth(Integer product_id);
+  List<AllExceptionAndTimeVO> getExceptionTypeAndTimeVOByMonth(Integer product_id, String startTime, String endTime);
 
-  List<AllExceptionAndTimeVO> getExceptionTypeAndTimeVOByDay(Integer product_id);
+  List<AllExceptionAndTimeVO> getExceptionTypeAndTimeVOByDay(Integer product_id, String startTime, String endTime);
 }
