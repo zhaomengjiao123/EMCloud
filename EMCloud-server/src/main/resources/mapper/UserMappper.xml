@@ -178,7 +178,27 @@
     <select id="getUserOfPhone1" resultMap="BaseResultMap">
     select a.user_name,a.user_phone,a.user_tele,a.user_auth,a.company_id,a.depart_id,b.company_name as user_company,c.depart_name as user_depart
     from emdb_user a,emdb_company b,emdb_depart c
-    where a.user_phone = #{user_phone}
+    where a.user_phone =  #{user_phone}
+    and a.company_id=b.company_id
+    and a.depart_id=c.depart_id
+    and a.company_id =c.company_id
+    </select>
+
+
+    <select id="getUserOfPhone2" resultMap="BaseResultMap">
+    select a.user_name,a.user_phone,a.user_tele,a.user_auth,a.company_id,a.depart_id,b.company_name as user_company,c.depart_name as user_depart
+    from emdb_user a,emdb_company b,emdb_depart c
+    where a.user_phone like concat(#{user_phone},'%')
+    and a.company_id=b.company_id
+    and a.depart_id=c.depart_id
+    and a.company_id =c.company_id
+    </select>
+
+    <select id="getUserOfPhone3" resultMap="BaseResultMap">
+    select a.user_name,a.user_phone,a.user_tele,a.user_auth,a.company_id,a.depart_id,b.company_name as user_company,c.depart_name as user_depart
+    from emdb_user a,emdb_company b,emdb_depart c
+    where a.user_phone like concat(#{user_phone},'%')
+    and a.company_id = #{company_id}
     and a.company_id=b.company_id
     and a.depart_id=c.depart_id
     and a.company_id =c.company_id

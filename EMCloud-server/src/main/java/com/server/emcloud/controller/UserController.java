@@ -501,6 +501,20 @@ public class UserController {
 
     /**
      * @Description: GET法
+     *     超级管理员获取用户信息(模糊)
+     * @Param: [request]
+     * @return: java.lang.Object
+     * @Author: lyx
+     * @Date: 2022/6/23
+     */
+    @RequestMapping(value = "/getuserofphone2", method = RequestMethod.GET)
+    public Object getUserOfPhone3(HttpServletRequest req){
+        System.out.println("通过手机号获取用户");
+        String user_phone = req.getParameter("user_phone");
+        return userService.getUserOfPhone2(user_phone);
+    }
+    /**
+     * @Description: GET法
      *     用户获取个人信息或者超级管理员获取用户信息
      * @Param: [request]
      * @return: java.lang.Object
@@ -514,6 +528,7 @@ public class UserController {
         return userService.getUserOfPhone1(user_phone);
     }
 
+
     /**
      * @Description: GET法
      *     管理员获取用户信息
@@ -522,20 +537,25 @@ public class UserController {
      * @Author: lyx
      * @Date: 2022/6/23
      */
-    @RequestMapping(value = "/getuserofphone2", method = RequestMethod.GET)
+    @RequestMapping(value = "/getuserofcompanyid", method = RequestMethod.GET)
     public Object getUserOfPhone2(HttpServletRequest req){
-        System.out.println("通过手机号获取用户");
+//        String user_phone = req.getParameter("user_phone");
+//        String company_id = req.getParameter("company_id");
+//        User user=userService.getUserOfPhone(user_phone);
+//        JSONObject jsonObject = new JSONObject();
+//        if(user.getCompany_id()==Integer.parseInt(company_id)){
+//            return userService.getUserOfPhone1(user_phone);
+//        }else{
+//            jsonObject.put(Consts.CODE, 0);
+//            jsonObject.put(Consts.MSG, "该用户不属于本公司");
+//            return jsonObject;
+//        }
+
         String user_phone = req.getParameter("user_phone");
         String company_id = req.getParameter("company_id");
-        User user=userService.getUserOfPhone(user_phone);
         JSONObject jsonObject = new JSONObject();
-        if(user.getCompany_id()==Integer.parseInt(company_id)){
-            return userService.getUserOfPhone1(user_phone);
-        }else{
-            jsonObject.put(Consts.CODE, 0);
-            jsonObject.put(Consts.MSG, "该用户不属于本公司");
-            return jsonObject;
-        }
+
+            return userService.getUserOfPhone3(user_phone,company_id);
 
     }
     /**

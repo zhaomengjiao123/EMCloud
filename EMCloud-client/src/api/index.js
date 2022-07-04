@@ -94,8 +94,12 @@ export const getUserByCompany= (params) => get(`user/admin/getuser`,params);
 //获取某个用户
 export const getUserByPhone= (params) => get(`user/getuserofphone1`,params);
 
+
+//模糊获取某个用户
+export const getUserByPhone2= (params) => get(`user/getuserofphone2`,params);
+
 //获取公司某个用户
-export const getUserByPhoneInCompany= (params) => get(`user/getuserofphone2`,params);
+export const getUserByPhoneInCompany= (params) => get(`user/getuserofcompanyid`,params);
 
 //添加管理员
 export const addAdmin = (params) => post(`user/superadmin/add`,params)

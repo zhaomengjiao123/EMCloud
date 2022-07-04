@@ -17,7 +17,7 @@
         </el-col>
       </el-row>
       <el-table :data="userlist" border stripe>
-        <el-table-column type="index" label="#"></el-table-column>
+        <el-table-column type="index" label="序号"></el-table-column>
         <el-table-column prop="user_name" label="用户名"></el-table-column>
         <el-table-column prop="user_phone" label="手机号"></el-table-column>
         <el-table-column prop="user_tele" label="电话"></el-table-column>
@@ -67,6 +67,7 @@
         </el-form-item>
         <el-form-item label="公司" prop="user_company">
           <el-select v-model="addUserForm.user_company"
+                     @change="getOptionInfo2"
                      placeholder="请选择公司">
             <el-option
               v-for="item in optionData"
@@ -81,7 +82,7 @@
           <el-select v-model="addUserForm.user_depart"
                      placeholder="请选择部门">
             <el-option
-              v-for="item in optionData1"
+              v-for="item in optionData2"
               :key="item.depart_id"
               :label="item.depart_name"
               :value="item.depart_id">
@@ -187,6 +188,7 @@ export default {
       ],
       optionData:[],
       optionData1:[],
+      optionData2:[],
       pageSize: 8,
       currentPage: 1,
       total: 0,
@@ -219,41 +221,81 @@ export default {
           console.log(this.optionData1)
         })
     },
+    getOptionInfo2(){
+      let params = new URLSearchParams()
+      params.append('company_id', this.addUserForm.user_company)
+      getDepartByCompany(params)
+        .then(res => {
+          this.optionData2=res;
+        })
+    },
+
     handleSizeChange() {},
     handleCurrentChange(val) {
       this.currentPage = val;
-      this.getUser()
+      if(this.queryInfo1.query1==null){
+        this.getUser()
+      }else {
+        this.getUserByPhone()
+      }
     },
     edit(row){
       this.addDialogVisible2 = true
+      let b = this.optionData1.find(item => item.depart_name === row.user_depart,).depart_id
       this.editForm={
         user_name: row.user_name,
         user_phone: row.user_phone,
         user_tele: row.user_tele,
         user_company: row.user_company,
-        // user_depart: row.user_depart
+        user_depart: b
       }
     },
     deleteUser(row){
-      console.log("shanchu")
-      let params = new URLSearchParams()
-      params.append('user_phone', row.user_phone)
-      console.log(row.user_phone)
-      deleteUser(params)
-        .then(res => {
-          if (res.code == 1) {
-            this.$message({
-              message: '删除成功',
-              type: 'success'
+        this.$confirm('此操作将永久删除该项目, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          let params = new URLSearchParams()
+          params.append('user_phone', row.user_phone)
+          console.log(row.user_phone)
+          deleteUser(params)
+            .then(res => {
+              if (res.code == 1) {
+                this.$message({
+                  message: '删除成功',
+                  type: 'success'
+                })
+                this.getUser()
+              } else {
+                this.$message({
+                  message: '删除失败',
+                  type: 'error'
+                })
+              }
             })
-            this.getUser()
-          } else {
-            this.$message({
-              message: '删除失败',
-              type: 'error'
-            })
-          }
-        })
+        }).catch(() => {
+          this.$message.info('已取消删除');
+        });
+
+      // let params = new URLSearchParams()
+      // params.append('user_phone', row.user_phone)
+      // console.log(row.user_phone)
+      // deleteUser(params)
+      //   .then(res => {
+      //     if (res.code == 1) {
+      //       this.$message({
+      //         message: '删除成功',
+      //         type: 'success'
+      //       })
+      //       this.getUser()
+      //     } else {
+      //       this.$message({
+      //         message: '删除失败',
+      //         type: 'error'
+      //       })
+      //     }
+      //   })
     },
 
     getUser(){
@@ -285,8 +327,14 @@ export default {
         params.append('company_id', 1)
         getUserByPhoneInCompany(params)
           .then(res => {
-            this.userlist = res
-            console.log(res)
+            this.tableData = res;
+            this.total = res.length;
+            //重点：
+            let begin = (this.currentPage - 1) * this.pageSize;
+            let end = this.currentPage * this.pageSize;
+            this.userlist = this.tableData.slice(begin, end);
+            // this.userlist = res
+            // console.log(res)
           })
           .catch(err => {
             console.log(err)

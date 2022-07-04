@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -25,19 +26,37 @@ public class TaskNumInTimeVOServiceImpl implements TaskNumInTimeVOService {
 
     //查询一段时间内所有任务数量（时间是天）
     @Override
-    public List<TaskNumInTimeVO> getAllTaskNumInTimeByDay() {
-        return taskNumInTimeVOMapper.getAllTaskNumInTimeByDay();
+    public List<TaskNumInTimeVO> getAllTaskNumInTimeByDay(String startTime, String endTime) {
+        List<TaskNumInTimeVO> result = taskNumInTimeVOMapper.getAllTaskNumInTimeByDay();
+        Iterator<TaskNumInTimeVO> iterator = result.iterator();
+        //将不在开始日期和结束日期之间的任务剔除
+        while(iterator.hasNext()) {
+            TaskNumInTimeVO next = iterator.next();
+            if (next.getTime().compareTo(endTime) > 0 || next.getTime().compareTo(startTime) < 0) {
+                iterator.remove();
+            }
+        }
+        return result;
     }
 
     //查询一段时间内所有任务数量（时间是月）
     @Override
-    public List<TaskNumInTimeVO> getAllTaskNumInTimeByMouth() {
-        return taskNumInTimeVOMapper.getAllTaskNumInTimeByMouth();
+    public List<TaskNumInTimeVO> getAllTaskNumInTimeByMouth(String startTime, String endTime) {
+        List<TaskNumInTimeVO> result = taskNumInTimeVOMapper.getAllTaskNumInTimeByMouth();
+        Iterator<TaskNumInTimeVO> iterator = result.iterator();
+        //将不在开始日期和结束日期之间的任务剔除
+        while(iterator.hasNext()) {
+            TaskNumInTimeVO next = iterator.next();
+            if (next.getTime().compareTo(endTime) > 0 || next.getTime().compareTo(startTime) < 0) {
+                iterator.remove();
+            }
+        }
+        return result;
     }
 
     //查询一段时间内不同类型产品的任务数量（时间是天）
     @Override
-    public List<DiffProductTypeAndTaskNumInTimeVO> getDiffProductTypeAndTaskNumInTimeByDay() {
+    public List<DiffProductTypeAndTaskNumInTimeVO> getDiffProductTypeAndTaskNumInTimeByDay(String startTime, String endTime) {
         List<DiffProductTypeAndTaskNumInTimeVO> resultList = new ArrayList<>();
 
         //查询所有有任务的设备的产品类型id
@@ -50,16 +69,28 @@ public class TaskNumInTimeVOServiceImpl implements TaskNumInTimeVOService {
             //根据产品类型id获得产品类型名称
             result.setName(taskNumInTimeVOMapper.getProductNameById(productTypeId));
             //根据产品类型id获得该产品类型一段时间内的任务数量
-            result.setData(taskNumInTimeVOMapper.getProductTypeTaskNumInTimeByIdByDay(productTypeId));
-            //插入结果集
-            resultList.add(result);
+            List<TaskNumInTimeVO> data = taskNumInTimeVOMapper.getProductTypeTaskNumInTimeByIdByDay(productTypeId);
+            Iterator<TaskNumInTimeVO> iterator = data.iterator();
+            //将不在开始日期和结束日期之间的任务剔除
+            while(iterator.hasNext()) {
+                TaskNumInTimeVO next = iterator.next();
+                if (next.getTime().compareTo(endTime) > 0 || next.getTime().compareTo(startTime) < 0) {
+                    iterator.remove();
+                }
+            }
+            //如果该类产品在该时间段内没有任务则不会出现在结果集中
+            if(!data.isEmpty()) {
+                result.setData(data);
+                //插入结果集
+                resultList.add(result);
+            }
         }
         return resultList;
     }
 
     //查询一段时间内不同类型产品的任务数量（时间是月）
     @Override
-    public List<DiffProductTypeAndTaskNumInTimeVO> getDiffProductTypeAndTaskNumInTimeByMouth() {
+    public List<DiffProductTypeAndTaskNumInTimeVO> getDiffProductTypeAndTaskNumInTimeByMouth(String startTime, String endTime) {
         List<DiffProductTypeAndTaskNumInTimeVO> resultList = new ArrayList<>();
 
         //查询所有有任务的设备的产品类型id和产品类型名称
@@ -72,22 +103,52 @@ public class TaskNumInTimeVOServiceImpl implements TaskNumInTimeVOService {
             //根据产品类型id获得产品类型名称
             result.setName(taskNumInTimeVOMapper.getProductNameById(productTypeId));
             //根据产品类型id获得该产品类型一段时间内的任务数量
-            result.setData(taskNumInTimeVOMapper.getProductTypeTaskNumInTimeByIdByMouth(productTypeId));
-            //插入结果集
-            resultList.add(result);
+            List<TaskNumInTimeVO> data = taskNumInTimeVOMapper.getProductTypeTaskNumInTimeByIdByMouth(productTypeId);
+            Iterator<TaskNumInTimeVO> iterator = data.iterator();
+            //将不在开始日期和结束日期之间的任务剔除
+            while(iterator.hasNext()) {
+                TaskNumInTimeVO next = iterator.next();
+                if (next.getTime().compareTo(endTime) > 0 || next.getTime().compareTo(startTime) < 0) {
+                    iterator.remove();
+                }
+            }
+            //如果该类产品在该时间段内没有任务则不会出现在结果集中
+            if(!data.isEmpty()) {
+                result.setData(data);
+                //插入结果集
+                resultList.add(result);
+            }
         }
         return resultList;
     }
 
     //查询一段时间内某个产品任务数量（时间是天）
     @Override
-    public List<TaskNumInTimeVO> getProductTaskNumInTimeByPidByDay(int productId) {
-        return taskNumInTimeVOMapper.getProductTaskNumInTimeByPidByDay(productId);
+    public List<TaskNumInTimeVO> getProductTaskNumInTimeByPidByDay(int productId, String startTime, String endTime) {
+        List<TaskNumInTimeVO> result = taskNumInTimeVOMapper.getProductTaskNumInTimeByPidByDay(productId);
+        Iterator<TaskNumInTimeVO> iterator = result.iterator();
+        //将不在开始日期和结束日期之间的任务剔除
+        while(iterator.hasNext()) {
+            TaskNumInTimeVO next = iterator.next();
+            if (next.getTime().compareTo(endTime) > 0 || next.getTime().compareTo(startTime) < 0) {
+                iterator.remove();
+            }
+        }
+        return result;
     }
 
     //查询一段时间内某个产品任务数量（时间是月）
     @Override
-    public List<TaskNumInTimeVO> getProductTaskNumInTimeByPidByMouth(int productId) {
-        return taskNumInTimeVOMapper.getProductTaskNumInTimeByPidByMouth(productId);
+    public List<TaskNumInTimeVO> getProductTaskNumInTimeByPidByMouth(int productId,String startTime, String endTime) {
+        List<TaskNumInTimeVO> result = taskNumInTimeVOMapper.getProductTaskNumInTimeByPidByMouth(productId);
+        Iterator<TaskNumInTimeVO> iterator = result.iterator();
+        //将不在开始日期和结束日期之间的任务剔除
+        while(iterator.hasNext()) {
+            TaskNumInTimeVO next = iterator.next();
+            if (next.getTime().compareTo(endTime) > 0 || next.getTime().compareTo(startTime) < 0) {
+                iterator.remove();
+            }
+        }
+        return result;
     }
 }
