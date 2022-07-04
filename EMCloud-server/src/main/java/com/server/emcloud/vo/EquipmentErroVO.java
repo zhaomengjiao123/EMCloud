@@ -29,6 +29,27 @@ public class EquipmentErroVO {
     private String erro_content;
     private String erro_time;
 
+    //每个城市的城市名字
+    private String name;
+    //这所城市的所有设备的报警数量
+    private int value;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
     public Integer getErro_id() {
         return erro_id;
     }
