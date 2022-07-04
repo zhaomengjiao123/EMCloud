@@ -1,0 +1,2 @@
+webpackJsonp([12],{"6cRr":function(e,t){},yJjx:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r={render:function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("\n  产品类型\n")])},staticRenderFns:[]};var c=n("VU/8")({name:"product"},r,!1,function(e){n("6cRr")},"data-v-0e31396e",null);t.default=c.exports}});
+//# sourceMappingURL=12.631d1c546bbc3e8b6ada.js.json

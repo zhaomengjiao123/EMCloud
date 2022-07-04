@@ -1,0 +1,2 @@
+webpackJsonp([8],{W8Pn:function(e,n){},s77b:function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var r={render:function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("\n  产品属性\n")])},staticRenderFns:[]};var a=t("VU/8")({name:"pro_prop"},r,!1,function(e){t("W8Pn")},"data-v-95d0a86e",null);n.default=a.exports}});
+//# sourceMappingURL=8.da8ccf6e1e617b399da5.js.json
