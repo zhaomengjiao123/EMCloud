@@ -205,8 +205,6 @@ export default {
 
     getException(type) {
       let params = new URLSearchParams()
-      params.append('startTime',this.startTime )
-      params.append('endTime', this.endTime)
       this.xAxisData = [];
       this.yAxisData = [];
       this.provalue=this.proType.proTypeData
@@ -452,8 +450,8 @@ export default {
           })
       }else if(type==='mouth'){ //获取不同类型的异常；按月获取
         this.xAxisData1 = this.getYearAndMonth(this.startTime, this.endTime)
-        params.append('startTime',this.xAxisData[0] )
-        params.append('endTime', this.xAxisData[this.xAxisData.length-1])
+        params.append('startTime',this.xAxisData1[0] )
+        params.append('endTime', this.xAxisData1[this.xAxisData1.length-1])
         getExceptionTypeByMouth(params)
           .then(res => {
             if (res) {
