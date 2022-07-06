@@ -17,4 +17,7 @@ public interface EquipmentEmergencyService {
 
     //查询全部的紧急警告信息数量
     int getAllEmergencyCount();
+
+    //查询全部的紧急警告信息
+    List<EquipmentEmergencyVO> getAllEmergencyInfo();
 }

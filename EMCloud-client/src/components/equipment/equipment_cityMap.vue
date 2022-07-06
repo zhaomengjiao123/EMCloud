@@ -29,7 +29,7 @@
             <span>{{emergencyNum}}</span>
           </div>
           </div>
-        <el-button class="moreBtn" type="primary" size="mini">查看更多>></el-button>
+        <el-button class="moreBtn" type="primary" size="mini" @click="toMoreInfo">查看更多>></el-button>
 
       </dv-border-box8>
     <div id="bmap" class="bmap" :style="{ height: '100%', width: '100%' }">城市地图</div>
@@ -69,7 +69,8 @@ export default {
 
   },
   created() {
-    this.getCompanyData()
+    this.getCompanyData();
+    // this.company={};
   },
   mounted() {
     this.$nextTick(() => {
@@ -164,14 +165,23 @@ export default {
           });
         } else {
           if (type == "预警数") {
-            this.$router.push({path: "/equipment/warning", query: {company_id: this.company.company_id}})
+            this.$router.push({path: "/exception/warning", query: {company_id: this.company.company_id}})
           } else if (type == "报警数") {
-            this.$router.push({path: "/equipment/erro", query: {company_id: this.company.company_id}})
+            this.$router.push({path: "/exception/erro", query: {company_id: this.company.company_id}})
           } else if (type == "紧急警告数") {
-            this.$router.push({path: "/equipment/emergency", query: {company_id: this.company.company_id}})
+            this.$router.push({path: "/exception/emergency", query: {company_id: this.company.company_id}})
           }
           //
         }
+      }
+
+    },
+    toMoreInfo(){
+      if(this.company.company_id==' '){
+        this.$message.warning("请先选择一个公司查看")
+      }else{
+        this.$router.push({path: "/exception/warning", query: {company_id: this.company.company_id}})
+
       }
 
     },

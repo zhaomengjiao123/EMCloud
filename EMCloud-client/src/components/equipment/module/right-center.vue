@@ -1,58 +1,27 @@
 <template>
   <div class="right_center">
-    <dv-capsule-chart :config="config" style="width:100%;height:100%" />
+    <dv-scroll-ranking-board :config="config" style="width:98%;height:90%" />
   </div>
 </template>
 
 <script>
-import vueSeamlessScroll from 'vue-seamless-scroll'  // vue2引入方式
+import vueSeamlessScroll from 'vue-seamless-scroll'
+import {getErroCountOfAllCity} from "../../../api";  // vue2引入方式
 
 export default {
-  // name: "right-center",
+  name: "right-center",
   components: { vueSeamlessScroll },
 
   data(){
     return{
       config: {
         showValue: true,
+        rowNum:4,
         carousel: "single",
         sort: true,
         unit: "次",
-        waitTime: 200,
-        data: [
-          {
-            name: 'ss',
-            value: 22
-          },
-          {
-            name:'ss',
-            value:80
-          }
-          ,
-          {
-            name:'ss',
-            value:90
-          }
-          ,
-          {
-            name:'ss',
-            value:10
-          }
-          ,
-          {
-            name:'ss',
-            value:50
-          },
-          {
-            name:'yy',
-            value:50
-          }
-          ,
-          {
-            name:'ss',
-            value:50
-          }
-        ]
+        waitTime: 1000,
+        data: []
       },
     }
   },
@@ -60,94 +29,9 @@ export default {
     this.getData()
 
   },
-  computed:{
-    config: {
-      showValue: true,
-      carousel: 'single',
-      rowNum: 4,
-      sort: true,
-      unit: "次",
-      waitTime: 200,
-      data: [
-        {
-          name: 'ss',
-          value: 22
-        },
-        {
-          name:'ss',
-          value:80
-        }
-        ,
-        {
-          name:'ss',
-          value:90
-        }
-        ,
-        {
-          name:'ss',
-          value:10
-        }
-        ,
-        {
-          name:'ss',
-          value:50
-        },
-        {
-          name:'yy',
-          value:50
-        }
-        ,
-        {
-          name:'ss',
-          value:50
-        }
-      ]
-    },
-
-  },
+  computed:{},
   mounted() {
-    this.config={
-      showValue: true,
-      carousel: 'single',
-      rowNum: 4,
-      sort: true,
-      unit: "次",
-      waitTime: 200,
-      data: [
-        {
-          name: 'ss',
-          value: 22
-        },
-        {
-          name:'yy',
-          value:80
-        }
-        ,
-        {
-          name:'hh',
-          value:90
-        }
-        ,
-        {
-          name:'ii',
-          value:10
-        }
-        ,
-        {
-          name:'pp',
-          value:50
-        },
-        {
-          name:'nn',
-          value:50
-        }
-        ,
-        {
-          name:'aa',
-          value:50
-        }
-      ]
-    }
+
   },
   methods:{
 
@@ -165,21 +49,23 @@ export default {
       let looper = (a) => {
         this.getData()
       };
-      this.timer = setInterval(looper, this.$store.state.setting.echartsAutoTime);
+      this.timer = setInterval(looper, 5000);
     },
     getData() {
       this.pageflag = true
-      // this.pageflag =false
-     // currentGET('big7', { gatewayno: this.gatewayno }).then(res => {
-
-        if (!this.timer) {
-          //console.log('报警排名', res);
+      getErroCountOfAllCity().then(res=>{
+        console.log("ErroCountCity:",res)
+        this.config = {
+          ...this.config,
+          data:res
         }
+      })
+
         if (true) {
-          this.config = {
-            ...this.config,
-            data: this.config.data
-          }
+          // this.config = {
+          //   ...this.config,
+          //   data: this.config.data
+          // }
           this.switper()
         } else {
           this.pageflag = false

@@ -36,4 +36,58 @@ public class EquipemntErroController {
         System.out.println("请求得到某公司的所有设备的报警信息："+company_id);
         return equipmentErroService.getErroByCid(new Integer(company_id));
     }
+
+    /**
+    * @Description: 请求得到每个城市的报警数量
+    * @Param: [request]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/7/5
+    */
+    @RequestMapping(value = "/getErroCountOfAllCity",method = RequestMethod.GET)
+    public Object getErroCountOfAllCity(HttpServletRequest request){
+        System.out.println("请求得到每个城市的报警数量");
+        return equipmentErroService.getErroCountOfAllCity();
+    }
+
+
+    /**
+    * @Description: 请求得到某公司的全部异常信息
+    * @Param: [request]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/7/6
+    */
+    @RequestMapping(value = "/getAllExceptionInfoByCid",method = RequestMethod.GET)
+    public Object getAllExceptionInfoByCid(HttpServletRequest request){
+        String company_id = request.getParameter("company_id");
+        System.out.println("请求得到某公司的全部异常信息："+company_id);
+        return equipmentErroService.getAllExceptionInfoByCid(new Integer(company_id));
+    }
+
+    /**
+    * @Description: 请求得到全部异常信息
+    * @Param: [request]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/7/6
+    */
+    @RequestMapping(value = "/getAllExceptionInfo",method = RequestMethod.GET)
+    public Object getAllExceptionInfo(HttpServletRequest request){
+        System.out.println("请求得到全部异常信息");
+        return equipmentErroService.getAllExceptionInfo();
+    }
+
+    /**
+    * @Description: 请求得到全部报警信息
+    * @Param: [request]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/7/6
+    */
+    @RequestMapping(value = "/getAllErroInfo",method = RequestMethod.GET)
+    public Object getAllErroInfo(HttpServletRequest request){
+        System.out.println("请求得到全部报警信息");
+        return equipmentErroService.getAllErroInfo();
+    }
 }

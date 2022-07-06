@@ -46,4 +46,8 @@ public interface UserMapper {
     public List<User> getUserOfPhone1(String user_phone);
 
     public int updateInfoSuperAdmin(User user);
+
+    public List<User> getUserOfPhone2(String user_phone);
+
+    public List<User> getUserOfPhone3(String user_phone, String company_id);
 }

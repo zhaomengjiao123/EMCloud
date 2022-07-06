@@ -1,6 +1,8 @@
 <template>
   <div class="contents" id="bigScreen">
 
+    <div class="full-screen" @click="enlarge" style="color: white">全屏</div>
+
     <div class="content_left">
       <div class="content_left_1">
         <TitleWrap title="设备总览">
@@ -16,7 +18,7 @@
 
     <div class="content_center">
         <TitleWrap title="分布地图">
-        <el-button type="text" size="large" class="back" @click="back" v-if="deepTree.length > 1">返回</el-button>
+        <el-button class="mapBack" type="text" size="large" @click="back" v-if="deepTree.length > 1">返回</el-button>
         <div id="map" class="echart-map" :style="{ height: '90%', width: '100%' }"></div>
         </TitleWrap>
     </div>
@@ -28,7 +30,7 @@
         </TitleWrap>
       </div>
       <div class="content_right_2">
-        <TitleWrap title="告警提醒">
+        <TitleWrap title="报警统计">
           <RightCenter></RightCenter>
         </TitleWrap>
       </div>
@@ -51,6 +53,7 @@ import {formatTime} from "../../libs/utils";
 import RightTop from "./module/right-top"
 import TitleWrap from "./module/title-wrap"
 import RightCenter from "./module/right-center"
+import {getAllEquipmentNumAndCity, getMapJson} from "../../api";
 
 export default {
   name: "equipment_map",
@@ -93,6 +96,7 @@ export default {
   },
   data() {
     return {
+      // FullScreen:false,
       chart: null, // 实例化echarts
       mapDataList: [], // 当前地图上的地区
       option: {...mapOption.basicOption}, // map的相关配置
@@ -218,7 +222,7 @@ export default {
 // },
 
 
-// 初次加载绘制地图
+     // 初次加载绘制地图
     initEcharts() {
       //this.getCityEquipmentNum();
       //地图容器
@@ -229,16 +233,19 @@ export default {
         this.requestGetProvinceJSON({name: this.areaName, level: 'province', adcode: this.areaCode.substr(0, 6)})
       }
     },
+
     //查询城市设备数量
     getCityEquipmentNum(){
-      axios.get("http://121.5.74.11:8080/equipment/getAllEquipmentNumAndCity").then(res=>{
-        this.numData = res.data
+      getAllEquipmentNumAndCity().then(res=>{
+        console.log("CITYNUM:",res)
+        this.numData = res
         this.initEcharts()
       })
     },
-    // 地图点击
+
+    // 地图点击util/getMapJson
     echartsMapClick(params) {
-      console.log("点击拉尔电联寄lack那上次男盗女娼进度才能")
+      console.log("点击")
       console.log("MAP:",params)
       china.features.forEach(item => {
         if (item.properties.name === params.name) {
@@ -255,20 +262,24 @@ export default {
         this.requestGetProvinceJSON(this.paramsMap);
       }
     },
+
     //绘制全国地图areaStatistic
     requestGetChinaJson() {
         this.setJsonData(china,'china')
       console.log(china)
     },
+
     // 加载省级地图
     requestGetProvinceJSON(params) {
       let par = new URLSearchParams()
       par.append('adcode', this.areaCode)
+      //getMapJson(par)
       axios.get("http://121.5.74.11:8080/util/getMapJson",{
         params:{
           adcode:this.areaCode
         }
-        }).then(res => {
+        })
+        .then(res => {
          console.log('province--->', res.data)
         this.$emit('update:areaLevel', 1)
         this.setJsonData(res.data, params)
@@ -292,11 +303,11 @@ export default {
         mapCodeList.unshift(res.features[i].properties.adcode + '000000')
       }
       this.mapDataList = mapDataList;
-      console.log("!!!!!!!!:",res)
       this.$emit('update:mapNameList', mapNameList)
       this.$emit('update:mapCodeList', mapCodeList)
       this.setMapData(res, params)
     },
+
     // 设置地图信息
     setMapData(res, params) {
       if (this.areaName === 'china') {
@@ -314,6 +325,7 @@ export default {
         this.renderMap(params, this.mapDataList);
       }
     },
+
     // 渲染地图
     renderMap(map, data) {
       console.log("渲染地图:",this.numData.length)
@@ -327,7 +339,8 @@ export default {
         return b.value - a.value
       });
       // 设置左上角当前位置
-      this.option.title[0].text = this.areaName
+      this.option.title[0].text = this.areaName=='china'?'中国':this.areaName
+      this.option.title[0].left = 'center'
       console.log("map:::",map)
       this.option.geo = {
         show: false,
@@ -394,6 +407,7 @@ export default {
 
       }
     },
+
     //地图鼠标移入事件
     echartsMapMouseover() {
       clearInterval(this.tooltipAutoplay)
@@ -428,6 +442,7 @@ export default {
       }
 
     },
+
     getPointData(numData){ 				//通过该方法获取自己数据中各地区的经纬度
       numData = this.numData
       console.log("HHHHH",this.numData.length)
@@ -474,14 +489,6 @@ export default {
   background-size: cover;
   height: 100%;
   width: 100%;
-  //.header{
-  //  width: 100%;
-  //  height: 50px;
-  //  color: white;
-  //  text-align: center;
-  //
-  //}
-
 
   .host-body {
     height: 100%;
@@ -578,8 +585,12 @@ export default {
     //background-image: url("../../assets/imgs/center_map.png");
     margin: 30px;
     width: 600px;
-    height: 400px;
+    height: 500px;
+    position: center;
     float: left;
+    .mapBack{
+      margin-left: 20px;
+    }
   }
 }
 .contents{

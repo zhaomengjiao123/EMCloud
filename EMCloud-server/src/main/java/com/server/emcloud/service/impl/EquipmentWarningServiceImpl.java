@@ -30,4 +30,9 @@ public class EquipmentWarningServiceImpl implements EquipmentWarningService {
     public int getAllWarningCount() {
         return equipmentWarningMapper.getAllWarningCount();
     }
+
+    @Override
+    public List<EquipmentWarningVO> getAllWarningInfo() {
+        return equipmentWarningMapper.getAllWarningInfo();
+    }
 }

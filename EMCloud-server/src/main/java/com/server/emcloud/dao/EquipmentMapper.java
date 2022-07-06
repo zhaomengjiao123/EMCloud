@@ -48,4 +48,10 @@ public interface EquipmentMapper {
     //查询全部的设备数
     int getAllEquipmentCount();
 
+    //查询大屏轮播图设备信息
+    List<EquipmentVO> getBigScreenEquipmentInfo();
+
+    //查询有异常的设备的数量
+    int getAbnormalEquipmentNum();
+
 }

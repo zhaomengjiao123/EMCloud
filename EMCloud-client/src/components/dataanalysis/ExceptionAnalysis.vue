@@ -205,8 +205,6 @@ export default {
 
     getException(type) {
       let params = new URLSearchParams()
-      params.append('starttime',this.startTime )
-      params.append('endtime', this.endTime)
       this.xAxisData = [];
       this.yAxisData = [];
       this.provalue=this.proType.proTypeData
@@ -214,23 +212,38 @@ export default {
       if(this.provalue==0){  //默认显示所有产品的异常数量
         this.title="所有产品"
         if (type==='day'){  //按天获取异常
+          params.append('startTime',this.startTime )
+          params.append('endTime', this.endTime)
           this.xAxisData = this.getYearAndMonthAndDay(this.startTime, this.endTime)//获取x轴数据
           getExceptionByDay(params)
             .then(res => {
               if (res) {
+                console.log(res)
                 let time = []
-                for (let i = 0; i < res.list.length; i++) {//不同类型
-                  time[i] = res.list[i].time//拿到所有的时间
+                for (let i = 0; i < res.length; i++) {//不同类型
+                  time[i] = res[i].time//拿到所有的时间
                 }
-                ;
+
                 for (let i = 0; i < this.xAxisData.length; i++) {//不同类型
                   if (time.indexOf(this.xAxisData[i]) !== -1) {//判断该坐标轴数据是否在后端数据的时间里，如果没有，该坐标对应的数据为0
-                    this.yAxisData[i] = res.list[time.indexOf(this.xAxisData[i])].count;//如果在里面，就让y轴的值等于x轴数据在time位置那个数据的count
+                    this.yAxisData[i] = res[time.indexOf(this.xAxisData[i])].count;//如果在里面，就让y轴的值等于x轴数据在time位置那个数据的count
                   } else {
                     this.yAxisData[i] = 0;
                   }
                 }
-                ;
+
+                // for (let i = 0; i < res.list.length; i++) {//不同类型
+                //   time[i] = res.list[i].time//拿到所有的时间
+                // }
+                //
+                // for (let i = 0; i < this.xAxisData.length; i++) {//不同类型
+                //   if (time.indexOf(this.xAxisData[i]) !== -1) {//判断该坐标轴数据是否在后端数据的时间里，如果没有，该坐标对应的数据为0
+                //     this.yAxisData[i] = res.list[time.indexOf(this.xAxisData[i])].count;//如果在里面，就让y轴的值等于x轴数据在time位置那个数据的count
+                //   } else {
+                //     this.yAxisData[i] = 0;
+                //   }
+                // }
+
                 this.chartLine.setOption(this.optionLine)
                 this.chartBar.setOption(this.optionBar)
                 window.addEventListener("resize", function () {
@@ -243,22 +256,38 @@ export default {
             })
         }else if(type==='mouth'){ //按月获取异常
           this.xAxisData = this.getYearAndMonth(this.startTime, this.endTime)
+          params.append('startTime',this.xAxisData[0] )
+          params.append('endTime', this.xAxisData[this.xAxisData.length-1])
+          console.log(this.xAxisData[0])
+          console.log(this.xAxisData[this.xAxisData.length-1])
           getExceptionByMouth(params)
             .then(res => {
               if (res) {
                 let time = []
-                for (let i = 0; i < res.list.length; i++) {//不同类型
-                  time[i] = res.list[i].time
-                };
-                console.log(time)
+                // for (let i = 0; i < res.list.length; i++) {//不同类型
+                //   time[i] = res.list[i].time
+                // }
+                // console.log(time)
+                // for (let i = 0; i < this.xAxisData.length; i++) {//不同类型
+                //   if (time.indexOf(this.xAxisData[i]) !== -1) {
+                //     this.yAxisData[i] = res.list[time.indexOf(this.xAxisData[i])].count;
+                //     console.log(this.yAxisData[i])
+                //   } else {
+                //     this.yAxisData[i] = 0;
+                //   }
+                // }
+                console.log(res)
+                for (let i = 0; i < res.length; i++) {//不同类型
+                  time[i] = res[i].time//拿到所有的时间
+                }
+
                 for (let i = 0; i < this.xAxisData.length; i++) {//不同类型
-                  if (time.indexOf(this.xAxisData[i]) !== -1) {
-                    this.yAxisData[i] = res.list[time.indexOf(this.xAxisData[i])].count;
-                    console.log(this.yAxisData[i])
+                  if (time.indexOf(this.xAxisData[i]) !== -1) {//判断该坐标轴数据是否在后端数据的时间里，如果没有，该坐标对应的数据为0
+                    this.yAxisData[i] = res[time.indexOf(this.xAxisData[i])].count;//如果在里面，就让y轴的值等于x轴数据在time位置那个数据的count
                   } else {
                     this.yAxisData[i] = 0;
                   }
-                };
+                }
 
                 this.chartLine.setOption(this.optionLine)
                 this.chartBar.setOption(this.optionBar)
@@ -274,25 +303,27 @@ export default {
         }
       }else{ //选择某个产品类型
         this.title=this.prolabel;
-        params.append('product_type_id', this.provalue)
+        params.append('product_id', this.provalue)
         if (type==='day'){  //按天获取异常
+          params.append('startTime',this.startTime )
+          params.append('endTime', this.endTime)
           this.xAxisData = this.getYearAndMonthAndDay(this.startTime, this.endTime)//获取x轴数据
           getProExceptionByDay(params)
             .then(res => {
               if (res) {
                 let time = []
-                for (let i = 0; i < res.list.length; i++) {//不同类型
-                  time[i] = res.list[i].time//拿到所有的时间
+                console.log(res)
+                for (let i = 0; i < res.length; i++) {//不同类型
+                  time[i] = res[i].time//拿到所有的时间
                 }
-                ;
+
                 for (let i = 0; i < this.xAxisData.length; i++) {//不同类型
                   if (time.indexOf(this.xAxisData[i]) !== -1) {//判断该坐标轴数据是否在后端数据的时间里，如果没有，该坐标对应的数据为0
-                    this.yAxisData[i] = res.list[time.indexOf(this.xAxisData[i])].count;//如果在里面，就让y轴的值等于x轴数据在time位置那个数据的count
+                    this.yAxisData[i] = res[time.indexOf(this.xAxisData[i])].count;//如果在里面，就让y轴的值等于x轴数据在time位置那个数据的count
                   } else {
                     this.yAxisData[i] = 0;
                   }
                 }
-                ;
 
                 this.chartLine.setOption(this.optionLine)
                 this.chartBar.setOption(this.optionBar)
@@ -306,22 +337,24 @@ export default {
             })
         }else if(type==='mouth'){ //按月获取异常
           this.xAxisData = this.getYearAndMonth(this.startTime, this.endTime)
+          params.append('startTime',this.xAxisData[0] )
+          params.append('endTime', this.xAxisData[this.xAxisData.length-1])
           getProExceptionByMouth(params)
             .then(res => {
               if (res) {
                 let time = []
-                for (let i = 0; i < res.list.length; i++) {//不同类型
-                  time[i] = res.list[i].time
-                };
-                console.log(time)
+                console.log(res)
+                for (let i = 0; i < res.length; i++) {//不同类型
+                  time[i] = res[i].time//拿到所有的时间
+                }
+
                 for (let i = 0; i < this.xAxisData.length; i++) {//不同类型
-                  if (time.indexOf(this.xAxisData[i]) !== -1) {
-                    this.yAxisData[i] = res.list[time.indexOf(this.xAxisData[i])].count;
-                    console.log(this.yAxisData[i])
+                  if (time.indexOf(this.xAxisData[i]) !== -1) {//判断该坐标轴数据是否在后端数据的时间里，如果没有，该坐标对应的数据为0
+                    this.yAxisData[i] = res[time.indexOf(this.xAxisData[i])].count;//如果在里面，就让y轴的值等于x轴数据在time位置那个数据的count
                   } else {
                     this.yAxisData[i] = 0;
                   }
-                };
+                }
 
                 this.chartLine.setOption(this.optionLine)
                 this.chartBar.setOption(this.optionBar)
@@ -345,21 +378,47 @@ export default {
 
     getExceptionType(type) {
       let params = new URLSearchParams()
-      params.append('starttime', this.startTime)
-      params.append('endtime', this.endTime)
       this.legendData = [];
       this.xAxisData1 = [];
       //this.yAxisData = [];
       this.itemData = [];
       if(type==='day') {//获取不同类型的异常；按天获取
+        params.append('startTime',this.startTime )
+        params.append('endTime', this.endTime)
         this.xAxisData1 = this.getYearAndMonthAndDay(this.startTime, this.endTime)
         getExceptionTypeByDay(params)
           .then(res => {
             if (res) {
               console.log(res)
-              for (let i = 0; i < res.list.length; i++) {
-                this.legendData.push(res.list[i].name)//res.list[i].name是产品的类型
-                let dataList = res.list[i].data;//res.list[i].data是每个产品类型的相关数据，包括时间和异常数量
+              // for (let i = 0; i < res.list.length; i++) {
+              //   this.legendData.push(res.list[i].name)//res.list[i].name是产品的类型
+              //   let dataList = res.list[i].data;//res.list[i].data是每个产品类型的相关数据，包括时间和异常数量
+              //   console.log(dataList)
+              //   let time = [];
+              //   for (let j = 0; j < dataList.length; j++) {
+              //     time[j] = dataList[j].time  //获取时间列表
+              //   }
+              //   let num = []
+              //   for (let x = 0; x < this.xAxisData1.length; x++) {//这个地方参考上面一条折线的那个方法
+              //     if (time.indexOf(this.xAxisData1[x]) !== -1) {
+              //       num[x] = dataList[time.indexOf(this.xAxisData1[x])].count;
+              //     } else {
+              //       num[x] = 0;
+              //     }
+              //   }
+              //   let pointObj = {
+              //     name: res.list[i].name,
+              //     type: 'line',
+              //     data: num,
+              //     symbol: 'circle',
+              //     symbolSize: 4,
+              //   };
+              //   this.itemData.push(pointObj)
+              // }
+
+              for (let i = 0; i < res.length; i++) {
+                this.legendData.push(res[i].name)//res[i].name是产品的类型
+                let dataList = res[i].list;//res[i].list是每个产品类型的相关数据，包括时间和异常数量
                 console.log(dataList)
                 let time = [];
                 for (let j = 0; j < dataList.length; j++) {
@@ -374,7 +433,7 @@ export default {
                   }
                 }
                 let pointObj = {
-                  name: res.list[i].name,
+                  name: res[i].name,
                   type: 'line',
                   data: num,
                   symbol: 'circle',
@@ -382,7 +441,7 @@ export default {
                 };
                 this.itemData.push(pointObj)
               }
-              ;
+
               this.chartAll.setOption(this.optionAll)
               window.addEventListener("resize", function () {
                 this.chartAll.resize();
@@ -391,13 +450,15 @@ export default {
           })
       }else if(type==='mouth'){ //获取不同类型的异常；按月获取
         this.xAxisData1 = this.getYearAndMonth(this.startTime, this.endTime)
+        params.append('startTime',this.xAxisData1[0] )
+        params.append('endTime', this.xAxisData1[this.xAxisData1.length-1])
         getExceptionTypeByMouth(params)
           .then(res => {
             if (res) {
               console.log(res)
-              for (let i=0;i<res.list.length;i++){
-                this.legendData.push(res.list[i].name)
-                let dataList = res.list[i].data;
+              for (let i=0;i<res.length;i++){
+                this.legendData.push(res[i].name)
+                let dataList = res[i].list;
                 console.log(dataList)
                 let time=[];
                 for (let j=0;j<dataList.length;j++) {
@@ -412,14 +473,42 @@ export default {
                   }
                 }
                 let pointObj = {
-                  name: res.list[i].name,
+                  name: res[i].name,
                   type: 'line',
                   data: num,
                   symbol: 'circle',
                   symbolSize: 4,
                 };
                 this.itemData.push(pointObj)
-              };
+              }
+
+              // for (let i=0;i<res.list.length;i++){
+              //   this.legendData.push(res.list[i].name)
+              //   let dataList = res.list[i].data;
+              //   console.log(dataList)
+              //   let time=[];
+              //   for (let j=0;j<dataList.length;j++) {
+              //     time[j]=dataList[j].time
+              //   }
+              //   let num=[]
+              //   for (let x = 0; x < this.xAxisData1.length; x++) {//不同类型
+              //     if(time.indexOf(this.xAxisData1[x])!==-1){
+              //       num[x] = dataList[time.indexOf(this.xAxisData1[x])].count;
+              //     }else{
+              //       num[x] = 0;
+              //     }
+              //   }
+              //   let pointObj = {
+              //     name: res.list[i].name,
+              //     type: 'line',
+              //     data: num,
+              //     symbol: 'circle',
+              //     symbolSize: 4,
+              //   };
+              //   this.itemData.push(pointObj)
+              // }
+
+
               this.chartAll.setOption(this.optionAll)
               window.addEventListener("resize",function() {
                 this.chartAll.resize();
@@ -710,9 +799,9 @@ export default {
           }
         },
         legend: {
-          // orient: 'vertical',
-          left: 'left',
+          left: 'right',
           data: this.legendData,
+          top:"10%"
           // icon: 'rect',
           // itemWidth: 10,
           // itemHeight: 10,

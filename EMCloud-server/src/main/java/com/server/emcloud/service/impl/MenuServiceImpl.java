@@ -74,4 +74,9 @@ public class MenuServiceImpl implements MenuService {
     public Boolean updateMenuAdminInvis(Integer menu_id) {
         return menuMapper.updateMenuAdminInvis(menu_id)>0;
     }
+
+    @Override
+    public List<Menu> getAllmenu() {
+        return menuMapper.getAllMenu();
+    }
 }

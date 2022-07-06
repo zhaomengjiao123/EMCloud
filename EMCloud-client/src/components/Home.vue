@@ -49,6 +49,7 @@ export default {
         "101": "iconfont icon-shangpin",
         "102": "iconfont icon-danju",
         "406": "iconfont icon-baobiao",
+        "72c": "iconfont icon-user",
       },
       isCollapse: false,
       menuData2: [
@@ -178,6 +179,29 @@ export default {
           path: "dataanalysis"
         },
         {
+          authName: "用户管理",
+          children: [
+            {
+              authName: "超级管理员管理用户",
+              id: '110',
+              path: "user/superadmin"
+            },
+            {
+              authName: "管理员管理用户",
+              id: '105',
+              path: "user/admin"
+            },
+            {
+              authName: "用户管理",
+              id: '105',
+              path: "user/user"
+            },
+          ],
+          id: "72c",
+          order: 2,
+          path: "user"
+        },
+        {
           authName: "设备管理",
           children: [
             {
@@ -191,11 +215,43 @@ export default {
               id: '105',
               order: 3,
               path: "equipment/cityMap"
+            },
+            {
+              authName: "异常信息",
+              id: '105',
+              order: 3,
+              path: "equipment/exception"
             }
           ],
           id: "102",
           order: 5,
           path: "equipment"
+        },
+        {
+          authName: "异常管理",
+          children: [
+            {
+              authName: "设备预警",
+              id: '104',
+              order: 2,
+              path: "exception/warning"
+            },
+            {
+              authName: "设备报警",
+              id: '105',
+              order: 3,
+              path: "exception/erro"
+            },
+            {
+              authName: "紧急警告",
+              id: '105',
+              order: 3,
+              path: "exception/emergency"
+            }
+          ],
+          id: "106",
+          order: 6,
+          path: "exception"
         }
         ]
     }

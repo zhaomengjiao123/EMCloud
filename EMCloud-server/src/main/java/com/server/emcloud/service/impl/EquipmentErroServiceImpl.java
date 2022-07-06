@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,5 +30,25 @@ public class EquipmentErroServiceImpl implements EquipmentErroService {
     @Override
     public int getAllErroCount() {
         return equipmentErroMapper.getAllErroCount();
+    }
+
+    @Override
+    public List<Map<String, Object>> getErroCountOfAllCity() {
+        return equipmentErroMapper.getErroCountOfAllCity();
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllExceptionInfoByCid(int company_id) {
+        return equipmentErroMapper.getAllExceptionInfoByCid(company_id);
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllExceptionInfo() {
+        return equipmentErroMapper.getAllExceptionInfo();
+    }
+
+    @Override
+    public List<EquipmentErroVO> getAllErroInfo() {
+        return equipmentErroMapper.getAllErroInfo();
     }
 }

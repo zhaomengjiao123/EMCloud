@@ -17,6 +17,8 @@ public class EquipmentEmergencyVO {
 
     private Integer company_id;
 
+    private String company_name;
+
     private Integer salesman_id;
 
     private String salesman_name;
@@ -117,5 +119,13 @@ public class EquipmentEmergencyVO {
 
     public void setSell_time(String sell_time) {
         this.sell_time = sell_time;
+    }
+
+    public String getCompany_name() {
+        return company_name;
+    }
+
+    public void setCompany_name(String company_name) {
+        this.company_name = company_name;
     }
 }

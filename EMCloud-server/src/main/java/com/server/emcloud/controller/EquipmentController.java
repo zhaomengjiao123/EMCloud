@@ -293,8 +293,33 @@ public class EquipmentController {
         return jsonObject;
     }
 
+    /**
+    * @Description: 大屏设备轮播图信息 状态 ID 所属公司名 所在地
+    * @Param: [request]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/7/4
+    */
+    @RequestMapping(value = "/getBigScreenEquipmentInfo",method = RequestMethod.GET)
+    public Object getBigScreenEquipmentInfo(HttpServletRequest request){
+        System.out.println("请求得到大屏设备轮播图信息");
+        return equipmentService.getBigScreenEquipmentInfo();
+    }
 
-
-
+    /**
+    * @Description: 查询有异常的设备的数量
+    * @Param: [request]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/7/5
+    */
+    @RequestMapping(value = "/getAbnormalEquipmentNum",method = RequestMethod.GET)
+    public Object getAbnormalEquipmentNum(HttpServletRequest request){
+        int abnormalEquipmentCount = equipmentService.getAbnormalEquipmentNum();
+        JSONObject jsonObject = new JSONObject();
+        System.out.println("请求得到有异常的设备的数量:"+abnormalEquipmentCount);
+        jsonObject.put("abnormalEquipmentCount", abnormalEquipmentCount);
+        return jsonObject;
+    }
 
 }

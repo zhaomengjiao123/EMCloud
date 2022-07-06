@@ -17,6 +17,8 @@ public class EquipmentWarningVO {
 
     private Integer company_id;
 
+    private String company_name;
+
     private Integer salesman_id;
 
     private String salesman_name;
@@ -115,5 +117,13 @@ public class EquipmentWarningVO {
 
     public void setSalesman_name(String salesman_name) {
         this.salesman_name = salesman_name;
+    }
+
+    public String getCompany_name() {
+        return company_name;
+    }
+
+    public void setCompany_name(String company_name) {
+        this.company_name = company_name;
     }
 }

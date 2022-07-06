@@ -7,11 +7,13 @@ Vue.use(Router)
   const routes =  [
     {
       path: '/',
-      redirect: '/shouye'
+      //redirect: '/shouye'
     },
     {
+      // path: '/login',
+      // component: Login
       path: '/login',
-      component: Login
+      component: () => import('../components/Login.vue')
     },
     {
       path: '/logon',
@@ -108,6 +110,11 @@ Vue.use(Router)
         },
 
         {
+          path: '/equipment/exception',
+          component: () => import('../components/equipment/equipment_exceptionList.vue')
+        },
+
+        {
           path: '/dataanalysis/exception',
           component: () => import('../components/dataanalysis/Exception.vue')
         },
@@ -123,10 +130,7 @@ Vue.use(Router)
           path: '/dataanalysis/taskanalysis',
           component: () => import('../components/dataanalysis/TaskAnalysis.vue')
         },
-        {
-          path: '/equipment/emergency',
-          component: () => import('../components/equipment/equipment_emergencyWarningList.vue')
-        },
+
           {
           path: '/user/superadmin',
           component: () => import('../components/user/SuperAdmin.vue')
@@ -138,6 +142,18 @@ Vue.use(Router)
         {
           path: '/user/user',
           component: () => import('../components/user/User.vue')
+        },
+        {
+          path: '/exception/warning',
+          component: () => import('../components/exception/WarningList.vue')
+        },
+        {
+          path: '/exception/emergency',
+          component: () => import('../components/exception/EmergencyWarningList.vue')
+        },
+        {
+          path: '/exception/erro',
+          component: () => import('../components/exception/ErroList.vue')
         },
       ]
     }

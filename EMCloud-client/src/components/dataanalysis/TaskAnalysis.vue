@@ -206,8 +206,6 @@ export default {
 
     getTask(type) {
       let params = new URLSearchParams()
-      params.append('starttime',this.startTime )
-      params.append('endtime', this.endTime)
       this.xAxisData = [];
       this.yAxisData = [];
       this.provalue=this.proType.proTypeData
@@ -215,18 +213,21 @@ export default {
       if(this.provalue==0){
         if (type==='day'){  //按天获取异常
           this.title="所有产品"
+          params.append('startTime',this.startTime )
+          params.append('endTime', this.endTime)
           this.xAxisData = this.getYearAndMonthAndDay(this.startTime, this.endTime)//获取x轴数据
           getTaskByDay(params)
             .then(res => {
+              console.log(res)
               if (res) {
                 let time = []
-                for (let i = 0; i < res.list.length; i++) {//不同类型
-                  time[i] = res.list[i].time//拿到所有的时间
+                for (let i = 0; i < res.length; i++) {//不同类型
+                  time[i] = res[i].time//拿到所有的时间
                 }
                 ;
                 for (let i = 0; i < this.xAxisData.length; i++) {//不同类型
                   if (time.indexOf(this.xAxisData[i]) !== -1) {//判断该坐标轴数据是否在后端数据的时间里，如果没有，该坐标对应的数据为0
-                    this.yAxisData[i] = res.list[time.indexOf(this.xAxisData[i])].count;//如果在里面，就让y轴的值等于x轴数据在time位置那个数据的count
+                    this.yAxisData[i] = res[time.indexOf(this.xAxisData[i])].count;//如果在里面，就让y轴的值等于x轴数据在time位置那个数据的count
                   } else {
                     this.yAxisData[i] = 0;
                   }
@@ -245,17 +246,19 @@ export default {
             })
         }else if(type==='mouth'){ //按月获取异常
           this.xAxisData = this.getYearAndMonth(this.startTime, this.endTime)
+          params.append('startTime',this.xAxisData[0] )
+          params.append('endTime', this.xAxisData[this.xAxisData.length-1])
           getTaskByMouth(params)
             .then(res => {
               if (res) {
                 let time = []
-                for (let i = 0; i < res.list.length; i++) {//不同类型
-                  time[i] = res.list[i].time
+                for (let i = 0; i < res.length; i++) {//不同类型
+                  time[i] = res[i].time
                 };
                 console.log(time)
                 for (let i = 0; i < this.xAxisData.length; i++) {//不同类型
                   if (time.indexOf(this.xAxisData[i]) !== -1) {
-                    this.yAxisData[i] = res.list[time.indexOf(this.xAxisData[i])].count;
+                    this.yAxisData[i] = res[time.indexOf(this.xAxisData[i])].count;
                     console.log(this.yAxisData[i])
                   } else {
                     this.yAxisData[i] = 0;
@@ -276,20 +279,22 @@ export default {
         }
       }else{
         this.title=this.prolabel;
-        params.append('product_type_id', this.provalue)
+        params.append('product_id', this.provalue)
         if (type==='day'){  //按天获取异常
+          params.append('startTime',this.startTime )
+          params.append('endTime', this.endTime)
           this.xAxisData = this.getYearAndMonthAndDay(this.startTime, this.endTime)//获取x轴数据
           getProTaskByDay(params)
             .then(res => {
               if (res) {
                 let time = []
-                for (let i = 0; i < res.list.length; i++) {//不同类型
-                  time[i] = res.list[i].time//拿到所有的时间
+                for (let i = 0; i < res.length; i++) {//不同类型
+                  time[i] = res[i].time//拿到所有的时间
                 }
                 ;
                 for (let i = 0; i < this.xAxisData.length; i++) {//不同类型
                   if (time.indexOf(this.xAxisData[i]) !== -1) {//判断该坐标轴数据是否在后端数据的时间里，如果没有，该坐标对应的数据为0
-                    this.yAxisData[i] = res.list[time.indexOf(this.xAxisData[i])].count;//如果在里面，就让y轴的值等于x轴数据在time位置那个数据的count
+                    this.yAxisData[i] = res[time.indexOf(this.xAxisData[i])].count;//如果在里面，就让y轴的值等于x轴数据在time位置那个数据的count
                   } else {
                     this.yAxisData[i] = 0;
                   }
@@ -308,17 +313,19 @@ export default {
             })
         }else if(type==='mouth'){ //按月获取异常
           this.xAxisData = this.getYearAndMonth(this.startTime, this.endTime)
+          params.append('startTime',this.xAxisData[0] )
+          params.append('endTime', this.xAxisData[this.xAxisData.length-1])
           getProTaskByMouth(params)
             .then(res => {
               if (res) {
                 let time = []
-                for (let i = 0; i < res.list.length; i++) {//不同类型
-                  time[i] = res.list[i].time
+                for (let i = 0; i < res.length; i++) {//不同类型
+                  time[i] = res[i].time
                 };
                 console.log(time)
                 for (let i = 0; i < this.xAxisData.length; i++) {//不同类型
                   if (time.indexOf(this.xAxisData[i]) !== -1) {
-                    this.yAxisData[i] = res.list[time.indexOf(this.xAxisData[i])].count;
+                    this.yAxisData[i] = res[time.indexOf(this.xAxisData[i])].count;
                     console.log(this.yAxisData[i])
                   } else {
                     this.yAxisData[i] = 0;
@@ -344,21 +351,21 @@ export default {
 
     getTaskType(type) {
       let params = new URLSearchParams()
-      params.append('starttime', this.startTime)
-      params.append('endtime', this.endTime)
       this.legendData = [];
       this.xAxisData1 = [];
       //this.yAxisData = [];
       this.itemData = [];
       if(type==='day') {//获取不同类型的异常；按天获取
+        params.append('startTime',this.startTime )
+        params.append('endTime', this.endTime)
         this.xAxisData1 = this.getYearAndMonthAndDay(this.startTime, this.endTime)
         getTaskTypeByDay(params)
           .then(res => {
             if (res) {
               console.log(res)
-              for (let i = 0; i < res.list.length; i++) {
-                this.legendData.push(res.list[i].name)//res.list[i].name是产品的类型
-                let dataList = res.list[i].data;//res.list[i].data是每个产品类型的相关数据，包括时间和异常数量
+              for (let i = 0; i < res.length; i++) {
+                this.legendData.push(res[i].name)//res[i].name是产品的类型
+                let dataList = res[i].data;//res[i].data是每个产品类型的相关数据，包括时间和异常数量
                 console.log(dataList)
                 let time = [];
                 for (let j = 0; j < dataList.length; j++) {
@@ -373,7 +380,7 @@ export default {
                   }
                 }
                 let pointObj = {
-                  name: res.list[i].name,
+                  name: res[i].name,
                   type: 'line',
                   data: num,
                   symbol: 'circle',
@@ -390,13 +397,15 @@ export default {
           })
       }else if(type==='mouth'){ //获取不同类型的异常；按月获取
         this.xAxisData1 = this.getYearAndMonth(this.startTime, this.endTime)
+        params.append('startTime',this.xAxisData1[0] )
+        params.append('endTime', this.xAxisData1[this.xAxisData1.length-1])
         getTaskTypeByMouth(params)
           .then(res => {
             if (res) {
               console.log(res)
-              for (let i=0;i<res.list.length;i++){
-                this.legendData.push(res.list[i].name)
-                let dataList = res.list[i].data;
+              for (let i=0;i<res.length;i++){
+                this.legendData.push(res[i].name)
+                let dataList = res[i].data;
                 console.log(dataList)
                 let time=[];
                 for (let j=0;j<dataList.length;j++) {
@@ -411,7 +420,7 @@ export default {
                   }
                 }
                 let pointObj = {
-                  name: res.list[i].name,
+                  name: res[i].name,
                   type: 'line',
                   data: num,
                   symbol: 'circle',
@@ -710,13 +719,16 @@ export default {
         },
         legend: {
           // orient: 'vertical',
-          left: 'left',
-          data: this.legendData,
+          // left: 'left',
+          // data: this.legendData,
           // icon: 'rect',
           // itemWidth: 10,
           // itemHeight: 10,
           // itemGap: 20,
           // left: 30
+          left: 'right',
+          data: this.legendData,
+          top:"10%"
         },
         xAxis: [{
           name:'日期',

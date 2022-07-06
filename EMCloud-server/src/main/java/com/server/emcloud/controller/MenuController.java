@@ -30,6 +30,7 @@ public class MenuController {
         this.userService = userService;
     }
 
+
     /**
      * @Description: GET方法
      *     用户登陆后进入页面
@@ -39,7 +40,7 @@ public class MenuController {
      * @Date: 2022/6/24
      */
     @RequestMapping(value = "/getmenu",method = RequestMethod.GET)
-    public Object getMenu(HttpServletRequest request) throws JSONException {
+    public Object getAllMenu(HttpServletRequest request) throws JSONException {
         String user_phone = request.getParameter("user_phone").trim();
         System.out.println(user_phone);
         User user = userService.getUserOfPhone(user_phone);
@@ -57,19 +58,36 @@ public class MenuController {
 
     }
 
+
     /**
      * @Description: GET方法
-     *     超级管理员查看用户菜单
+     *     管理员查看所有的菜单
      * @Param: [request]
      * @return: java.lang.Object
      * @Author: lyx
      * @Date: 2022/6/24
      */
-    @RequestMapping(value = "/getmenutosuperadmin",method = RequestMethod.GET)
-    public Object getMenuToSuperAd() throws JSONException {
-            return getMenuToAdmin();
-
+    @RequestMapping(value = "/getallmenu",method = RequestMethod.GET)
+    public Object supergetAllMenu(HttpServletRequest request) throws JSONException {
+        return superadmingetAllMenu();
     }
+
+
+
+//
+//    /**
+//     * @Description: GET方法
+//     *     超级管理员查看用户菜单
+//     * @Param: [request]
+//     * @return: java.lang.Object
+//     * @Author: lyx
+//     * @Date: 2022/6/24
+//     */
+//    @RequestMapping(value = "/getmenutosuperadmin",method = RequestMethod.GET)
+//    public Object getMenuToSuperAd() throws JSONException {
+//            return getMenuToAdmin();
+//
+//    }
 
     /**
      * @Description: GET方法
@@ -85,20 +103,37 @@ public class MenuController {
     }
 
 
+//    /**
+//     * @Description: GET方法
+//     *     超级管理员查看管理员菜单
+//     * @Param: [request]
+//     * @return: java.lang.Object
+//     * @Author: lyx
+//     * @Date: 2022/6/24
+//     */
+//    @RequestMapping(value = "/getadminmenutosuperadmin",method = RequestMethod.GET)
+//    public Object getMenuAdminToSuper() throws JSONException {
+//            return getMenuAdminToSuperAdmin();
+//
+//
+//    }
+
     /**
      * @Description: GET方法
-     *     超级管理员查看管理员菜单
+     *     超级管理员查看所有菜单
      * @Param: [request]
      * @return: java.lang.Object
      * @Author: lyx
      * @Date: 2022/6/24
      */
-    @RequestMapping(value = "/getmenuadmintosuperadmin",method = RequestMethod.GET)
+    @RequestMapping(value = "/getadminmenutosuperadmin",method = RequestMethod.GET)
     public Object getMenuAdminToSuper() throws JSONException {
-            return getMenuAdminToSuperAdmin();
+        return getMenuAdminToSuperAdmin();
 
 
     }
+
+
 
     /**
      * @Description: PUT方法
@@ -244,18 +279,37 @@ public class MenuController {
 
     /**
      * @Description: PUT方法
-     *     超级管理员修改管理员权限,使其对该功能不可见
+     *     获得菜单信息
      * @Param: [request]
      * @return: java.lang.Object
      * @Author: lyx
      * @Date: 2022/6/24
      */
-    @RequestMapping(value = "/getmenuofid",method = RequestMethod.GET)
-    //获得菜单信息
-    public Menu getMenuOfId(HttpServletRequest request) {
-        String menu_id = request.getParameter("menu_id").trim();
+//    @RequestMapping(value = "/getmenuofid",method = RequestMethod.GET)
+//    //获得菜单信息
+    public Menu getMenuOfId(String menu_id) {
         return menuService.getMenuOfId(menu_id);
     }
+
+    public List<Menu> superadmingetAllMenu() {
+        List<Menu> rslist=new ArrayList<>();
+        List<Menu> menus = menuService.getAllmenu();//查询当前菜单数据库中所有父子级记录
+        //先将所有一级菜单添加至rslist
+        System.out.println(menus);
+        for(Menu menu:menus){
+            if(menu.getMenu_parentid()==0){      //如果父级为0，则为顶级菜单
+                rslist.add(menu);
+            }
+        }
+        // 为父级菜单设置子菜单，getChild是递归调用的
+        for (Menu Menu : rslist) {
+            //传入父级菜单Id,以及所有查询结果
+            Menu.setChildren(getChild(Menu.getMenu_id(), menus));
+        }
+
+        return rslist;
+    }
+
 
     //超级管理员或者管理员查看用户菜单
     public List<Menu> getMenuToAdmin() {

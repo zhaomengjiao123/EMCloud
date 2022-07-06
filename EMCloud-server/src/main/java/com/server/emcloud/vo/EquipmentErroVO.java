@@ -29,6 +29,29 @@ public class EquipmentErroVO {
     private String erro_content;
     private String erro_time;
 
+    private String company_name;
+
+    //每个城市的城市名字
+    private String name;
+    //这所城市的所有设备的报警数量
+    private int value;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
     public Integer getErro_id() {
         return erro_id;
     }
@@ -115,5 +138,13 @@ public class EquipmentErroVO {
 
     public void setSell_time(String sell_time) {
         this.sell_time = sell_time;
+    }
+
+    public String getCompany_name() {
+        return company_name;
+    }
+
+    public void setCompany_name(String company_name) {
+        this.company_name = company_name;
     }
 }
