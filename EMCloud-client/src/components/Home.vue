@@ -215,11 +215,43 @@ export default {
               id: '105',
               order: 3,
               path: "equipment/cityMap"
+            },
+            {
+              authName: "异常信息",
+              id: '105',
+              order: 3,
+              path: "equipment/exception"
             }
           ],
           id: "102",
           order: 5,
           path: "equipment"
+        },
+        {
+          authName: "异常管理",
+          children: [
+            {
+              authName: "设备预警",
+              id: '104',
+              order: 2,
+              path: "exception/warning"
+            },
+            {
+              authName: "设备报警",
+              id: '105',
+              order: 3,
+              path: "exception/erro"
+            },
+            {
+              authName: "紧急警告",
+              id: '105',
+              order: 3,
+              path: "exception/emergency"
+            }
+          ],
+          id: "106",
+          order: 6,
+          path: "exception"
         }
         ]
     }

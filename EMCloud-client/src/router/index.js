@@ -7,7 +7,7 @@ Vue.use(Router)
   const routes =  [
     {
       path: '/',
-      redirect: '/shouye'
+      //redirect: '/shouye'
     },
     {
       // path: '/login',
@@ -108,17 +108,10 @@ Vue.use(Router)
           path: '/equipment/cityMap',
           component: () => import('../components/equipment/equipment_cityMap.vue')
         },
+
         {
-          path: '/equipment/emergency',
-          component: () => import('../components/equipment/equipment_emergencyWarningList.vue')
-        },
-        {
-          path: '/equipment/warning',
-          component: () => import('../components/equipment/equipment_warningList.vue')
-        },
-        {
-          path: '/equipment/erro',
-          component: () => import('../components/equipment/equipment_erroList.vue')
+          path: '/equipment/exception',
+          component: () => import('../components/equipment/equipment_exceptionList.vue')
         },
 
         {
@@ -149,6 +142,18 @@ Vue.use(Router)
         {
           path: '/user/user',
           component: () => import('../components/user/User.vue')
+        },
+        {
+          path: '/exception/warning',
+          component: () => import('../components/exception/WarningList.vue')
+        },
+        {
+          path: '/exception/emergency',
+          component: () => import('../components/exception/EmergencyWarningList.vue')
+        },
+        {
+          path: '/exception/erro',
+          component: () => import('../components/exception/ErroList.vue')
         },
       ]
     }

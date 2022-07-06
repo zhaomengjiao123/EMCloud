@@ -14,12 +14,15 @@ export const getEmergencyByCid = (params) => get(`equipmentEmergency/getEmergenc
 export const getMapJson = (params) => get(`util/getMapJson`,params)
 
 //================>设备统计接口大屏
+//查询每个公司的设备数量
 export const getEquipmentCountOfCompany = () => get(`equipment/getEquipmentCountOfCompany`)
 //查询每个城市的设备数量
 export const getAllEquipmentNumAndCity = () => get('equipment/getAllEquipmentNumAndCity')
+//根据公司ID查询本公司预警/报警/紧急告警数量
 export const getWarningNumByCid = (params) => get(`equipment/getWarningNumByCid`,params)
 export const getErroNumByCid = (params) => get(`equipment/getErroNumByCid`,params)
 export const getEmergencyNumByCid = (params) => get(`equipment/getEmergencyNumByCid`,params)
+//查询在线设备/不在线设备数
 export const getOnlineAndNotOnlineEquipmentNum = () => get(`equipment/getOnlineAndNotOnlineEquipmentNum`)
 //查询有异常的设备的数量
 export const getAbnormalEquipmentNum = () => get('equipment/getAbnormalEquipmentNum')
@@ -31,6 +34,28 @@ export const getAllExceptionCount = () => get(`equipment/getAllExceptionCount`)
 export const getBigScreenEquipmentInfo = () => get(`equipment/getBigScreenEquipmentInfo`)
 //查询每个城市的所有设备的报警数量
 export const getErroCountOfAllCity = () => get('equipmentErro/getErroCountOfAllCity')
+//=======================>设备异常查询
+//查询全部的异常信息
+export const getAllExceptionInfo = () => get(`equipmentErro/getAllExceptionInfo`)
+
+export const getAllExceptionInfoByCid = (params) => get(`equipmentErro/getAllExceptionInfoByCid`,params)
+//查询全部的报警信息
+export const getAllErroInfo = () => get('equipmentErro/getAllErroInfo')
+//查询全部的紧急告警信息
+export const getAllEmergencyInfo = () => get('equipmentEmergency/getAllEmergencyInfo')
+//查询全部的预警信息
+export const getAllWarningInfo = () => get('equipmentWarning/getAllWarningInfo')
+
+
+
+
+
+
+
+
+
+
+
 
 //获取所有产品类型
 export const getProType= () => get(`productType/getAllProductType`);
