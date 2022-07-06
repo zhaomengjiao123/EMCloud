@@ -23,4 +23,13 @@ public interface EquipmentErroService {
 
     //监控大屏-查询每个城市的报警数量
     List<Map<String, Object>> getErroCountOfAllCity();
+
+    //查询某公司的全部预警/报警/紧急警告信息
+    List<Map<String,Object>> getAllExceptionInfoByCid(int company_id);
+
+    //查询全部异常信息
+    List<Map<String,Object>> getAllExceptionInfo();
+
+    //查询全部的报警信息
+    List<EquipmentErroVO> getAllErroInfo();
 }

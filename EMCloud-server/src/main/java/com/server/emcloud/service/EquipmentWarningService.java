@@ -19,4 +19,7 @@ public interface EquipmentWarningService {
 
     //查询全部的预警信息数量
     int getAllWarningCount();
+
+    //查询全部的预警信息
+    List<EquipmentWarningVO> getAllWarningInfo();
 }

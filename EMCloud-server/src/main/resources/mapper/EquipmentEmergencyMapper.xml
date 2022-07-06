@@ -15,8 +15,8 @@
 
 
   <select id="getEmergencyByCid" parameterType="java.lang.Integer" resultType="com.server.emcloud.vo.EquipmentEmergencyVO">
-    SELECT a.equipment_number,b.product_name,w.*,d.salesman_name,a.sell_time
-    FROM `emdb_equipment` a JOIN `emdb_product` b ON a.product_id=b.product_id
+    SELECT a.equipment_number,b.company_name,w.*,d.salesman_name,a.sell_time
+    FROM `emdb_equipment` a JOIN `emdb_company` b ON a.company_id=b.company_id
                           INNER JOIN `emdb_equipment_emergency_warning` w ON a.equipment_id=w.equipment_id
         JOIN `emdb_salesman` d ON a.salesman_id=d.salesman_id
     where a.company_id = #{company_id,jdbcType=INTEGER}
@@ -24,6 +24,15 @@
 
   <select id="getAllEmergencyCount" resultType="java.lang.Integer">
     SELECT COUNT(*) FROM `emdb_equipment_emergency_warning`
+  </select>
+
+
+  <select id="getAllEmergencyInfo" resultType="com.server.emcloud.vo.EquipmentEmergencyVO">
+    SELECT ew.equipment_id,ew.emergency_warning_content,ew.emergency_warning_time,e.equipment_number,
+           c.company_name, s.salesman_name,e.sell_time
+    FROM emdb_equipment_emergency_warning ew JOIN emdb_equipment e
+                                       ON ew.equipment_id=e.equipment_id INNER JOIN emdb_company c ON
+      e.company_id=c.company_id INNER JOIN emdb_salesman s ON s.salesman_id=e.salesman_id
   </select>
 
 

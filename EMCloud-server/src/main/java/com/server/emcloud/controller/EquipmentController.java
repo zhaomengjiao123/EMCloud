@@ -322,8 +322,4 @@ public class EquipmentController {
         return jsonObject;
     }
 
-
-
-
-
 }

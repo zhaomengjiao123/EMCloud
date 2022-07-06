@@ -13,6 +13,16 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
 
+  <resultMap id="AllExceptionInfo" type="java.util.HashMap">
+    <result column="equipment_id" jdbcType="INTEGER" property="equipment_id" />
+    <result column="equipment_number" jdbcType="VARCHAR" property="equipment_number" />
+    <result column="equipment_comment" jdbcType="VARCHAR" property="equipment_comment" />
+    <result column="abnormal_content" jdbcType="VARCHAR" property="abnormal_content" />
+    <result column="adnormal_time" jdbcType="VARCHAR" property="adnormal_time" />
+    <result column="company_name" jdbcType="VARCHAR" property="company_name" />
+
+  </resultMap>
+
 
   <sql id="Base_Column_List">
     erro_id, equipment_id, erro_content, erro_time
@@ -20,8 +30,8 @@
 
 
   <select id="getErroByCid" parameterType="java.lang.Integer" resultType="com.server.emcloud.vo.EquipmentErroVO">
-    SELECT a.equipment_number,b.product_name,w.*,d.salesman_name,a.sell_time
-    FROM `emdb_equipment` a JOIN `emdb_product` b ON a.product_id=b.product_id
+    SELECT a.equipment_number,b.company_name,w.*,d.salesman_name,a.sell_time
+    FROM `emdb_equipment` a JOIN `emdb_company` b ON a.company_id=b.company_id
                           INNER JOIN `emdb_equipment_erro` w ON a.equipment_id=w.equipment_id
         JOIN `emdb_salesman` d ON a.salesman_id=d.salesman_id
     where a.company_id = #{company_id,jdbcType=INTEGER}
@@ -39,6 +49,36 @@
     INNER JOIN emdb_equipment_erro erro ON erro.equipment_id=e.equipment_id) d
     GROUP BY company_local_city;
     </select>
+
+  <select id="getAllExceptionInfoByCid" parameterType="java.lang.Integer" resultMap="AllExceptionInfo">
+    SELECT e.equipment_id,e.equipment_number,e.equipment_comment,w.erro_content as abnormal_content,w.erro_time as adnormal_time,
+      c.company_name
+    FROM
+      (
+          (SELECT * FROM emdb_equipment_erro) UNION ALL (SELECT * FROM emdb_equipment_warning)
+          UNION ALL (SELECT * FROM emdb_equipment_emergency_warning)
+      ) w JOIN emdb_equipment e ON e.equipment_id=w.equipment_id JOIN emdb_company c ON e.company_id=c.company_id
+    WHERE e.company_id=#{company_id,jdbcType=INTEGER}
+  </select>
+
+  <select id="getAllExceptionInfo" parameterType="java.lang.Integer" resultMap="AllExceptionInfo">
+    SELECT e.equipment_id,e.equipment_number,e.equipment_comment,w.erro_content as abnormal_content,w.erro_time as adnormal_time,c.company_name
+    FROM
+      (
+          (SELECT * FROM emdb_equipment_erro) UNION ALL (SELECT * FROM emdb_equipment_warning)
+          UNION ALL (SELECT * FROM emdb_equipment_emergency_warning)
+      ) w JOIN emdb_equipment e ON e.equipment_id=w.equipment_id JOIN emdb_company c ON e.company_id=c.company_id
+
+  </select>
+
+  <select id="getAllErroInfo" resultType="com.server.emcloud.vo.EquipmentErroVO">
+    SELECT erro.equipment_id,erro.erro_content,erro.erro_time,e.equipment_number,
+           c.company_name, s.salesman_name,e.sell_time
+    FROM emdb_equipment_erro erro JOIN emdb_equipment e
+        ON erro.equipment_id=e.equipment_id INNER JOIN emdb_company c ON
+      e.company_id=c.company_id INNER JOIN emdb_salesman s ON s.salesman_id=e.salesman_id
+  </select>
+
 
 
 

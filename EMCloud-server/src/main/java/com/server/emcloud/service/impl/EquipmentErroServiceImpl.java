@@ -36,4 +36,19 @@ public class EquipmentErroServiceImpl implements EquipmentErroService {
     public List<Map<String, Object>> getErroCountOfAllCity() {
         return equipmentErroMapper.getErroCountOfAllCity();
     }
+
+    @Override
+    public List<Map<String, Object>> getAllExceptionInfoByCid(int company_id) {
+        return equipmentErroMapper.getAllExceptionInfoByCid(company_id);
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllExceptionInfo() {
+        return equipmentErroMapper.getAllExceptionInfo();
+    }
+
+    @Override
+    public List<EquipmentErroVO> getAllErroInfo() {
+        return equipmentErroMapper.getAllErroInfo();
+    }
 }
