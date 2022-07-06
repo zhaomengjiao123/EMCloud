@@ -166,6 +166,9 @@ export const getDepart= () => get(`depart/getalldepart`);
 export const getDepartByCompany= (params) => get(`depart/getdepartbycompany`,params);
 
 
+//获取菜单
+export const getMenuList= (params) => get(`menu/getmenu`,params);
+
 
 
 // //查询设备在线和不在线的数量
