@@ -7,11 +7,9 @@ Vue.use(Router)
   const routes =  [
     {
       path: '/',
-      //redirect: '/shouye'
+      redirect: '/shouye'
     },
     {
-      // path: '/login',
-      // component: Login
       path: '/login',
       component: () => import('../components/Login.vue')
     },
@@ -26,7 +24,7 @@ Vue.use(Router)
     {
       path: '/home',
       component: () => import('../components/Home.vue'),
-      //redirect: '/welcome',
+      redirect: '/welcome',
       children: [
         {
           path: '/welcome',
@@ -68,13 +66,13 @@ Vue.use(Router)
           path: '/rights',
           component: () => import('../components/right/Right.vue')
         },
-        // {
-        //   path: '/roles',
-        //   component: () => import('../components/right/Role.vue')
-        // },
         {
           path: '/menu',
           component: () => import('../components/right/Menu.vue')
+        },
+        {
+          path: '/menuadmin',
+          component: () => import('../components/right/MenuAdmin.vue')
         },
         {
           path: '/categories',

@@ -170,6 +170,28 @@ export const getDepartByCompany= (params) => get(`depart/getdepartbycompany`,par
 export const getMenuList= (params) => get(`menu/getmenu`,params);
 
 
+//超级管理员获取菜单
+export const getAllMenu= () => get(`menu/getallmenu`);
+
+//管理员获取用户菜单
+export const getUserMenuToAdmin= () => get(`menu/getmenutoadmin`);
+
+//超级管理员修改用户权限，使其可见
+export const updateMenuUserVis = (params) => put(`menu/updatemenuuservis`,params)
+
+
+//超级管理员修改用户权限，使其不可见
+export const updateMenuUserInvis = (params) => put(`menu/updatemenuuserinvis`,params)
+
+//超级管理员修改管理员权限，使其可见
+export const updateMenuAdminVis = (params) => put(`menu/updatemenuadminvis`,params)
+
+//超级管理员修改管理员权限，使其不可见
+export const updateMenuAdminInvis = (params) => put(`menu/updatemenuadmininvis`,params)
+
+
+
+
 
 // //查询设备在线和不在线的数量
 // export const getEquipState = () => get(`getEquipState`);

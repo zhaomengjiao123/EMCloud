@@ -11,23 +11,23 @@
       </div>
     </el-header>
     <el-container>
-      <el-aside width= "isCollapse ? 200px : 50px">
-        <div class="toggle-btn" @click="isCollapse=!isCollapse">|||</div>
-        <el-menu :default-active="$route.path" unique-opened router :collapse="isCollapse" :collapse-transition="false">
-          <el-submenu :index="item.id+''" v-for="item in menuData" :key="item.id">
-            <template slot="title">
-              <i :class="iconList[item.id]"></i>
-              <span>{{item.authName}}</span>
-            </template>
-            <el-menu-item :index="'/'+child.path" v-for="child in item.children" :key="child.id">
-              <template>
-                <i class="el-icon-menu"></i>
-                <span>{{child.authName}}</span>
-              </template>
-            </el-menu-item>
-          </el-submenu>
-        </el-menu>
-      </el-aside>
+            <el-aside width= "isCollapse ? 200px : 50px">
+              <div class="toggle-btn" @click="isCollapse=!isCollapse">|||</div>
+              <el-menu :default-active="$route.path" unique-opened router :collapse="isCollapse" :collapse-transition="false">
+                  <el-submenu :index="item.id+''" v-for="item in menuData" :key="item.id">
+                    <template slot="title">
+                      <i :class="iconList[item.id]"></i>
+                      <span>{{item.authName}}</span>
+                    </template>
+                    <el-menu-item :index="'/'+child.path" v-for="child in item.children" :key="child.id">
+                      <template>
+                        <i class="el-icon-menu"></i>
+                        <span>{{child.authName}}</span>
+                      </template>
+                    </el-menu-item>
+                  </el-submenu>
+              </el-menu>
+            </el-aside>
       <el-main>
         <router-view></router-view>
       </el-main>
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import {getExceptionTypeByDay, getExceptionTypeByMouth, getMenuList} from "../api";
+import { getMenuList} from "../api";
 
 export default {
   name: "Home.vue",
@@ -138,7 +138,6 @@ export default {
       console.log(childrenlenght)
       let data=[]
       for(let j=0;j<childrenlenght;j++){
-        console.log("hhhhhh")
         data[j]={};
         data[j].authName=children[j].menu_name;
         data[j].path=children[j].menu_link;
