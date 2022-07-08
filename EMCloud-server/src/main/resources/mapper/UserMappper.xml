@@ -16,7 +16,7 @@
     </resultMap>
 
     <select id="Base_Column_List">
-        user_name,user_phone,user_tele,user_company,user_depart,user_auth,company_id,depart_id
+        user_name,user_phone,user_tele,user_company,user_depart,user_auth,company_id,depart_id,user_del_flag
     </select>
 
     <select id="login" resultType="java.lang.Integer">
@@ -160,11 +160,20 @@
         where user_phone = #{user_phone}
     </update>
 
-    <delete id="deleteUser" parameterType="java.lang.String" >
-        delete from emdb_user
-        where user_phone = #{user_phone}
-    </delete>
+<!--    <delete id="deleteUser" parameterType="java.lang.String" >-->
+<!--        delete from emdb_user-->
+<!--        where user_phone = #{user_phone}-->
+<!--    </delete>-->
 
+
+
+    <update id="deleteUser" >
+        update emdb_user
+        <set >
+                user_del_flag = 1
+        </set>
+        where user_phone = #{user_phone}
+    </update>
 
     <select id="getUserOfPhone" resultMap="BaseResultMap">
     select a.*,b.company_name as user_company,c.depart_name as user_depart
@@ -173,6 +182,7 @@
     and a.company_id=b.company_id
     and a.depart_id=c.depart_id
     and a.company_id =c.company_id
+    and a.user_del_flag = 0
     </select>
 
     <select id="getUserOfPhone1" resultMap="BaseResultMap">
@@ -182,6 +192,7 @@
     and a.company_id=b.company_id
     and a.depart_id=c.depart_id
     and a.company_id =c.company_id
+    and a.user_del_flag = 0
     </select>
 
 
@@ -192,6 +203,7 @@
     and a.company_id=b.company_id
     and a.depart_id=c.depart_id
     and a.company_id =c.company_id
+    and a.user_del_flag = 0
     </select>
 
     <select id="getUserOfPhone3" resultMap="BaseResultMap">
@@ -202,6 +214,7 @@
     and a.company_id=b.company_id
     and a.depart_id=c.depart_id
     and a.company_id =c.company_id
+    and a.user_del_flag = 0
     </select>
 
 
@@ -212,6 +225,7 @@
     and a.company_id=b.company_id
     and a.company_id =c.company_id
     and a.depart_id=c.depart_id
+    and a.user_del_flag = 0
     </select>
 
     <select id="getAllUser" resultMap="BaseResultMap">
@@ -220,6 +234,7 @@
     where a.company_id=b.company_id
     and a.company_id= c.company_id
     and a.depart_id=c.depart_id
+    and a.user_del_flag = 0
     </select>
 
 
