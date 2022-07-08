@@ -8,7 +8,10 @@
         SELECT COUNT(warning_id) AS COUNT,warning_time AS TIME  FROM
             (
             SELECT* FROM
-            (SELECT * FROM `emdb_equipment_warning` UNION ALL SELECT * FROM  `emdb_equipment_erro` ) a UNION ALL SELECT * FROM  `emdb_equipment_emergency_warning`
+            (SELECT * FROM `emdb_equipment_warning` where warning_del_flag =0
+            UNION ALL
+            SELECT * FROM  `emdb_equipment_erro` where erro_del_flag = 0 ) a
+            UNION ALL SELECT * FROM  `emdb_equipment_emergency_warning` where  emergency_del_flag =0
             ) a
         GROUP BY
             warning_time
@@ -18,7 +21,9 @@
         SELECT COUNT(warning_id) AS COUNT,LEFT(warning_time,7) AS TIME  FROM
             (
             SELECT* FROM
-            (SELECT * FROM `emdb_equipment_warning` UNION ALL SELECT * FROM  `emdb_equipment_erro` ) a UNION ALL SELECT * FROM  `emdb_equipment_emergency_warning`
+            (SELECT * FROM `emdb_equipment_warning` where warning_del_flag =0
+             UNION ALL SELECT * FROM  `emdb_equipment_erro` where erro_del_flag = 0) a
+             UNION ALL SELECT * FROM  `emdb_equipment_emergency_warning` where  emergency_del_flag =0
             ) a
         GROUP BY
             LEFT(warning_time,7)
@@ -68,7 +73,9 @@
         SELECT  COUNT(warning_id) as count ,warning_time  as time FROM
             (
                 SELECT * FROM
-                    (SELECT * FROM `emdb_equipment_warning` UNION ALL SELECT * FROM  `emdb_equipment_erro` ) a UNION ALL SELECT * FROM  `emdb_equipment_emergency_warning`
+                    (SELECT * FROM `emdb_equipment_warning` where warning_del_flag =0
+                     UNION ALL SELECT * FROM  `emdb_equipment_erro` where erro_del_flag = 0) a
+                      UNION ALL SELECT * FROM  `emdb_equipment_emergency_warning` where  emergency_del_flag =0
             ) b
         WHERE equipment_id IN
               (
@@ -84,7 +91,9 @@
         SELECT  COUNT(warning_id) as count ,left(warning_time,7)  as time FROM
             (
             SELECT * FROM
-            (SELECT * FROM `emdb_equipment_warning` UNION ALL SELECT * FROM  `emdb_equipment_erro` ) a UNION ALL SELECT * FROM  `emdb_equipment_emergency_warning`
+            (SELECT * FROM `emdb_equipment_warning` where warning_del_flag =0
+            UNION ALL SELECT * FROM  `emdb_equipment_erro`  where erro_del_flag = 0 ) a
+             UNION ALL SELECT * FROM  `emdb_equipment_emergency_warning` where  emergency_del_flag =0
             ) b
         WHERE equipment_id IN
             (

@@ -59,11 +59,11 @@
             (
                 SELECT a.`product_type_id`,b.* FROM  emdb_product a, emdb_equipment b
                 WHERE
-                    a.`product_id`=b.`product_id`
+                    a.`product_id`=b.`product_id` and product_del_flag = 0 and equipment_del_flag = 0
             ) c
                 RIGHT JOIN
             emdb_product_type d
-            ON c.product_type_id=d.product_type_id
+            ON c.product_type_id=d.product_type_id where product_type_del_flag = 0
         GROUP BY
             d.`product_type_name`
 

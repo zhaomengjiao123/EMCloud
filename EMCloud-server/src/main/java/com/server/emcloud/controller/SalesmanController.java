@@ -47,7 +47,7 @@ public class SalesmanController {
             }
 
         } catch (Exception e) {
-            System.out.println(e.getStackTrace());
+            System.out.println(e.getMessage());
             jsonObject.put(Consts.CODE, 0);
             jsonObject.put(Consts.MSG, "添加失败");
             return jsonObject;
