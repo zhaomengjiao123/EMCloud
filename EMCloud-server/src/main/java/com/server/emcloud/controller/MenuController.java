@@ -61,7 +61,7 @@ public class MenuController {
 
     /**
      * @Description: GET方法
-     *     管理员查看所有的菜单
+     *     超级管理员获得所有菜单
      * @Param: [request]
      * @return: java.lang.Object
      * @Author: lyx
@@ -73,21 +73,6 @@ public class MenuController {
     }
 
 
-
-//
-//    /**
-//     * @Description: GET方法
-//     *     超级管理员查看用户菜单
-//     * @Param: [request]
-//     * @return: java.lang.Object
-//     * @Author: lyx
-//     * @Date: 2022/6/24
-//     */
-//    @RequestMapping(value = "/getmenutosuperadmin",method = RequestMethod.GET)
-//    public Object getMenuToSuperAd() throws JSONException {
-//            return getMenuToAdmin();
-//
-//    }
 
     /**
      * @Description: GET方法
@@ -114,24 +99,10 @@ public class MenuController {
 //    @RequestMapping(value = "/getadminmenutosuperadmin",method = RequestMethod.GET)
 //    public Object getMenuAdminToSuper() throws JSONException {
 //            return getMenuAdminToSuperAdmin();
-//
-//
+
 //    }
 
-    /**
-     * @Description: GET方法
-     *     超级管理员查看所有菜单
-     * @Param: [request]
-     * @return: java.lang.Object
-     * @Author: lyx
-     * @Date: 2022/6/24
-     */
-    @RequestMapping(value = "/getadminmenutosuperadmin",method = RequestMethod.GET)
-    public Object getMenuAdminToSuper() throws JSONException {
-        return getMenuAdminToSuperAdmin();
 
-
-    }
 
 
 

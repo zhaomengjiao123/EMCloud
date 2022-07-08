@@ -58,6 +58,7 @@ export default {
       //     return this.$message.error('登陆失败！');
         this.$message.success('登陆成功！');
         //sessionStorage.setItem('userInfo',JSON.stringify("user_name:1"));
+         //sessionStorage.setItem('user_auth',res.user_auth);
         this.$router.push('/home');
       })
     }
