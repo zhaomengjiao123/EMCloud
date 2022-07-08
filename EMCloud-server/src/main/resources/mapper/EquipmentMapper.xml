@@ -116,8 +116,9 @@ where equipment_del_flag = 0
   </update>
 
   <delete id="deleteEquipmentByEid" parameterType="java.lang.Integer" >
-    delete from `emdb_equipment`
-    where equipment_id = #{equipment_id,jdbcType=INTEGER};
+    UPDATE emdb_equipment
+    SET equipment_del_flag = 1
+    WHERE equipment_id = #{equipment_id,jdbcType=INTEGER}
   </delete>
 
   <insert id="addEquipment" parameterType="com.server.emcloud.domain.Equipment" >
