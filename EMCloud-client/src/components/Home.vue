@@ -110,7 +110,7 @@ export default {
     getMenuList() {
       let params = new URLSearchParams()
       this.menuData=[]
-      params.append('user_phone', '1')
+      params.append('user_phone', '1')//这里获取session中的电话号码
       getMenuList(params)
         .then(res => {
           if (res) {

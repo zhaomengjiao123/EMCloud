@@ -112,7 +112,7 @@ public class EquipmentController {
         Integer salesman_id = Integer.valueOf(req.getParameter("salesman_id").trim()); //销售员id
         String sell_time = req.getParameter("sell_time").trim(); //销售时间
         Integer equipment_state = Integer.valueOf(req.getParameter("equipment_state").trim()); //设备在线状态1在线0宕机
-        String equipment_comment = req.getParameter("equipment_comment").trim(); //设备备注信息
+        String equipment_comment = req.getParameter("equipment_comment"); //设备备注信息
 
         //设备预警数量，设备告警数量，设备紧急告警数量默认设置为0
         Integer equipment_warning_count = 0;

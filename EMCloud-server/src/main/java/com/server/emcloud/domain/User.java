@@ -19,7 +19,18 @@ public class User implements Serializable {
     private Integer company_id;       //归属公司id
     private Integer depart_id;       //归属部门id
     private String user_passwd;       //用户密码
-    private Integer user_auth;       //用户权限,1为超级管理员，2为企业管理员，3为超级管理员
+    private Integer user_auth;       //用户权限,1为超级管理员，2为企业管理员，3为用户
+    private Integer user_del_flag;
+
+    public Integer getUser_del_flag() {
+        return user_del_flag;
+    }
+
+    public void setUser_del_flag(Integer user_del_flag) {
+        this.user_del_flag = user_del_flag;
+    }
+
+
 
     public String getUser_company() {
         return user_company;
