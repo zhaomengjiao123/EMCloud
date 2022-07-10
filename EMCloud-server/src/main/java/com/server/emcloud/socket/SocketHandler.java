@@ -1,12 +1,19 @@
 package com.server.emcloud.socket;
 
 import com.alibaba.druid.util.StringUtils;
+import com.server.emcloud.domain.AGVProtocolHeader;
+import com.server.emcloud.domain.AgvStateInfo;
+import javafx.stage.StageStyle;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.json.JSONObject;
+import org.apache.commons.collections.set.SynchronizedSet;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.time.LocalDateTime;
 
 import static com.server.emcloud.socket.SocketPool.add;
 import static com.server.emcloud.socket.SocketPool.remove;
@@ -22,20 +29,22 @@ import static com.server.emcloud.socket.SocketPool.remove;
 public class SocketHandler {
 
     /**
-     * 将连接的Socket注册到Socket池中
-     * @param socket
-     * @return
-     */
+    * @Description: 将连接的Socket注册到Socket池中
+    * @Param: [socket]
+    * @return: com.server.emcloud.socket.ClientSocket
+    * @Author: zmj
+    * @Date: 2022/7/9
+    */
     public static ClientSocket register(Socket socket){
         ClientSocket clientSocket = new ClientSocket();
+        //得到客户端地址
+        InetAddress client_InetAddress = socket.getInetAddress();
+        System.out.println("客户端地址为："+client_InetAddress.toString());
         clientSocket.setSocket(socket);
         try {
             clientSocket.setInputStream(new DataInputStream(socket.getInputStream()));
             clientSocket.setOutputStream(new DataOutputStream(socket.getOutputStream()));
-            byte[] bytes = new byte[1024];
-            clientSocket.getInputStream().read(bytes);
-            System.out.println(new String(bytes, "utf-8"));
-            clientSocket.setKey(new String(bytes, "utf-8"));
+            clientSocket.setKey(client_InetAddress.toString());
             add(clientSocket);
             return clientSocket;
         } catch (IOException e) {
@@ -45,10 +54,12 @@ public class SocketHandler {
     }
 
     /**
-     * 向指定客户端发送信息
-     * @param clientSocket
-     * @param message
-     */
+    * @Description: 向指定客户端发送信息
+    * @Param: [clientSocket, message]
+    * @return: void
+    * @Author: zmj
+    * @Date: 2022/7/9
+    */
 
     public static void sendMessage(ClientSocket clientSocket, String message){
         try {
@@ -62,48 +73,58 @@ public class SocketHandler {
     }
 
     /**
-     * 获取指定客户端的上传信息
-     * @param clientSocket
-     * @return
-     */
+    * @Description: 获取指定客户端的上传信息
+    * @Param: [clientSocket]
+    * @return: void
+    * @Author: zmj
+    * @Date: 2022/7/9
+    */
     public static void onMessage(ClientSocket clientSocket){
-        byte[] keyByte = new byte[1024];
-        byte[] msgByte = new byte[1];
+        DataInputStream dataInputStream = clientSocket.getInputStream();
         try {
-            // 第一次先发送序列号
-            if(StringUtils.isEmpty(clientSocket.getKey())) {
-                clientSocket.getInputStream().read(keyByte);
-                clientSocket.setKey(new String(keyByte, "UTF-8"));
-                //return clientSocket.getKey();
-                // 以后发送数据
-            }else {
                 String info = "";
+                System.out.println("2");
                 while (true) {
-                    if (clientSocket.getInputStream().available() > 0) {
-                        clientSocket.getInputStream().read(msgByte);
-                        String tempStr = HexEcodeUtil.ByteArrayToHexStr(msgByte);
-                        info += tempStr;
+                    if (dataInputStream.available()>0) {
+                    byte sync = dataInputStream.readByte();
+                    byte version = dataInputStream.readByte();
+                    short number = dataInputStream.readShort();
+                    int total_length = dataInputStream.readInt();
+                    short type = dataInputStream.readShort();
+                    int reserved = dataInputStream.read(new byte[6]);
+                    System.out.println(sync+" "+version+" "+number+" "+total_length+" "+type+" "+reserved);
+                    byte[] m=new byte[total_length];
+                    dataInputStream.read(m);
+
+                    info += new String(m,"utf-8");
+                    //JSONObject agvJson = JSONObject.parseObject(info);
+                    JSONObject jsonobject = JSONObject.fromObject(info);
+                    AgvStateInfo agvStateInfo = (AgvStateInfo) JSONObject.toBean(jsonobject,AgvStateInfo.class);
+                    System.out.println("转换后的对象ID："+agvStateInfo.getAgvid());
+
                         //已经读完
                         if (clientSocket.getInputStream().available() == 0) {
                             //重置,不然每次收到的数据都会累加起来
                             clientSocket.setMessage(info);
                             break;
                         }
-                    }
+                    //}
                 }
-                //return clientSocket.getMessage();
             }
         } catch (IOException e) {
             e.printStackTrace();
             close(clientSocket);
         }
-        //return null;
     }
 
+
     /**
-     * 指定Socket资源回收
-     * @param clientSocket
-     */
+    * @Description: 指定Socket资源回收
+    * @Param: [clientSocket]
+    * @return: void
+    * @Author: zmj
+    * @Date: 2022/7/9
+    */
     public static void close(ClientSocket clientSocket){
         log.info("进行资源回收");
         if (clientSocket != null){
@@ -127,10 +148,12 @@ public class SocketHandler {
 
 
     /**
-     * 发送数据包，判断数据连接状态
-     * @param clientSocket
-     * @return
-     */
+    * @Description: 判断数据连接状态
+    * @Param: [clientSocket]
+    * @return: boolean
+    * @Author: zmj
+    * @Date: 2022/7/9
+    */
     public static boolean isSocketClosed(ClientSocket clientSocket){
         try {
             clientSocket.getSocket().sendUrgentData(1);
