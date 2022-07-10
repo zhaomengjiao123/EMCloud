@@ -31,13 +31,14 @@ public class ClientSocket implements Runnable {
     public void run() {
         while (true){
             try {
+                System.out.println("1"+this);
                 onMessage(this);
                 System.out.println(LocalDateTime.now()+" 接收到数据: <<<<<<" + this.message);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             if (isSocketClosed(this)){
-                System.out.println("客户端已关闭,其Key值为：{}"+this.getKey());
+                log.info("客户端已关闭,其Key值为：{}",this.getKey());
                 //关闭对应的服务端资源
                 close(this);
                 break;

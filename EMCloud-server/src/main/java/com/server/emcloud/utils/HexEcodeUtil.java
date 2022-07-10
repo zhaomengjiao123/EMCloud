@@ -1,4 +1,4 @@
-package com.server.emcloud.socket;
+package com.server.emcloud.utils;
 
 /**
  * Created with IntelliJ IDEA.

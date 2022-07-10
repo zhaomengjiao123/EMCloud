@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.server.emcloud.dao.AgvStateInfoMapper">
+  <resultMap id="BaseResultMap" type="com.server.emcloud.domain.AgvStateInfo">
+    <id column="agvid" jdbcType="VARCHAR" property="agvid" />
+    <result column="SendTime" jdbcType="VARCHAR" property="SendTime" />
+    <result column="power_on_time" jdbcType="VARCHAR" property="power_on_time" />
+    <result column="mode_running" jdbcType="VARCHAR" property="mode_running" />
+    <result column="path_running" jdbcType="VARCHAR" property="path_running" />
+    <result column="battery" jdbcType="FLOAT" property="battery" />
+    <result column="theta" jdbcType="FLOAT" property="theta" />
+    <result column="xpos" jdbcType="FLOAT" property="xpos" />
+    <result column="ypos" jdbcType="FLOAT" property="ypos" />
+    <result column="cur_cap" jdbcType="FLOAT" property="cur_cap" />
+    <result column="exec_cap" jdbcType="FLOAT" property="exec_cap" />
+    <result column="target_cap" jdbcType="FLOAT" property="target_cap" />
+    <result column="exec_route" jdbcType="VARCHAR" property="exec_route" />
+    <result column="manual_auto" jdbcType="FLOAT" property="manual_auto" />
+    <result column="robot_ready" jdbcType="BIT" property="robot_ready" />
+    <result column="task_complete" jdbcType="BIT" property="task_complete" />
+    <result column="task_stopping" jdbcType="BIT" property="task_stopping" />
+    <result column="radar_error" jdbcType="BIT" property="radar_error" />
+    <result column="radar_disconnect" jdbcType="BIT" property="radar_disconnect" />
+    <result column="motor_error" jdbcType="BIT" property="motor_error" />
+    <result column="board_disconnect" jdbcType="BIT" property="board_disconnect" />
+    <result column="imu_disconnect" jdbcType="BIT" property="imu_disconnect" />
+    <result column="warning_code" jdbcType="FLOAT" property="warning_code" />
+    <result column="error_code" jdbcType="FLOAT" property="error_code" />
+    <result column="total_odom" jdbcType="FLOAT" property="total_odom" />
+    <result column="today_odom" jdbcType="FLOAT" property="today_odom" />
+    <result column="cur_map" jdbcType="VARCHAR" property="cur_map" />
+    <result column="vel_line" jdbcType="VARCHAR" property="vel_line" />
+    <result column="vel_angle" jdbcType="FLOAT" property="vel_angle" />
+    <result column="line_enc" jdbcType="FLOAT" property="line_enc" />
+    <result column="external_sts" jdbcType="FLOAT" property="external_sts" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List">
+    agvid, SendTime, power_on_time, mode_running, path_running,battery,theta,xpos,
+        ypos,cur_cap,exec_cap,target_cap,exec_route,manual_auto,robot_ready,task_complete,radar_error,
+        radar_disconnect,motor_error,board_disconnect,imu_disconnect,warning_code,error_code,total_odom,today_odom,
+        cur_map,vel_line,vel_angle,line_enc,external_sts
+  </sql>
+
+<!--  <insert id="addAgvStateInfo" parameterType="com.server.emcloud.domain.AgvStateInfo" >-->
+<!--    insert into agvstateinfo-->
+<!--    <trim prefix="(" suffix=")" suffixOverrides="," >-->
+<!--      <if test="agvid != null" >-->
+<!--        agvid,-->
+<!--      </if>-->
+<!--      <if test="SendTime != null" >-->
+<!--        SendTime,-->
+<!--      </if>-->
+<!--      <if test="product_release_date != null" >-->
+<!--        product_release_date,-->
+<!--      </if>-->
+<!--      <if test="product_number != null" >-->
+<!--        product_number,-->
+<!--      </if>-->
+<!--      <if test="product_update_time != null" >-->
+<!--        product_update_time,-->
+<!--      </if>-->
+<!--      <if test="product_pic_url != null" >-->
+<!--        product_pic_url,-->
+<!--      </if>-->
+<!--      <if test="product_file_url != null" >-->
+<!--        product_file_url,-->
+<!--      </if>-->
+<!--      <if test="product_comment != null" >-->
+<!--        product_comment,-->
+<!--      </if>-->
+<!--      <if test="product_type_id != null" >-->
+<!--        product_type_id,-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--    <trim prefix="values (" suffix=")" suffixOverrides="," >-->
+<!--      <if test="product_name != null" >-->
+<!--        #{product_name,jdbcType=VARCHAR} ,-->
+<!--      </if>-->
+<!--      <if test="product_version != null" >-->
+<!--        #{product_version,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="product_release_date != null" >-->
+<!--        #{product_release_date,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="product_number != null" >-->
+<!--        #{product_number,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="product_update_time != null" >-->
+<!--        #{product_update_time,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="product_pic_url != null" >-->
+<!--        #{product_pic_url,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="product_file_url != null" >-->
+<!--        #{product_file_url,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="product_comment != null" >-->
+<!--        #{product_comment,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--      <if test="product_type_id != null" >-->
+<!--        #{product_type_id,jdbcType=VARCHAR},-->
+<!--      </if>-->
+<!--    </trim>-->
+<!--  </insert>-->
+
+
+
+
+
+</mapper>

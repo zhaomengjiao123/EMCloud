@@ -59,14 +59,22 @@
     <select id="getAllCompany" resultMap="BaseResultMap">
         select *
         from `emdb_company`
+        where company_del_flag = 0
     </select>
 
 
 
-    <delete id="deleteCompanyOfCid" parameterType="java.lang.Integer" >
-        delete from `emdb_company`
-        where company_id = #{company_id,jdbcType=INTEGER};
-    </delete>
+<!--    <delete id="deleteCompanyOfCid" parameterType="java.lang.Integer" >-->
+<!--        delete from `emdb_company`-->
+<!--        where company_id = #{company_id,jdbcType=INTEGER};-->
+<!--    </delete>-->
+
+    <update id="deleteCompanyOfCid" parameterType="java.lang.Integer">
+        UPDATE `emdb_company`
+        SET company_del_flag=1
+        WHERE company_id=#{company_id,jdbcType=INTEGER}
+    </update>
+
 
 
     <update id="updateByPrimaryKeySelective" parameterType="com.server.emcloud.domain.Company">
