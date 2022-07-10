@@ -88,7 +88,7 @@
               :value="item.depart_id">
             </el-option>
           </el-select>
-<!--          <el-input  v-model="addUserForm.user_depart"></el-input>-->
+          <!--          <el-input  v-model="addUserForm.user_depart"></el-input>-->
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -113,7 +113,7 @@
           <el-input v-model="editForm.user_company" disabled></el-input>
         </el-form-item>
         <el-form-item label="部门" prop="user_depart">
-<!--          <el-input  v-model="editForm.user_depart"></el-input>-->
+          <!--          <el-input  v-model="editForm.user_depart"></el-input>-->
           <el-select v-model="editForm.user_depart"
                      placeholder="请选择部门">
             <el-option
@@ -214,7 +214,8 @@ export default {
     },
     getOptionInfo1(){
       let params = new URLSearchParams()
-      params.append('company_id', 1)
+      console.log(sessionStorage.getItem("company"))
+      params.append('company_id', sessionStorage.getItem("company"))
       getDepartByCompany(params)
         .then(res => {
           this.optionData1=res;
@@ -251,32 +252,32 @@ export default {
       }
     },
     deleteUser(row){
-        this.$confirm('此操作将永久删除该项目, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          let params = new URLSearchParams()
-          params.append('user_phone', row.user_phone)
-          console.log(row.user_phone)
-          deleteUser(params)
-            .then(res => {
-              if (res.code == 1) {
-                this.$message({
-                  message: '删除成功',
-                  type: 'success'
-                })
-                this.getUser()
-              } else {
-                this.$message({
-                  message: '删除失败',
-                  type: 'error'
-                })
-              }
-            })
-        }).catch(() => {
-          this.$message.info('已取消删除');
-        });
+      this.$confirm('此操作将永久删除该项目, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let params = new URLSearchParams()
+        params.append('user_phone', row.user_phone)
+        console.log(row.user_phone)
+        deleteUser(params)
+          .then(res => {
+            if (res.code == 1) {
+              this.$message({
+                message: '删除成功',
+                type: 'success'
+              })
+              this.getUser()
+            } else {
+              this.$message({
+                message: '删除失败',
+                type: 'error'
+              })
+            }
+          })
+      }).catch(() => {
+        this.$message.info('已取消删除');
+      });
 
       // let params = new URLSearchParams()
       // params.append('user_phone', row.user_phone)
@@ -302,7 +303,7 @@ export default {
       this.userlist=[
       ];
       let params = new URLSearchParams()
-      params.append('company_id', 1)
+      params.append('company_id', sessionStorage.getItem("company"))
       getUserByCompany(params)
         .then(res => {
           this.tableData = res;
@@ -318,13 +319,13 @@ export default {
         })
     },
 
-      getUserByPhone(){
+    getUserByPhone(){
       this.userlist=[
       ];
       if(this.queryInfo1.query1){
         let params = new URLSearchParams()
         params.append('user_phone', this.queryInfo1.query1)
-        params.append('company_id', 1)
+        params.append('company_id', sessionStorage.getItem("company"))
         getUserByPhoneInCompany(params)
           .then(res => {
             this.tableData = res;

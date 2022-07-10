@@ -50,9 +50,10 @@ public class UserController {
             //HttpSession session = request.getSession();
             jsonObject.put(Consts.CODE,1);
             jsonObject.put(Consts.MSG,"登陆成功");
-            jsonObject.put(Consts.NAME,user_name);
-            jsonObject.put(Consts.PHONE,user_phone);
+            jsonObject.put("user_name",user_name);
+            jsonObject.put("user_phone",user_phone);
             jsonObject.put(Consts.AUTH,user_auth);
+            jsonObject.put("company",user.getCompany_id());
 
 
             return jsonObject;

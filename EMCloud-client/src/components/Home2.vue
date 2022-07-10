@@ -27,7 +27,8 @@
             <a href="https://www.alesmart.com/c28.shtml" target=“_blank”>关于我们</a>
           </li>
           <li>
-            <a href="http://localhost:8080/#/login" target=“_blank”>登录/注册</a>
+<!--            <a href="http://localhost:8081/#/login" target=“_blank”>登录/注册</a>-->
+            <a href="#/login" target=“_blank”>登录/注册</a>
           </li>
         </ul>
       </div>
