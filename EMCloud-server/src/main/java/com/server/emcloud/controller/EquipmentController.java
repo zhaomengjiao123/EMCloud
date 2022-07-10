@@ -87,7 +87,9 @@ public class EquipmentController {
         JSONObject jsonObject = new JSONObject();
 
         if (equipmentVO!=null){
-           return equipmentVO;
+            ArrayList<Object> objects = new ArrayList<>();
+            objects.add(equipmentVO);
+            return objects;
         }else {
             jsonObject.put(Consts.CODE, 0);
             jsonObject.put(Consts.MSG, "不存在此记录");
