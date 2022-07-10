@@ -54,6 +54,12 @@ public class AgvStateInfo {
     private float water_pump_switch;
     private float alcohol_pump_switch;
 
+    //不知道是什么属性
+    private int robotsts;
+    private boolean trajdone;
+
+
+
     public String getAgvid() {
         return agvid;
     }
@@ -412,5 +418,21 @@ public class AgvStateInfo {
 
     public void setAlcohol_pump_switch(float alcohol_pump_switch) {
         this.alcohol_pump_switch = alcohol_pump_switch;
+    }
+
+    public int getRobotsts() {
+        return robotsts;
+    }
+
+    public void setRobotsts(int robotsts) {
+        this.robotsts = robotsts;
+    }
+
+    public boolean isTrajdone() {
+        return trajdone;
+    }
+
+    public void setTrajdone(boolean trajdone) {
+        this.trajdone = trajdone;
     }
 }

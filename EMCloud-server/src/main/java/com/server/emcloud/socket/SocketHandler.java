@@ -1,13 +1,20 @@
 package com.server.emcloud.socket;
 
 import com.alibaba.druid.util.StringUtils;
+import com.server.emcloud.dao.AgvStateInfoMapper;
 import com.server.emcloud.domain.AGVProtocolHeader;
 import com.server.emcloud.domain.AgvStateInfo;
+import com.server.emcloud.service.AgvInfoService;
+import com.server.emcloud.service.impl.AgvInfoSErviceImpl;
 import javafx.stage.StageStyle;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 import org.apache.commons.collections.set.SynchronizedSet;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -26,7 +33,23 @@ import static com.server.emcloud.socket.SocketPool.remove;
  * @Description:
  */
 @Slf4j
+@Component
 public class SocketHandler {
+
+
+    @Autowired
+    private AgvInfoService agvInfoService;
+
+    public static SocketHandler socketHandler;
+
+    @PostConstruct
+    public void init() {
+        socketHandler = this;
+        socketHandler.agvInfoService = this.agvInfoService ;
+        // 初使化时将已静态化的otherService实例化
+    }
+
+
 
     /**
     * @Description: 将连接的Socket注册到Socket池中
@@ -79,7 +102,7 @@ public class SocketHandler {
     * @Author: zmj
     * @Date: 2022/7/9
     */
-    public static void onMessage(ClientSocket clientSocket){
+    public void onMessage(ClientSocket clientSocket){
         DataInputStream dataInputStream = clientSocket.getInputStream();
         try {
                 String info = "";
@@ -97,10 +120,16 @@ public class SocketHandler {
                     dataInputStream.read(m);
 
                     info += new String(m,"utf-8");
+                    //System.out.println(info);
                     //JSONObject agvJson = JSONObject.parseObject(info);
                     JSONObject jsonobject = JSONObject.fromObject(info);
                     AgvStateInfo agvStateInfo = (AgvStateInfo) JSONObject.toBean(jsonobject,AgvStateInfo.class);
                     System.out.println("转换后的对象ID："+agvStateInfo.getAgvid());
+                    //将消息体对象添加到数据库
+                        int res = socketHandler.agvInfoService.addAgvStateInfo(agvStateInfo);
+                        if(res>0){
+                            log.info("添加消息体成功！");
+                        }
 
                         //已经读完
                         if (clientSocket.getInputStream().available() == 0) {

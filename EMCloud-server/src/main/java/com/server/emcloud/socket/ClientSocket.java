@@ -26,13 +26,15 @@ public class ClientSocket implements Runnable {
     private DataOutputStream outputStream;
     private String key;
     private String message;
+    private SocketHandler socketHandler=new SocketHandler();
 
     @Override
     public void run() {
         while (true){
             try {
                 System.out.println("1"+this);
-                onMessage(this);
+
+                socketHandler.onMessage(this);
                 System.out.println(LocalDateTime.now()+" 接收到数据: <<<<<<" + this.message);
             } catch (Exception e) {
                 e.printStackTrace();
