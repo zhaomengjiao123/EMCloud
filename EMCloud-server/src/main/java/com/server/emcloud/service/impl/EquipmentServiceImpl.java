@@ -57,6 +57,16 @@ public class EquipmentServiceImpl  implements EquipmentService {
     }
 
     @Override
+    public Integer getOnlineNum2(String company_id) {
+        return equipmentMapper.getOnlineNum2(company_id);
+    }
+
+    @Override
+    public Integer getNotOnlineNum2(String company_id) {
+        return equipmentMapper.getNotOnlineNum2(company_id);
+    }
+
+    @Override
     public List<EquipmentCountOfCompanyVO> getEquipmentCountOfCompany() {
         return equipmentMapper.getEquipmentCountOfCompany();
     }

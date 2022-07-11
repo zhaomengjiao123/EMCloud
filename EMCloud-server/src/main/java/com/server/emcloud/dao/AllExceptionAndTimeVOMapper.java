@@ -17,7 +17,13 @@ public interface AllExceptionAndTimeVOMapper {
 
     List<AllExceptionAndTimeVO>getAllExceptionAndTimeByDay();
 
+    List<AllExceptionAndTimeVO>getAllExceptionAndTimeByDay2(String company_id);
+
+
     List<AllExceptionAndTimeVO> getAllExceptionAndTimeByMonth();
+
+    List<AllExceptionAndTimeVO> getAllExceptionAndTimeByMonth2(String company_id);
+
 
     List<AllExceptionAndTimeVO>getYUJINGByDay();
 
@@ -32,9 +38,12 @@ public interface AllExceptionAndTimeVOMapper {
     List<AllExceptionAndTimeVO> getJINJIJINGGAOByMonth();
 
     List<AllExceptionAndTimeVO> getExceptionOfProductByDay(Integer product_id);
+    List<AllExceptionAndTimeVO> getExceptionOfProductByDay2(Integer product_id,String company_id);
+
 
     List<AllExceptionAndTimeVO> getExceptionOfProductByMonth(Integer product_id);
 
+    List<AllExceptionAndTimeVO> getExceptionOfProductByMonth2(Integer product_id,String company_id);
 
 
 }

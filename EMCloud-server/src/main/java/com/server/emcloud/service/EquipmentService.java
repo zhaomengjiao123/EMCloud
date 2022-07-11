@@ -28,6 +28,12 @@ public interface EquipmentService {
     // 获取不在线设备数量
     Integer getNotOnlineNum();
 
+    // 获取在线设备数量
+    Integer getOnlineNum2(String company_id);
+
+    // 获取不在线设备数量
+    Integer getNotOnlineNum2(String company_id);
+
     // 获取每个城市的设备数量
     List<EquipmentCountOfCompanyVO> getEquipmentCountOfCompany();
 

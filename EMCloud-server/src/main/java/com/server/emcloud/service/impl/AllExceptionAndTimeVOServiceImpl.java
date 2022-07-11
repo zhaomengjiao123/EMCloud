@@ -125,7 +125,112 @@ public class AllExceptionAndTimeVOServiceImpl implements AllExceptionAndTimeVOSe
             }
         }
         return exceptionOfProductByDay;
+    }
 
 
+    /**
+     * 接下来是新加的功能，新增参数company_id
+     * @param startTime
+     * @param endTime
+     * @param company_id
+     * @return
+     */
+    @Override
+    public List<AllExceptionAndTimeVO> getAllExceptionAndTimeByDay2(String startTime, String endTime,String company_id) {
+        List<AllExceptionAndTimeVO> allExceptionAndTimeByDay = allExceptionAndTimeVOMapper.getAllExceptionAndTimeByDay2(company_id);
+        Iterator<AllExceptionAndTimeVO> iterator = allExceptionAndTimeByDay.iterator();
+        while (iterator.hasNext()) {
+            AllExceptionAndTimeVO next = iterator.next();
+            if (next.getTime().compareTo( endTime)>0 || next.getTime().compareTo(startTime)<0) {
+                iterator.remove();
+            }
+        }
+        return allExceptionAndTimeByDay;
+    }
+
+    @Override
+    public List<AllExceptionAndTimeVO> getAllExceptionAndTimeByMonth2(String startTime, String endTime,String company_id) {
+        List<AllExceptionAndTimeVO> allExceptionAndTimeByMonth = allExceptionAndTimeVOMapper.getAllExceptionAndTimeByMonth2(company_id);
+        Iterator<AllExceptionAndTimeVO> iterator = allExceptionAndTimeByMonth.iterator();
+        while (iterator.hasNext()) {
+            AllExceptionAndTimeVO next = iterator.next();
+            if (next.getTime().compareTo( endTime)>0 || next.getTime().compareTo(startTime)<0) {
+                iterator.remove();
+            }
+        }
+        return allExceptionAndTimeByMonth;
+    }
+
+    @Override
+    public List<AllExceptionTypeAndTimeVO> getAllExceptionTypeAndTimeVOByDay2(String startTime, String endTime,String company_id) {
+        List<AllExceptionTypeAndTimeVO> result = new ArrayList<>();
+        List<Product> lists = productMapper.getAllProduct();
+        for (Product product: lists) {
+            AllExceptionTypeAndTimeVO allExceptionTypeAndTimeVO = new AllExceptionTypeAndTimeVO();
+            allExceptionTypeAndTimeVO.setName(product.getProduct_name());
+            List<AllExceptionAndTimeVO> exceptionOfProductByDay = allExceptionAndTimeVOMapper.getExceptionOfProductByDay2(product.getProduct_id(),company_id);
+            Iterator<AllExceptionAndTimeVO> iterator = exceptionOfProductByDay.iterator();
+            while (iterator.hasNext()) {
+                AllExceptionAndTimeVO next = iterator.next();
+                if (next.getTime().compareTo( endTime)>0 || next.getTime().compareTo(startTime)<0) {
+                    iterator.remove();
+                }
+            }
+            allExceptionTypeAndTimeVO.setList(exceptionOfProductByDay);
+            result.add(allExceptionTypeAndTimeVO);
+        }
+
+        return result;
+
+    }
+
+    @Override
+    public List<AllExceptionTypeAndTimeVO> getAllExceptionTypeAndTimeVOByMonth2(String startTime, String endTime,String company_id) {
+        List<AllExceptionTypeAndTimeVO> result = new ArrayList<>();
+        List<Product> lists = productMapper.getAllProduct();
+        for (Product product: lists) {
+            AllExceptionTypeAndTimeVO allExceptionTypeAndTimeVO = new AllExceptionTypeAndTimeVO();
+            allExceptionTypeAndTimeVO.setName(product.getProduct_name());
+            List<AllExceptionAndTimeVO> exceptionOfProductByMonth = allExceptionAndTimeVOMapper.getExceptionOfProductByMonth2(product.getProduct_id(),company_id);
+            Iterator<AllExceptionAndTimeVO> iterator = exceptionOfProductByMonth.iterator();
+            while (iterator.hasNext()) {
+                AllExceptionAndTimeVO next = iterator.next();
+                if (next.getTime().compareTo( endTime)>0 || next.getTime().compareTo(startTime)<0) {
+                    iterator.remove();
+                }
+            }
+            allExceptionTypeAndTimeVO.setList(exceptionOfProductByMonth);
+            result.add(allExceptionTypeAndTimeVO);
+        }
+
+
+        return result;
+    }
+
+    @Override
+    public List<AllExceptionAndTimeVO> getExceptionTypeAndTimeVOByMonth2(Integer product_id, String startTime, String endTime,String company_id) {
+        List<AllExceptionAndTimeVO> exceptionOfProductByMonth = allExceptionAndTimeVOMapper.getExceptionOfProductByMonth2(product_id,company_id);
+        Iterator<AllExceptionAndTimeVO> iterator = exceptionOfProductByMonth.iterator();
+        while (iterator.hasNext()) {
+            AllExceptionAndTimeVO next = iterator.next();
+            if (next.getTime().compareTo( endTime)>0 || next.getTime().compareTo(startTime)<0) {
+                iterator.remove();
+            }
+        }
+        return exceptionOfProductByMonth;
+    }
+
+    @Override
+    public  List<AllExceptionAndTimeVO> getExceptionTypeAndTimeVOByDay2(Integer product_id, String startTime, String endTime,String company_id) {
+
+        List<AllExceptionAndTimeVO> exceptionOfProductByDay = allExceptionAndTimeVOMapper.getExceptionOfProductByDay2(product_id,company_id);
+        Iterator<AllExceptionAndTimeVO> iterator = exceptionOfProductByDay.iterator();
+        while (iterator.hasNext()) {
+            AllExceptionAndTimeVO next = iterator.next();
+            if (next.getTime().compareTo( endTime)>0 || next.getTime().compareTo(startTime)<0) {
+                iterator.remove();
+            }
+        }
+        return exceptionOfProductByDay;
     }
 }

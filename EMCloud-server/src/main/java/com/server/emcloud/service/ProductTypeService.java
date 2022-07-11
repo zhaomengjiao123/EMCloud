@@ -25,6 +25,8 @@ public interface ProductTypeService {
 
     List<ProductTypeExceptionNum> getAllProductTypeExceptionNum();
 
+    List<ProductTypeExceptionNum> getAllProductTypeExceptionNum2(String company_id);
+
     //查询不同类型产品的任务数量
     public List<ProductTypeAndTaskNum> getProductTypeAndTaskNum();
 }
