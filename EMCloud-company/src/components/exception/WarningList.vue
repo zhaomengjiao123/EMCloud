@@ -2,7 +2,7 @@
   <div class="contents">
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>异常管理</el-breadcrumb-item>
+      <el-breadcrumb-item>异常监控</el-breadcrumb-item>
       <el-breadcrumb-item>设备预警</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="handle-box">
