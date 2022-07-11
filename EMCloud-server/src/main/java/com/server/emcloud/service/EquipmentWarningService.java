@@ -22,4 +22,7 @@ public interface EquipmentWarningService {
 
     //查询全部的预警信息
     List<EquipmentWarningVO> getAllWarningInfo();
+
+    //根据设备编号查询此设备所有的预警信息
+    List<EquipmentWarningVO> getWarningByEquipmentNumberAndCid(int company_id,String equipment_number);
 }

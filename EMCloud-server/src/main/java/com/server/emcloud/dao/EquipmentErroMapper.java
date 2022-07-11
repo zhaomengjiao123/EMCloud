@@ -33,4 +33,7 @@ public interface EquipmentErroMapper {
 
     //查询全部的报警信息
     List<EquipmentErroVO> getAllErroInfo();
+
+    //根据设备编号查询设备所有报警信息
+    List<EquipmentErroVO> getErroByEquipmentNumberAndCid(int company_id,String equipment_number);
 }
