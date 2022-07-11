@@ -29,6 +29,13 @@ public class UserController {
      * @Author: lyx
      * @Date: 2022/6/22
      */
+    /**
+    * @Description: 修改
+    * @Param: [request]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/7/11
+    */
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public Object loginStatus(HttpServletRequest request) throws JSONException {
         JSONObject jsonObject = new JSONObject();
@@ -38,14 +45,16 @@ public class UserController {
         if(user_phone!=null&&user_passwd!=null) {//判断登陆数据是否为空
             MD5 md = new MD5();
             user_passwd = md.start(user_passwd);//对密码进行md5加密，与数据库中的加密数据进行比较
+            System.out.println(user_passwd);
             flag = userService.login(user_phone, user_passwd);//是否登陆成功
-
+            System.out.println("ff:"+flag);
         }
-        User user=userService.getUserOfPhone(user_phone);
-        String user_name=user.getUser_name();
-        System.out.println(user.getUser_auth());
-        Integer user_auth=user.getUser_auth();
+
         if(flag){
+            User user=userService.getUserOfPhone(user_phone);
+            String user_name=user.getUser_name();
+            System.out.println(user.getUser_auth());
+            Integer user_auth=user.getUser_auth();
             System.out.println("登陆成功");
             //HttpSession session = request.getSession();
             jsonObject.put(Consts.CODE,1);
@@ -53,7 +62,7 @@ public class UserController {
             jsonObject.put("user_name",user_name);
             jsonObject.put("user_phone",user_phone);
             jsonObject.put(Consts.AUTH,user_auth);
-            jsonObject.put("company",user.getCompany_id());
+            jsonObject.put("company_id",user.getCompany_id());
 
 
             return jsonObject;
