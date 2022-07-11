@@ -79,6 +79,14 @@
       e.company_id=c.company_id INNER JOIN emdb_salesman s ON s.salesman_id=e.salesman_id
   </select>
 
+  <select id="getErroByEquipmentNumberAndCid" resultType="com.server.emcloud.vo.EquipmentErroVO">
+    SELECT a.equipment_number,b.company_name,w.*,d.salesman_name,a.sell_time
+    FROM `emdb_equipment` a JOIN `emdb_company` b ON a.company_id=b.company_id
+                            INNER JOIN `emdb_equipment_erro` w ON a.equipment_id=w.equipment_id
+                            JOIN `emdb_salesman` d ON a.salesman_id=d.salesman_id
+    where a.company_id = #{company_id,jdbcType=INTEGER} and a.equipment_number = #{equipment_number,jdbcType=VARCHAR}
+  </select>
+
 
 
 

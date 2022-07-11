@@ -48,4 +48,20 @@ public class EquipmentWarningController {
         System.out.println("请求所有设备的预警信息");
         return equipmentWarningService.getAllWarningInfo();
     }
+
+
+    /**
+    * @Description: 根据设备编号查询设备的预警信息
+    * @Param: [request]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/7/12
+    */
+    @RequestMapping(value = "/getWarningByEquipmentNumberAndCid",method = RequestMethod.GET)
+    public Object getWarningByEquipmentNumberAndCid(HttpServletRequest request){
+        String company_id = request.getParameter("company_id");
+        String equipment_number = request.getParameter("equipment_number");
+        System.out.println("根据设备编号查询设备的预警信息");
+        return equipmentWarningService.getWarningByEquipmentNumberAndCid(new Integer(company_id),equipment_number);
+    }
 }

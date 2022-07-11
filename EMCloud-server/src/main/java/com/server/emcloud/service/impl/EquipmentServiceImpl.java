@@ -90,4 +90,9 @@ public class EquipmentServiceImpl  implements EquipmentService {
     public int getAbnormalEquipmentNum() {
         return equipmentMapper.getAbnormalEquipmentNum();
     }
+
+    @Override
+    public List<Equipment> getEquipmentNumberListByCid(int company_id) {
+        return equipmentMapper.getEquipmentNumberListByCid(company_id);
+    }
 }

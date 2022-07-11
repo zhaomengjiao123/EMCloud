@@ -48,4 +48,19 @@ public class EquipmentEmergencyController {
         System.out.println("请求所有设备的紧急警告信息");
         return equipmentEmergencyService.getAllEmergencyInfo();
     }
+
+    /**
+    * @Description: 根据设备编号查询设备的紧急报警信息
+    * @Param: [request]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/7/12
+    */
+    @RequestMapping(value = "/getEmergencyByEquipmentNumberAndCid",method = RequestMethod.GET)
+    public Object getEmergencyByEquipmentNumberAndCid(HttpServletRequest request){
+        String company_id = request.getParameter("company_id");
+        String equipment_number = request.getParameter("equipment_number");
+        System.out.println("根据设备编号查询设备的紧急报警信息");
+        return equipmentEmergencyService.getEmergencyByEquipmentNumberAndCid(new Integer(company_id),equipment_number);
+    }
 }

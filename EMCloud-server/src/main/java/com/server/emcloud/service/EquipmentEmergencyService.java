@@ -20,4 +20,7 @@ public interface EquipmentEmergencyService {
 
     //查询全部的紧急警告信息
     List<EquipmentEmergencyVO> getAllEmergencyInfo();
+
+    //根据设备编号查询设备所有紧急报警信息
+    List<EquipmentEmergencyVO> getEmergencyByEquipmentNumberAndCid(int company_id, String equipment_number);
 }

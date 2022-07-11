@@ -61,9 +61,11 @@ where equipment_del_flag = 0
     <select id="getOnlineNum" resultType="java.lang.Integer">
       SELECT COUNT(*) FROM emdb_equipment WHERE equipment_state = 1 and equipment_del_flag = 0
     </select>
+
   <select id="getNotOnlineNum" resultType="java.lang.Integer">
     SELECT COUNT(*) FROM emdb_equipment WHERE equipment_state = 0 and equipment_del_flag = 0
   </select>
+
     <update id="updateByPrimaryKeySelective" parameterType="com.server.emcloud.domain.Equipment">
     update emdb_equipment
     <set>
@@ -217,6 +219,13 @@ where equipment_del_flag = 0
           (SELECT equipment_id FROM emdb_equipment_erro) UNION (SELECT equipment_id FROM emdb_equipment_warning)
           UNION (SELECT equipment_id FROM emdb_equipment_emergency_warning)
       ) w
+  </select>
+
+
+  <select id="getEquipmentNumberListByCid" parameterType="java.lang.Integer" resultType="com.server.emcloud.domain.Equipment">
+    SELECT DISTINCT equipment_number
+    FROM `emdb_equipment`
+    WHERE company_id = #{company_id,jdbcType=INTEGER} AND equipment_del_flag = 0
   </select>
 
 

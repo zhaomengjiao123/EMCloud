@@ -54,4 +54,7 @@ public interface EquipmentMapper {
     //查询有异常的设备的数量
     int getAbnormalEquipmentNum();
 
+    //查询某公司的所有设备编号
+    List<Equipment> getEquipmentNumberListByCid(int company_id);
+
 }
