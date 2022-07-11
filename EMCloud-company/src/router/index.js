@@ -103,11 +103,6 @@ Vue.use(Router)
           component: () => import('../components/equipment/equipment_map.vue')
         },
         {
-          path: '/equipment/cityMap',
-          component: () => import('../components/equipment/equipment_cityMap.vue')
-        },
-
-        {
           path: '/equipment/exception',
           component: () => import('../components/equipment/equipment_exceptionList.vue')
         },
@@ -142,15 +137,15 @@ Vue.use(Router)
           component: () => import('../components/user/User.vue')
         },
         {
-          path: '/exception/warning',
+          path: '/exception/company_warning',
           component: () => import('../components/exception/WarningList.vue')
         },
         {
-          path: '/exception/emergency',
+          path: '/exception/company_emergency',
           component: () => import('../components/exception/EmergencyWarningList.vue')
         },
         {
-          path: '/exception/erro',
+          path: '/exception/company_erro',
           component: () => import('../components/exception/ErroList.vue')
         },
       ]

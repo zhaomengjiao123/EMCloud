@@ -100,6 +100,16 @@ public class ProductTypeController {
     }
 
     /**
+     <<<<<<< Updated upstream
+     * author：王俊博
+     * 查询某个公司不同类型产品的异常数量
+     */
+    @GetMapping("/getAllProductTypeExceptionNum2")
+    public List<ProductTypeExceptionNum> getAllProductTypeExceptionNum2(String company_id) {
+        return productTypeService.getAllProductTypeExceptionNum2(company_id);
+    }
+
+    /**
      * @Description: 查询不同类型产品的任务数量
      * @Param: [req]
      * @return: java.lang.Object

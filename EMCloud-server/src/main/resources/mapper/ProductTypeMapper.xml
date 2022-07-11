@@ -54,18 +54,29 @@
         from `emdb_product_type`
     </select>
     <select id="getAllProductTypeExceptionNum" resultType="com.server.emcloud.vo.ProductTypeExceptionNum">
-        SELECT IFNULL (SUM(equipment_warning_count+equipment_erro_count+equipment_emergency_warning_count),0) AS exception_num ,d.`product_type_name`  AS product_type
-        FROM
-            (
-                SELECT a.`product_type_id`,b.* FROM  emdb_product a, emdb_equipment b
-                WHERE
-                    a.`product_id`=b.`product_id` and product_del_flag = 0 and equipment_del_flag = 0
-            ) c
-                RIGHT JOIN
-            emdb_product_type d
-            ON c.product_type_id=d.product_type_id where product_type_del_flag = 0
-        GROUP BY
-            d.`product_type_name`
+        SELECT COUNT(warning_id) as exception_num,d.`product_type_name` as product_type FROM (
+                                                                SELECT * FROM
+                                                                    (SELECT * FROM `emdb_equipment_warning` WHERE warning_del_flag =0
+                                                                     UNION ALL SELECT * FROM  `emdb_equipment_erro` WHERE erro_del_flag = 0) a
+                                                                UNION ALL SELECT * FROM  `emdb_equipment_emergency_warning` WHERE  emergency_del_flag =0
+                                                            )a
+                ,
+                                                            `emdb_equipment` b,`emdb_product` c,`emdb_product_type` d
+        WHERE a.equipment_id = b.`equipment_id` AND b.`product_id` = c.`product_id` AND c.`product_type_id`=d.`product_type_id`
+        GROUP BY d.`product_type_name`
+    </select>
+
+    <select id="getAllProductTypeExceptionNum2" resultType="com.server.emcloud.vo.ProductTypeExceptionNum">
+        SELECT COUNT(warning_id) as exception_num,d.`product_type_name` as product_type FROM (
+                                                                                                 SELECT * FROM
+                                                                                                     (SELECT * FROM `emdb_equipment_warning` WHERE warning_del_flag =0
+                                                                                                      UNION ALL SELECT * FROM  `emdb_equipment_erro` WHERE erro_del_flag = 0) a
+                                                                                                 UNION ALL SELECT * FROM  `emdb_equipment_emergency_warning` WHERE  emergency_del_flag =0
+                                                                                             )a
+                ,
+                                                                                             `emdb_equipment` b,`emdb_product` c,`emdb_product_type` d
+        WHERE a.equipment_id = b.`equipment_id` AND b.`product_id` = c.`product_id` AND c.`product_type_id`=d.`product_type_id` AND b.`company_id`=#{company_id}
+        GROUP BY d.`product_type_name`
 
     </select>
 
