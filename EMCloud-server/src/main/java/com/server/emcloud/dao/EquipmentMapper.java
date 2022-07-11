@@ -38,6 +38,9 @@ public interface EquipmentMapper {
 
     Integer getNotOnlineNum();
 
+    Integer getOnlineNum2(String company_id);
+
+    Integer getNotOnlineNum2(String company_id);
     //查询某公司所有预警数量
     int getWarningNumByCid(int company_id);
     //查询某公司所有报警数量

@@ -25,4 +25,18 @@ public interface AllExceptionAndTimeVOService {
   List<AllExceptionAndTimeVO> getExceptionTypeAndTimeVOByMonth(Integer product_id, String startTime, String endTime);
 
   List<AllExceptionAndTimeVO> getExceptionTypeAndTimeVOByDay(Integer product_id, String startTime, String endTime);
+
+
+  List<AllExceptionAndTimeVO> getAllExceptionAndTimeByDay2(String startTime, String endTime,String company_id);
+
+  List<AllExceptionAndTimeVO> getAllExceptionAndTimeByMonth2(String startTime, String endTime,String company_id);
+
+  List<AllExceptionTypeAndTimeVO> getAllExceptionTypeAndTimeVOByDay2(String startTime, String endTime,String company_id);
+
+  List<AllExceptionTypeAndTimeVO> getAllExceptionTypeAndTimeVOByMonth2(String startTime, String endTime,String company_id);
+
+
+  List<AllExceptionAndTimeVO> getExceptionTypeAndTimeVOByMonth2(Integer product_id, String startTime, String endTime,String company_id);
+
+  List<AllExceptionAndTimeVO> getExceptionTypeAndTimeVOByDay2(Integer product_id, String startTime, String endTime,String company_id);
 }

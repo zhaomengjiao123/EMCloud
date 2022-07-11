@@ -2,6 +2,7 @@ package com.server.emcloud;
 
 import com.server.emcloud.controller.TestController;
 import com.server.emcloud.socket.SocketServer;
+import com.server.emcloud.socket.SocketServer;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -18,7 +19,7 @@ public class EmCloudApplication {
 
     public static void main(String[] args) {
 //        SpringApplication.run(EmCloudApplication.class, args);
-//        SpringApplication.getBean(SocketServer.class).start();
+////        SpringApplication.getBean(SocketServer.class).start();
 
         ApplicationContext applicationContext = SpringApplication.run(EmCloudApplication.class, args);
         applicationContext.getBean(SocketServer.class).start();

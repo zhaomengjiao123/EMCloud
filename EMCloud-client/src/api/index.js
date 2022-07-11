@@ -189,7 +189,11 @@ export const updateMenuAdminVis = (params) => put(`menu/updatemenuadminvis`,para
 //超级管理员修改管理员权限，使其不可见
 export const updateMenuAdminInvis = (params) => put(`menu/updatemenuadmininvis`,params)
 
+//登陆
+export const login = (params) => post(`user/login`,params)
 
+//注册
+export const register = (params) => post(`user/add`,params)
 
 
 

@@ -6,8 +6,10 @@ Vue.use(Router)
 //ES6的import方法实现路由懒加载
   const routes =  [
     {
+      // path: '/',
+      // redirect: '/shouye'
       path: '/',
-      redirect: '/shouye'
+      redirect: '/login'
     },
     {
       path: '/login',

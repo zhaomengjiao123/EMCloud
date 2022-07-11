@@ -87,7 +87,9 @@ public class EquipmentController {
         JSONObject jsonObject = new JSONObject();
 
         if (equipmentVO!=null){
-           return equipmentVO;
+            ArrayList<Object> objects = new ArrayList<>();
+            objects.add(equipmentVO);
+            return objects;
         }else {
             jsonObject.put(Consts.CODE, 0);
             jsonObject.put(Consts.MSG, "不存在此记录");
@@ -204,6 +206,21 @@ public class EquipmentController {
         EquipmentStateVo vo1 = new EquipmentStateVo(1,equipmentService.getOnlineNum());
 
         EquipmentStateVo vo2 = new EquipmentStateVo(0,equipmentService.getNotOnlineNum());
+        res.add(vo1);
+        res.add(vo2);
+        return res;
+    }
+
+    /**
+     * author：王俊博
+     * 根据公司id查询设备在线和不在线数量
+     */
+    @GetMapping("/getOnlineAndNotOnlineEquipmentNum2")
+    public List<EquipmentStateVo> getOnlineAndNotOnlineEquipmentNum2(String company_id){
+        List<EquipmentStateVo> res = new ArrayList<>();
+        EquipmentStateVo vo1 = new EquipmentStateVo(1,equipmentService.getOnlineNum2(company_id));
+
+        EquipmentStateVo vo2 = new EquipmentStateVo(0,equipmentService.getNotOnlineNum2(company_id));
         res.add(vo1);
         res.add(vo2);
         return res;

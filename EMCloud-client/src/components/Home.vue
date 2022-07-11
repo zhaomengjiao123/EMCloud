@@ -6,7 +6,7 @@
         <span>电商管理系统</span>
       </div>
       <div class="right">
-        <span>欢迎您：{{"userInfo.username"}}</span>
+        <span>欢迎您：{{name}}</span>
         <el-button type="warning" @click="exit">退出</el-button>
       </div>
     </el-header>
@@ -42,6 +42,7 @@ export default {
   name: "Home.vue",
   data() {
     return {
+      name:'',
       userInfo: null,
       user_phone:null,
       menuData: [
@@ -85,6 +86,7 @@ export default {
   created() {
    // this.userInfo = JSON.parse(localStorage.getItem('user_auth'));
     this.getMenuList();
+    this.name=sessionStorage.getItem("user_name")
   },
   methods: {
     exit() {
@@ -110,7 +112,7 @@ export default {
     getMenuList() {
       let params = new URLSearchParams()
       this.menuData=[]
-      params.append('user_phone', '1')//这里获取session中的电话号码
+      params.append('user_phone', sessionStorage.getItem("user_phone"))//这里获取session中的电话号码
       getMenuList(params)
         .then(res => {
           if (res) {

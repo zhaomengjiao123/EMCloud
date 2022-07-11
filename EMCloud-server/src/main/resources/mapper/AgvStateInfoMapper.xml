@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.server.emcloud.dao.AgvStateInfoMapper">
+  <resultMap id="BaseResultMap" type="com.server.emcloud.domain.AgvStateInfo">
+    <id column="agvid" jdbcType="VARCHAR" property="agvid" />
+    <result column="SendTime" jdbcType="VARCHAR" property="SendTime" />
+    <result column="power_on_time" jdbcType="VARCHAR" property="power_on_time" />
+    <result column="mode_running" jdbcType="VARCHAR" property="mode_running" />
+    <result column="path_running" jdbcType="VARCHAR" property="path_running" />
+    <result column="battery" jdbcType="FLOAT" property="battery" />
+    <result column="theta" jdbcType="FLOAT" property="theta" />
+    <result column="xpos" jdbcType="FLOAT" property="xpos" />
+    <result column="ypos" jdbcType="FLOAT" property="ypos" />
+    <result column="cur_cap" jdbcType="FLOAT" property="cur_cap" />
+    <result column="exec_cap" jdbcType="FLOAT" property="exec_cap" />
+    <result column="target_cap" jdbcType="FLOAT" property="target_cap" />
+    <result column="exec_route" jdbcType="VARCHAR" property="exec_route" />
+    <result column="manual_auto" jdbcType="FLOAT" property="manual_auto" />
+    <result column="robot_ready" jdbcType="BIT" property="robot_ready" />
+    <result column="task_complete" jdbcType="BIT" property="task_complete" />
+    <result column="task_stopping" jdbcType="BIT" property="task_stopping" />
+    <result column="radar_error" jdbcType="BIT" property="radar_error" />
+    <result column="radar_disconnect" jdbcType="BIT" property="radar_disconnect" />
+    <result column="motor_error" jdbcType="BIT" property="motor_error" />
+    <result column="board_disconnect" jdbcType="BIT" property="board_disconnect" />
+    <result column="imu_disconnect" jdbcType="BIT" property="imu_disconnect" />
+    <result column="warning_code" jdbcType="FLOAT" property="warning_code" />
+    <result column="error_code" jdbcType="FLOAT" property="error_code" />
+    <result column="total_odom" jdbcType="FLOAT" property="total_odom" />
+    <result column="today_odom" jdbcType="FLOAT" property="today_odom" />
+    <result column="cur_map" jdbcType="VARCHAR" property="cur_map" />
+    <result column="vel_line" jdbcType="VARCHAR" property="vel_line" />
+    <result column="vel_angle" jdbcType="FLOAT" property="vel_angle" />
+    <result column="line_enc" jdbcType="FLOAT" property="line_enc" />
+    <result column="external_sts" jdbcType="FLOAT" property="external_sts" />
+    <result column="robotsts" jdbcType="INTEGER" property="robotsts" />
+    <result column="trajdone" jdbcType="BIT" property="trajdone" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    agvid, SendTime, power_on_time, mode_running, path_running,battery,theta,xpos,
+        ypos,cur_cap,exec_cap,target_cap,exec_route,manual_auto,robot_ready,task_complete,radar_error,
+        radar_disconnect,motor_error,board_disconnect,imu_disconnect,warning_code,error_code,total_odom,today_odom,
+        cur_map,vel_line,vel_angle,line_enc,external_sts,robotsts,trajdone
+  </sql>
+
+  <insert id="addAgvStateInfo" parameterType="com.server.emcloud.domain.AgvStateInfo" >
+    insert into `agvstateinfo`
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="agvid != null" >
+        agvid,
+      </if>
+      <if test="SendTime != null" >
+        SendTime,
+      </if>
+      <if test="power_on_time != null" >
+        power_on_time,
+      </if>
+      <if test="mode_running != null" >
+        mode_running,
+      </if>
+      <if test="path_running != null" >
+        path_running,
+      </if>
+      <if test="battery != null" >
+        battery,
+      </if>
+      <if test="theta != null" >
+        theta,
+      </if>
+      <if test="xpos != null" >
+        xpos,
+      </if>
+      <if test="ypos != null" >
+        ypos,
+      </if>
+      <if test="cur_cap != null" >
+        cur_cap,
+      </if>
+      <if test="exec_cap != null" >
+        exec_cap,
+      </if>
+      <if test="target_cap != null" >
+        target_cap,
+      </if>
+      <if test="exec_route != null" >
+        exec_route,
+      </if>
+      <if test="manual_auto != null" >
+        manual_auto,
+      </if>
+      <if test="robot_ready != null" >
+        robot_ready,
+      </if>
+      <if test="task_complete != null" >
+        task_complete,
+      </if>
+      <if test="radar_error != null" >
+        radar_error,
+      </if>
+      <if test="radar_disconnect != null" >
+        radar_disconnect,
+      </if>
+      <if test="motor_error != null" >
+        motor_error,
+      </if>
+      <if test="board_disconnect != null" >
+        board_disconnect,
+      </if>
+      <if test="imu_disconnect != null" >
+        imu_disconnect,
+      </if>
+      <if test="warning_code != null" >
+        warning_code,
+      </if>
+      <if test="error_code != null" >
+        error_code,
+      </if>
+      <if test="total_odom != null" >
+        total_odom,
+      </if>
+      <if test="today_odom != null" >
+        today_odom,
+      </if>
+      <if test="cur_map != null" >
+        cur_map,
+      </if>
+      <if test="vel_line != null" >
+        vel_line,
+      </if>
+      <if test="vel_angle != null" >
+        vel_angle,
+      </if>
+      <if test="line_enc != null" >
+        line_enc,
+      </if>
+      <if test="external_sts != null" >
+        external_sts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+<!--      <if test="product_name != null" >-->
+<!--        #{product_name,jdbcType=VARCHAR} ,-->
+<!--      </if>-->
+
+      <if test="agvid != null" >
+        #{agvid,jdbcType=VARCHAR} ,
+      </if>
+      <if test="SendTime != null" >
+        #{SendTime,jdbcType=VARCHAR} ,
+      </if>
+      <if test="power_on_time != null" >
+        #{power_on_time,jdbcType=VARCHAR} ,
+      </if>
+      <if test="mode_running != null" >
+        #{mode_running,jdbcType=VARCHAR} ,
+      </if>
+      <if test="path_running != null" >
+        #{path_running,jdbcType=VARCHAR} ,
+      </if>
+      <if test="battery != null" >
+        #{battery,jdbcType=FLOAT} ,
+      </if>
+      <if test="theta != null" >
+        #{theta,jdbcType=FLOAT} ,
+      </if>
+      <if test="xpos != null" >
+        #{xpos,jdbcType=FLOAT} ,
+      </if>
+      <if test="ypos != null" >
+        #{ypos,jdbcType=FLOAT} ,
+      </if>
+      <if test="cur_cap != null" >
+        #{cur_cap,jdbcType=FLOAT} ,
+      </if>
+      <if test="exec_cap != null" >
+        #{exec_cap,jdbcType=FLOAT} ,
+      </if>
+      <if test="target_cap != null" >
+        #{target_cap,jdbcType=FLOAT} ,
+      </if>
+      <if test="exec_route != null" >
+        #{exec_route,jdbcType=VARCHAR} ,
+      </if>
+      <if test="manual_auto != null" >
+        #{manual_auto,jdbcType=FLOAT} ,
+      </if>
+      <if test="robot_ready != null" >
+        #{robot_ready,jdbcType=BIT} ,
+      </if>
+      <if test="task_complete != null" >
+        #{task_complete,jdbcType=BIT} ,
+      </if>
+      <if test="radar_error != null" >
+        #{radar_error,jdbcType=BIT} ,
+      </if>
+      <if test="radar_disconnect != null" >
+        #{radar_disconnect,jdbcType=BIT} ,
+      </if>
+      <if test="motor_error != null" >
+        #{motor_error,jdbcType=BIT} ,
+      </if>
+      <if test="board_disconnect != null" >
+        #{board_disconnect,jdbcType=BIT} ,
+
+      </if>
+      <if test="imu_disconnect != null" >
+        #{imu_disconnect,jdbcType=BIT} ,
+      </if>
+      <if test="warning_code != null" >
+        #{warning_code,jdbcType=FLOAT} ,
+      </if>
+      <if test="error_code != null" >
+        #{error_code,jdbcType=FLOAT} ,
+      </if>
+      <if test="total_odom != null" >
+        #{total_odom,jdbcType=FLOAT} ,
+      </if>
+      <if test="today_odom != null" >
+        #{today_odom,jdbcType=FLOAT} ,
+      </if>
+      <if test="cur_map != null" >
+        #{cur_map,jdbcType=VARCHAR} ,
+      </if>
+      <if test="vel_line != null" >
+        #{vel_line,jdbcType=VARCHAR} ,
+      </if>
+      <if test="vel_angle != null" >
+        #{vel_angle,jdbcType=FLOAT} ,
+      </if>
+      <if test="line_enc != null" >
+        #{line_enc,jdbcType=FLOAT} ,
+      </if>
+      <if test="external_sts != null" >
+        #{external_sts,jdbcType=FLOAT} ,
+      </if>
+    </trim>
+  </insert>
+
+
+
+
+
+</mapper>

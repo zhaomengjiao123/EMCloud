@@ -59,6 +59,7 @@ public class SocketServer {
                 // 开启socket监听
                 Socket socket = serverSocket.accept();
                 ClientSocket register = register(socket);
+                System.out.println("socket创建成功");
                 // 在此判断是否重复创建socket对象线程
                 if (register != null){
                     executorService.submit(register);
