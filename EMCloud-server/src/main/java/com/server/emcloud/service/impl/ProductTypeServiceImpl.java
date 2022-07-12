@@ -57,5 +57,10 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     public List<ProductTypeAndTaskNum> getProductTypeAndTaskNum() {
         return productTypeMapper.getProductTypeAndTaskNum();
     }
+   //查询某公司不同类型产品的任务数量
+    @Override
+    public List<ProductTypeAndTaskNum> getProductTypeAndTaskNum2(int company_id) {
+        return productTypeMapper.getProductTypeAndTaskNum2(company_id);
+    }
 
 }

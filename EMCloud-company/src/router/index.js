@@ -108,19 +108,19 @@ Vue.use(Router)
         },
 
         {
-          path: '/dataanalysis/exception',
+          path: '/dataanalysis/company/exception',
           component: () => import('../components/dataanalysis/Exception.vue')
         },
         {
-          path: '/dataanalysis/exceptionanalysis',
+          path: '/dataanalysis/company/exceptionanalysis',
           component: () => import('../components/dataanalysis/ExceptionAnalysis.vue')
         },
         {
-          path: '/dataanalysis/task',
+          path: '/dataanalysis/company/task',
           component: () => import('../components/dataanalysis/Task.vue')
         },
         {
-          path: '/dataanalysis/taskanalysis',
+          path: '/dataanalysis/company/taskanalysis',
           component: () => import('../components/dataanalysis/TaskAnalysis.vue')
         },
 

@@ -66,7 +66,7 @@ export const getEquipState = () => get(`equipment/getOnlineAndNotOnlineEquipment
 
 //异常分析
 //查询不同类型产品的异常数量
-export const getEquipExType = () => get(`productType/getProductTypeAndTaskNum`);
+export const getEquipExType = () => get(`productType/getAllProductTypeExceptionNum`);
 
 //查询一段时间内所有异常数量（时间是天）
 export const getExceptionByDay= (params) => get(`allExceptionAndTime/getAllExceptionAndTimeByDay`, params);
