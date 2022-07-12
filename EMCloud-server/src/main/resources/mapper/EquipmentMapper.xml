@@ -65,16 +65,13 @@ where equipment_del_flag = 0
   <select id="getNotOnlineNum" resultType="java.lang.Integer">
     SELECT COUNT(*) FROM emdb_equipment WHERE equipment_state = 0 and equipment_del_flag = 0
   </select>
-<<<<<<< HEAD
 
-=======
   <select id="getOnlineNum2" resultType="java.lang.Integer">
     SELECT COUNT(*) FROM emdb_equipment WHERE equipment_state = 1 and equipment_del_flag = 0 and company_id = #{company_id}
   </select>
   <select id="getNotOnlineNum2" resultType="java.lang.Integer">
     SELECT COUNT(*) FROM emdb_equipment WHERE equipment_state = 0 and equipment_del_flag = 0 and company_id = #{company_id}
   </select>
->>>>>>> 688a5294e52f24abcf8f23e8ba6830e6ca94a4b4
     <update id="updateByPrimaryKeySelective" parameterType="com.server.emcloud.domain.Equipment">
     update emdb_equipment
     <set>

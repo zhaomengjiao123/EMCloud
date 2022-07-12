@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.server.emcloud.dao.TaskRecordMapper">
+    <resultMap id="BaseResultMap" type="com.server.emcloud.domain.TaskRecord">
+        <result column="TaskID" jdbcType="VARCHAR" property="TaskID" />
+        <result column="RunModel" jdbcType="VARCHAR" property="RunModel" />
+        <result column="RunModelName" jdbcType="VARCHAR" property="RunModelName" />
+        <result column="BeginTime" jdbcType="VARCHAR" property="BeginTime" />
+        <result column="EndTime" jdbcType="VARCHAR" property="EndTime" />
+        <result column="TotalMinute" jdbcType="FLOAT" property="TotalMinute" />
+        <result column="AGVID" jdbcType="VARCHAR" property="AGVID" />
+        <result column="costbattery" jdbcType="FLOAT" property="costbattery" />
+        <result column="beginbattery" jdbcType="FLOAT" property="beginbattery" />
+        <result column="endbattery" jdbcType="FLOAT" property="endbattery" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        TaskID, RunModel, RunModelName, BeginTime,EndTime,TotalMinute,AGVID,costbattery,
+        beginbattery,endbattery,
+  </sql>
+
+    <insert id="addTaskRecord" parameterType="com.server.emcloud.domain.TaskRecord" >
+        insert into `taskrecord`
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="TaskID != null" >
+                TaskID,
+            </if>
+            <if test="RunModel != null" >
+                RunModel,
+            </if>
+            <if test="RunModelName != null" >
+                RunModelName,
+            </if>
+            <if test="BeginTime != null" >
+                BeginTime,
+            </if>
+            <if test="EndTime != null" >
+                EndTime,
+            </if>
+            <if test="TotalMinute != null" >
+                TotalMinute,
+            </if>
+            <if test="AGVID != null" >
+                AGVID,
+            </if>
+            <if test="costbattery != null" >
+                costbattery,
+            </if>
+            <if test="beginbattery != null" >
+                beginbattery,
+            </if>
+            <if test="endbattery != null" >
+                endbattery,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+
+            <if test="TaskID != null" >
+                #{TaskID,jdbcType=VARCHAR} ,
+            </if>
+            <if test="RunModel != null" >
+                #{RunModel,jdbcType=VARCHAR} ,
+            </if>
+            <if test="RunModelName != null" >
+                #{RunModelName,jdbcType=VARCHAR} ,
+            </if>
+            <if test="BeginTime != null" >
+                #{BeginTime,jdbcType=VARCHAR} ,
+            </if>
+            <if test="EndTime != null" >
+                #{EndTime,jdbcType=VARCHAR} ,
+            </if>
+            <if test="TotalMinute != null" >
+                #{TotalMinute,jdbcType=FLOAT} ,
+            </if>
+            <if test="AGVID != null" >
+                #{AGVID,jdbcType=VARCHAR} ,
+            </if>
+            <if test="costbattery != null" >
+                #{costbattery,jdbcType=FLOAT} ,
+            </if>
+            <if test="beginbattery != null" >
+                #{beginbattery,jdbcType=FLOAT} ,
+            </if>
+            <if test="endbattery != null" >
+                #{endbattery,jdbcType=FLOAT} ,
+            </if>
+        </trim>
+    </insert>
+
+
+</mapper>

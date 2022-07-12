@@ -4,12 +4,18 @@ import com.alibaba.druid.util.StringUtils;
 import com.server.emcloud.dao.AgvStateInfoMapper;
 import com.server.emcloud.domain.AGVProtocolHeader;
 import com.server.emcloud.domain.AgvStateInfo;
+import com.server.emcloud.domain.Task;
+import com.server.emcloud.domain.TaskRecord;
 import com.server.emcloud.service.AgvInfoService;
+import com.server.emcloud.service.TaskRecordService;
+import com.server.emcloud.service.TaskService;
 import com.server.emcloud.service.impl.AgvInfoSErviceImpl;
 import javafx.stage.StageStyle;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 import org.apache.commons.collections.set.SynchronizedSet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,6 +45,9 @@ public class SocketHandler {
 
     @Autowired
     private AgvInfoService agvInfoService;
+    private TaskRecordService taskRecordService;
+    private TaskService taskService;
+    static Logger log = LoggerFactory.getLogger(SocketHandler.class);
 
     public static SocketHandler socketHandler;
 
@@ -47,6 +56,8 @@ public class SocketHandler {
         socketHandler = this;
         socketHandler.agvInfoService = this.agvInfoService ;
         // 初使化时将已静态化的otherService实例化
+        socketHandler.taskRecordService = this.taskRecordService;
+        socketHandler.taskService = this.taskService;
     }
 
 
@@ -123,6 +134,38 @@ public class SocketHandler {
                     //System.out.println(info);
                     //JSONObject agvJson = JSONObject.parseObject(info);
                     JSONObject jsonobject = JSONObject.fromObject(info);
+
+
+                    if(type==1){   //状态
+
+                        AgvStateInfo agvStateInfo = (AgvStateInfo) JSONObject.toBean(jsonobject,AgvStateInfo.class);
+                        System.out.println("转换后的对象ID："+agvStateInfo.getAgvid());
+                        //将消息体对象添加到数据库
+                        int res = socketHandler.agvInfoService.addAgvStateInfo(agvStateInfo);
+                        if(res>0){
+                            log.info("添加消息体成功！");
+                        }
+                    }else if(type==2){  //任务
+                        TaskRecord taskRecord = (TaskRecord) JSONObject.toBean(jsonobject,TaskRecord.class);
+                        System.out.println("转换后的对象ID："+taskRecord.getTaskID());
+                        //将消息体对象添加到数据库
+                        int res = socketHandler.taskRecordService.addTaskRecord(taskRecord);
+                        if(res>0){
+                            log.info("TaskRecord添加成功！");
+                        }
+
+                        Task task=new Task();
+                        task.setTask_id(Integer.parseInt(taskRecord.getTaskID()));
+                        task.setEquipment_id(Integer.parseInt(taskRecord.getAGVID()));
+                        task.setTask_start_time(taskRecord.getBeginTime());
+                        task.setTask_end_time(taskRecord.getEndTime());
+                        int res1 = socketHandler.taskService.addTask(task);
+                        if(res1>0){
+                            log.info("Task添加成功！");
+                        }
+                    }
+
+
                     AgvStateInfo agvStateInfo = (AgvStateInfo) JSONObject.toBean(jsonobject,AgvStateInfo.class);
                     System.out.println("转换后的对象ID："+agvStateInfo.getAgvid());
                     //将消息体对象添加到数据库
