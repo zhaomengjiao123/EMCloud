@@ -53,10 +53,7 @@ public class UserController {
         if(flag){
             User user=userService.getUserOfPhone(user_phone);
             String user_name=user.getUser_name();
-            System.out.println(user.getUser_auth());
             Integer user_auth=user.getUser_auth();
-            System.out.println("登陆成功");
-            //HttpSession session = request.getSession();
             jsonObject.put(Consts.CODE,1);
             jsonObject.put(Consts.MSG,"登陆成功");
             jsonObject.put("user_name",user_name);

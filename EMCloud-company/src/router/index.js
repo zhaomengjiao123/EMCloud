@@ -103,29 +103,24 @@ Vue.use(Router)
           component: () => import('../components/equipment/equipment_map.vue')
         },
         {
-          path: '/equipment/cityMap',
-          component: () => import('../components/equipment/equipment_cityMap.vue')
-        },
-
-        {
           path: '/equipment/exception',
           component: () => import('../components/equipment/equipment_exceptionList.vue')
         },
 
         {
-          path: '/dataanalysis/exception',
+          path: '/dataanalysis/company/exception',
           component: () => import('../components/dataanalysis/Exception.vue')
         },
         {
-          path: '/dataanalysis/exceptionanalysis',
+          path: '/dataanalysis/company/exceptionanalysis',
           component: () => import('../components/dataanalysis/ExceptionAnalysis.vue')
         },
         {
-          path: '/dataanalysis/task',
+          path: '/dataanalysis/company/task',
           component: () => import('../components/dataanalysis/Task.vue')
         },
         {
-          path: '/dataanalysis/taskanalysis',
+          path: '/dataanalysis/company/taskanalysis',
           component: () => import('../components/dataanalysis/TaskAnalysis.vue')
         },
 
@@ -142,15 +137,15 @@ Vue.use(Router)
           component: () => import('../components/user/User.vue')
         },
         {
-          path: '/exception/warning',
+          path: '/exception/company_warning',
           component: () => import('../components/exception/WarningList.vue')
         },
         {
-          path: '/exception/emergency',
+          path: '/exception/company_emergency',
           component: () => import('../components/exception/EmergencyWarningList.vue')
         },
         {
-          path: '/exception/erro',
+          path: '/exception/company_erro',
           component: () => import('../components/exception/ErroList.vue')
         },
       ]

@@ -62,8 +62,10 @@ export default {
   methods: {
     // 设备是否在线饼图
     getEquipState() {
+      let params = new URLSearchParams()
+      params.append('company_id',sessionStorage.getItem("company_id") )
       this.loading = true
-      getEquipState().then((res) => {
+      getEquipState(params).then((res) => {
         if (res) {
           console.log(res)
           this.loading = false
@@ -83,7 +85,9 @@ export default {
 
     getEquipTaskType() {
       this.loading = true
-      getEquipTaskType().then((res) => {
+      let params = new URLSearchParams()
+      params.append('company_id',sessionStorage.getItem("company_id") )
+      getEquipTaskType(params).then((res) => {
         if (res) {
           this.loading = false
           console.log(res)

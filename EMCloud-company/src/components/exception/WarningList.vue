@@ -2,19 +2,19 @@
   <div class="contents">
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>异常管理</el-breadcrumb-item>
+      <el-breadcrumb-item>异常监控</el-breadcrumb-item>
       <el-breadcrumb-item>设备预警</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="handle-box">
-      <el-select v-model="queryInfo.queryCompanyId"
+      <el-select v-model="queryInfo.queryEquipmentNumber"
                  size="small"
                  @change=""
-                 placeholder="根据公司查询">
+                 placeholder="根据设备编号查询">
         <el-option
-          v-for="item in companySelectList"
-          :key="item.company_id"
-          :label="item.company_name"
-          :value="item.company_id">
+          v-for="item in equipmentNumberSelectList"
+          :key="item.equipment_number"
+          :label="item.equipment_number"
+          :value="item.equipment_number">
         </el-option>
       </el-select>
       <!--      <el-button class="handle-del mr10" type="primary" size="mini">销售时间</el-button>-->
@@ -24,7 +24,7 @@
     </div>
     <div class="table" style="min-height: 500px">
       <el-table :data="warningData" border stripe>
-        <el-table-column label="设备编号" prop="equipment_id" />
+        <el-table-column label="设备ID" prop="equipment_id" />
         <el-table-column label="设备编号" prop="equipment_number" />
         <el-table-column label="预警信息" prop="warning_content" />
         <el-table-column label="预警时间" prop="warning_time" />
@@ -54,7 +54,14 @@ import {mapOption} from "../../assets/map/mapOption";
 import china from "../../assets/map/china_old.json"
 import cityData from "../../assets/map/china_city.json"
 import "../../libs/utils"
-import {getAllWarningInfo, getCompany, getErroByCid, getWarningByCid} from "../../api";
+import {
+  getAllWarningInfo,
+  getCompany,
+  getEquipmentNumberListByCid,
+  getErroByCid,
+  getWarningByCid,
+  getWarningByEquipmentNumberAndCid
+} from "../../api";
 
 
 
@@ -68,9 +75,9 @@ export default {
       total:0,
       queryInfo:{
         queryType:'',
-        queryCompanyId:'',
+        queryEquipmentNumber:'',
       },
-      companySelectList:{},
+      equipmentNumberSelectList:{},
 
     }
   },
@@ -80,7 +87,7 @@ export default {
     },
   },
   created() {
-    this.company_id = this.$route.query.company_id;
+    this.company_id = sessionStorage.getItem("company_id");
     this.getData();
 
   },
@@ -93,44 +100,41 @@ export default {
       this.$router.go(-1)
     },
     getData(){
+      console.log("company_id:",this.company_id)
+      //alert(this.company_id)
+      let params = new URLSearchParams();
+      params.append("company_id",this.company_id);
 
-      //查询全部的公司
-      getCompany().then(res=>{
-        this.companySelectList=res;
-        this.companySelectList.push(
+      //查询公司内全部设备的编号
+      getEquipmentNumberListByCid(params).then(res=>{
+        this.equipmentNumberSelectList=res;
+        console.log("NNN",res)
+        this.equipmentNumberSelectList.push(
           {
-            company_id:0,
-            company_name:"全部公司"
+            equipment_id:0,
+            equipment_number:"全部设备"
           })
       });
 
-      console.log("company_id:",this.company_id)
-      if(this.company_id==null){
-          // this.$message.info("CompanyID:"+this.company_id);
-          //查询全部设备的预警信息
-        getAllWarningInfo().then(res=>{
-          this.warningData=res
-        })
-      }else{
-        let params = new URLSearchParams();
-        params.append("company_id",this.company_id);
         getWarningByCid(params).then(res=>{
-          console.log(res)
+          console.log("WWWW",res)
           this.warningData = res;
         });
-      }
+      },
 
-
-    },
     getCompanyWarning(){
-      if(this.queryInfo.queryCompanyId===0){
+      if(this.queryInfo.queryEquipmentNumber==="全部设备"){
         this.getData();
       }else{
         let params = new URLSearchParams();
-        params.append("company_id",this.queryInfo.queryCompanyId);
-        //查询某个公司的报警信息
-        getWarningByCid(params).then(res=>{
+        params.append("equipment_number",this.queryInfo.queryEquipmentNumber);
+        params.append("company_id",this.company_id);
+        console.log(this.queryInfo.queryEquipmentNumber," vfdbkdbfkjd ",this.company_id);
+        getWarningByEquipmentNumberAndCid(params).then(res=>{
           console.log(res)
+          if(res.length === 0){
+            this.$message.warning("抱歉，没有查找到数据")
+          }
           this.warningData = res;
         });
       }

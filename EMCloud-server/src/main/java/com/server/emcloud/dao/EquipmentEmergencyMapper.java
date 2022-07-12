@@ -1,6 +1,7 @@
 package com.server.emcloud.dao;
 
 import com.server.emcloud.vo.EquipmentEmergencyVO;
+import com.server.emcloud.vo.EquipmentErroVO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,4 +23,7 @@ public interface EquipmentEmergencyMapper {
 
     //查询全部的紧急警告信息
     List<EquipmentEmergencyVO> getAllEmergencyInfo();
+
+    //根据设备编号查询设备所有紧急报警信息
+    List<EquipmentEmergencyVO> getEmergencyByEquipmentNumberAndCid(int company_id, String equipment_number);
 }

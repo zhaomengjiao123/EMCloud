@@ -339,4 +339,19 @@ public class EquipmentController {
         return jsonObject;
     }
 
+
+    /**
+    * @Description: 请求得到某公司的所有设备的编号
+    * @Param: [request]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/7/12
+    */
+    @RequestMapping(value = "/getEquipmentNumberListByCid",method = RequestMethod.GET)
+    public Object getEquipmentNumberListByCid(HttpServletRequest request){
+        String company_id = request.getParameter("company_id");
+        System.out.println("请求得到某公司的所有设备的编号："+company_id);
+        return equipmentService.getEquipmentNumberListByCid(new Integer(company_id));
+    }
+
 }

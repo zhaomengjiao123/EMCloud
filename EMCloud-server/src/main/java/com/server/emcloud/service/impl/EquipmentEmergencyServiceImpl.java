@@ -36,4 +36,9 @@ public class EquipmentEmergencyServiceImpl implements EquipmentEmergencyService 
     public List<EquipmentEmergencyVO> getAllEmergencyInfo() {
         return equipmentEmergencyMapper.getAllEmergencyInfo();
     }
+
+    @Override
+    public List<EquipmentEmergencyVO> getEmergencyByEquipmentNumberAndCid(int company_id, String equipment_number) {
+        return equipmentEmergencyMapper.getEmergencyByEquipmentNumberAndCid(company_id,equipment_number);
+    }
 }

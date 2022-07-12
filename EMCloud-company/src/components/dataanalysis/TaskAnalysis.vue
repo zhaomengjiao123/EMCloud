@@ -206,6 +206,7 @@ export default {
 
     getTask(type) {
       let params = new URLSearchParams()
+      params.append('company_id',sessionStorage.getItem("company_id") )
       this.xAxisData = [];
       this.yAxisData = [];
       this.provalue=this.proType.proTypeData
@@ -351,6 +352,7 @@ export default {
 
     getTaskType(type) {
       let params = new URLSearchParams()
+      params.append('company_id',sessionStorage.getItem("company_id") )
       this.legendData = [];
       this.xAxisData1 = [];
       //this.yAxisData = [];

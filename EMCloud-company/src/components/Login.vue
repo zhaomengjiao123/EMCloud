@@ -67,8 +67,8 @@ export default {
             sessionStorage.setItem('user_auth',res.user_auth);
             sessionStorage.setItem('user_phone',res.user_phone);
             sessionStorage.setItem('user_name',res.user_name);
-            sessionStorage.setItem('company',res.company);
-            console.log(res.company)
+            sessionStorage.setItem('company_id',res.company_id);
+            console.log("CCCC:",sessionStorage.getItem("company_id"))
             console.log(res.user_phone)
             this.$router.push('/home');
           } else {
@@ -80,6 +80,10 @@ export default {
         })
         .catch(err => {
           console.log(err)
+          this.$message({
+            message: '登陆失败',
+            type: 'error'
+          })
         })
 
     },
