@@ -2,7 +2,6 @@ package com.server.emcloud;
 
 import com.server.emcloud.controller.TestController;
 import com.server.emcloud.socket.SocketServer;
-import com.server.emcloud.socket.SocketServer;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

@@ -69,6 +69,7 @@ export default {
         "102": "iconfont icon-danju",
         "406": "iconfont icon-baobiao",
         "72c": "iconfont icon-user",
+        "888": "iconfont icon-shangpin",
       },
       list:{
         1:"201",
@@ -78,6 +79,7 @@ export default {
         5:"102",
         6:"406",
         0:"72c",
+        7:"888",
         },
       //isCollapse: true
       isCollapse: false,

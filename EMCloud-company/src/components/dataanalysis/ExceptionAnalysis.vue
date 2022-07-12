@@ -205,6 +205,7 @@ export default {
 
     getException(type) {
       let params = new URLSearchParams()
+      params.append('company_id',sessionStorage.getItem("company_id") )
       this.xAxisData = [];
       this.yAxisData = [];
       this.provalue=this.proType.proTypeData
@@ -232,17 +233,6 @@ export default {
                   }
                 }
 
-                // for (let i = 0; i < res.list.length; i++) {//不同类型
-                //   time[i] = res.list[i].time//拿到所有的时间
-                // }
-                //
-                // for (let i = 0; i < this.xAxisData.length; i++) {//不同类型
-                //   if (time.indexOf(this.xAxisData[i]) !== -1) {//判断该坐标轴数据是否在后端数据的时间里，如果没有，该坐标对应的数据为0
-                //     this.yAxisData[i] = res.list[time.indexOf(this.xAxisData[i])].count;//如果在里面，就让y轴的值等于x轴数据在time位置那个数据的count
-                //   } else {
-                //     this.yAxisData[i] = 0;
-                //   }
-                // }
 
                 this.chartLine.setOption(this.optionLine)
                 this.chartBar.setOption(this.optionBar)
@@ -378,6 +368,7 @@ export default {
 
     getExceptionType(type) {
       let params = new URLSearchParams()
+      params.append('company_id',sessionStorage.getItem("company_id") )
       this.legendData = [];
       this.xAxisData1 = [];
       //this.yAxisData = [];
@@ -390,32 +381,6 @@ export default {
           .then(res => {
             if (res) {
               console.log(res)
-              // for (let i = 0; i < res.list.length; i++) {
-              //   this.legendData.push(res.list[i].name)//res.list[i].name是产品的类型
-              //   let dataList = res.list[i].data;//res.list[i].data是每个产品类型的相关数据，包括时间和异常数量
-              //   console.log(dataList)
-              //   let time = [];
-              //   for (let j = 0; j < dataList.length; j++) {
-              //     time[j] = dataList[j].time  //获取时间列表
-              //   }
-              //   let num = []
-              //   for (let x = 0; x < this.xAxisData1.length; x++) {//这个地方参考上面一条折线的那个方法
-              //     if (time.indexOf(this.xAxisData1[x]) !== -1) {
-              //       num[x] = dataList[time.indexOf(this.xAxisData1[x])].count;
-              //     } else {
-              //       num[x] = 0;
-              //     }
-              //   }
-              //   let pointObj = {
-              //     name: res.list[i].name,
-              //     type: 'line',
-              //     data: num,
-              //     symbol: 'circle',
-              //     symbolSize: 4,
-              //   };
-              //   this.itemData.push(pointObj)
-              // }
-
               for (let i = 0; i < res.length; i++) {
                 this.legendData.push(res[i].name)//res[i].name是产品的类型
                 let dataList = res[i].list;//res[i].list是每个产品类型的相关数据，包括时间和异常数量

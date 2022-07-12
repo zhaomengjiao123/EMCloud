@@ -69,54 +69,55 @@ export const getEmergencyByEquipmentNumberAndCid = (params) => get(`equipmentEme
 export const getProType= () => get(`productType/getAllProductType`);
 
 //查询设备在线和不在线的数量
-export const getEquipState = () => get(`equipment/getOnlineAndNotOnlineEquipmentNum`);
+export const getEquipState = (params) => get(`equipment/getOnlineAndNotOnlineEquipmentNum2`,params);
 
 
 //异常分析
 //查询不同类型产品的异常数量
-export const getEquipExType = () => get(`productType/getProductTypeAndTaskNum`);
+
+export const getEquipExType = (params) => get(`productType/getAllProductTypeExceptionNum2`,params);
 
 //查询一段时间内所有异常数量（时间是天）
-export const getExceptionByDay= (params) => get(`allExceptionAndTime/getAllExceptionAndTimeByDay`, params);
+export const getExceptionByDay= (params) => get(`allExceptionAndTime/getAllExceptionAndTimeByDay2`, params);
 
 //查询一段时间内所有异常数量（时间是月）
-export const getExceptionByMouth= (params) => get(`allExceptionAndTime/getAllExceptionAndTimeByMonth`, params);
+export const getExceptionByMouth= (params) => get(`allExceptionAndTime/getAllExceptionAndTimeByMonth2`, params);
 
 //查询一段时间内某个产品异常数量（时间是天）
-export const getProExceptionByDay= (params) => get(`allExceptionAndTime/getExceptionTypeAndTimeVOByDay`, params);
+export const getProExceptionByDay= (params) => get(`allExceptionAndTime/getExceptionTypeAndTimeVOByDay2`, params);
 
 //查询一段时间内某个产品异常数量（时间是月）
-export const getProExceptionByMouth= (params) => get(`allExceptionAndTime/getExceptionTypeAndTimeVOByMonth`, params);
+export const getProExceptionByMouth= (params) => get(`allExceptionAndTime/getExceptionTypeAndTimeVOByMonth2`, params);
 
 //查询一段时间内不同类型产品的异常数量（时间是天）
-export const getExceptionTypeByDay= (params) => get(`allExceptionAndTime/getAllExceptionTypeAndTimeVOByDay`, params);
+export const getExceptionTypeByDay= (params) => get(`allExceptionAndTime/getAllExceptionTypeAndTimeVOByDay2`, params);
 
 //查询一段时间内不同类型产品的异常数量（时间是月）
-export const getExceptionTypeByMouth = (params) => get(`allExceptionAndTime/getAllExceptionTypeAndTimeVOByMonth`, params);
+export const getExceptionTypeByMouth = (params) => get(`allExceptionAndTime/getAllExceptionTypeAndTimeVOByMonth2`, params);
 
 
 
 //任务分析
 //查询不同类型产品的任务数量
-export const getEquipTaskType = () => get(`productType/getProductTypeAndTaskNum`);
+export const getEquipTaskType = (params) => get(`productType/getProductTypeAndTaskNum2`,params);
 
 //查询一段时间内所有任务数量（时间是天）
-export const getTaskByDay= (params) => get(`TaskNumInTime/getAllTaskNumInTimeByDay`, params);
+export const getTaskByDay= (params) => get(`TaskNumInTime/getAllTaskNumInTimeByDay2`, params);
 
 //查询一段时间内所有任务数量（时间是月）
-export const getTaskByMouth= (params) => get(`TaskNumInTime/getAllTaskNumInTimeByMouth`, params);
+export const getTaskByMouth= (params) => get(`TaskNumInTime/getAllTaskNumInTimeByMouth2`, params);
 
 //查询一段时间内某个产品任务数量（时间是天）
-export const getProTaskByDay= (params) => get(`TaskNumInTime/getProductTaskNumInTimeByPidByDay`, params);
+export const getProTaskByDay= (params) => get(`TaskNumInTime/getProductTaskNumInTimeByPidByDay2`, params);
 
 //查询一段时间内某个产品任务数量（时间是月）
-export const getProTaskByMouth= (params) => get(`TaskNumInTime/getProductTaskNumInTimeByPidByMouth`, params);
+export const getProTaskByMouth= (params) => get(`TaskNumInTime/getProductTaskNumInTimeByPidByMouth2`, params);
 
 //查询一段时间内不同类型产品的任务数量（时间是天）
-export const getTaskTypeByDay= (params) => get(`TaskNumInTime/getDiffProductTypeAndTaskNumInTimeByDay`, params);
+export const getTaskTypeByDay= (params) => get(`TaskNumInTime/getDiffProductTypeAndTaskNumInTimeByDay2`, params);
 
 //查询一段时间内不同类型产品的任务数量（时间是月）
-export const getTaskTypeByMouth = (params) => get(`TaskNumInTime/getDiffProductTypeAndTaskNumInTimeByDay`, params);
+export const getTaskTypeByMouth = (params) => get(`TaskNumInTime/getDiffProductTypeAndTaskNumInTimeByDay2`, params);
 
 
 
