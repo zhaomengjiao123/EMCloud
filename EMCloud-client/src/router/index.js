@@ -144,15 +144,15 @@ Vue.use(Router)
           component: () => import('../components/user/User.vue')
         },
         {
-          path: '/exception/warning',
+          path: '/exception/sa_warning',
           component: () => import('../components/exception/WarningList.vue')
         },
         {
-          path: '/exception/emergency',
+          path: '/exception/sa_emergency',
           component: () => import('../components/exception/EmergencyWarningList.vue')
         },
         {
-          path: '/exception/erro',
+          path: '/exception/sa_erro',
           component: () => import('../components/exception/ErroList.vue')
         },
       ]

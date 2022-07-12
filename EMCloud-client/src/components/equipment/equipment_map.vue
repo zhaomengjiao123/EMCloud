@@ -1,41 +1,63 @@
-<template>
+<template xmlns:el-row="http://www.w3.org/1999/html">
+<!--  <dv-full-screen-container>-->
   <div class="contents" id="bigScreen">
 
-    <div class="full-screen" @click="enlarge" style="color: white">全屏</div>
-
-    <div class="content_left">
-      <div class="content_left_1">
-        <TitleWrap title="设备总览">
-          <LeftTop></LeftTop>
-        </TitleWrap>
-      </div>
-      <div class="content_left_2">
-        <TitleWrap title="状态总览">
-          <LeftCenter></LeftCenter>
-        </TitleWrap>
-      </div>
+    <div class="full-screen" @click="enlarge" style="color: white">
+      <el-button type="text" icon="el-icon-full-screen" @click="enlarge"></el-button>
     </div>
 
-    <div class="content_center">
-        <TitleWrap title="分布地图">
-        <el-button class="mapBack" type="text" size="large" @click="back" v-if="deepTree.length > 1">返回</el-button>
-        <div id="map" class="echart-map" :style="{ height: '90%', width: '100%' }"></div>
-        </TitleWrap>
-    </div>
 
-    <div class="content_right">
-      <div class="content_right_1">
-        <TitleWrap title="设备提醒">
-          <RightTop></RightTop>
-        </TitleWrap>
-      </div>
-      <div class="content_right_2">
-        <TitleWrap title="报警统计">
-          <RightCenter></RightCenter>
-        </TitleWrap>
-      </div>
-    </div>
+    <el-row :gutter="15">
+      <el-col :span="6">
+        <div class="content_left">
+          <div class="content_left_1">
+            <TitleWrap title="设备总览">
+              <LeftTop></LeftTop>
+            </TitleWrap>
+          </div>
+          <div class="content_left_2">
+            <TitleWrap title="状态总览">
+              <LeftCenter></LeftCenter>
+            </TitleWrap>
+          </div>
+        </div>
+
+      </el-col>
+      <el-col :span="12">
+        <div class="content_center">
+          <TitleWrap title="分布地图">
+            <el-button class="mapBack" type="text" size="large" @click="back" v-if="deepTree.length > 1">返回</el-button>
+            <div id="map" class="echart-map" :style="{ height: '90%', width: '100%' }"></div>
+          </TitleWrap>
+        </div>
+
+
+      </el-col>
+      <el-col :span="6">
+        <div class="content_right">
+          <div class="content_right_1">
+            <TitleWrap title="设备提醒">
+              <RightTop></RightTop>
+            </TitleWrap>
+          </div>
+          <div class="content_right_2">
+            <TitleWrap title="报警统计">
+              <RightCenter></RightCenter>
+            </TitleWrap>
+          </div>
+        </div>
+
+      </el-col>
+
+    </el-row>
+
+
+
+
+
+
   </div>
+<!--  </dv-full-screen-container>-->
 </template>
 
 <script>
@@ -125,6 +147,7 @@ export default {
       dateYear: null,
       dateWeek: null,
       weekday: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
+      FullScreen:false,
 
 
     }
@@ -172,7 +195,7 @@ export default {
 
     //点击全屏事件
     enlarge() {
-      let element = document.getElementById("mapCodeID"); //需要全屏容器的id
+      let element = document.getElementById("bigScreen"); //需要全屏容器的id
       // 浏览器兼容
       if (this.FullScreen) {
         if (document.exitFullscreen) {
@@ -499,23 +522,6 @@ export default {
       background-position: center center;
       position: relative;
       margin-bottom: 4px;
-      //.guang {
-      //  position: absolute;
-      //  bottom: -26px;
-      //  background-image: url("../../assets/imgs/guang.png");
-      //  background-position: 80px center;
-      //  width: 100%;
-      //  height: 56px;
-      //}
-
-      //.zuojuxing,
-      //.youjuxing {
-      //  position: absolute;
-      //  top: -2px;
-      //  width: 140px;
-      //  height: 6px;
-      //  background-image: url("../../assets/imgs/headers/juxing1.png");
-      //}
 
       .zuojuxing {
         left: 11%;
@@ -572,7 +578,7 @@ export default {
   }
 
   .content_right{
-    width: 300px;
+    width: 310px;
     float: right;
     .content_right_1,
     .content_right_2{
@@ -584,10 +590,10 @@ export default {
   .content_center{
     //background-image: url("../../assets/imgs/center_map.png");
     margin: 30px;
-    width: 600px;
+    //width: 600px;
     height: 500px;
     position: center;
-    float: left;
+    //float: left;
     .mapBack{
       margin-left: 20px;
     }

@@ -90,4 +90,19 @@ public class EquipemntErroController {
         System.out.println("请求得到全部报警信息");
         return equipmentErroService.getAllErroInfo();
     }
+
+    /**
+    * @Description: 根据设备编号查询设备的报警信息
+    * @Param: [request]
+    * @return: java.lang.Object
+    * @Author: zmj
+    * @Date: 2022/7/12
+    */
+    @RequestMapping(value = "/getErroByEquipmentNumberAndCid",method = RequestMethod.GET)
+    public Object getErroByEquipmentNumberAndCid(HttpServletRequest request){
+        String company_id = request.getParameter("company_id");
+        String equipment_number = request.getParameter("equipment_number");
+        System.out.println("根据设备编号查询设备的报警信息");
+        return equipmentErroService.getErroByEquipmentNumberAndCid(new Integer(company_id),equipment_number);
+    }
 }
