@@ -1,5 +1,6 @@
 <template>
 <div>
+  <el-card >
   <el-breadcrumb separator-class="el-icon-arrow-right">
     <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
     <el-breadcrumb-item>欢迎页</el-breadcrumb-item>
@@ -59,6 +60,7 @@
   <el-progress :text-inside="true" :stroke-width="24" :percentage="50" status="success" :format="format01"></el-progress>
   <el-progress :text-inside="true" :stroke-width="22" :percentage="30" status="warning" :format="format02"></el-progress>
   <el-progress :text-inside="true" :stroke-width="20" :percentage="45" status="exception" :format="format03"></el-progress>
+    </el-card >
 </div>
 </template>
 

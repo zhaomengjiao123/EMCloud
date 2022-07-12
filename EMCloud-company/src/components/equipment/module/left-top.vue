@@ -37,6 +37,9 @@
       </el-col>
     </el-row>
   </ul>
+  <Reacquire v-else @onclick="getData" line-height="200px">
+    重新获取
+  </Reacquire>
 </template>
 
 <script>
@@ -49,14 +52,13 @@ export default {
   name: "left-top",
   data() {
     return {
-      count:0,
       options: {},
-      // userOverview: {
-      //   alarmNum: 0,
-      //   offlineNum: 0,
-      //   onlineNum: 0,
-      //   totalNum: 0,
-      // },
+      userOverview: {
+        alarmNum: 0,
+        offlineNum: 0,
+        onlineNum: 0,
+        totalNum: 0,
+      },
       pageflag: true,
       timer: null,
       totalconfig: {
@@ -116,9 +118,7 @@ export default {
       }
     },
     getData() {
-      this.count++;
-      console.log("count:",this.count);
-      //this.pageflag = true;
+      this.pageflag = true;
       //查询在线数与不在线数
       getOnlineAndNotOnlineEquipmentNum().then(res=>{
         console.log("res:::",res)
@@ -146,6 +146,8 @@ export default {
           ...this.totalconfig,
           number: [res]
         }
+        console.log("FFF:",this.totalconfig.number[0])
+
       });
 
       getAllExceptionCount().then(res=>{
@@ -154,10 +156,14 @@ export default {
           ...this.laramnumconfig,
           number: [res.exceptionCount]
         }
-      });
+      })
+      //currentGET("big2").then((res) => {
+        if (!this.timer) {
+          //console.log("设备总览", res);
+        }
 
-
-         // this.userOverview = res.data;
+        //if (res.success) {
+          this.userOverview = res.data;
           // this.onlineconfig = {
           //   ...this.onlineconfig,
           //   //number: [res.data.onlineNum]
@@ -178,9 +184,9 @@ export default {
           //   //number: [res.data.alarmNum]
           //   number: [200]
           // }
-          this.switper();
+          //this.switper()
         //} else {
-          //this.pageflag = false;
+          this.pageflag = false;
           //this.$Message.warning(res.msg);
         //}
       //});
@@ -193,7 +199,7 @@ export default {
       let looper = (a) => {
         this.getData()
       };
-      this.timer = setInterval(looper, 3000);
+      //this.timer = setInterval(looper, this.$store.state.setting.echartsAutoTime);
     },
   }
 }

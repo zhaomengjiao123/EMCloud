@@ -43,28 +43,27 @@
             <div class="flex">
               <div class="info">
                 <span class="labels">设备ID：</span>
-                <span class="contents zhuyao doudong wangguan">{{ item.equipment_id }}</span>
-                <span class="labels" >所属公司：</span>
+                <span class="contents zhuyao doudong wangguan">{{ item.id }}</span>
+                <span class="labels">时间：</span>
                 <span class="contents " >
-                  {{ item.company_name }}
+                  {{ item.createTime }}
                 </span>
 
               </div>
             </div>
 
             <div class="info addresswrap">
-              <span class="labels" >状态：</span>
-              <span class="contents " :class="{
-                  typeRed: item.equipment_state == 0,
-                  typeGreen: item.equipment_state == 1,
-                  }">
-                  {{ item.equipment_state == 1 ? "上线" : "宕机" }}
-              </span>
-              <span class="labels" style="margin-left: 65px">地址：</span>
+              <span class="labels">地址：</span>
               <span class="contents ciyao" style="font-size: 10px">
-                {{ addressHandle(item) }}
+<!--                {{ addressHandle(item) }}-->
+                hhhh
               </span>
-
+              <span class="labels" style="margin-left: 65px">状态：</span>
+              <span class="contents " :class="{
+                  typeRed: item.onlineState == 0,
+                  typeGreen: item.onlineState == 1,}">
+                  {{ item.onlineState == 1 ? "上线" : "下线" }}
+                </span>
             </div>
           </div>
         </li>
@@ -75,13 +74,54 @@
 </template>
 
 <script>
-import vueSeamlessScroll from "vue-seamless-scroll";
-import {getBigScreenEquipmentInfo} from "../../../api"; // vue2引入方式
+import vueSeamlessScroll from "vue-seamless-scroll"; // vue2引入方式
 export default {
   components: { vueSeamlessScroll },
   data() {
     return {
-      list: [],
+      list: [
+        {
+          'id':22,
+          'onlineState':1,
+          'createTime':'2022-7-1'
+
+        },
+        {
+          'id':23,
+          'onlineState':1,
+          'createTime':2022-7-1
+        },
+        {
+          'id':24,
+          'onlineState':1,
+          'createTime':2022-7-1
+        },
+        {
+          'id':24,
+          'onlineState':0,
+          'createTime':2022-7-1
+        },
+        {
+          'id':24,
+          'onlineState':1,
+          'createTime':2022-7-1
+        },
+        {
+          'id':24,
+          'onlineState':1,
+          'createTime':2022-7-1
+        },
+        {
+          'id':24,
+          'onlineState':1,
+          'createTime':2022-7-1
+        },
+        {
+          'id':24,
+          'onlineState':1,
+          'createTime':2022-7-1
+        },
+      ],
       pageflag: true,
       components: vueSeamlessScroll,
       // defaultOption: {
@@ -125,22 +165,18 @@ export default {
   },
   methods: {
 
-    addressHandle(item) {
-      let name = item.company_local_province;
-      if (item.company_local_city) {
-        name += "/" + item.company_local_city;
-        // if (1) {
-        //   name += "/" + "中国";
-        // }
-      }
-      return name;
-    },
+    // addressHandle(item) {
+    //   let name = item.provinceName;
+    //   if (item.cityName) {
+    //     name += "/" + item.cityName;
+    //     if (item.countyName) {
+    //       name += "/" + item.countyName;
+    //     }
+    //   }
+    //   return name;
+    // },
     getData() {
       this.pageflag = true;
-      getBigScreenEquipmentInfo().then(res=>{
-        console.log("BigScreen:",res)
-        this.list=res;
-      })
       // this.pageflag =false
       // currentGET("big3", { limitNum: 20 }).then((res) => {
       //   console.log("设备提醒", res);
@@ -274,7 +310,7 @@ export default {
     }
 
     .info {
-      margin-right: 0px;
+      margin-right: 5px;
       display: flex;
       align-items: center;
       color: #fff;

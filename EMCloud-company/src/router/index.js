@@ -11,7 +11,7 @@ Vue.use(Router)
     },
     {
       path: '/login',
-      component: () => import('../components/Login.vue')
+      component: Login
     },
     {
       path: '/logon',
@@ -24,7 +24,7 @@ Vue.use(Router)
     {
       path: '/home',
       component: () => import('../components/Home.vue'),
-      redirect: '/welcome',
+      //redirect: '/welcome',
       children: [
         {
           path: '/welcome',
@@ -66,13 +66,13 @@ Vue.use(Router)
           path: '/rights',
           component: () => import('../components/right/Right.vue')
         },
+        // {
+        //   path: '/roles',
+        //   component: () => import('../components/right/Role.vue')
+        // },
         {
           path: '/menu',
           component: () => import('../components/right/Menu.vue')
-        },
-        {
-          path: '/menuadmin',
-          component: () => import('../components/right/MenuAdmin.vue')
         },
         {
           path: '/categories',
@@ -103,27 +103,34 @@ Vue.use(Router)
           component: () => import('../components/equipment/equipment_map.vue')
         },
         {
-          path: '/equipment/exception',
-          component: () => import('../components/equipment/equipment_exceptionList.vue')
+          path: '/equipment/cityMap',
+          component: () => import('../components/equipment/equipment_cityMap.vue')
+        },
+        {
+          path: '/equipment/manage',
+          component: () => import('../components/equipment/equipment_manage.vue')
         },
 
         {
-          path: '/dataanalysis/company/exception',
+          path: '/dataanalysis/exception',
           component: () => import('../components/dataanalysis/Exception.vue')
         },
         {
-          path: '/dataanalysis/company/exceptionanalysis',
+          path: '/dataanalysis/exceptionanalysis',
           component: () => import('../components/dataanalysis/ExceptionAnalysis.vue')
         },
         {
-          path: '/dataanalysis/company/task',
+          path: '/dataanalysis/task',
           component: () => import('../components/dataanalysis/Task.vue')
         },
         {
-          path: '/dataanalysis/company/taskanalysis',
+          path: '/dataanalysis/taskanalysis',
           component: () => import('../components/dataanalysis/TaskAnalysis.vue')
         },
-
+        {
+          path: '/equipment/emergency',
+          component: () => import('../components/equipment/equipment_emergencyWarningList.vue')
+        },
           {
           path: '/user/superadmin',
           component: () => import('../components/user/SuperAdmin.vue')
@@ -135,18 +142,6 @@ Vue.use(Router)
         {
           path: '/user/user',
           component: () => import('../components/user/User.vue')
-        },
-        {
-          path: '/exception/company_warning',
-          component: () => import('../components/exception/WarningList.vue')
-        },
-        {
-          path: '/exception/company_emergency',
-          component: () => import('../components/exception/EmergencyWarningList.vue')
-        },
-        {
-          path: '/exception/company_erro',
-          component: () => import('../components/exception/ErroList.vue')
         },
       ]
     }

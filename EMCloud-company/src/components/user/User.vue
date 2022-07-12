@@ -5,7 +5,7 @@
       <el-breadcrumb-item>用户管理</el-breadcrumb-item>
       <el-breadcrumb-item>用户</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-card class="box-card" style="width: 800px;margin-left: 200px;margin-top: 30px">
+    <el-card class="box-card" style="width: 800px;margin-left: 80px;margin-top: 30px">
       <div slot="header" class="clearfix">
         <span>个人信息</span>
         <el-button type="primary"  @click="updateInfo" style="margin-left: 5% ">修改个人信息</el-button>
@@ -192,7 +192,7 @@ export default {
 
     getUserByPhone() {
       let params = new URLSearchParams()
-      params.append('user_phone', sessionStorage.getItem("user_phone"))
+      params.append('user_phone', '1')
       getUserByPhone(params)
         .then(res => {
           this.tableData = res

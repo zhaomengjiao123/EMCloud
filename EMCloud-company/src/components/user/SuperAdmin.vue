@@ -36,7 +36,7 @@
         </el-col>
       </el-row>
       <el-table :data="userlist" border stripe>
-        <el-table-column type="index" label="序号"></el-table-column>
+        <el-table-column type="index" label="#"></el-table-column>
         <el-table-column prop="user_name" label="用户名"></el-table-column>
         <el-table-column prop="user_phone" label="手机号"></el-table-column>
         <el-table-column prop="user_tele" label="电话"></el-table-column>
@@ -79,6 +79,7 @@
         @current-change="handleCurrentChange"
       ></el-pagination>
 
+
     </el-card>
 
     <el-dialog title="添加管理员" :visible.sync="addDialogVisible" width="40%" >
@@ -95,7 +96,6 @@
         <el-form-item label="公司" prop="user_company">
 <!--          <el-input v-model="addAdminForm.user_company"></el-input>-->
           <el-select v-model="addAdminForm.user_company"
-                     @change="getOptionInfo1"
                      placeholder="请选择公司">
             <el-option
               v-for="item in optionData"
@@ -141,7 +141,6 @@
         </el-form-item>
         <el-form-item label="公司" prop="user_company">
           <el-select v-model="addUserForm.user_company"
-                     @change="getOptionInfo2"
                      placeholder="请选择公司">
             <el-option
               v-for="item in optionData"
@@ -185,7 +184,6 @@
         </el-form-item>
         <el-form-item label="公司" prop="user_company">
           <el-select v-model="editForm.user_company"
-                     @change="getOptionInfo3"
                      placeholder="请选择公司">
             <el-option
               v-for="item in optionData"
@@ -214,8 +212,8 @@
                        allow-create
                        default-first-option
             >
-              <el-option label="管理员" value="2"></el-option>
-              <el-option label="普通用户" value="3"></el-option>
+              <el-option label="2  管理员" value="2"></el-option>
+              <el-option label="3  普通用户" value="3"></el-option>
             </el-select>
           </div>
         </el-form-item>
@@ -233,10 +231,10 @@
 import {
   addAdmin,
   addUser,
-  deleteUser, getCompany, getDepart, getDepartByCompany, getProType,
+  deleteUser, getCompany, getDepart, getProType,
   getUser,
   getUserByCompany,
-  getUserByPhone, getUserByPhone2,
+  getUserByPhone,
   updatePasswd,
   updateUser, updateUserSuper
 } from "../../api";
@@ -307,6 +305,7 @@ name: "SuperAdmin",
 
       ],
       optionData1:[
+
       ],
       provalue:'',//类型id
       prolabel:'',//类型名称
@@ -323,7 +322,7 @@ name: "SuperAdmin",
     this.queryInfo.query=0
     this.getUser()
     this.getOptionInfo()
-    this.getOptionInfo4()
+    this.getOptionInfo1()
   },
   methods: {
 
@@ -341,37 +340,7 @@ name: "SuperAdmin",
     },
 
     getOptionInfo1(){
-      let params = new URLSearchParams()
-      params.append('company_id', this.addAdminForm.user_company)
-      getDepartByCompany(params)
-        .then(res => {
-          this.optionData1=res;
-          console.log(this.optionData1)
-        })
-    },
-
-    getOptionInfo2(){
-      let params = new URLSearchParams()
-      params.append('company_id', this.addUserForm.user_company)
-      getDepartByCompany(params)
-        .then(res => {
-          this.optionData1=res;
-          console.log(this.optionData1)
-        })
-    },
-
-
-    getOptionInfo4(){
       getDepart()
-        .then(res => {
-          this.optionData1=res;
-          console.log(this.optionData)
-        })
-    },
-    getOptionInfo3(){
-      let params = new URLSearchParams()
-      params.append('company_id', this.editForm.user_company)
-      getDepartByCompany(params)
         .then(res => {
           this.optionData1=res;
           console.log(this.optionData1)
@@ -380,10 +349,8 @@ name: "SuperAdmin",
     handleSizeChange() {},
     handleCurrentChange(val) {
       this.currentPage = val;
-      if(this.queryInfo.query==0&&this.queryInfo1.query1==null){
+      if(this.queryInfo.query==0){
         this.getUser()
-      }else if(this.queryInfo.query==0&&this.queryInfo1.query1!=null){
-        this.getUserByPhone()
       }else{
         this.getUserByCompany()
       }
@@ -391,52 +358,34 @@ name: "SuperAdmin",
     },
     edit(row){
       this.addDialogVisible2 = true
-      this.getOptionInfo4()
-      let a = this.optionData.find(item => item.company_name === row.user_company,).company_id
-      let b = this.optionData1.find(item => item.depart_name === row.user_depart,).depart_id
-      let c
-      if(row.user_auth=='管理员'){
-        c="2"
-      }else if(row.user_auth=='普通用户'){
-        c="3"
-      }
       this.editForm={
         user_name: row.user_name,
         user_phone: row.user_phone,
         user_tele: row.user_tele,
-        user_company: a,
-        user_depart: b,
-        user_auth: c
+        // user_company: row.user_company,
+        // user_depart: row.user_depart,
+        // user_auth: row.user_auth
       }
     },
     deleteUser(row){
-
-      this.$confirm('此操作将永久删除该项目, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        let params = new URLSearchParams()
-        params.append('user_phone', row.user_phone)
-        console.log(row.user_phone)
-        deleteUser(params)
-          .then(res => {
-            if (res.code == 1) {
-              this.$message({
-                message: '删除成功',
-                type: 'success'
-              })
-              this.getUser()
-            } else {
-              this.$message({
-                message: '删除失败',
-                type: 'error'
-              })
-            }
-          })
-      }).catch(() => {
-        this.$message.info('已取消删除');
-      });
+      let params = new URLSearchParams()
+      params.append('user_phone', row.user_phone)
+      console.log(row.user_phone)
+      deleteUser(params)
+        .then(res => {
+          if (res.code == 1) {
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            })
+            this.getUser()
+          } else {
+            this.$message({
+              message: '删除失败',
+              type: 'error'
+            })
+          }
+        })
 
     },
 
@@ -468,17 +417,6 @@ name: "SuperAdmin",
         .then(res => {
           //this.userlist = res
           this.tableData = res;
-
-          for (let i=0;i<res.length;i++){
-            if(this.tableData[i].user_auth=='1'){
-              this.tableData[i].user_auth='超级管理员'
-            }else if(this.tableData[i].user_auth=='2'){
-              this.tableData[i].user_auth='管理员'
-            }else if(this.tableData[i].user_auth=='3'){
-              this.tableData[i].user_auth='普通用户'
-            }
-          }
-
           this.total = res.length;
           //重点：
           let begin = (this.currentPage - 1) * this.pageSize;
@@ -501,17 +439,6 @@ name: "SuperAdmin",
         getUserByCompany(params)
           .then(res => {
             this.tableData = res;
-
-            for (let i=0;i<res.length;i++){
-              if(this.tableData[i].user_auth=='1'){
-                this.tableData[i].user_auth='超级管理员'
-              }else if(this.tableData[i].user_auth=='2'){
-                this.tableData[i].user_auth='管理员'
-              }else if(this.tableData[i].user_auth=='3'){
-                this.tableData[i].user_auth='普通用户'
-              }
-            }
-
             this.total = res.length;
             //重点：
             let begin = (this.currentPage - 1) * this.pageSize;
@@ -531,27 +458,10 @@ name: "SuperAdmin",
       if(this.queryInfo1.query1){
         let params = new URLSearchParams()
         params.append('user_phone', this.queryInfo1.query1)
-        getUserByPhone2(params)
+        getUserByPhone(params)
           .then(res => {
-            this.tableData = res;
-
-            for (let i=0;i<res.length;i++){
-              if(this.tableData[i].user_auth=='1'){
-                this.tableData[i].user_auth='超级管理员'
-              }else if(this.tableData[i].user_auth=='2'){
-                this.tableData[i].user_auth='管理员'
-              }else if(this.tableData[i].user_auth=='3'){
-                this.tableData[i].user_auth='普通用户'
-              }
-            }
-
-            this.total = res.length;
-            //重点：
-            let begin = (this.currentPage - 1) * this.pageSize;
-            let end = this.currentPage * this.pageSize;
-            this.userlist = this.tableData.slice(begin, end);
-            // this.userlist = res
-            // console.log(res)
+            this.userlist = res
+            console.log(res)
           })
           .catch(err => {
             console.log(err)
