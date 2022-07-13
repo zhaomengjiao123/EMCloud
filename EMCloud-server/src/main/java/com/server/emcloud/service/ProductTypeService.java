@@ -29,4 +29,6 @@ public interface ProductTypeService {
 
     //查询不同类型产品的任务数量
     public List<ProductTypeAndTaskNum> getProductTypeAndTaskNum();
+   //查询某公司不同类型产品的任务数量
+    public List<ProductTypeAndTaskNum> getProductTypeAndTaskNum2(int company_id);
 }

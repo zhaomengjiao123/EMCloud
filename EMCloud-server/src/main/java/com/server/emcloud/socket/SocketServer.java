@@ -38,6 +38,8 @@ public class SocketServer {
     // 防止重复创建socket线程链接对象浪费资源
     private ExecutorService executorService = Executors.newCachedThreadPool();
 
+    private Logger log = LoggerFactory.getLogger(SocketServer.class);
+
     public void start(){
         start(null);
     }
