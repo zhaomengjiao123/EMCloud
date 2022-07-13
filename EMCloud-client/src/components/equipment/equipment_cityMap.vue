@@ -165,11 +165,11 @@ export default {
           });
         } else {
           if (type == "预警数") {
-            this.$router.push({path: "/exception/warning", query: {company_id: this.company.company_id}})
+            this.$router.push({path: "/exception/sa_warning", query: {company_id: this.company.company_id}})
           } else if (type == "报警数") {
-            this.$router.push({path: "/exception/erro", query: {company_id: this.company.company_id}})
+            this.$router.push({path: "/exception/sa_erro", query: {company_id: this.company.company_id}})
           } else if (type == "紧急警告数") {
-            this.$router.push({path: "/exception/emergency", query: {company_id: this.company.company_id}})
+            this.$router.push({path: "/exception/sa_emergency", query: {company_id: this.company.company_id}})
           }
           //
         }
@@ -180,7 +180,7 @@ export default {
       if(this.company.company_id==' '){
         this.$message.warning("请先选择一个公司查看")
       }else{
-        this.$router.push({path: "/exception/warning", query: {company_id: this.company.company_id}})
+        this.$router.push({path: "/exception/sa_warning", query: {company_id: this.company.company_id}})
 
       }
 

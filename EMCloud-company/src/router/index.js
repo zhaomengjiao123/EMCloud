@@ -148,6 +148,10 @@ Vue.use(Router)
           path: '/exception/company_erro',
           component: () => import('../components/exception/ErroList.vue')
         },
+        {
+          path: '/monitoring/company_equipment_state_list',
+          component: () => import('../components/monitoring/EquipmentStateMonitor.vue')
+        },
       ]
     }
   ]

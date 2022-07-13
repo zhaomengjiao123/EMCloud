@@ -164,8 +164,10 @@ export default {
       return
     }
     this.chart.dispose()
-    this.chart = null
+    this.chart = null;
+    this.clearData()
   },
+
   mounted() {
     this.$nextTick(() => {
       this.getCityEquipmentNum();
@@ -193,6 +195,12 @@ export default {
   },
   methods: {
 
+    clearData() {
+      if (this.timer) {
+        clearInterval(this.timer)
+        this.timer = null
+      }
+    },
     //点击全屏事件
     enlarge() {
       let element = document.getElementById("bigScreen"); //需要全屏容器的id

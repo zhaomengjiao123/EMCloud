@@ -33,6 +33,10 @@ export default {
   mounted() {
 
   },
+  beforeDestroy() {
+    this.clearData()
+
+  },
   methods:{
 
     clearData() {
@@ -59,7 +63,7 @@ export default {
           ...this.config,
           data:res
         }
-      })
+      });
 
         if (true) {
           // this.config = {

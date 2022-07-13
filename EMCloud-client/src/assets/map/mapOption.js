@@ -49,7 +49,7 @@ export const mapOption = {
             '<span>' + param.name + '</span>' +
           '</div>' +
             '<div style="padding: 2px 16px;">' +
-              '<span>'+ val + '</span>' +
+               '<span>'+ val + '</span>' +
             '</div>' +
           '</div>';
       }

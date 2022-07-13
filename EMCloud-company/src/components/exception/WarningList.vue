@@ -17,10 +17,7 @@
           :value="item.equipment_number">
         </el-option>
       </el-select>
-      <!--      <el-button class="handle-del mr10" type="primary" size="mini">销售时间</el-button>-->
-      <!--      <el-input v-model="select_word" class="handle-input mr10" size="mini" placeholder="年/月/日"></el-input>-->
       <el-button type="primary" size="small" @click="getCompanyWarning">查询</el-button>
-      <!--      <el-button class="el-button-back"  type="primary" size="mini" @click="back">返回</el-button>-->
     </div>
     <div class="table" style="min-height: 500px">
       <el-table :data="warningData" border stripe>

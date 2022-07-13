@@ -84,12 +84,7 @@ export default {
       list: [],
       pageflag: true,
       components: vueSeamlessScroll,
-      // defaultOption: {
-      //   // ...this.$store.state.setting.defaultOption,
-      //   singleHeight: 240,
-      //   limitMoveNum: 5,
-      //   step: 0,
-      // },
+
       defaultOption: {
         singleHeight: 240,
         limitMoveNum: 5,
@@ -100,6 +95,7 @@ export default {
         singleWidth: 0, // 单步运动停止的宽度(默认值0是无缝不停止的滚动) direction => 2/3
         waitTime: 3000 // 单步运动停止的时间(默认值1000ms)
       },
+      timer:'',
 
 
 
@@ -125,6 +121,17 @@ export default {
   },
   methods: {
 
+    //轮询
+    switper() {
+      if (this.timer) {
+        return
+      }
+      let looper = (a) => {
+        this.getData()
+      };
+      this.timer = setInterval(looper, 5000);
+    },
+
     addressHandle(item) {
       let name = item.company_local_province;
       if (item.company_local_city) {
@@ -140,27 +147,9 @@ export default {
       getBigScreenEquipmentInfo().then(res=>{
         console.log("BigScreen:",res)
         this.list=res;
-      })
-      // this.pageflag =false
-      // currentGET("big3", { limitNum: 20 }).then((res) => {
-      //   console.log("设备提醒", res);
-      //   if (res.success) {
-      //     this.countUserNumData = res.data;
-      //     this.list = res.data.list;
-      //     let timer = setTimeout(() => {
-      //       clearTimeout(timer);
-      //       this.defaultOption.step =
-      //         this.$store.state.setting.defaultOption.step;
-      //     },
-      //       this.$store.state.setting.defaultOption.waitTime);
-      //   } else {
-      //     this.pageflag = false;
-      //     // this.$Message({
-      //     //   text: res.msg,
-      //     //   type: "warning",
-      //     // });
-      //   }
-      // });
+      });
+      this.switper();
+
     },
   },
 };

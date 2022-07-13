@@ -46,7 +46,13 @@ export const getAllEmergencyInfo = () => get('equipmentEmergency/getAllEmergency
 //查询全部的预警信息
 export const getAllWarningInfo = () => get('equipmentWarning/getAllWarningInfo')
 
-
+//===============>设备实时监控接口
+//得到设备最新更新时间列表
+export const getEquipmentListOfUpdateTime = () => get(`equipmentState/getEquipmentListOfUpdateTime`)
+//查询某个具体设备的实时状态信息
+export const getStateInfoByEidAndTime = (params) => get(`equipmentState/getStateInfoByEidAndTime`,params)
+//得到某公司设备最新更新时间列表
+export const getEquipmentListOfUpdateTimeByCid = (params) => get(`equipmentState/getEquipmentListOfUpdateTimeByCid`,params)
 
 
 

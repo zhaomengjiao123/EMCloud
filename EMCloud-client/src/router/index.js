@@ -155,6 +155,10 @@ Vue.use(Router)
           path: '/exception/sa_erro',
           component: () => import('../components/exception/ErroList.vue')
         },
+        {
+          path: '/monitoring/sa_equipment_state_list',
+          component: () => import('../components/monitoring/EquipmentStateMonitor.vue')
+        },
       ]
     }
   ]
