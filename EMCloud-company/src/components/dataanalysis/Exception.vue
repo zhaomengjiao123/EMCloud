@@ -1,6 +1,5 @@
 <template>
   <div>
-    <el-card >
     <div>
       <el-form>
         异常信息统计
@@ -16,7 +15,6 @@
         </el-col>
       </el-row>
     </div>
-      </el-card >
   </div>
 
 
@@ -66,16 +64,19 @@ export default {
     // 设备是否在线饼图
     getEquipState() {
       this.loading = true
-      getEquipState().then((res) => {
+      let params = new URLSearchParams()
+      params.append('company_id',sessionStorage.getItem("company_id") )
+      getEquipState(params).then((res) => {
         if (res) {
           console.log(res)
           this.loading = false
-          for (let i = 0; i < res.list.length; i++) {
-            if(res.list[i].equipstate==1){//如果equipstate==1，说明表示在线的数量
-              this.online=res.list[i].count
-            }else if(res.list[i].equipstate==0){
-              this.notonline=res.list[i].count
+          for (let i = 0; i < res.length; i++) {
+            if(res[i].equipstate==1){//如果equipstate==1，说明表示在线的数量
+              this.online=res[i].count
+            }else if(res[i].equipstate==0){
+              this.notonline=res[i].count
             }
+
           }
           this.chartEquipState.setOption(this.optionEquipState)
         }
@@ -86,22 +87,25 @@ export default {
 
     getEquipExType() {
       this.loading = true
-      getEquipExType().then((res) => {
+      let params = new URLSearchParams()
+      params.append('company_id',sessionStorage.getItem("company_id") )
+      getEquipExType(params).then((res) => {
         if (res) {
           this.loading = false
+          console.log('产品类型异常')
           console.log(res)
           this.EquipExTypeData = [];
-          for (let i = 0; i < res.list.length; i++) {//有多少类型，循环多少次
-            if (res.list[i].exception_name && res.list[i].exception_num) {
+
+          for (let i = 0; i < res.length; i++) {//有多少类型，循环多少次
+            if (res[i].product_type && res[i].exception_num) {
               this.EquipExTypeData [i] = {//饼图的series数据
-                name: res.list[i].exception_name,
-                value: res.list[i].exception_num,
+                name: res[i].product_type,
+                value: res[i].exception_num,
                 itemStyle: {color: this.color[i]}
               }
-
             }
-
           }
+
           this.chartEquipExType.setOption(this.optionEquipExType)
         }
       })

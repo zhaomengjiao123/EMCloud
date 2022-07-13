@@ -41,7 +41,7 @@ $item_title_content-height: calc(100% - 38px);
 .lr_titles {
   box-sizing: border-box;
 
-  ::v-deep.border-box-content {
+  /deep/.border-box-content {
     box-sizing: border-box;
     padding: 6px 16px 0px;
   }
