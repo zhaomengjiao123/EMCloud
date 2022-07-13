@@ -3,7 +3,7 @@
 <mapper namespace="com.server.emcloud.dao.AgvStateInfoMapper">
   <resultMap id="BaseResultMap" type="com.server.emcloud.domain.AgvStateInfo">
     <id column="agvid" jdbcType="VARCHAR" property="agvid" />
-    <result column="SendTime" jdbcType="VARCHAR" property="SendTime" />
+    <result column="sendtime" jdbcType="VARCHAR" property="sendtime" />
     <result column="power_on_time" jdbcType="VARCHAR" property="power_on_time" />
     <result column="mode_running" jdbcType="VARCHAR" property="mode_running" />
     <result column="path_running" jdbcType="VARCHAR" property="path_running" />
@@ -38,7 +38,7 @@
   </resultMap>
 
   <sql id="Base_Column_List">
-    agvid, SendTime, power_on_time, mode_running, path_running,battery,theta,xpos,
+    agvid, sendtime, power_on_time, mode_running, path_running,battery,theta,xpos,
         ypos,cur_cap,exec_cap,target_cap,exec_route,manual_auto,robot_ready,task_complete,radar_error,
         radar_disconnect,motor_error,board_disconnect,imu_disconnect,warning_code,error_code,total_odom,today_odom,
         cur_map,vel_line,vel_angle,line_enc,external_sts,robotsts,trajdone
@@ -50,8 +50,8 @@
       <if test="agvid != null" >
         agvid,
       </if>
-      <if test="SendTime != null" >
-        SendTime,
+      <if test="sendtime != null" >
+          sendtime,
       </if>
       <if test="power_on_time != null" >
         power_on_time,
@@ -146,8 +146,8 @@
       <if test="agvid != null" >
         #{agvid,jdbcType=VARCHAR} ,
       </if>
-      <if test="SendTime != null" >
-        #{SendTime,jdbcType=VARCHAR} ,
+      <if test="sendtime != null" >
+        #{sendtime,jdbcType=VARCHAR} ,
       </if>
       <if test="power_on_time != null" >
         #{power_on_time,jdbcType=VARCHAR} ,

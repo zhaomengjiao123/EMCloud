@@ -19,7 +19,6 @@ import static com.server.emcloud.socket.SocketHandler.*;
  * @Date: 2022/07/08/21:31
  * @Description:
  */
-@Slf4j
 @Data
 public class ClientSocket implements Runnable {
 
@@ -84,7 +83,7 @@ public class ClientSocket implements Runnable {
     public void run() {
         while (true){
             try {
-                System.out.println("1"+this);
+                //System.out.println("1"+this);
 
                 socketHandler.onMessage(this);
                 System.out.println(LocalDateTime.now()+" 接收到数据: <<<<<<" + this.message);

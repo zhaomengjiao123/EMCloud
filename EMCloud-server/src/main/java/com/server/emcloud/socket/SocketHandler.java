@@ -2,11 +2,9 @@ package com.server.emcloud.socket;
 
 import com.alibaba.druid.util.StringUtils;
 import com.server.emcloud.dao.AgvStateInfoMapper;
-import com.server.emcloud.domain.AGVProtocolHeader;
-import com.server.emcloud.domain.AgvStateInfo;
-import com.server.emcloud.domain.Task;
-import com.server.emcloud.domain.TaskRecord;
+import com.server.emcloud.domain.*;
 import com.server.emcloud.service.AgvInfoService;
+import com.server.emcloud.service.EquipmentStateService;
 import com.server.emcloud.service.TaskRecordService;
 import com.server.emcloud.service.TaskService;
 import com.server.emcloud.service.impl.AgvInfoSErviceImpl;
@@ -38,13 +36,15 @@ import static com.server.emcloud.socket.SocketPool.remove;
  * @Date: 2022/07/08/21:32
  * @Description:
  */
-@Slf4j
+
 @Component
 public class SocketHandler {
 
 
     @Autowired
     private AgvInfoService agvInfoService;
+    @Autowired
+    private EquipmentStateService equipmentStateService;
     private TaskRecordService taskRecordService;
     private TaskService taskService;
     static Logger log = LoggerFactory.getLogger(SocketHandler.class);
@@ -54,6 +54,7 @@ public class SocketHandler {
     @PostConstruct
     public void init() {
         socketHandler = this;
+        socketHandler.equipmentStateService = this.equipmentStateService;
         socketHandler.agvInfoService = this.agvInfoService ;
         // 初使化时将已静态化的otherService实例化
         socketHandler.taskRecordService = this.taskRecordService;
@@ -131,20 +132,38 @@ public class SocketHandler {
                     dataInputStream.read(m);
 
                     info += new String(m,"utf-8");
-                    //System.out.println(info);
+                    System.out.println(info);
                     //JSONObject agvJson = JSONObject.parseObject(info);
                     JSONObject jsonobject = JSONObject.fromObject(info);
 
 
                     if(type==1){   //状态
-
                         AgvStateInfo agvStateInfo = (AgvStateInfo) JSONObject.toBean(jsonobject,AgvStateInfo.class);
-                        System.out.println("转换后的对象ID："+agvStateInfo.getAgvid());
+                        //agvStateInfo.setSendTime(LocalDateTime.now().toString());
+                        int agvid = new Integer(agvStateInfo.getAgvid());
+                        System.out.println("转换后的对象ID："+agvid);
                         //将消息体对象添加到数据库
                         int res = socketHandler.agvInfoService.addAgvStateInfo(agvStateInfo);
                         if(res>0){
                             log.info("添加消息体成功！");
                         }
+
+                        EquipmentState equipmentState = new EquipmentState();
+                        equipmentState.setEquipment_id(agvid);
+                        equipmentState.setState_update_time(agvStateInfo.getSendtime());
+                        //是否已经存在
+                        int exist_id_count = socketHandler.equipmentStateService.getEquipmentStateIDCount(agvid);
+                        System.out.println("ee:"+exist_id_count);
+                        if(exist_id_count>0){
+                            //已经存在直接更新
+                            socketHandler.equipmentStateService.updateEquipmentState(equipmentState);
+                            log.info("更新成功");
+                        }else {
+                            //添加
+                            log.info("添加成功");
+                            socketHandler.equipmentStateService.addEquipmentState(equipmentState);
+                        }
+
                     }else if(type==2){  //任务
                         TaskRecord taskRecord = (TaskRecord) JSONObject.toBean(jsonobject,TaskRecord.class);
                         System.out.println("转换后的对象ID："+taskRecord.getTaskID());
@@ -166,13 +185,13 @@ public class SocketHandler {
                     }
 
 
-                    AgvStateInfo agvStateInfo = (AgvStateInfo) JSONObject.toBean(jsonobject,AgvStateInfo.class);
-                    System.out.println("转换后的对象ID："+agvStateInfo.getAgvid());
-                    //将消息体对象添加到数据库
-                        int res = socketHandler.agvInfoService.addAgvStateInfo(agvStateInfo);
-                        if(res>0){
-                            log.info("添加消息体成功！");
-                        }
+//                    AgvStateInfo agvStateInfo = (AgvStateInfo) JSONObject.toBean(jsonobject,AgvStateInfo.class);
+//                    System.out.println("转换后的对象ID："+agvStateInfo.getAgvid());
+//                    //将消息体对象添加到数据库
+//                        int res = socketHandler.agvInfoService.addAgvStateInfo(agvStateInfo);
+//                        if(res>0){
+//                            log.info("添加消息体成功！");
+//                        }
 
                         //已经读完
                         if (clientSocket.getInputStream().available() == 0) {

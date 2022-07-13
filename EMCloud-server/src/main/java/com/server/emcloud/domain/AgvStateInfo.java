@@ -9,7 +9,7 @@ package com.server.emcloud.domain;
  */
 public class AgvStateInfo {
    private String agvid;
-   private String SendTime;
+   private String sendtime;
    private String power_on_time;
    private String mode_running;
    private String path_running;
@@ -68,13 +68,7 @@ public class AgvStateInfo {
         this.agvid = agvid;
     }
 
-    public String getSendTime() {
-        return SendTime;
-    }
 
-    public void setSendTime(String sendTime) {
-        SendTime = sendTime;
-    }
 
     public String getPower_on_time() {
         return power_on_time;
@@ -434,5 +428,13 @@ public class AgvStateInfo {
 
     public void setTrajdone(boolean trajdone) {
         this.trajdone = trajdone;
+    }
+
+    public String getSendtime() {
+        return sendtime;
+    }
+
+    public void setSendtime(String sendtime) {
+        this.sendtime = sendtime;
     }
 }

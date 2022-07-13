@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.server.emcloud.dao.EquipmentStateMapper">
+    <resultMap id="BaseResultMap" type="com.server.emcloud.domain.EquipmentState" >
+        <result column="state_id" property="state_id" jdbcType="INTEGER" />
+        <result column="equipment_id" property="equipment_id" jdbcType="INTEGER" />
+        <result column="state_update_time" property="state_update_time" jdbcType="VARCHAR" />
+
+    </resultMap>
+
+    <resultMap id="EquipmentListOfUpdateTime" type="java.util.HashMap">
+        <result column="equipment_id" property="equipment_id" jdbcType="INTEGER" />
+        <result column="state_update_time" property="state_update_time" jdbcType="VARCHAR" />
+        <result column="product_name" property="product_name" jdbcType="VARCHAR" />
+        <result column="product_type_name" property="product_type_name" jdbcType="VARCHAR" />
+        <result column="company_name" jdbcType="VARCHAR" property="company_name" />
+        <result column="equipment_number" jdbcType="VARCHAR" property="equipment_number" />
+    </resultMap>
+
+    <resultMap id="StateInfoByEidAndTime" type="java.util.HashMap">
+        <result column="equipment_id" property="equipment_id" jdbcType="INTEGER" />
+        <result column="state_update_time" property="state_update_time" jdbcType="VARCHAR" />
+        <result column="product_name" property="product_name" jdbcType="VARCHAR" />
+        <result column="product_type_name" property="product_type_name" jdbcType="VARCHAR" />
+        <result column="company_name" jdbcType="VARCHAR" property="company_name" />
+        <result column="equipment_number" jdbcType="VARCHAR" property="equipment_number" />
+        <result column="sendtime" jdbcType="VARCHAR" property="sendtime" />
+        <result column="power_on_time" jdbcType="VARCHAR" property="power_on_time" />
+        <result column="mode_running" jdbcType="VARCHAR" property="mode_running" />
+        <result column="path_running" jdbcType="VARCHAR" property="path_running" />
+        <result column="battery" jdbcType="FLOAT" property="battery" />
+        <result column="theta" jdbcType="FLOAT" property="theta" />
+        <result column="xpos" jdbcType="FLOAT" property="xpos" />
+        <result column="ypos" jdbcType="FLOAT" property="ypos" />
+        <result column="cur_cap" jdbcType="FLOAT" property="cur_cap" />
+        <result column="exec_cap" jdbcType="FLOAT" property="exec_cap" />
+        <result column="target_cap" jdbcType="FLOAT" property="target_cap" />
+        <result column="exec_route" jdbcType="VARCHAR" property="exec_route" />
+        <result column="manual_auto" jdbcType="FLOAT" property="manual_auto" />
+        <result column="robot_ready" jdbcType="BIT" property="robot_ready" />
+        <result column="task_complete" jdbcType="BIT" property="task_complete" />
+        <result column="task_stopping" jdbcType="BIT" property="task_stopping" />
+        <result column="radar_error" jdbcType="BIT" property="radar_error" />
+        <result column="radar_disconnect" jdbcType="BIT" property="radar_disconnect" />
+        <result column="motor_error" jdbcType="BIT" property="motor_error" />
+        <result column="board_disconnect" jdbcType="BIT" property="board_disconnect" />
+        <result column="imu_disconnect" jdbcType="BIT" property="imu_disconnect" />
+        <result column="warning_code" jdbcType="FLOAT" property="warning_code" />
+        <result column="error_code" jdbcType="FLOAT" property="error_code" />
+        <result column="total_odom" jdbcType="FLOAT" property="total_odom" />
+        <result column="today_odom" jdbcType="FLOAT" property="today_odom" />
+        <result column="cur_map" jdbcType="VARCHAR" property="cur_map" />
+        <result column="vel_line" jdbcType="VARCHAR" property="vel_line" />
+        <result column="vel_angle" jdbcType="FLOAT" property="vel_angle" />
+        <result column="line_enc" jdbcType="FLOAT" property="line_enc" />
+        <result column="external_sts" jdbcType="FLOAT" property="external_sts" />
+        <result column="robotsts" jdbcType="INTEGER" property="robotsts" />
+        <result column="trajdone" jdbcType="BIT" property="trajdone" />
+    </resultMap>
+
+    <select id="Base_Column_List">
+        state_id,equipment_id,state_update_time
+    </select>
+
+    <select id="getEquipmentStateIDCount" resultType="java.lang.Integer">
+        select count(*) from emdb_equipment_state where equipment_id=#{agvid,jdbcType=INTEGER}
+    </select>
+
+    <insert id="addEquipmentState" parameterType="com.server.emcloud.domain.EquipmentState" >
+        insert into emdb_equipment_state
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="equipment_id != null" >
+                equipment_id,
+            </if>
+            <if test="state_update_time != null" >
+                state_update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="equipment_id != null" >
+                #{equipment_id} ,
+            </if>
+            <if test="state_update_time != null" >
+                #{state_update_time},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateEquipmentState" parameterType="com.server.emcloud.domain.EquipmentState">
+        update emdb_equipment_state
+        <set>
+            <if test="state_update_time != null">
+                state_update_time = #{state_update_time,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where equipment_id = #{equipment_id,jdbcType=INTEGER}
+    </update>
+
+    <select id="getEquipmentListOfUpdateTime" resultMap="EquipmentListOfUpdateTime">
+        SELECT es.equipment_id,es.state_update_time,p.product_name,pt.product_type_name,ep.company_name,e.equipment_number
+        FROM emdb_equipment_state es JOIN emdb_equipment e ON es.equipment_id=e.equipment_id
+            INNER JOIN emdb_product p ON e.product_id=p.product_id INNER JOIN emdb_product_type pt
+                ON p.product_type_id=pt.product_type_id INNER JOIN emdb_company ep ON e.company_id=ep.company_id
+    </select>
+
+    <select id="getStateInfoByEidAndTime" resultMap="EquipmentListOfUpdateTime">
+        SELECT es.equipment_id,es.state_update_time,p.product_name,pt.product_type_name,ep.company_name,a.*,e.equipment_number
+        FROM emdb_equipment_state es JOIN emdb_equipment e ON es.equipment_id=e.equipment_id
+            INNER JOIN emdb_product p ON e.product_id
+            =p.product_id INNER JOIN emdb_product_type pt ON p.product_type_id=pt.product_type_id
+            INNER JOIN agvstateinfo a ON es.equipment_id=a.agvid AND es.state_update_time=a.sendtime
+            INNER JOIN emdb_company ep ON e.company_id=ep.company_id
+        WHERE es.state_update_time= #{state_update_time,jdbcType=VARCHAR} and es.equipment_id=#{equipment_id,jdbcType=INTEGER}
+    </select>
+
+    <select id="getEquipmentListOfUpdateTimeByCid" resultMap="EquipmentListOfUpdateTime">
+        SELECT es.equipment_id,es.state_update_time,p.product_name,pt.product_type_name,ep.company_name,e.equipment_number
+        FROM emdb_equipment_state es JOIN emdb_equipment e ON es.equipment_id=e.equipment_id
+                                     INNER JOIN emdb_product p ON e.product_id=p.product_id
+            INNER JOIN emdb_product_type pt
+        ON p.product_type_id=pt.product_type_id INNER JOIN emdb_company ep ON e.company_id=ep.company_id
+        WHERE e.company_id=#{company_id,jdbcType=INTEGER}
+    </select>
+
+
+    <select id="getEquipmentListOfUpdateTimeByCidAndEn" resultMap="EquipmentListOfUpdateTime">
+        SELECT es.equipment_id,es.state_update_time,p.product_name,pt.product_type_name,ep.company_name,e.equipment_number
+        FROM emdb_equipment_state es JOIN emdb_equipment e ON es.equipment_id=e.equipment_id
+                                     INNER JOIN emdb_product p ON e.product_id=p.product_id
+                                     INNER JOIN emdb_product_type pt
+                                                ON p.product_type_id=pt.product_type_id INNER JOIN emdb_company ep ON e.company_id=ep.company_id
+        WHERE e.company_id=#{company_id,jdbcType=INTEGER} AND e.equipment_number = #{equipment_number,jdbcType=VARCHAR}
+    </select>
+
+
+
+
+</mapper>
