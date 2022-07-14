@@ -23,10 +23,10 @@
         </div>
         <div class="table" style="min-height: 500px">
           <el-table :data="equipmentUpdateData" border stripe>
-            <el-table-column label="任务ID" prop="TaskID" />
-            <el-table-column label="设备ID" prop="AGVID" />
-            <el-table-column label="开始时间" prop="BeginTime" />
-            <el-table-column label="结束时间" prop="BeginTime" />
+            <el-table-column label="任务ID" prop="taskID" />
+            <el-table-column label="设备ID" prop="agvid" />
+            <el-table-column label="开始时间" prop="beginTime" />
+            <el-table-column label="结束时间" prop="endTime" />
             <el-table-column label="操作"
                              width="200px">
               <template slot-scope="scope">
@@ -50,13 +50,13 @@
       </el-tab-pane>
       <el-tab-pane label="实时设备数据查看" name="state-info" disabled>
         <el-descriptions border column="2">
-          <el-descriptions-item label="任务ID">{{ stateInfo.TaskID }}</el-descriptions-item>
-          <el-descriptions-item label="设备ID">{{ stateInfo.AGVID}}</el-descriptions-item>
-          <el-descriptions-item label="运行模式">{{ stateInfo.RunModel}}</el-descriptions-item>
-          <el-descriptions-item label="所属公司">{{stateInfo.RunModelName}}</el-descriptions-item>
-          <el-descriptions-item label="开始时间">{{ stateInfo.BeginTime }}</el-descriptions-item>
-          <el-descriptions-item label="结束时间">{{ stateInfo.EndTime }}</el-descriptions-item>
-          <el-descriptions-item label="花费时间">{{ stateInfo.TotalMinute }}</el-descriptions-item>
+          <el-descriptions-item label="任务ID">{{ stateInfo.taskID }}</el-descriptions-item>
+          <el-descriptions-item label="设备ID">{{ stateInfo.agvid}}</el-descriptions-item>
+          <el-descriptions-item label="运行模式">{{ stateInfo.runModel}}</el-descriptions-item>
+          <el-descriptions-item label="运行模式名称">{{stateInfo.runModelName}}</el-descriptions-item>
+          <el-descriptions-item label="开始时间">{{ stateInfo.beginTime }}</el-descriptions-item>
+          <el-descriptions-item label="结束时间">{{ stateInfo.endTime }}</el-descriptions-item>
+          <el-descriptions-item label="花费时间">{{ stateInfo.totalMinute }}</el-descriptions-item>
           <el-descriptions-item label="消耗电量">{{ stateInfo.costbattery }}</el-descriptions-item>
           <el-descriptions-item label="开始电量">{{stateInfo.beginbattery}}</el-descriptions-item>
           <el-descriptions-item label="结束电量">{{stateInfo.endbattery}}</el-descriptions-item>
@@ -76,7 +76,12 @@ import cityData from "../../assets/map/china_city.json"
 import "../../libs/utils"
 import {
   getCompany,
-  getEquipmentListOfUpdateTime, getEquipmentListOfUpdateTimeByCid, getStateInfoByEidAndTime,
+  getEquipmentListOfUpdateTime,
+  getEquipmentListOfUpdateTimeByCid,
+  getStateInfoByEidAndTime,
+  getTask,
+  getTaskByCompanyId,
+  getTaskById,
 } from "../../api";
 
 
@@ -95,13 +100,13 @@ export default {
       },
       companySelectList:{},
       stateInfo:{
-        TaskID:'',
-        RunModel: '',
-        RunModelName:'',
-        BeginTime:'',
-        EndTime: '',
-        TotalMinute: '',
-        AGVID: '',
+        taskID:'',
+        runModel: '',
+        runModelName:'',
+        beginTime:'',
+        endTime: '',
+        totalMinute: '',
+        agvid: '',
         costbattery: '',
         beginbattery: '',
         endbattery: '',
@@ -148,7 +153,7 @@ export default {
 
     getUpdateData(){
       //查询全部设备的最新更新时间
-      getEquipmentListOfUpdateTime().then(res=>{
+      getTask().then(res=>{
         this.equipmentUpdateData=res;
         console.log("Update",res);
       });
@@ -175,7 +180,7 @@ export default {
         this.getUpdateData();
       }else{
         //查询某公司设备最近更新时间
-        getEquipmentListOfUpdateTimeByCid(params).then(res=>{
+        getTaskByCompanyId(params).then(res=>{
           this.equipmentUpdateData=res;
           if(res.length === 0){
             this.$message.warning("抱歉，没有查找到数据")
@@ -189,9 +194,8 @@ export default {
     checkStateInfo(row){
       this.activeName='state-info';
       let params = new URLSearchParams();
-      params.append("equipment_id",row.equipment_id);
-      params.append("state_update_time",row.state_update_time)
-      getStateInfoByEidAndTime(params).then(res=>{
+      params.append("taskID",row.taskID);
+      getTaskById(params).then(res=>{
         this.stateInfo=res[0];
         console.log(res);
       })

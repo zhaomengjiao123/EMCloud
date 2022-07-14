@@ -204,3 +204,9 @@ export const register = (params) => post(`user/add`,params)
 
 //获取任务
 export const getTask= () => get(`getTask`);
+
+//获取任务
+export const getTaskById= (params) => get(`getTaskbyId`,params);
+
+//获取任务
+export const getTaskByCompanyId= (params) => get(`getTaskbyCompanyId`,params);
