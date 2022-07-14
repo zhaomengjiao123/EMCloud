@@ -88,6 +88,7 @@
     <select id="getAllProduct" resultMap="BaseResultMap">
         select *
         from `emdb_product`
+        where product_del_flag=0
     </select>
 
     <update id="updateProduct" parameterType="com.server.emcloud.domain.Product">
@@ -105,9 +106,18 @@
             <if test="product_type_id != null">
                 product_type_id = #{product_type_id,jdbcType=VARCHAR},
             </if>
+            <if test="product_pic_url != null">
+                product_pic_url = #{product_pic_url,jdbcType=VARCHAR},
+            </if>
         </set>
         where product_id = #{product_id,jdbcType=INTEGER}
     </update>
-
+    <update id="deleteProduct" >
+        update emdb_product
+        <set >
+            product_del_flag = 1
+        </set>
+        where product_id = #{product_id}
+    </update>
 
 </mapper>

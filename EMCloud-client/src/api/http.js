@@ -6,6 +6,9 @@ axios.defaults.withCredentials = true;  //true允许跨域
 //Content-Type 响应头
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 
+
+// axios.defaults.baseURL="http://localhost:8080";
+
 if (process.env.NODE_ENV === 'production') {
   /*第二层if，根据.env文件中的VUE_APP_FLAG判断是生产环境还是测试环境*/
   if (process.env.VUE_APP_FLAG === 'pro') {
