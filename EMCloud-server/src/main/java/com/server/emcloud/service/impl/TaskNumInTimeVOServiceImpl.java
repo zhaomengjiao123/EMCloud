@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -89,11 +88,11 @@ public class TaskNumInTimeVOServiceImpl implements TaskNumInTimeVOService {
     public List<DiffProductTypeAndTaskNumInTimeVO> getDiffProductTypeAndTaskNumInTimeByDay(String startTime, String endTime) {
         List<DiffProductTypeAndTaskNumInTimeVO> resultList = new ArrayList<>();
 
-        //查询所有有任务的设备的产品类型id
-        List<Integer> productTypeHasTask = taskNumInTimeVOMapper.getProductTypeHasTask();
+        //查询所有产品类型id
+        List<Integer> typeIdList = taskNumInTimeVOMapper.getAllProductId();
 
         //循环得到的每个产品类型id
-        for (Integer productTypeId : productTypeHasTask) {
+        for (Integer productTypeId : typeIdList) {
             //构建返回结果
             DiffProductTypeAndTaskNumInTimeVO result = new DiffProductTypeAndTaskNumInTimeVO();
             //根据产品类型id获得产品类型名称
@@ -108,12 +107,9 @@ public class TaskNumInTimeVOServiceImpl implements TaskNumInTimeVOService {
                     iterator.remove();
                 }
             }
-            //如果该类产品在该时间段内没有任务则不会出现在结果集中
-            if(!data.isEmpty()) {
-                result.setData(data);
-                //插入结果集
-                resultList.add(result);
-            }
+            result.setData(data);
+            //插入结果集
+            resultList.add(result);
         }
         return resultList;
     }
@@ -123,11 +119,11 @@ public class TaskNumInTimeVOServiceImpl implements TaskNumInTimeVOService {
     public List<DiffProductTypeAndTaskNumInTimeVO> getDiffProductTypeAndTaskNumInTimeByDay2(String startTime, String endTime, int company_id) {
         List<DiffProductTypeAndTaskNumInTimeVO> resultList = new ArrayList<>();
 
-        //查询所有有任务的设备的产品类型id
-        List<Integer> productTypeHasTask = taskNumInTimeVOMapper.getProductTypeHasTask();
+        //查询所有产品类型id
+        List<Integer> typeIdList = taskNumInTimeVOMapper.getAllProductId();
 
         //循环得到的每个产品类型id
-        for (Integer productTypeId : productTypeHasTask) {
+        for (Integer productTypeId : typeIdList) {
             //构建返回结果
             DiffProductTypeAndTaskNumInTimeVO result = new DiffProductTypeAndTaskNumInTimeVO();
             //根据产品类型id获得产品类型名称
@@ -142,12 +138,9 @@ public class TaskNumInTimeVOServiceImpl implements TaskNumInTimeVOService {
                     iterator.remove();
                 }
             }
-            //如果该类产品在该时间段内没有任务则不会出现在结果集中
-            if(!data.isEmpty()) {
-                result.setData(data);
-                //插入结果集
-                resultList.add(result);
-            }
+            result.setData(data);
+            //插入结果集
+            resultList.add(result);
         }
         return resultList;
     }
@@ -157,11 +150,11 @@ public class TaskNumInTimeVOServiceImpl implements TaskNumInTimeVOService {
     public List<DiffProductTypeAndTaskNumInTimeVO> getDiffProductTypeAndTaskNumInTimeByMouth(String startTime, String endTime) {
         List<DiffProductTypeAndTaskNumInTimeVO> resultList = new ArrayList<>();
 
-        //查询所有有任务的设备的产品类型id和产品类型名称
-        List<Integer> productTypeHasTask = taskNumInTimeVOMapper.getProductTypeHasTask();
+        //查询所有产品类型id
+        List<Integer> typeIdList = taskNumInTimeVOMapper.getAllProductId();
 
-        //循环得到的每个产品类型，通过id取得该类型的任务数量
-        for (Integer productTypeId : productTypeHasTask) {
+        //循环得到的每个产品类型id
+        for (Integer productTypeId : typeIdList) {
             //构建返回结果
             DiffProductTypeAndTaskNumInTimeVO result = new DiffProductTypeAndTaskNumInTimeVO();
             //根据产品类型id获得产品类型名称
@@ -176,12 +169,9 @@ public class TaskNumInTimeVOServiceImpl implements TaskNumInTimeVOService {
                     iterator.remove();
                 }
             }
-            //如果该类产品在该时间段内没有任务则不会出现在结果集中
-            if(!data.isEmpty()) {
-                result.setData(data);
-                //插入结果集
-                resultList.add(result);
-            }
+            result.setData(data);
+            //插入结果集
+            resultList.add(result);
         }
         return resultList;
     }
@@ -191,11 +181,11 @@ public class TaskNumInTimeVOServiceImpl implements TaskNumInTimeVOService {
     public List<DiffProductTypeAndTaskNumInTimeVO> getDiffProductTypeAndTaskNumInTimeByMouth2(String startTime, String endTime, int company_id) {
         List<DiffProductTypeAndTaskNumInTimeVO> resultList = new ArrayList<>();
 
-        //查询所有有任务的设备的产品类型id和产品类型名称
-        List<Integer> productTypeHasTask = taskNumInTimeVOMapper.getProductTypeHasTask();
+        //查询所有产品类型id
+        List<Integer> typeIdList = taskNumInTimeVOMapper.getAllProductId();
 
-        //循环得到的每个产品类型，通过id取得该类型的任务数量
-        for (Integer productTypeId : productTypeHasTask) {
+        //循环得到的每个产品类型id
+        for (Integer productTypeId : typeIdList) {
             //构建返回结果
             DiffProductTypeAndTaskNumInTimeVO result = new DiffProductTypeAndTaskNumInTimeVO();
             //根据产品类型id获得产品类型名称
@@ -210,12 +200,9 @@ public class TaskNumInTimeVOServiceImpl implements TaskNumInTimeVOService {
                     iterator.remove();
                 }
             }
-            //如果该类产品在该时间段内没有任务则不会出现在结果集中
-            if(!data.isEmpty()) {
-                result.setData(data);
-                //插入结果集
-                resultList.add(result);
-            }
+            result.setData(data);
+            //插入结果集
+            resultList.add(result);
         }
         return resultList;
     }

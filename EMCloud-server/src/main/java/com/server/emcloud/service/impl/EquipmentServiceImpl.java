@@ -105,4 +105,14 @@ public class EquipmentServiceImpl  implements EquipmentService {
     public List<Equipment> getEquipmentNumberListByCid(int company_id) {
         return equipmentMapper.getEquipmentNumberListByCid(company_id);
     }
+
+    @Override
+    public int updateErroCountByEid(int equipment_id) {
+        return equipmentMapper.updateErroCountByEid(equipment_id);
+    }
+
+    @Override
+    public int updateWarningCountByEid(int equipment_id) {
+        return equipmentMapper.updateWarningCountByEid(equipment_id);
+    }
 }

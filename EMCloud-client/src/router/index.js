@@ -159,6 +159,14 @@ Vue.use(Router)
           path: '/monitoring/sa_equipment_running_map',
           component: () => import('../components/monitoring/EquipmentRuningMap.vue')
         },
+        {
+          path: '/task_monitor',
+          component: () => import('../components/monitoring/TaskMonitor.vue')
+        },
+        {
+          path: '/equipment/manage',
+          component: () => import('../components/equipment/equipment_manage.vue')
+        },
       ]
     }
   ]

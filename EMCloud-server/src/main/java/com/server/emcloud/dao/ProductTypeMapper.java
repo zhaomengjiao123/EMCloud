@@ -30,8 +30,11 @@ public interface ProductTypeMapper {
     List<ProductTypeExceptionNum> getAllProductTypeExceptionNum2(String company_id);
 
 
-    //查询不同类型产品的任务数量
-    public List<ProductTypeAndTaskNum> getProductTypeAndTaskNum();
-   //查询某公司不同类型产品的任务数量
-    public List<ProductTypeAndTaskNum> getProductTypeAndTaskNum2(int company_id);
+
+    //根据产品类型id查询其任务数量
+    public int getTaskNumByPid(int product_type_id);
+    //根据产品类型id和公司id查询其任务数量
+    public int getTaskNumByPidByCid(int product_type_id, int company_id);
+
+
 }

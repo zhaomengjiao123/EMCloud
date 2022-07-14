@@ -1,6 +1,7 @@
 package com.server.emcloud.service.impl;
 
 import com.server.emcloud.dao.EquipmentErroMapper;
+import com.server.emcloud.domain.EquipmentErro;
 import com.server.emcloud.service.EquipmentErroService;
 import com.server.emcloud.vo.EquipmentErroVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +56,10 @@ public class EquipmentErroServiceImpl implements EquipmentErroService {
     @Override
     public List<EquipmentErroVO> getErroByEquipmentNumberAndCid(int company_id, String equipment_number) {
         return equipmentErroMapper.getErroByEquipmentNumberAndCid(company_id,equipment_number);
+    }
+
+    @Override
+    public int addErroInfo(EquipmentErro equipmentErro) {
+        return equipmentErroMapper.addErroInfo(equipmentErro);
     }
 }

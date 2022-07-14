@@ -132,7 +132,7 @@ public class ProductTypeController {
     @RequestMapping(value = "/getProductTypeAndTaskNum2", method = RequestMethod.GET)
     public List<ProductTypeAndTaskNum> getProductTypeAndTaskNum2(HttpServletRequest req){
         int company_id = new Integer(req.getParameter("company_id"));
-        System.out.println("请求查询不同类型产品的任务数量："+productTypeService.getProductTypeAndTaskNum2(company_id));
+        System.out.println("请求查询某公司不同类型产品的任务数量："+productTypeService.getProductTypeAndTaskNum2(company_id));
         return productTypeService.getProductTypeAndTaskNum2(company_id);
     }
 

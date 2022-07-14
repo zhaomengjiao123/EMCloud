@@ -1,59 +1,87 @@
-<!--  -->
 <template>
   <div>
     <el-card >
       <!--面包屑导航区-->
       <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/welcome' }">客户管理</el-breadcrumb-item>
-        <el-breadcrumb-item>企业管理</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/welcome' }">产品管理</el-breadcrumb-item>
+        <el-breadcrumb-item>产品信息</el-breadcrumb-item>
       </el-breadcrumb>
       <!--卡片视图区域-->
       <br>
-
       <el-row :gutter="20">
         <el-col :span="8">
-          <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getGoodsList">
-            <el-button slot="append" icon="el-icon-search" @click="getGoodsList"></el-button>
+          <el-input placeholder="请输入内容" v-model="queryn" clearable @clear="getGoodsList">
+            <el-button slot="append" icon="el-icon-search" @click="chaxun(queryn)"></el-button>
           </el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" @click="dialogFormVisible = true">添加公司</el-button>
+          <el-button type="primary" @click="add1">添加信息</el-button>
         </el-col>
+
+
       </el-row>
 
-      <!--    公司  -->
-      <el-dialog title="添加公司" width="36%" :visible.sync="dialogFormVisible" center >
-        <el-form :model="questionForm" ref="questionForm"  label-position="right" label-width="110px" style="width: 400px; margin-left:50px;">
-          <el-form-item label="公司名称" prop="name">
-            <el-input v-model="questionForm.company_name" placeholder="必填"></el-input>
-          </el-form-item>
-          <el-form-item label="公司类型" prop="type">
-            <el-input v-model="questionForm.company_type" placeholder="必填"/>
-          </el-form-item>
-          <el-form-item label="公司所在省份" prop="province">
-            <el-input v-model="questionForm.company_local_province"  placeholder="必填"/>
-          </el-form-item>
-          <el-form-item label="公司所在城市" prop="city">
-            <el-input v-model="questionForm.company_local_city"  placeholder="必填"/>
-          </el-form-item>
-          <el-form-item label="公司备注">
-            <el-input v-model="questionForm.company_comment" />
-          </el-form-item>
-        </el-form>
+      <!--    添加产品  -->
+      <el-dialog title="添加产品信息" width="65%" :visible.sync="dialogFormVisible" center >
+        <el-row>
+          <el-col :span="12">
+            <div class="grid-content">
+              <el-form :model="questionForm"  ref="questionForm" :rules="rules" label-position="right" label-width="150px" style="width: 400px; margin-left:10px;">
+                <el-form-item label="产品名称" prop="name">
+                  <el-input v-model="questionForm.product_name" placeholder="必填"></el-input>
+                </el-form-item>
+                <el-form-item label="产品编号" prop="number" >
+                  <el-input v-model="questionForm.product_number" placeholder="必填"></el-input>
+                </el-form-item>
+                <el-form-item label="产品图片地址" prop="pic_url">
+                  <el-input v-model="questionForm.product_pic_url" ></el-input>
+                </el-form-item>
+                <el-form-item label="产品备注" prop="comment">
+                  <el-input v-model="questionForm.product_comment" ></el-input>
+                </el-form-item>
+              </el-form>
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div class="grid-content">
+              <el-form :model="questionForm"  ref="questionForm" :rules="rules" label-position="right" label-width="150px" style="width: 400px; margin-left:10px;">
+                <el-form-item label="产品型号" prop="version">
+                  <el-input v-model="questionForm.product_version" placeholder="必填"></el-input>
+                </el-form-item>
+                <el-form-item label="产品所属类型ID" prop="type_id">
+                  <el-select v-model="questionForm.product_type_id" placeholder="必填" style="width: 250px">
+                    <el-option v-for="item in product_id" :key="item.product_type_name"  :value="item.product_type_id"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="产品资料地址" prop="file_url">
+                  <el-input v-model="questionForm.product_file_url" ></el-input>
+                </el-form-item>
+                <el-form-item label="产品发布日期" prop="date" >
+                  <!--                  <el-input v-model="questionForm.product_release_date" placeholder="必填"></el-input>-->
+                  <el-date-picker v-model="questionForm.product_release_date" type="date" value-format="yyyy-MM-dd" style="width: 250px; " placeholder="选择日期"></el-date-picker>
+                </el-form-item>
+              </el-form>
+            </div>
+          </el-col>
+        </el-row>
         <div slot="footer" ref="questionForm" class="dialog-footer">
           <el-button @click="update">取消</el-button>
-          <el-button type="primary" @click=" addProduct()">确定</el-button>
+          <el-button type="primary" @click=" addProduct()" >确定</el-button>
         </div>
       </el-dialog>
 
       <!-- table表格区域 -->
-      <el-table :data="goodsList.slice((queryInfo.pagenum - 1) * queryInfo.pagesize, queryInfo.pagenum * queryInfo.pagesize)"  height="500px" border stripe>
+      <el-table :data="newgoodsList.slice((queryInfo.pagenum - 1) * queryInfo.pagesize, queryInfo.pagenum * queryInfo.pagesize)"  height="500px" border stripe>
         <el-table-column type="index" label="#" ></el-table-column>
-        <el-table-column  label="公司名称" prop="company_name" ></el-table-column>
-        <el-table-column  label="公司类型" prop="company_type" width="160px"></el-table-column>
-        <el-table-column  label="公司所在省份" prop="company_local_province" width="160px"></el-table-column >
-        <el-table-column  label="公司所在城市" prop="company_local_city" width="160px"></el-table-column >
-        <el-table-column  label="公司备注" prop="company_comment" width="250px"></el-table-column>
+        <el-table-column  label="产品名称" prop="product_name" width="150px"></el-table-column>
+        <el-table-column  label="产品型号" prop="product_version" width="75px"></el-table-column>
+        <el-table-column  label="产品编号" prop="product_number" width="75px"></el-table-column>
+        <el-table-column  label="产品所属类型ID" prop="product_type_id" width="115px"></el-table-column>
+        <el-table-column  label="产品图片地址" prop="product_pic_url" width="130px"></el-table-column >
+        <el-table-column  label="产品资料地址" prop="product_file_url" width="130px"></el-table-column>
+        <el-table-column  label="产品备注" prop="product_comment" ></el-table-column>
+        <el-table-column  label="产品发布日期" prop="product_release_date" width="150px"></el-table-column>
+        <el-table-column  label="产品更新时间" prop="product_update_time" width="150px"></el-table-column>
         <el-table-column  label="操作" width="150px">
           <template slot-scope="scope">
             <el-button type="primary"  size="mini" @click="handleEdit(scope.row)">编辑</el-button>
@@ -62,29 +90,52 @@
         </el-table-column>
       </el-table>
 
-      <!--      编辑公司信息-->
-      <el-dialog title="更新公司信息" width="36%" :visible.sync="editFormVisible" center >
-        <el-form :model="questionForm" ref="questionForm"  label-position="right" label-width="110px" style="width: 400px; margin-left:50px;">
-          <el-form-item label="公司名称" prop="name">
-            <el-input v-model="questionForm.company_name" placeholder="必填"></el-input>
-          </el-form-item>
-          <el-form-item label="公司类型" prop="type">
-            <el-input v-model="questionForm.company_type" placeholder="必填"/>
-          </el-form-item>
-          <el-form-item label="公司所在省份" prop="province">
-            <el-input v-model="questionForm.company_local_province"  placeholder="必填"/>
-          </el-form-item>
-          <el-form-item label="公司所在城市" prop="city">
-            <el-input v-model="questionForm.company_local_city"  placeholder="必填"/>
-          </el-form-item>
-          <el-form-item label="公司备注">
-            <el-input v-model="questionForm.company_comment" />
-          </el-form-item>
-        </el-form>
+      <!--      编辑产品信息-->
+      <el-dialog title="更新产品信息" width="65%" :visible.sync="editFormVisible" center >
+        <el-row>
+          <el-col :span="12">
+            <div class="grid-content">
+              <el-form :model="questionForm"  ref="questionForm" :rules="rules" label-position="right" label-width="150px" style="width: 400px; margin-left:10px;">
+                <el-form-item label="产品名称" prop="name">
+                  <el-input v-model="questionForm.product_name" placeholder="必填" :disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item label="产品编号" prop="number" >
+                  <el-input v-model="questionForm.product_number" placeholder="必填"></el-input>
+                </el-form-item>
+                <el-form-item label="产品图片地址" prop="pic_url">
+                  <el-input v-model="questionForm.product_pic_url" :disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item label="产品备注" prop="comment">
+                  <el-input v-model="questionForm.product_comment" :disabled="true"></el-input>
+                </el-form-item>
+              </el-form>
+            </div>
+          </el-col>
+          <el-col :span="12">
+            <div class="grid-content">
+              <el-form :model="questionForm"  ref="questionForm" :rules="rules" label-position="right" label-width="150px" style="width: 400px; margin-left:10px;">
+                <el-form-item label="产品型号" prop="version">
+                  <el-input v-model="questionForm.product_version" placeholder="必填"></el-input>
+                </el-form-item>
+                <el-form-item label="产品所属类型ID" prop="type_id">
+                  <el-select v-model="questionForm.product_type_id" placeholder="必填" style="width: 250px">
+                    <el-option v-for="item in product_id" :key="item.product_type_name"  :value="item.product_type_id"></el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="产品资料地址" prop="file_url">
+                  <el-input v-model="questionForm.product_file_url" :disabled="true"></el-input>
+                </el-form-item>
+                <el-form-item label="产品发布日期" prop="date" >
+                  <el-date-picker v-model="questionForm.product_release_date" :disabled="true" type="date" value-format="yyyy-MM-dd" style="width: 250px; " placeholder="选择日期"></el-date-picker>
+                </el-form-item>
+              </el-form>
+            </div>
+          </el-col>
+        </el-row>
         <span slot="footer" class="dialog-footer">
-          <el-button @click="update">取消</el-button>
-          <el-button type="primary" @click="onEdit">确定</el-button>
-        </span>
+                <el-button @click="update">取消</el-button>
+                <el-button type="primary" @click="onEdit">确定</el-button>
+              </span>
       </el-dialog>
 
       <!-- 分页区域 -->
@@ -112,32 +163,42 @@ export default {
         pagenum: 1,
         pagesize: 8,
       },
+      queryn:'',
+      newgoodsList:[],
       // 商品列表
       goodsList: [],
       // 总数据条数
       total: 0,
       questionForm: {
-        company_id:"",
-        company_name: "",
-        company_type: "",
-        company_local_province: "",
-        company_local_city: "",
-        company_comment: "",
+        product_id:'',
+        product_name: '',
+        product_version: '',
+        product_release_date: '',
+        product_update_time: '',
+        product_pic_url: '',
+        product_number:'',
+        product_file_url: '',
+        product_comment: '',
+        product_type_id: ''
       },
+      product_id: [],
       dialogFormVisible: false,
       editFormVisible: false,
       rules:{
         name: [
-          { required: true, message: '请输入公司名称', trigger: 'blur' },
+          { required: true, message: ' ', trigger: 'blur' },
         ],
-        type: [
-          { required: true, message: '请输入公司类型', trigger: 'blur' },
+        version: [
+          { required: true, message: ' ', trigger: 'blur' },
         ],
-        province: [
-          { required: true, message: '请输入公司所在省份', trigger: 'blur' },
+        date: [
+          { required: true, message: ' ', trigger: 'blur' },
         ],
-        city: [
-          { required: true, message: '请输入公司所在城市', trigger: 'blur' },
+        number: [
+          { required: true, message: ' ', trigger: 'blur' },
+        ],
+        type_id: [
+          { required: true, message: ' ', trigger: 'blur' },
         ],
       },
     }
@@ -147,30 +208,67 @@ export default {
     this.getGoodsList();
   },
   methods: {
+    searchid(keywords) {
+      return this.goodsList.filter(item =>{
+        if(item.product_type_id== keywords){
+          return item
+        }
+        else if(item.product_version.includes(keywords)){
+          return item
+        }
+        else if(item.product_number.includes(keywords)){
+          return item
+        }
+        else if(item.product_name.includes(keywords)){
+          return item
+        }
+
+      })
+    },
+    chaxun(queryn){
+      let val=this.queryn;
+      if (val == '') {
+        this.newgoodsList=this.goodsList = this.tableData
+      } else {
+        this.newgoodsList =this.searchid(val)
+      }
+    },
     //列表清空
     update(){
       this.questionForm={};
       this.dialogFormVisible=false;
       this.editFormVisible=false;
     },
+    getCurrentTime() {
+      //获取当前时间并打印
+      let yy = new Date().getFullYear();
+      let mm = new Date().getMonth()+1;
+      let dd = new Date().getDate();
+      let date= yy + '-' + (mm >= 10 ? mm : '0' + mm) + '-' + (dd >= 10 ? dd : '0' + dd);
+      let hh = new Date().getHours();
+      let mf = new Date().getMinutes()<10 ? '0'+new Date().getMinutes() : new Date().getMinutes();
+      let ss = new Date().getSeconds()<10 ? '0'+new Date().getSeconds() : new Date().getSeconds();
+      let datetime = date+' '+hh+':'+mf+':'+ss;
+      return datetime;
+    },
     // 根据分页获取对应的商品列表
     async getGoodsList(){
-      this.$http.get("/company/getAllCompany").then(res=>{
-        this.goodsList=res.data;
+      this.$http.get("http://121.5.74.11:8080/product/getAllProduct").then(res=>{
+        this.newgoodsList=this.goodsList=res.data;
         this.total=res.data.length;
       });
+
+      this.$http.get("http://121.5.74.11:8080/productType/getAllProductType").then(res => {
+        this.product_id = res.data;
+      });
+    },
+    add1(){
+      this.dialogFormVisible = true;
     },
     //添加商品
     addProduct(){
-      let userData = new URLSearchParams();
-      userData.append('company_name', this.questionForm.company_name)
-      userData.append('company_type', this.questionForm.company_type)
-      //userData.append('salesman_name', this.form.salesman_name)
-      userData.append('company_local_province', this.questionForm.company_local_province)
-      userData.append('company_local_city', this.questionForm.company_local_city)
-      //原方法
-      userData.append('company_comment', this.questionForm.company_comment)
-      this.$http.post("/company/addCompany",userData).then(res=>{
+      this.questionForm.product_update_time=this.getCurrentTime();
+      this.$http.post("http://121.5.74.11:8080/product/addProduct",this.questionForm).then(res=>{
         if(res.data.code){
           this.$message({
             message: '恭喜你，'+res.data.msg,
@@ -193,7 +291,8 @@ export default {
       this.questionForm=row;
     },
     onEdit(){
-      this.$http.post("/company/update",this.questionForm).then(res=>{
+      this.questionForm.product_update_time=this.getCurrentTime();
+      this.$http.post("http://121.5.74.11:8080/product/updateProduct",this.questionForm).then(res=>{
         if(res.data.code){
           this.$message({
             message: '恭喜你，'+res.data.msg,
@@ -210,28 +309,28 @@ export default {
       });
     },
     async remove(row){
-      const confirmResult = await this.$confirm('此操作将永久删除该公司信息，是否继续？','提示',{
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).catch(err => err)
-      // 用户取消了删除操作
-      if(confirmResult !== 'confirm') return this.$message.info('已取消删除！')
-      // 删除的业务逻辑
-      console.log(row.company_id);
-      this.$http.delete("/company/deleteCompany/detail",{params:{"company_id":row.company_id}}).then(res=>{
-        if(res.data.code){
-          this.$message({
-            message: '恭喜你，'+res.data.msg,
-            type: 'success'
-          });
-          this.getGoodsList();
-          //隐藏表单
-          this.editFormVisible = false;
-        }else{
-          this.$message.error('删除失败');
-        }
-      });
+      // const confirmResult = await this.$confirm('此操作将永久删除该产品属性，是否继续？','提示',{
+      //   confirmButtonText: '确定',
+      //   cancelButtonText: '取消',
+      //   type: 'warning'
+      // }).catch(err => err)
+      // // 用户取消了删除操作
+      // if(confirmResult !== 'confirm') return this.$message.info('已取消删除！')
+      // // 删除的业务逻辑
+      // console.log(row.product_attribute_id);
+      // this.$http.get("http://121.5.74.11:8080/productTypeAttribute/deleteProductTypeAttribute/detail",{params:{"product_attribute_id":row.product_attribute_id}}).then(res=>{
+      //   if(res.data.code){
+      //     this.$message({
+      //       message: '恭喜你，'+res.data.msg,
+      //       type: 'success'
+      //     });
+      //     this.getGoodsList();
+      //     //隐藏表单
+      //     this.editFormVisible = false;
+      //   }else{
+      //     this.$message.error('删除失败');
+      //   }
+      // });
     },
     // 监听当前页数变化的事件
     handleSizeChange(newSize){
@@ -253,4 +352,3 @@ export default {
 <style scoped>
 
 </style>
-

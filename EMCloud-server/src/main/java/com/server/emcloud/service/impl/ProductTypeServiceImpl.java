@@ -11,6 +11,7 @@ import com.server.emcloud.vo.ProductTypeExceptionNum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,12 +56,36 @@ public class ProductTypeServiceImpl implements ProductTypeService {
     //查询不同类型产品的任务数量
     @Override
     public List<ProductTypeAndTaskNum> getProductTypeAndTaskNum() {
-        return productTypeMapper.getProductTypeAndTaskNum();
+        List<ProductTypeAndTaskNum> resultList = new ArrayList<>();
+        //获得所有产品类型
+        List<ProductType> allProductType = productTypeMapper.getAllProductType();
+        //循环每个产品类型
+        for (ProductType productType : allProductType) {
+            //构建结果
+            ProductTypeAndTaskNum result = new ProductTypeAndTaskNum();
+            result.setProduct_type(productType.getProduct_type_name());
+            result.setTask_num(productTypeMapper.getTaskNumByPid(productType.getProduct_type_id()));
+            //加入结果集
+            resultList.add(result);
+        }
+        return resultList;
     }
    //查询某公司不同类型产品的任务数量
     @Override
     public List<ProductTypeAndTaskNum> getProductTypeAndTaskNum2(int company_id) {
-        return productTypeMapper.getProductTypeAndTaskNum2(company_id);
+        List<ProductTypeAndTaskNum> resultList = new ArrayList<>();
+        //获得所有产品类型
+        List<ProductType> allProductType = productTypeMapper.getAllProductType();
+        //循环每个产品类型
+        for (ProductType productType : allProductType) {
+            //构建结果
+            ProductTypeAndTaskNum result = new ProductTypeAndTaskNum();
+            result.setProduct_type(productType.getProduct_type_name());
+            result.setTask_num(productTypeMapper.getTaskNumByPidByCid(productType.getProduct_type_id(), company_id));
+            //加入结果集
+            resultList.add(result);
+        }
+        return resultList;
     }
 
 }

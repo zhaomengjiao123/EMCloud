@@ -3,11 +3,9 @@ package com.server.emcloud.socket;
 import com.alibaba.druid.util.StringUtils;
 import com.server.emcloud.dao.AgvStateInfoMapper;
 import com.server.emcloud.domain.*;
-import com.server.emcloud.service.AgvInfoService;
-import com.server.emcloud.service.EquipmentStateService;
-import com.server.emcloud.service.TaskRecordService;
-import com.server.emcloud.service.TaskService;
+import com.server.emcloud.service.*;
 import com.server.emcloud.service.impl.AgvInfoSErviceImpl;
+import com.server.emcloud.utils.ExceptionCode;
 import javafx.stage.StageStyle;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
@@ -24,7 +22,10 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import static com.server.emcloud.socket.SocketPool.add;
 import static com.server.emcloud.socket.SocketPool.remove;
@@ -45,6 +46,12 @@ public class SocketHandler {
     private AgvInfoService agvInfoService;
     @Autowired
     private EquipmentStateService equipmentStateService;
+    @Autowired
+    private EquipmentErroService equipmentErroService;
+    @Autowired
+    private EquipmentWarningService equipmentWarningService;
+    @Autowired
+    private EquipmentService equipmentService;
     private TaskRecordService taskRecordService;
     private TaskService taskService;
     static Logger log = LoggerFactory.getLogger(SocketHandler.class);
@@ -56,6 +63,9 @@ public class SocketHandler {
         socketHandler = this;
         socketHandler.equipmentStateService = this.equipmentStateService;
         socketHandler.agvInfoService = this.agvInfoService ;
+        socketHandler.equipmentErroService = this.equipmentErroService;
+        socketHandler.equipmentWarningService = this.equipmentWarningService;
+        socketHandler.equipmentService = this.equipmentService;
         // 初使化时将已静态化的otherService实例化
         socketHandler.taskRecordService = this.taskRecordService;
         socketHandler.taskService = this.taskService;
@@ -132,7 +142,7 @@ public class SocketHandler {
                     dataInputStream.read(m);
 
                     info += new String(m,"utf-8");
-                    System.out.println(info);
+                    //System.out.println(info);
                     //JSONObject agvJson = JSONObject.parseObject(info);
                     JSONObject jsonobject = JSONObject.fromObject(info);
 
@@ -147,6 +157,46 @@ public class SocketHandler {
                         if(res>0){
                             log.info("添加消息体成功！");
                         }
+
+                        //处理报警与预警
+                        ExceptionCode exceptionCode = new ExceptionCode();
+                        String exception = "";
+                        int erro_code = (int) agvStateInfo.getError_code();
+                        if(erro_code!=0){
+                            log.info("报警码：",erro_code);
+                            exception=exceptionCode.getException(erro_code,"error");
+                            EquipmentErro equipmentErro = new EquipmentErro();
+                            equipmentErro.setEquipment_id(agvid);
+                            equipmentErro.setErro_content(exception);
+                            equipmentErro.setErro_time(agvStateInfo.getSendtime());
+                            //添加报警信息
+                            if(socketHandler.equipmentErroService.addErroInfo(equipmentErro)>0){
+                                log.info("添加报警信息成功",exception);
+                                //设备的报警数量+1
+                                socketHandler.equipmentService.updateErroCountByEid(agvid);
+                                log.info("设备报警数量更新成功");
+                            }
+
+                        }
+                        int warning_code = (int) agvStateInfo.getWarning_code();
+                        if(warning_code!=0){
+                            log.info("预警码：",warning_code);
+                            exception=exceptionCode.getException(warning_code,"warning");
+                            EquipmentWarning equipmentWarning = new EquipmentWarning();
+                            equipmentWarning.setEquipment_id(agvid);
+                            equipmentWarning.setWarning_content(exception);
+                            equipmentWarning.setWarning_time(agvStateInfo.getSendtime());
+
+                            //添加预警信息
+                            if(socketHandler.equipmentWarningService.addWarningInfo(equipmentWarning)>0){
+                                log.info("添加预警信息成功",exception);
+                                //设备的预警数量+1
+                                socketHandler.equipmentService.updateWarningCountByEid(agvid);
+                                log.info("设备预警数量更新成功");
+                            }
+
+                        }
+
 
                         EquipmentState equipmentState = new EquipmentState();
                         equipmentState.setEquipment_id(agvid);
@@ -176,8 +226,11 @@ public class SocketHandler {
                         Task task=new Task();
                         task.setTask_id(Integer.parseInt(taskRecord.getTaskID()));
                         task.setEquipment_id(Integer.parseInt(taskRecord.getAGVID()));
-                        task.setTask_start_time(taskRecord.getBeginTime());
-                        task.setTask_end_time(taskRecord.getEndTime());
+                        String [] a = taskRecord.getBeginTime().split(" ");
+                        String [] b = taskRecord.getEndTime().split(" ");
+                        task.setTask_start_time(a[0]);
+                        task.setTask_end_time(a[1]);
+
                         int res1 = socketHandler.taskService.addTask(task);
                         if(res1>0){
                             log.info("Task添加成功！");

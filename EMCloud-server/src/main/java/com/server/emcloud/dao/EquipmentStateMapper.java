@@ -2,6 +2,7 @@ package com.server.emcloud.dao;
 
 import com.server.emcloud.domain.Equipment;
 import com.server.emcloud.domain.EquipmentState;
+import com.server.emcloud.domain.EquipmentWarning;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -32,5 +33,6 @@ public interface EquipmentStateMapper {
     List<Map<String,Object>> getEquipmentListOfUpdateTimeByCid(int company_id);
     //根据设备编号查询某公司的设备实时更新列表
     List<Map<String,Object>> getEquipmentListOfUpdateTimeByCidAndEn(int company_id,String equipment_number);
+
 }
 

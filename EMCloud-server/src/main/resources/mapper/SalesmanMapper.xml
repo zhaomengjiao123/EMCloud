@@ -29,6 +29,7 @@
     insert into emdb_salesman (salesman_id, salesman_name)
     values (#{salesman_id,jdbcType=INTEGER}, #{salesman_name,jdbcType=VARCHAR})
   </insert>
+
   <insert id="insertSelective" parameterType="com.server.emcloud.domain.Salesman">
     insert into emdb_salesman
     <trim prefix="(" suffix=")" suffixOverrides=",">

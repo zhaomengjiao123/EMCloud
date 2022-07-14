@@ -1,5 +1,6 @@
 package com.server.emcloud.dao;
 
+import com.server.emcloud.domain.EquipmentWarning;
 import com.server.emcloud.vo.EquipmentWarningVO;
 import org.springframework.stereotype.Repository;
 
@@ -26,4 +27,6 @@ public interface EquipmentWarningMapper {
 
     //根据设备编号查询此设备所有的预警信息
     List<EquipmentWarningVO> getWarningByEquipmentNumberAndCid(int company_id,String equipment_number);
+    //添加预警信息
+    int addWarningInfo(EquipmentWarning equipmentWarning);
 }

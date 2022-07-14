@@ -16,16 +16,16 @@
     </select>
 
     <select id="getAllTaskNumInTimeByMouth" resultType="com.server.emcloud.vo.TaskNumInTimeVO">
-        SELECT SUBSTRING_INDEX(et.task_end_time, '/', 2) AS time, COUNT(et.task_id) AS count
+        SELECT LEFT(et.task_end_time,7) AS time, COUNT(et.task_id) AS count
         FROM emdb_equipment_task AS et
-        GROUP BY SUBSTRING_INDEX(et.task_end_time, '/', 2)
+        GROUP BY LEFT(et.task_end_time,7)
     </select>
 
     <select id="getAllTaskNumInTimeByMouth2" resultType="com.server.emcloud.vo.TaskNumInTimeVO">
-        SELECT SUBSTRING_INDEX(et.task_end_time, '/', 2) AS time, COUNT(et.task_id) AS count
+        SELECT LEFT(et.task_end_time,7) AS time, COUNT(et.task_id) AS count
         FROM emdb_equipment_task AS et, emdb_equipment AS e
         WHERE et.equipment_id = e.equipment_id AND e.company_id = #{company_id, jdbcType=INTEGER}
-        GROUP BY SUBSTRING_INDEX(et.task_end_time, '/', 2)
+        GROUP BY LEFT(et.task_end_time,7)
     </select>
 
     <select id="getProductTypeHasTask" resultType="Integer">
@@ -34,39 +34,45 @@
         WHERE et.equipment_id = e.equipment_id AND e.product_id = p.product_id
     </select>
 
+    <select id="getAllProductId" resultType="Integer">
+        SELECT product_id
+        FROM emdb_product
+    </select>
+
+
     <select id="getProductNameById" resultType="String">
-        SELECT pt.product_type_name AS procuctTypeName
-        FROM emdb_product_type AS pt
-        WHERE pt.product_type_id = #{productTypeId, jdbcType=INTEGER}
+        SELECT product_name
+        FROM emdb_product
+        WHERE product_id = #{product_id, jdbcType=INTEGER}
     </select>
 
 
     <select id="getProductTypeTaskNumInTimeByIdByDay" resultType="com.server.emcloud.vo.TaskNumInTimeVO">
         SELECT et.task_end_time AS time, COUNT(et.task_id) AS count
         FROM emdb_equipment_task AS et, emdb_equipment AS e, emdb_product AS p
-        WHERE et.equipment_id = e.company_id AND e.product_id = p.product_id AND p.product_type_id = #{productTypeID, jdbcType=INTEGER}
+        WHERE et.equipment_id = e.equipment_id AND e.product_id = p.product_id AND p.product_type_id = #{productTypeId, jdbcType=INTEGER}
         GROUP BY et.task_end_time
     </select>
 
     <select id="getProductTypeTaskNumInTimeByIdByDay2" resultType="com.server.emcloud.vo.TaskNumInTimeVO">
         SELECT et.task_end_time AS time, COUNT(et.task_id) AS count
         FROM emdb_equipment_task AS et, emdb_equipment AS e, emdb_product AS p
-        WHERE et.equipment_id = e.company_id AND e.product_id = p.product_id AND e.company_id = #{company_id, jdbcType=INTEGER} AND p.product_type_id = #{productTypeID, jdbcType=INTEGER}
+        WHERE et.equipment_id = e.equipment_id AND e.product_id = p.product_id AND e.company_id = #{company_id, jdbcType=INTEGER} AND p.product_type_id = #{productTypeId, jdbcType=INTEGER}
         GROUP BY et.task_end_time
     </select>
 
     <select id="getProductTypeTaskNumInTimeByIdByMouth" resultType="com.server.emcloud.vo.TaskNumInTimeVO">
-        SELECT SUBSTRING_INDEX(et.task_end_time, '/', 2) AS time, COUNT(et.task_id) AS count
+        SELECT LEFT(et.task_end_time,7) AS time, COUNT(et.task_id) AS count
         FROM emdb_equipment_task AS et, emdb_equipment AS e, emdb_product AS p
-        WHERE et.equipment_id = e.company_id AND e.product_id = p.product_id AND p.product_type_id = #{productTypeID, jdbcType=INTEGER}
-        GROUP BY SUBSTRING_INDEX(et.task_end_time, '/', 2)
+        WHERE et.equipment_id = e.equipment_id AND e.product_id = p.product_id AND p.product_type_id = #{productTypeId, jdbcType=INTEGER}
+        GROUP BY LEFT(et.task_end_time,7)
     </select>
 
     <select id="getProductTypeTaskNumInTimeByIdByMouth2" resultType="com.server.emcloud.vo.TaskNumInTimeVO">
-        SELECT SUBSTRING_INDEX(et.task_end_time, '/', 2) AS time, COUNT(et.task_id) AS time
+        SELECT LEFT(et.task_end_time,7) AS time, COUNT(et.task_id) AS count
         FROM emdb_equipment_task AS et, emdb_equipment AS e, emdb_product AS p
-        WHERE et.equipment_id = e.company_id AND e.product_id = p.product_id AND e.company_id = #{company_id, jdbcType=INTEGER} AND p.product_type_id = #{productTypeID, jdbcType=INTEGER}
-        GROUP BY SUBSTRING_INDEX(et.task_end_time, '/', 2)
+        WHERE et.equipment_id = e.equipment_id AND e.product_id = p.product_id AND e.company_id = #{company_id, jdbcType=INTEGER} AND p.product_type_id = #{productTypeId, jdbcType=INTEGER}
+        GROUP BY LEFT(et.task_end_time,7)
     </select>
 
 
@@ -85,17 +91,17 @@
     </select>
 
     <select id="getProductTaskNumInTimeByPidByMouth" resultType="com.server.emcloud.vo.TaskNumInTimeVO">
-        SELECT SUBSTRING_INDEX(et.task_end_time, '/', 2) AS time, COUNT(et.task_id) AS count
+        SELECT LEFT(et.task_end_time,7) AS time, COUNT(et.task_id) AS count
         FROM emdb_equipment_task AS et, emdb_equipment AS e
         WHERE et.equipment_id = e.equipment_id AND e.product_id = #{productId, jdbcType=INTEGER}
-        GROUP BY SUBSTRING_INDEX(et.task_end_time, '/', 2)
+        GROUP BY LEFT(et.task_end_time,7)
     </select>
 
     <select id="getProductTaskNumInTimeByPidByMouth2" resultType="com.server.emcloud.vo.TaskNumInTimeVO">
-        SELECT SUBSTRING_INDEX(et.task_end_time, '/', 2) AS time, COUNT(et.task_id) AS count
+        SELECT LEFT(et.task_end_time,7) AS time, COUNT(et.task_id) AS count
         FROM emdb_equipment_task AS et, emdb_equipment AS e
         WHERE et.equipment_id = e.equipment_id AND e.product_id = #{productId, jdbcType=INTEGER} AND e.company_id = #{company_id, jdbcType=INTEGER}
-        GROUP BY SUBSTRING_INDEX(et.task_end_time, '/', 2)
+        GROUP BY LEFT(et.task_end_time,7)
     </select>
 
 </mapper>

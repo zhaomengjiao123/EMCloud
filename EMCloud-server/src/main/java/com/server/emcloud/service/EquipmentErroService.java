@@ -1,5 +1,6 @@
 package com.server.emcloud.service;
 
+import com.server.emcloud.domain.EquipmentErro;
 import com.server.emcloud.vo.EquipmentErroVO;
 import org.springframework.stereotype.Service;
 
@@ -35,4 +36,6 @@ public interface EquipmentErroService {
 
     //根据设备编号查询设备所有报警信息
     List<EquipmentErroVO> getErroByEquipmentNumberAndCid(int company_id,String equipment_number);
+    //添加报警信息
+    int addErroInfo(EquipmentErro equipmentErro);
 }

@@ -114,5 +114,17 @@
         GROUP BY pt.product_type_name
     </select>
 
+    <select id="getTaskNumByPid" resultType="Integer">
+        SELECT COUNT(et.task_id) AS num
+        FROM emdb_equipment_task AS et, emdb_equipment AS e, emdb_product AS p
+        WHERE et.equipment_id = e.equipment_id AND e.product_id = p.product_id AND p.product_type_id = #{product_type_id,jdbcType=INTEGER}
+    </select>
+
+
+    <select id="getTaskNumByPidByCid" resultType="Integer">
+        SELECT COUNT(et.task_id) AS num
+        FROM emdb_equipment_task AS et, emdb_equipment AS e, emdb_product AS p
+        WHERE et.equipment_id = e.equipment_id AND e.product_id = p.product_id AND p.product_type_id = #{product_type_id,jdbcType=INTEGER} AND e.company_id = #{company_id,jdbcType=INTEGER}
+    </select>
 
 </mapper>

@@ -31,6 +31,10 @@ public class CeshiController {
 
         jsonObject.put("list", jsonArray);
 
+
+        String json1 = "[{'TaskID':'1','RunModel':'1','RunModelName':'1','BeginTime':'2022-7-11 10:11:11','EndTime':'2022-7-13 10:11:11','TotalMinute':2880,'AGVID':18,'costbattery':10,'beginbattery':20,'ensbattery':10}]";
+
+
         return jsonObject;
     }
     @RequestMapping(value = "getEquipExType",method = RequestMethod.GET)
