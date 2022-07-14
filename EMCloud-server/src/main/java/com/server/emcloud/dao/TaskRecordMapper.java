@@ -20,4 +20,8 @@ public interface TaskRecordMapper {
     int addTaskRecord(TaskRecord taskRecord);
 
     List<TaskRecord> getTask();
+
+    List<TaskRecord> getTaskById(String taskID);
+
+    List<TaskRecord> getTaskByCompanyId(String company_id);
 }

@@ -21,4 +21,14 @@ public class TaskRecordServiceImpl implements TaskRecordService {
     public int addTaskRecord(TaskRecord taskRecord) {
         return taskRecordMapper.addTaskRecord(taskRecord);
     }
+
+    @Override
+    public List<TaskRecord> getTaskById(String taskID) {
+        return taskRecordMapper.getTaskById(taskID);
+    }
+
+    @Override
+    public List<TaskRecord> getTaskByComapnyId(String company_id) {
+        return taskRecordMapper.getTaskByCompanyId(company_id);
+    }
 }

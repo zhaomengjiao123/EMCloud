@@ -38,5 +38,16 @@ public class TaskRecordController {
 
     }
 
+    @RequestMapping(value = "getTaskbyId", method = RequestMethod.GET)
+    public Object getTaskById(HttpServletRequest req){
+        String taskID = req.getParameter("taskID");
+        return taskRecordService.getTaskById(taskID);
+    }
+
+    @RequestMapping(value = "getTaskbyCompanyId", method = RequestMethod.GET)
+    public Object getTaskByCompanyId(HttpServletRequest req){
+        String company_id = req.getParameter("company_id");
+        return taskRecordService.getTaskByComapnyId(company_id);
+    }
 
 }

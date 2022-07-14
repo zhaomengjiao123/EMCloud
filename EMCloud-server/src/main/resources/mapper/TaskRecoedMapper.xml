@@ -93,5 +93,17 @@
     from taskrecord
     </select>
 
+    <select id="getTaskById" resultMap="BaseResultMap">
+    select *
+    from taskrecord
+    where TaskID= #{taskID}
+    </select>
+
+    <select id="getTaskByCompanyId" resultMap="BaseResultMap">
+    select a.*
+    from taskrecord a,emdb_equipment b
+    where a.AGVID=b.equipment_id
+    and b.company_id= #{company_id}
+    </select>
 
 </mapper>
