@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TaskRecordController {
     @Autowired
     private TaskRecordService taskRecordService;
-
+   // @RequestMapping(value = "/addtask",method = RequestMethod.POST)
     public int addTaskRecord(TaskRecord taskRecord){
         return taskRecordService.addTaskRecord(taskRecord);
     }
