@@ -70,6 +70,7 @@ export default {
         "406": "iconfont icon-baobiao",
         "72c": "iconfont icon-user",
         "888": "iconfont icon-shangpin",
+        "709": "iconfont lock_fill",
       },
       list:{
         1:"201",
@@ -80,6 +81,7 @@ export default {
         6:"406",
         0:"72c",
         7:"888",
+        8:"709"
         },
       //isCollapse: true
       isCollapse: false,
@@ -115,6 +117,7 @@ export default {
       let params = new URLSearchParams()
       this.menuData=[]
       params.append('user_phone', sessionStorage.getItem("user_phone"))//这里获取session中的电话号码
+      console.log(sessionStorage.getItem('user_phone'))
       getMenuList(params)
         .then(res => {
           if (res) {

@@ -72,7 +72,7 @@ export const getEquipmentListOfUpdateTimeByCid = (params) => get(`equipmentState
 
 
 //获取所有产品类型
-export const getProType= () => get(`productType/getAllProductType`);
+export const getProType= () => get(`product/getAllProduct`);
 
 //查询设备在线和不在线的数量
 export const getEquipState = (params) => get(`equipment/getOnlineAndNotOnlineEquipmentNum2`,params);

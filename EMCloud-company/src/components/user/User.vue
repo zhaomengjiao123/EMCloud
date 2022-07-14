@@ -11,7 +11,7 @@
         <el-button type="primary"  @click="updateInfo" style="margin-left: 5% ">修改个人信息</el-button>
         <el-button type="primary"  @click="updatePasswd" style="margin-left: 15% ">修改密码</el-button>
         <el-button plain icon="el-icon-delete" type="danger" style="margin-left: 20%  "
-                   @click="deleteUser(tableData[0].user_phone)" >注销账号</el-button>
+                   @click="deleteUser(tableData[0].user_phone)" >注销账npn号</el-button>
       </div>
       <el-col :span="12">
       </el-col>

@@ -37,10 +37,6 @@ Vue.use(Router)
           component: () => import('../components/company/Company.vue')
         },
         {
-          path: '/users',
-          component: () => import('../components/user/User.vue')
-        },
-        {
           path: '/sales',
           component: () => import('../components/sale/Sales.vue')
         },
