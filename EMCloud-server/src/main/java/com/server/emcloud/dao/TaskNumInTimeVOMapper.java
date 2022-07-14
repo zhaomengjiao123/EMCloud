@@ -42,8 +42,13 @@ public interface TaskNumInTimeVOMapper {
     //下面几个方法用于辅助上面的方法
     //查询所有有任务的产品类型id
     List<Integer> getProductTypeHasTask();
+
+    //查询所有产品类型id
+    List<Integer> getAllProductTypeId();
+
     //根据产品类型id获取产品类型名称
-    String getProductNameById(int productTypeId);
+    String getProductNameById(int product_type_id);
+
     //查询指定产品类型的在一定时间内的任务数量任务数量(时间是天)
     List<TaskNumInTimeVO> getProductTypeTaskNumInTimeByIdByDay(int productTypeId);
     //查询指定产品类型的在一定时间内的任务数量任务数量(时间是月)

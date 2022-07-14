@@ -28,4 +28,12 @@ public class ProductTypeAndTaskNum {
     public void setTask_num(Integer task_num) {
         this.task_num = task_num;
     }
+
+    @Override
+    public String toString() {
+        return "ProductTypeAndTaskNum{" +
+                "product_type='" + product_type + '\'' +
+                ", task_num=" + task_num +
+                '}';
+    }
 }
