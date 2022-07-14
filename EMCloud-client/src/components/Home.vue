@@ -11,23 +11,23 @@
       </div>
     </el-header>
     <el-container>
-            <el-aside width= "isCollapse ? 200px : 50px">
-              <div class="toggle-btn" @click="isCollapse=!isCollapse">|||</div>
-              <el-menu :default-active="$route.path" unique-opened router :collapse="isCollapse" :collapse-transition="false">
-                  <el-submenu :index="item.id+''" v-for="item in menuData" :key="item.id">
-                    <template slot="title">
-                      <i :class="iconList[item.id]"></i>
-                      <span>{{item.authName}}</span>
-                    </template>
-                    <el-menu-item :index="'/'+child.path" v-for="child in item.children" :key="child.id">
-                      <template>
-                        <i class="el-icon-menu"></i>
-                        <span>{{child.authName}}</span>
-                      </template>
-                    </el-menu-item>
-                  </el-submenu>
-              </el-menu>
-            </el-aside>
+      <el-aside width= "isCollapse ? 200px : 50px">
+        <div class="toggle-btn" @click="isCollapse=!isCollapse">|||</div>
+        <el-menu :default-active="$route.path" unique-opened router :collapse="isCollapse" :collapse-transition="false">
+          <el-submenu :index="item.id+''" v-for="item in menuData" :key="item.id">
+            <template slot="title">
+              <i :class="iconList[item.id]"></i>
+              <span>{{item.authName}}</span>
+            </template>
+            <el-menu-item :index="'/'+child.path" v-for="child in item.children" :key="child.id">
+              <template>
+                <i class="el-icon-menu"></i>
+                <span>{{child.authName}}</span>
+              </template>
+            </el-menu-item>
+          </el-submenu>
+        </el-menu>
+      </el-aside>
       <el-main>
         <router-view></router-view>
       </el-main>
@@ -70,6 +70,7 @@ export default {
         "406": "iconfont icon-baobiao",
         "72c": "iconfont icon-user",
         "888": "iconfont icon-shangpin",
+        "709": "iconfont lock_fill",
       },
       list:{
         1:"201",
@@ -80,6 +81,7 @@ export default {
         6:"406",
         0:"72c",
         7:"888",
+        8:"709"
         },
       //isCollapse: true
       isCollapse: false,
@@ -115,6 +117,7 @@ export default {
       let params = new URLSearchParams()
       this.menuData=[]
       params.append('user_phone', sessionStorage.getItem("user_phone"))//这里获取session中的电话号码
+      console.log(sessionStorage.getItem('user_phone'))
       getMenuList(params)
         .then(res => {
           if (res) {

@@ -21,9 +21,9 @@
                    placeholder="请选择产品类型">
           <el-option
             v-for="item in optionData"
-            :key="item.product_type_id"
-            :label="item.product_type_name"
-            :value="item.product_type_id">
+            :key="item.product_id"
+            :label="item.product_name"
+            :value="item.product_id">
           </el-option>
         </el-select>
 
@@ -192,16 +192,16 @@ export default {
           this.optionData=res;
           this.optionData.push(
             {
-              product_type_id:0,
-              product_type_name:"全部产品"
+              product_id:0,
+              product_name:"全部产品"
             }
           )
         })
     },
 
     getOption (id) {
-      this.prolabel = this.optionData.find(item => item.product_type_id === id).product_type_name
-
+      // this.prolabel = this.optionData.find(item => item.product_type_id === id).product_type_name
+      this.prolabel = this.optionData.find(item => item.product_id === id).product_name
     },
 
     getTask(type) {
@@ -698,7 +698,7 @@ export default {
     optionAll() {    //不同类型线形图的option
       return{
         title: {
-          text: '不同类型产品任务数量',
+          text: '不同产品任务数量',
           textStyle: {
             color: '#1f2d3d'
           },
