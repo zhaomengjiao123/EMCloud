@@ -11,28 +11,29 @@
       </div>
     </el-header>
     <el-container>
-            <el-aside width= "isCollapse ? 200px : 50px">
-              <div class="toggle-btn" @click="isCollapse=!isCollapse">|||</div>
-              <el-menu :default-active="$route.path" unique-opened router :collapse="isCollapse" :collapse-transition="false">
-                  <el-submenu :index="item.id+''" v-for="item in menuData" :key="item.id">
-                    <template slot="title">
-                      <i :class="iconList[item.id]"></i>
-                      <span>{{item.authName}}</span>
-                    </template>
-                    <el-menu-item :index="'/'+child.path" v-for="child in item.children" :key="child.id">
-                      <template>
-                        <i class="el-icon-menu"></i>
-                        <span>{{child.authName}}</span>
-                      </template>
-                    </el-menu-item>
-                  </el-submenu>
-              </el-menu>
-            </el-aside>
+      <el-aside width= "isCollapse ? 200px : 50px">
+        <div class="toggle-btn" @click="isCollapse=!isCollapse">|||</div>
+        <el-menu :default-active="$route.path" unique-opened router :collapse="isCollapse" :collapse-transition="false">
+          <el-submenu :index="item.id+''" v-for="item in menuData" :key="item.id">
+            <template slot="title">
+              <i :class="iconList[item.id]"></i>
+              <span>{{item.authName}}</span>
+            </template>
+            <el-menu-item :index="'/'+child.path" v-for="child in item.children" :key="child.id">
+              <template>
+                <i class="el-icon-menu"></i>
+                <span>{{child.authName}}</span>
+              </template>
+            </el-menu-item>
+          </el-submenu>
+        </el-menu>
+      </el-aside>
       <el-main>
         <router-view></router-view>
       </el-main>
     </el-container>
   </el-container>
+
 </template>
 
 <script>
@@ -83,7 +84,7 @@ export default {
         7:"888",
         8:"709"
       },
-      //isCollapse: true
+      // isCollapse: true
       isCollapse: false,
      }
   },
@@ -193,7 +194,55 @@ export default {
     letter-spacing: 3px;
     cursor: pointer; //游标变成小白手
   }
+
 }
+
+//.el-container {
+//  height: 100%;
+//  min-width: 1000px;
+//}
+//.el-header {
+//  //background: url("../assets/imgs/header_bg.gif") repeat-x center;
+//  background:#000000;
+//  height: 50px!important; //!important优先级最高
+//  display: flex;
+//  justify-content: space-between;
+//  align-items: center;
+//  color: #ffffff;
+//
+//  .left {
+//    img {
+//      width: 40px;
+//      height: 40px;
+//    }
+//    margin-right: 700px;
+//    display: flex;
+//    align-items: center;
+//  }
+//}
+//.el-aside {
+//
+//  background:#000000;
+//  .toggle-btn {
+//    background: #607099;
+//    line-height: 24px;
+//    text-align: center;
+//    color: #ffffff;
+//    letter-spacing: 3px;
+//    cursor: pointer; //游标变成小白手
+//  }
+//  .el-menu{
+//    border-right:none;
+//  }
+//}
+//.el-divider{
+//  margin: 0px 0;
+//  background: 0 0;
+//  border-top: 1px solid #E6EBF5;
+//}
+//.el-main{
+//  background:#000000;
+//}
 </style>
 
 
