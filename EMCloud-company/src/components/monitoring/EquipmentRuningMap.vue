@@ -7,20 +7,7 @@
         <el-button v-on:click="mapOut" size="mini">缩小</el-button>
         <button v-on:click="reset" hidden>还原</button>
       </div>
-      <div class="handle-box">
-        <el-select v-model="queryInfo.queryCompanyId"
-                   size="small"
-                   @change=""
-                   placeholder="根据公司查询">
-          <el-option
-            v-for="item in agvMapSelectList"
-            :key="item.company_id"
-            :label="item.company_name"
-            :value="item.company_id">
-          </el-option>
-        </el-select>
-        <el-button type="primary" size="small" @click="getDataByCid">查询</el-button>
-      </div>
+
     </div>
   <div id="agvMapDiv" class="scroll-container" >
 
@@ -33,7 +20,7 @@
 </template>
 
 <script>
-import mapInfo from "../../../../EMCloud-company/src/assets/map/default.json"
+import mapInfo from "../../assets/map/default.json"
 
 export default {
   name: "EquipmentRuningMap",

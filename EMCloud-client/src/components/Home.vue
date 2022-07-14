@@ -2,8 +2,8 @@
   <el-container>
     <el-header>
       <div class="left">
-        <img src="../assets/imgs/shop.png" >
-        <span>电商管理系统</span>
+<!--        <img src="../assets/imgs/shop.png" >-->
+        <span>企业设备管理</span>
       </div>
       <div class="right">
         <span>欢迎您：{{name}}</span>
@@ -11,7 +11,7 @@
       </div>
     </el-header>
     <el-container>
-      <el-aside width= "isCollapse ? 200px : 50px">
+      <el-aside width= "200px" height="100%">
         <div class="toggle-btn" @click="isCollapse=!isCollapse">|||</div>
         <el-menu :default-active="$route.path" unique-opened router :collapse="isCollapse" :collapse-transition="false">
           <el-submenu :index="item.id+''" v-for="item in menuData" :key="item.id">
@@ -71,6 +71,7 @@ export default {
         "72c": "iconfont icon-user",
         "888": "iconfont icon-shangpin",
         "709": "iconfont lock_fill",
+        "8c9": "iconfont morentouxiang"
       },
       list:{
         1:"201",
@@ -81,16 +82,18 @@ export default {
         6:"406",
         0:"72c",
         7:"888",
-        8:"709"
+        8:"709",
+        9:"8c9"
         },
-      //isCollapse: true
-      isCollapse: false,
+      isCollapse: true
+      //isCollapse: false,
      }
   },
   created() {
    // this.userInfo = JSON.parse(localStorage.getItem('user_auth'));
     this.getMenuList();
-    this.name=sessionStorage.getItem("user_name")
+    this.name=sessionStorage.getItem("user_name");
+    //this.isCollapse=!this.isCollapse;
   },
   methods: {
     exit() {

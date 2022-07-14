@@ -116,10 +116,20 @@ export default {
   created() {
     this.getData();
   },
+  beforeDestroy() {
+    this.clearData();
+
+  },
 
   mounted() {
   },
   methods: {
+    clearData() {
+      if (this.timer) {
+        clearInterval(this.timer)
+        this.timer = null
+      }
+    },
 
     //轮询
     switper() {

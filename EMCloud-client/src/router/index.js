@@ -26,7 +26,7 @@ Vue.use(Router)
     {
       path: '/home',
       component: () => import('../components/Home.vue'),
-      redirect: '/welcome',
+      redirect: '/user/user',
       children: [
         {
           path: '/welcome',
@@ -37,8 +37,8 @@ Vue.use(Router)
           component: () => import('../components/company/Company.vue')
         },
         {
-          path: '/sales',
-          component: () => import('../components/sale/Sales.vue')
+          path: '/sales/salesman_manage',
+          component: () => import('../components/sale/SalesMan.vue')
         },
         {
           path: '/type',
@@ -164,8 +164,8 @@ Vue.use(Router)
           component: () => import('../components/monitoring/TaskMonitor.vue')
         },
         {
-          path: '/equipment/manage',
-          component: () => import('../components/equipment/equipment_manage.vue')
+          path: '/sales/equipment_sale_manage',
+          component: () => import('../components/sale/equipment_sale_manage.vue')
         },
       ]
     }

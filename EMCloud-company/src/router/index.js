@@ -24,7 +24,7 @@ Vue.use(Router)
     {
       path: '/home',
       component: () => import('../components/Home.vue'),
-      redirect: '/welcome',
+      redirect: '/user/user',
       children: [
         {
           path: '/welcome',
@@ -38,10 +38,7 @@ Vue.use(Router)
         //   path: '/users',
         //   component: () => import('../components/user/User.vue')
         // },
-        {
-          path: '/sales',
-          component: () => import('../components/sale/Sales.vue')
-        },
+
         {
           path: '/type',
           component: () => import('../components/product/pro_type.vue')
@@ -151,6 +148,10 @@ Vue.use(Router)
         {
           path: '/monitoring/company_equipment_state_list',
           component: () => import('../components/monitoring/EquipmentStateMonitor.vue')
+        },
+        {
+          path: '/monitoring/company_equipment_running_map',
+          component: () => import('../components/monitoring/EquipmentRuningMap.vue')
         },
       ]
     }

@@ -214,8 +214,8 @@ export default {
     },
     getOptionInfo1(){
       let params = new URLSearchParams()
-      console.log(sessionStorage.getItem("company"))
-      params.append('company_id', sessionStorage.getItem("company"))
+      console.log(sessionStorage.getItem("company_id"))
+      params.append('company_id', sessionStorage.getItem("company_id"))
       getDepartByCompany(params)
         .then(res => {
           this.optionData1=res;
@@ -303,7 +303,7 @@ export default {
       this.userlist=[
       ];
       let params = new URLSearchParams()
-      params.append('company_id', sessionStorage.getItem("company"))
+      params.append('company_id', sessionStorage.getItem("company_id"))
       getUserByCompany(params)
         .then(res => {
           this.tableData = res;
@@ -325,7 +325,7 @@ export default {
       if(this.queryInfo1.query1){
         let params = new URLSearchParams()
         params.append('user_phone', this.queryInfo1.query1)
-        params.append('company_id', sessionStorage.getItem("company"))
+        params.append('company_id', sessionStorage.getItem("company_id"))
         getUserByPhoneInCompany(params)
           .then(res => {
             this.tableData = res;

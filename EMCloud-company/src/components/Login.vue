@@ -36,13 +36,13 @@ export default {
   data() {
     return {
       loginForm: {
-        username: '13711111111',
+        username: '13711111112',
         password: '123456'
       },
       loginRules: {
         username: [
           {required: true, message: '请输入用户名', tragger: 'blur'},
-          {min: 3,max: 6, message: '请输入长度为11位的字符！', tragger: 'blur'}
+          {min: 3,max: 11, message: '请输入长度为11位的字符！', tragger: 'blur'}
         ],
         password: [
           {required: true, message: '请输入用户名', tragger: 'blur'},

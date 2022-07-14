@@ -41,12 +41,12 @@ export default {
       },
       loginRules: {
         username: [
-          {required: true, message: '请输入用户名', tragger: 'blur'},
-          {min: 3,max: 6, message: '请输入长度为11位的字符！', tragger: 'blur'}
+          {required: true, message: '请输入用户名', trigger: 'blur'},
+          // {min: 11,max: 11, message: '请输入长度为11位的字符！', trigger: 'blur'}
         ],
         password: [
-          {required: true, message: '请输入用户名', tragger: 'blur'},
-          {min: 6,max: 20, message: '密码长度须在6到20位之间！', tragger: 'blur'}
+          {required: true, message: '请输入用户名', trigger: 'blur'},
+          {min: 6,max: 20, message: '密码长度须在6到20位之间！', trigger: 'blur'}
         ]
       },
     }

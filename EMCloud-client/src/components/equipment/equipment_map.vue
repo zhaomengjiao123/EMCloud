@@ -148,6 +148,7 @@ export default {
       dateWeek: null,
       weekday: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
       FullScreen:false,
+      timer:'',
 
 
     }
@@ -160,12 +161,13 @@ export default {
   created() {
   },
   beforeDestroy() {
+    this.clearData();
     if (!this.chart) {
       return
     }
     this.chart.dispose()
     this.chart = null;
-    this.clearData()
+
   },
 
   mounted() {
@@ -230,7 +232,7 @@ export default {
     },
 
     timeFn() {
-      this.timing = setInterval(() => {
+      this.timer = setInterval(() => {
         this.dateDay = formatTime(new Date(), "HH: mm: ss");
         this.dateYear = formatTime(new Date(), "yyyy-MM-dd");
         this.dateWeek = this.weekday[new Date().getDay()];
