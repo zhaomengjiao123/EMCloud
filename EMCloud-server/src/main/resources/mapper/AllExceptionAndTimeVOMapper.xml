@@ -5,7 +5,7 @@
 <mapper namespace="com.server.emcloud.dao.AllExceptionAndTimeVOMapper">
 
     <select id="getAllExceptionAndTimeByDay" resultType="com.server.emcloud.vo.AllExceptionAndTimeVO">
-        SELECT COUNT(warning_id) AS COUNT,warning_time AS TIME
+        SELECT COUNT(warning_id) AS COUNT,LEFT(warning_time,10) AS TIME
         FROM
             (
             SELECT* FROM
@@ -17,10 +17,10 @@
 
             ) a
         GROUP BY
-            warning_time
+            LEFT(warning_time,10)
     </select>
     <select id="getAllExceptionAndTimeByDay2" parameterType="java.lang.String" resultType="com.server.emcloud.vo.AllExceptionAndTimeVO">
-        SELECT COUNT(warning_id) AS COUNT,warning_time AS TIME
+        SELECT COUNT(warning_id) AS COUNT,LEFT(warning_time,10) AS TIME
         FROM
             (
             SELECT* FROM
@@ -31,7 +31,7 @@
             SELECT * FROM  `emdb_equipment_emergency_warning` WHERE  emergency_del_flag =0 AND equipment_id IN (SELECT equipment_id FROM emdb_equipment WHERE company_id =  #{company_id})
             ) a
         GROUP BY
-            warning_time
+            LEFT(warning_time,10)
     </select>
 
     <select id="getAllExceptionAndTimeByMonth" resultType="com.server.emcloud.vo.AllExceptionAndTimeVO">
@@ -102,7 +102,7 @@
     </select>
 
     <select id="getExceptionOfProductByDay" parameterType="java.lang.Integer" resultType="com.server.emcloud.vo.AllExceptionAndTimeVO">
-        SELECT  COUNT(warning_id) as count ,warning_time  as time FROM
+        SELECT  COUNT(warning_id) as count ,LEFT(warning_time,10)  as time FROM
             (
                 SELECT * FROM
                     (SELECT * FROM `emdb_equipment_warning` where warning_del_flag =0
@@ -117,10 +117,10 @@
                   WHERE product_id = #{product_id,jdbcType=INTEGER }
               )
         GROUP BY
-            warning_time
+            LEFT(warning_time,10)
     </select>
     <select id="getExceptionOfProductByDay2"   resultType="com.server.emcloud.vo.AllExceptionAndTimeVO">
-        SELECT  COUNT(warning_id) as count ,warning_time  as time FROM
+        SELECT  COUNT(warning_id) as count ,LEFT(warning_time,10)  as time FROM
             (
             SELECT * FROM
             (SELECT * FROM `emdb_equipment_warning` where warning_del_flag =0
@@ -135,7 +135,7 @@
             WHERE product_id = #{product_id,jdbcType=INTEGER } and company_id = #{company_id}
             )
         GROUP BY
-            warning_time
+            LEFT(warning_time,10)
     </select>
     <select id="getExceptionOfProductByMonth" parameterType="java.lang.Integer" resultType="com.server.emcloud.vo.AllExceptionAndTimeVO">
         SELECT  COUNT(warning_id) as count ,left(warning_time,7)  as time FROM
