@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -90,7 +89,7 @@ public class TaskNumInTimeVOServiceImpl implements TaskNumInTimeVOService {
         List<DiffProductTypeAndTaskNumInTimeVO> resultList = new ArrayList<>();
 
         //查询所有产品类型id
-        List<Integer> typeIdList = taskNumInTimeVOMapper.getAllProductTypeId();
+        List<Integer> typeIdList = taskNumInTimeVOMapper.getAllProductId();
 
         //循环得到的每个产品类型id
         for (Integer productTypeId : typeIdList) {
@@ -121,7 +120,7 @@ public class TaskNumInTimeVOServiceImpl implements TaskNumInTimeVOService {
         List<DiffProductTypeAndTaskNumInTimeVO> resultList = new ArrayList<>();
 
         //查询所有产品类型id
-        List<Integer> typeIdList = taskNumInTimeVOMapper.getAllProductTypeId();
+        List<Integer> typeIdList = taskNumInTimeVOMapper.getAllProductId();
 
         //循环得到的每个产品类型id
         for (Integer productTypeId : typeIdList) {
@@ -152,7 +151,7 @@ public class TaskNumInTimeVOServiceImpl implements TaskNumInTimeVOService {
         List<DiffProductTypeAndTaskNumInTimeVO> resultList = new ArrayList<>();
 
         //查询所有产品类型id
-        List<Integer> typeIdList = taskNumInTimeVOMapper.getAllProductTypeId();
+        List<Integer> typeIdList = taskNumInTimeVOMapper.getAllProductId();
 
         //循环得到的每个产品类型id
         for (Integer productTypeId : typeIdList) {
@@ -183,7 +182,7 @@ public class TaskNumInTimeVOServiceImpl implements TaskNumInTimeVOService {
         List<DiffProductTypeAndTaskNumInTimeVO> resultList = new ArrayList<>();
 
         //查询所有产品类型id
-        List<Integer> typeIdList = taskNumInTimeVOMapper.getAllProductTypeId();
+        List<Integer> typeIdList = taskNumInTimeVOMapper.getAllProductId();
 
         //循环得到的每个产品类型id
         for (Integer productTypeId : typeIdList) {
