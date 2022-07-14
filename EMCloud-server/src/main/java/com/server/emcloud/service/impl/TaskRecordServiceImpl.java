@@ -5,10 +5,17 @@ import com.server.emcloud.domain.TaskRecord;
 import com.server.emcloud.service.TaskRecordService;
 import com.server.emcloud.dao.TaskRecordMapper;
 
+import java.util.List;
+
 @Service
 public class TaskRecordServiceImpl implements TaskRecordService {
     @Autowired
     private TaskRecordMapper taskRecordMapper;
+
+    @Override
+    public List<TaskRecord> getTask() {
+        return taskRecordMapper.getTask();
+    }
 
     @Override
     public int addTaskRecord(TaskRecord taskRecord) {
