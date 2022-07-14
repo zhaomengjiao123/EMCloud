@@ -1,6 +1,7 @@
 package com.server.emcloud.dao;
 
 import com.server.emcloud.domain.Equipment;
+import com.server.emcloud.domain.EquipmentErro;
 import com.server.emcloud.vo.EquipmentErroVO;
 import org.springframework.stereotype.Repository;
 
@@ -36,4 +37,7 @@ public interface EquipmentErroMapper {
 
     //根据设备编号查询设备所有报警信息
     List<EquipmentErroVO> getErroByEquipmentNumberAndCid(int company_id,String equipment_number);
+    //添加报警信息
+    int addErroInfo(EquipmentErro equipmentErro);
+
 }

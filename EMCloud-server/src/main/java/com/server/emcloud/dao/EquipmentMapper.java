@@ -59,5 +59,8 @@ public interface EquipmentMapper {
 
     //查询某公司的所有设备编号
     List<Equipment> getEquipmentNumberListByCid(int company_id);
-
+    //更新设备报警数量
+    int updateErroCountByEid(int equipment_id);
+    //更新设备的预警数量
+    int updateWarningCountByEid(int equipment_id);
 }

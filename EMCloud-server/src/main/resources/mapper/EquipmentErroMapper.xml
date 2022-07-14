@@ -87,6 +87,33 @@
     where a.company_id = #{company_id,jdbcType=INTEGER} and a.equipment_number = #{equipment_number,jdbcType=VARCHAR}
   </select>
 
+  <insert id="addErroInfo" parameterType="com.server.emcloud.domain.EquipmentErro">
+    insert into emdb_equipment_erro
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="equipment_id != null">
+        equipment_id,
+      </if>
+      <if test="erro_content != null">
+        erro_content,
+      </if>
+      <if test="erro_time != null">
+        erro_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="equipment_id != null">
+        #{equipment_id,jdbcType=INTEGER},
+      </if>
+      <if test="erro_content != null">
+        #{erro_content,jdbcType=VARCHAR},
+      </if>
+      <if test="erro_time != null">
+        #{erro_time,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
 
 
 

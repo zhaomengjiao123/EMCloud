@@ -1,6 +1,7 @@
 package com.server.emcloud.service.impl;
 
 import com.server.emcloud.dao.EquipmentWarningMapper;
+import com.server.emcloud.domain.EquipmentWarning;
 import com.server.emcloud.service.EquipmentWarningService;
 import com.server.emcloud.vo.EquipmentWarningVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,10 @@ public class EquipmentWarningServiceImpl implements EquipmentWarningService {
     @Override
     public List<EquipmentWarningVO> getWarningByEquipmentNumberAndCid(int company_id, String equipment_number) {
         return equipmentWarningMapper.getWarningByEquipmentNumberAndCid(company_id,equipment_number);
+    }
+
+    @Override
+    public int addWarningInfo(EquipmentWarning equipmentWarning) {
+        return equipmentWarningMapper.addWarningInfo(equipmentWarning);
     }
 }

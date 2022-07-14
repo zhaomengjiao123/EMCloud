@@ -51,6 +51,7 @@ where a.equipment_id =#{equipment_id,jdbcType=INTEGER} and equipment_del_flag = 
     FROM emdb_equipment a JOIN emdb_product b ON a.`product_id`=b.`product_id` INNER JOIN emdb_company c ON a.`company_id`=c.`company_id` JOIN emdb_salesman d ON a.`salesman_id`=d.`salesman_id`
 where equipment_del_flag = 0
   </select>
+
   <select id="getAllEquipmentNumAndCity" resultType="com.server.emcloud.vo.EquipmentNumAndCity">
     SELECT COUNT(equipment_id) as num,company_local_city as city
     FROM
@@ -73,6 +74,7 @@ where equipment_del_flag = 0
   <select id="getNotOnlineNum2" resultType="java.lang.Integer">
     SELECT COUNT(*) FROM emdb_equipment WHERE equipment_state = 0 and equipment_del_flag = 0 and company_id = #{company_id}
   </select>
+
     <update id="updateByPrimaryKeySelective" parameterType="com.server.emcloud.domain.Equipment">
     update emdb_equipment
     <set>
@@ -109,6 +111,7 @@ where equipment_del_flag = 0
     </set>
     where equipment_id = #{equipment_id,jdbcType=INTEGER}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.server.emcloud.domain.Equipment">
     update emdb_equipment
     set equipment_number = #{equipment_number,jdbcType=VARCHAR},
@@ -235,6 +238,25 @@ where equipment_del_flag = 0
     WHERE company_id = #{company_id,jdbcType=INTEGER} AND equipment_del_flag = 0
   </select>
 
+
+  <update id="updateErroCountByEid" parameterType="java.lang.Integer">
+    UPDATE emdb_equipment
+    SET equipment_erro_count = equipment_erro_count+1
+    WHERE equipment_id = #{equipment_id,jdbcType=INTEGER}
+<!--    update emdb_equipment-->
+<!--    <set>-->
+<!--      <if test="equipment_erro_count != null">-->
+<!--        equipment_erro_count = #{equipment_erro_count,jdbcType=INTEGER},-->
+<!--      </if>-->
+<!--    </set>-->
+<!--    where equipment_id = #{equipment_id,jdbcType=INTEGER}-->
+  </update>
+
+  <update id="updateWarningCountByEid" parameterType="java.lang.Integer">
+    UPDATE emdb_equipment
+    SET equipment_warning_count = equipment_warning_count+1
+    WHERE equipment_id = #{equipment_id,jdbcType=INTEGER}
+  </update>
 
 
 
