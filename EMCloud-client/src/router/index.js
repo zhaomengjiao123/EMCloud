@@ -155,6 +155,10 @@ Vue.use(Router)
           path: '/monitoring/sa_equipment_state_list',
           component: () => import('../components/monitoring/EquipmentStateMonitor.vue')
         },
+        {
+          path: '/monitoring/sa_equipment_running_map',
+          component: () => import('../components/monitoring/EquipmentRuningMap.vue')
+        },
       ]
     }
   ]
