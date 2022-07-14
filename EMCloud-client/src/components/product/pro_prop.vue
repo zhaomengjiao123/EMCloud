@@ -12,8 +12,8 @@
 
       <el-row :gutter="20">
         <el-col :span="8">
-          <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getGoodsList">
-            <el-button slot="append" icon="el-icon-search" @click="chaxun"></el-button>
+          <el-input placeholder="请输入内容" v-model="queryn" clearable @clear="getGoodsList">
+            <el-button slot="append" icon="el-icon-search" @click="chaxunn(queryn)"></el-button>
           </el-input>
         </el-col>
         <el-col :span="4">
@@ -60,7 +60,9 @@
                   <el-input v-model="questionForm.product_attribute_erro" ></el-input>
                 </el-form-item>
                 <el-form-item label="对应产品类型ID" prop="type_id" >
-                  <el-input v-model="questionForm.product_type_id" placeholder="必填"></el-input>
+                  <el-select v-model="questionForm.product_type_id" placeholder="必填" style="width: 250px">
+                    <el-option v-for="item in product_id" :key="item.product_type_name"  :value="item.product_type_id"></el-option>
+                  </el-select>
                 </el-form-item>
                 <el-form-item label="更新时间" prop="time">
                   <el-input v-model="questionForm.product_attribute_update_time" :disabled="true"></el-input>
@@ -76,7 +78,7 @@
       </el-dialog>
 
       <!-- table表格区域 -->
-      <el-table :data="goodsList.slice((queryInfo.pagenum - 1) * queryInfo.pagesize, queryInfo.pagenum * queryInfo.pagesize)"  height="500px" border stripe>
+      <el-table :data="newgoodsList.slice((queryInfo.pagenum - 1) * queryInfo.pagesize, queryInfo.pagenum * queryInfo.pagesize)"  height="500px" border stripe>
         <el-table-column type="index" label="#" ></el-table-column>
         <el-table-column  label="产品属性编号" prop="product_attribute_number" width="100px"></el-table-column>
         <el-table-column  label="产品属性名称" prop="product_attribute_name" width="100px"></el-table-column>
@@ -173,6 +175,9 @@ export default {
         pagenum: 1,
         pagesize: 8,
       },
+      queryn:'',
+      product_id: [],
+      newgoodsList:[],
       // 商品列表
       goodsList: [],
       // 总数据条数
@@ -213,6 +218,24 @@ export default {
     this.getGoodsList();
   },
   methods: {
+    searchid(keywords) {
+      return this.goodsList.filter(item =>{
+        if(item.product_attribute_number.includes(keywords)){
+          return item
+        }
+        else if(item.product_attribute_name.includes(keywords)){
+          return item
+        }
+      })
+    },
+    chaxunn(queryn){
+      let val=this.queryn;
+      if (val == '') {
+        this.newgoodsList=this.goodsList = this.tableData
+      } else {
+        this.newgoodsList =this.searchid(val)
+      }
+    },
     //列表清空
     update(){
       this.questionForm={};
@@ -234,8 +257,12 @@ export default {
     // 根据分页获取对应的商品列表
     async getGoodsList(){
       this.$http.get("http://121.5.74.11:8080/productTypeAttribute/getAllProductTypeAttribute").then(res=>{
-        this.goodsList=res.data;
+        this.newgoodsList=this.goodsList=res.data;
         this.total=res.data.length;
+      });
+
+      this.$http.get("http://121.5.74.11:8080/productType/getAllProductType").then(res => {
+        this.product_id = res.data;
       });
     },
     add1(){
@@ -309,15 +336,7 @@ export default {
         }
       });
     },
-    chaxun(){
-      console.log(this.queryInfo.query);
-      let userData = new URLSearchParams();
-      userData.append('product_id', this.queryInfo.query)
-      this.$http.get("http://121.5.74.11:8080/productTypeAttribute/getProductTypeAttributeAndProductNameOfPid",userData).then(res=>{
-        this.goodsList=res.data;
-        this.total=res.data.length;
-      });
-    },
+
     // 监听当前页数变化的事件
     handleSizeChange(newSize){
       this.queryInfo.pagesize = newSize;

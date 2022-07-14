@@ -22,7 +22,10 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import static com.server.emcloud.socket.SocketPool.add;
 import static com.server.emcloud.socket.SocketPool.remove;
@@ -223,8 +226,11 @@ public class SocketHandler {
                         Task task=new Task();
                         task.setTask_id(Integer.parseInt(taskRecord.getTaskID()));
                         task.setEquipment_id(Integer.parseInt(taskRecord.getAGVID()));
-                        task.setTask_start_time(taskRecord.getBeginTime());
-                        task.setTask_end_time(taskRecord.getEndTime());
+                        String [] a = taskRecord.getBeginTime().split(" ");
+                        String [] b = taskRecord.getEndTime().split(" ");
+                        task.setTask_start_time(a[0]);
+                        task.setTask_end_time(a[1]);
+
                         int res1 = socketHandler.taskService.addTask(task);
                         if(res1>0){
                             log.info("Task添加成功！");

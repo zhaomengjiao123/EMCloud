@@ -34,16 +34,16 @@
         WHERE et.equipment_id = e.equipment_id AND e.product_id = p.product_id
     </select>
 
-    <select id="getAllProductTypeId" resultType="Integer">
-        SELECT product_type_id
-        FROM emdb_product_type
+    <select id="getAllProductId" resultType="Integer">
+        SELECT product_id
+        FROM emdb_product
     </select>
 
 
     <select id="getProductNameById" resultType="String">
-        SELECT product_type_name
-        FROM emdb_product_type
-        WHERE product_type_id = #{product_type_id, jdbcType=INTEGER}
+        SELECT product_name
+        FROM emdb_product
+        WHERE product_id = #{product_id, jdbcType=INTEGER}
     </select>
 
 

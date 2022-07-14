@@ -155,6 +155,14 @@ Vue.use(Router)
           path: '/monitoring/sa_equipment_state_list',
           component: () => import('../components/monitoring/EquipmentStateMonitor.vue')
         },
+        {
+          path: '/task_monitor',
+          component: () => import('../components/monitoring/TaskMonitor.vue')
+        },
+        {
+          path: '/equipment/manage',
+          component: () => import('../components/equipment/equipment_manage.vue')
+        },
       ]
     }
   ]

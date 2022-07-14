@@ -218,6 +218,7 @@ export default {
           getExceptionByDay(params)
             .then(res => {
               if (res) {
+                console.log("ceshi")
                 console.log(res)
                 let time = []
                 for (let i = 0; i < res.length; i++) {//不同类型

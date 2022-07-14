@@ -218,6 +218,7 @@ export default {
           this.xAxisData = this.getYearAndMonthAndDay(this.startTime, this.endTime)//获取x轴数据
           getTaskByDay(params)
             .then(res => {
+              console.log("ceshihhhh")
               console.log(res)
               if (res) {
                 let time = []

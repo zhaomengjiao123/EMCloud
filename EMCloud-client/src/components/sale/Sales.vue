@@ -1,4 +1,3 @@
-<!--  -->
 <template>
   <div>
     <el-card >
@@ -12,8 +11,8 @@
 
       <el-row :gutter="20">
         <el-col :span="8">
-          <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getGoodsList">
-            <el-button slot="append" icon="el-icon-search" @click="getGoodsList"></el-button>
+          <el-input placeholder="请输入内容" v-model="queryn" clearable @clear="getGoodsList">
+            <el-button slot="append" icon="el-icon-search" @click="chaxun(queryn)"></el-button>
           </el-input>
         </el-col>
         <el-col :span="4">
@@ -38,7 +37,7 @@
       </el-dialog>
 
       <!-- table表格区域 -->
-      <el-table :data="goodsList.slice((queryInfo.pagenum - 1) * queryInfo.pagesize, queryInfo.pagenum * queryInfo.pagesize)"  height="500px" border stripe>
+      <el-table :data="newgoodsList.slice((queryInfo.pagenum - 1) * queryInfo.pagesize, queryInfo.pagenum * queryInfo.pagesize)"  height="500px" border stripe>
         <el-table-column type="index" label="#" ></el-table-column>
         <el-table-column  label="销售员id" prop="salesman_id" ></el-table-column>
         <el-table-column  label="销售员姓名" prop="salesman_name" ></el-table-column>
@@ -91,6 +90,8 @@ export default {
         pagenum: 1,
         pagesize: 8,
       },
+      queryn:'',
+      newgoodsList:[],
       // 商品列表
       goodsList: [],
       // 总数据条数
@@ -116,6 +117,25 @@ export default {
     this.getGoodsList();
   },
   methods: {
+    searchid(keywords) {
+      return this.goodsList.filter(item =>{
+        if(item.salesman_id== keywords){
+          return item
+        }
+        else if(item.salesman_name.includes(keywords)){
+          return item
+        }
+
+      })
+    },
+    chaxun(queryn){
+      let val=this.queryn;
+      if (val == '') {
+        this.newgoodsList=this.goodsList = this.tableData
+      } else {
+        this.newgoodsList =this.searchid(val)
+      }
+    },
     //列表清空
     update(){
       this.questionForm={};
@@ -125,7 +145,7 @@ export default {
     // 根据分页获取对应的商品列表
     async getGoodsList(){
       this.$http.get("http://121.5.74.11:8080/salesman/getAll").then(res=>{
-        this.goodsList=res.data;
+        this.newgoodsList=this.goodsList=res.data;
         this.total=res.data.length;
       });
     },
@@ -193,4 +213,3 @@ export default {
 <style scoped>
 
 </style>
-
