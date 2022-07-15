@@ -31,4 +31,9 @@ public class TaskRecordServiceImpl implements TaskRecordService {
     public List<TaskRecord> getTaskByComapnyId(String company_id) {
         return taskRecordMapper.getTaskByCompanyId(company_id);
     }
+
+    @Override
+    public List<TaskRecord> getTaskByEId(String company_id, String equipment_number) {
+        return taskRecordMapper.getTaskByEId(company_id,equipment_number);
+    }
 }

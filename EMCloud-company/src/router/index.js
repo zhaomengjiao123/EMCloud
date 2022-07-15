@@ -153,6 +153,10 @@ Vue.use(Router)
           path: '/monitoring/company_equipment_running_map',
           component: () => import('../components/monitoring/EquipmentRuningMap.vue')
         },
+        {
+          path: '/monitoring/company_task',
+          component: () => import('../components/monitoring/TaskMonitor.vue')
+        },
       ]
     }
   ]

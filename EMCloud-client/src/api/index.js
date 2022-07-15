@@ -213,3 +213,5 @@ export const getTaskByCompanyId= (params) => get(`getTaskbyCompanyId`,params);
 
 //删除产品
 export const deleteProduct= (params) => post(`product/delete`,params);
+
+

@@ -46,6 +46,7 @@
                 <el-form-item label="产品发布日期" prop="date" >
                   <el-input v-model="questionForm.product_release_date" placeholder="必填"></el-input>
                 </el-form-item>
+
                 <el-form-item label="上传图片"  prop="imageUrl" >
                   <el-upload
                     class="avatar-uploader"
@@ -56,7 +57,6 @@
                     <img  width="200px" height="150px" v-if="questionForm.product_pic_url" :src="questionForm.product_pic_url" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                   </el-upload>
-
                 </el-form-item>
               </el-form>
         <div slot="footer" ref="questionForm" class="dialog-footer">
