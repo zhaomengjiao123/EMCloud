@@ -70,24 +70,19 @@
         <el-table-column type="index" label="#" ></el-table-column>
         <el-table-column  label="产品名称" prop="product_name" width="200px"></el-table-column>
         <el-table-column  label="产品型号" prop="product_version" width="75px"></el-table-column>
-<<<<<<< HEAD
         <el-table-column  label="产品编号" prop="product_number" width="100px"></el-table-column>
         <el-table-column  label="类型ID" prop="product_type_id" width="75px"></el-table-column>
 <!--        <el-table-column  label="产品图片地址" prop="product_pic_url" width="130px"></el-table-column >-->
 <!--        <el-table-column  label="产品资料地址" prop="product_file_url" width="130px"></el-table-column>-->
-        <el-table-column  label="产品备注" prop="product_comment" width="200px"></el-table-column>
-=======
+        <el-table-column  label="产品备注" prop="product_comment" width="80px"></el-table-column>
         <el-table-column  label="产品编号" prop="product_number" width="75px"></el-table-column>
-        <el-table-column  label="产品所属类型ID" prop="product_type_id" width="115px"></el-table-column>
+<!--        <el-table-column  label="产品所属类型ID" prop="product_type_id" width="115px"></el-table-column>-->
         <el-table-column  label="产品图片地址" prop="product_pic_url" width="130px">
           <template slot-scope="scope1">
             <img width="80px" height="100px" v-if="scope1.row.product_pic_url" :src="scope1.row.product_pic_url" >
           </template>
         </el-table-column >
 
-        <el-table-column  label="产品资料地址" prop="product_file_url" width="130px"></el-table-column>
-        <el-table-column  label="产品备注" prop="product_comment" ></el-table-column>
->>>>>>> 91238afbf978afcaf21b595b36a7f387b8e12115
         <el-table-column  label="产品发布日期" prop="product_release_date" width="150px"></el-table-column>
         <el-table-column  label="产品更新时间" prop="product_update_time" width="150px"></el-table-column>
         <el-table-column  label="操作" width="150px">
@@ -116,16 +111,16 @@
           <el-form-item label="产品所属类型ID" prop="type_id">
             <el-input v-model="questionForm.product_type_id" placeholder="必填"></el-input>
           </el-form-item>
-          <el-form-item label="产品资料地址" prop="file_url">
-            <el-input v-model="questionForm.product_file_url" ></el-input>
-          </el-form-item>
+<!--          <el-form-item label="产品资料地址" prop="file_url">-->
+<!--            <el-input v-model="questionForm.product_file_url" ></el-input>-->
+<!--          </el-form-item>-->
           <el-form-item label="产品发布日期" prop="date" >
             <el-input v-model="questionForm.product_release_date" placeholder="必填"></el-input>
           </el-form-item>
           <el-form-item label="上传图片"  prop="imageUrl" >
             <el-upload
               class="avatar-uploader"
-              action="http://localhost:8080/file/upload/img"
+              action="http://121.5.74.11:8080/file/upload/img"
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload">
               <img width="200px" height="150px" v-if="questionForm.product_pic_url" :src="questionForm.product_pic_url" class="avatar">

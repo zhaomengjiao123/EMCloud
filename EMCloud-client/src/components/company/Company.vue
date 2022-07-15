@@ -235,7 +235,6 @@ export default {
         }
         this.provinceList = newProvince
       })
-<<<<<<< HEAD
     },
     provinceChange(that){
       // 根据选中省，匹配市
@@ -256,28 +255,26 @@ export default {
         })  /* 市匹配成功*/
       }
     },
-=======
-    },
-    provinceChange(that){
-      // 根据选中省，匹配市
-      let cityCode = 0
-      let newCityArry = []
-      this.provinceList.forEach((item,index)=>{
-        if(item.name == that){
-          cityCode = item.code
-        }
-      })
-      // console.log(cityCode)
-      if(cityCode){
-        this.cityList = []
-        this.CITY.forEach((item,index)=>{
-          if(item.code == cityCode){
-            this.cityList.push(item)
-          }
-        })  /* 市匹配成功*/
-      }
-    },
->>>>>>> 91238afbf978afcaf21b595b36a7f387b8e12115
+
+    // provinceChange(that){
+    //   // 根据选中省，匹配市
+    //   let cityCode = 0
+    //   let newCityArry = []
+    //   this.provinceList.forEach((item,index)=>{
+    //     if(item.name == that){
+    //       cityCode = item.code
+    //     }
+    //   })
+    //   // console.log(cityCode)
+    //   if(cityCode){
+    //     this.cityList = []
+    //     this.CITY.forEach((item,index)=>{
+    //       if(item.code == cityCode){
+    //         this.cityList.push(item)
+    //       }
+    //     })  /* 市匹配成功*/
+    //   }
+    // },
     cityChange(that){
       let countyCode = 0
       let cityname = ''
@@ -382,14 +379,12 @@ export default {
       this.getGoodsList()
     },
     // 根据id删除对应的商品
-  },
+  }
 }
 </script>
 
 
-<<<<<<< HEAD
 <style lang="scss" scoped>
+</style>
 
-=======
->>>>>>> 91238afbf978afcaf21b595b36a7f387b8e12115
 
