@@ -77,7 +77,7 @@
         <el-table-column  label="产品备注" prop="product_comment" width="80px"></el-table-column>
         <el-table-column  label="产品编号" prop="product_number" width="75px"></el-table-column>
 <!--        <el-table-column  label="产品所属类型ID" prop="product_type_id" width="115px"></el-table-column>-->
-        <el-table-column  label="产品图片地址" prop="product_pic_url" width="130px">
+        <el-table-column  label="产品图片" prop="product_pic_url" width="130px">
           <template slot-scope="scope1">
             <img width="80px" height="100px" v-if="scope1.row.product_pic_url" :src="scope1.row.product_pic_url" >
           </template>

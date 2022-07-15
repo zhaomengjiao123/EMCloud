@@ -6,59 +6,11 @@
   </el-breadcrumb>
 
   <div>
-    <el-row :gutter="20">
-      <el-col :span="6">
-        <div class="statistics" style="background: #409eff">
-          <div class="title">
-            <p>用户统计</p>
-            <el-tag type="success">实时</el-tag>
-          </div>
-          <div class="num">{{ totalUsers }}</div>
-          <div class="remark">当前总用户数量</div>
-        </div>
-      </el-col>
-      <el-col :span="6">
-        <div class="statistics" style="background: #ee9900">
-          <div class="title">
-            <p>商品统计</p>
-            <el-tag type="danger">实时</el-tag>
-          </div>
-          <div class="num">{{ totalGoods }}</div>
-          <div class="remark">当前总商品数量</div>
-        </div>
-      </el-col>
-      <el-col :span="6">
-        <div class="statistics" style="background: #55a532">
-          <div class="title">
-            <p>订单统计</p>
-            <el-tag type="warning">实时</el-tag>
-          </div>
-          <div class="num">{{ totalOrders }}</div>
-          <div class="remark">当前总订单数量</div>
-        </div>
-      </el-col>
-      <el-col :span="6">
-        <div class="statistics" style="background: #909399">
-          <div class="title">
-            <p>销售统计</p>
-            <el-tag type="primary">实时</el-tag>
-          </div>
-          <div class="num">{{ totalSales }}</div>
-          <div class="remark">当前总销售额(元)</div>
-        </div>
-      </el-col>
-    </el-row>
+
   </div>
 
-  <div class="echarts-container">
-    <el-card id="chart01"></el-card>
-    <el-card id="chart02"></el-card>
-  </div>
 
-  <el-progress :text-inside="true" :stroke-width="26" :percentage="70" :format="format"></el-progress>
-  <el-progress :text-inside="true" :stroke-width="24" :percentage="50" status="success" :format="format01"></el-progress>
-  <el-progress :text-inside="true" :stroke-width="22" :percentage="30" status="warning" :format="format02"></el-progress>
-  <el-progress :text-inside="true" :stroke-width="20" :percentage="45" status="exception" :format="format03"></el-progress>
+
 </div>
 </template>
 
