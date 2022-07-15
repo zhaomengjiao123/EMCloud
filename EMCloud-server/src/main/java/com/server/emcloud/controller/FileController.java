@@ -60,7 +60,7 @@ public class FileController {
         emp.put("fileName",fileNames);
         //返回图片名称
         restResult.setReturnObj(emp);
-        fileNames="http://localhost:8080/img/"+fileNames;
+        fileNames="http://121.5.74.11:8080/img/"+fileNames;
         return fileNames;
 
     }

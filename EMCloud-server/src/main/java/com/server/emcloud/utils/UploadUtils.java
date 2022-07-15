@@ -5,7 +5,7 @@ import java.io.File;
 
 public class UploadUtils {
     //静态资源路径
-    public final static String IMG_PATH_PREFIX = "C:\\Users\\86182\\Desktop\\学习\\暑期实训\\EM\\EMCloud\\EMCloud-server\\src\\main\\resources\\image";
+    public final static String IMG_PATH_PREFIX = "C:\\EMCloud\\EMCloud-server\\src\\main\\resources\\static\\images";
 
     public static File getImgDirFile() {
         //dome是项目名
