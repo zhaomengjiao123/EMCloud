@@ -8,11 +8,8 @@
     <el-card class="box-card">
       <el-row style="margin-left: 40px;margin-top: 20px">
         <el-col :span="4">
-<<<<<<< HEAD
-          <el-button size="small" type="primary" @click="addDialogVisible1 = true">添加普通用户</el-button>
-=======
-          <el-button type="primary" @click="addu()">添加普通用户</el-button>
->>>>>>> 91238afbf978afcaf21b595b36a7f387b8e12115
+<!--          <el-button size="small" type="primary" @click="addDialogVisible1 = true">添加普通用户</el-button>-->
+          <el-button size="small" type="primary" @click="addu()">添加普通用户</el-button>
         </el-col>
         <el-col :span="5">
           <el-input size="small" placeholder="请输入用户手机号" v-model="queryInfo1.query1">
@@ -328,7 +325,7 @@ export default {
       this.userlist=[
       ];
       let params = new URLSearchParams()
-      params.append('company_id', sessionStorage.getItem("company"))
+      params.append('company_id', sessionStorage.getItem("company_id"))
       getUserByCompany(params)
         .then(res => {
           this.tableData = res;
@@ -350,7 +347,7 @@ export default {
       if(this.queryInfo1.query1){
         let params = new URLSearchParams()
         params.append('user_phone', this.queryInfo1.query1)
-        params.append('company_id', sessionStorage.getItem("company"))
+        params.append('company_id', sessionStorage.getItem("company_id"))
         getUserByPhoneInCompany(params)
           .then(res => {
             this.tableData = res;

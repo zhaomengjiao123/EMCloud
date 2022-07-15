@@ -1,9 +1,9 @@
 <template>
   <div class="contents">
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>任务监控</el-breadcrumb-item>
-      <el-breadcrumb-item>任务监控</el-breadcrumb-item>
+<!--      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>-->
+      <el-breadcrumb-item>实时监控</el-breadcrumb-item>
+      <el-breadcrumb-item>设备任务监控</el-breadcrumb-item>
     </el-breadcrumb>
     <el-tabs type="border-card" class="contents-table" v-model="activeName">
       <el-tab-pane label="实时任务数据列表" name="equipment-list">
@@ -21,8 +21,8 @@
           </el-select>
           <el-button type="primary" size="small" @click="getDataByCidAndEn">查询</el-button>
         </div>
-        <div class="table" style="min-height: 500px">
-          <el-table :data="equipmentUpdateData" border stripe>
+        <div class="table" >
+          <el-table :data="equipmentUpdateData" border stripe height="450px">
             <el-table-column label="任务ID" prop="taskID" />
             <el-table-column label="设备ID" prop="agvid" />
             <el-table-column label="开始时间" prop="beginTime" />
@@ -37,14 +37,13 @@
 
           </el-table>
           <el-pagination
-            class="page"
-            background
-            layout="prev,pager, next, jumper"
-            :total="total>5000?5000:total"
-            :page-sizes="[10, 20, 30, 40]"
-            :page-size="10"
             @size-change="handleSizeChange"
-            @current-change="handleCurrentChange">
+            @current-change="handleCurrentChange"
+            :current-page="queryInfo.pagenum"
+            :page-sizes="[5, 8, 10,15]"
+            :page-size="queryInfo.pagesize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="total" background>
           </el-pagination>
         </div>
       </el-tab-pane>
@@ -95,6 +94,8 @@ export default {
       queryInfo:{
         queryType:'',
         queryEquipmentNumber:'',
+        pagenum: 1,
+        pagesize: 8,
       },
       equipmentNumberSelectList:{},
       stateInfo:{
@@ -135,6 +136,17 @@ export default {
 
   },
   methods: {
+    // 监听当前页数变化的事件
+    handleSizeChange(newSize){
+      this.queryInfo.pagesize = newSize;
+      this.queryInfo.pagenum = 1;
+      this.getUpdateData();
+    },
+    // 监听当前页码变化的事件
+    handleCurrentChange(newPage){
+      this.queryInfo.pagenum = newPage
+      this.getUpdateData();
+    },
     clearData() {
       if (this.timer) {
         clearInterval(this.timer)
@@ -169,6 +181,7 @@ export default {
       });
       getTaskByCompanyId(params).then(res=>{
         this.equipmentUpdateData=res;
+        this.total=res.length;
       });
       this.switper();
 
@@ -187,10 +200,12 @@ export default {
 
         //查询某公司设备最近更新时间
         getTaskByEquip(params).then(res=>{
-          this.equipmentUpdateData=res;
+          this.total=res.length;
           if(res.length === 0){
             this.$message.warning("抱歉，没有查找到数据")
-          }
+          };
+          this.equipmentUpdateData=res;
+
         });
       }
 
