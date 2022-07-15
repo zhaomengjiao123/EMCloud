@@ -1,7 +1,7 @@
 <template>
   <div class="contents">
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+<!--      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>-->
       <el-breadcrumb-item>异常监控</el-breadcrumb-item>
       <el-breadcrumb-item>设备预警</el-breadcrumb-item>
     </el-breadcrumb>
@@ -17,13 +17,10 @@
           :value="item.company_id">
         </el-option>
       </el-select>
-      <!--      <el-button class="handle-del mr10" type="primary" size="mini">销售时间</el-button>-->
-      <!--      <el-input v-model="select_word" class="handle-input mr10" size="mini" placeholder="年/月/日"></el-input>-->
       <el-button type="primary" size="small" @click="getCompanyWarning">查询</el-button>
-      <!--      <el-button class="el-button-back"  type="primary" size="mini" @click="back">返回</el-button>-->
     </div>
     <div class="table" style="min-height: 500px">
-      <el-table :data="warningData" border stripe>
+      <el-table :data="warningData" border stripe height="450px">
         <el-table-column label="设备编号" prop="equipment_id" />
         <el-table-column label="设备编号" prop="equipment_number" />
         <el-table-column label="预警信息" prop="warning_content" />
@@ -34,14 +31,13 @@
 
       </el-table>
       <el-pagination
-        class="page"
-        background
-        layout="prev,pager, next, jumper"
-        :total="total>5000?5000:total"
-        :page-sizes="[10, 20, 30, 40]"
-        :page-size="10"
         @size-change="handleSizeChange"
-        @current-change="handleCurrentChange">
+        @current-change="handleCurrentChange"
+        :current-page="queryInfo.pagenum"
+        :page-sizes="[5, 8, 10,15]"
+        :page-size="queryInfo.pagesize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total" background>
       </el-pagination>
     </div>
   </div>
@@ -69,6 +65,8 @@ export default {
       queryInfo:{
         queryType:'',
         queryCompanyId:'',
+        pagenum: 1,
+        pagesize: 8,
       },
       companySelectList:{},
 
@@ -89,6 +87,17 @@ export default {
   watch: {
   },
   methods: {
+    // 监听当前页数变化的事件
+    handleSizeChange(newSize){
+      this.queryInfo.pagesize = newSize;
+      this.queryInfo.pagenum = 1;
+      this.getData();
+    },
+    // 监听当前页码变化的事件
+    handleCurrentChange(newPage){
+      this.queryInfo.pagenum = newPage
+      this.getData();
+    },
     back(){
       this.$router.go(-1)
     },
@@ -109,7 +118,9 @@ export default {
           // this.$message.info("CompanyID:"+this.company_id);
           //查询全部设备的预警信息
         getAllWarningInfo().then(res=>{
-          this.warningData=res
+          this.warningData=res;
+          this.total=res.length;
+
         })
       }else{
         let params = new URLSearchParams();
@@ -117,6 +128,10 @@ export default {
         getWarningByCid(params).then(res=>{
           console.log(res)
           this.warningData = res;
+          this.total=res.length;
+          if(res.length==0){
+            this.$message.warning("没有找到数据")
+          }
         });
       }
 
@@ -132,6 +147,10 @@ export default {
         getWarningByCid(params).then(res=>{
           console.log(res)
           this.warningData = res;
+          this.total=res.length;
+          if(res.length==0){
+            this.$message.warning("没有找到数据")
+          }
         });
       }
 

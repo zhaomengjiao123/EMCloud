@@ -1,5 +1,10 @@
 <template>
   <div class="contents">
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <!--      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>-->
+      <el-breadcrumb-item>实时监控</el-breadcrumb-item>
+      <el-breadcrumb-item>设备运行地图</el-breadcrumb-item>
+    </el-breadcrumb>
     <div class="header">
       <div class="btns">
         <el-button v-on:click="initMap" size="mini">加载</el-button>

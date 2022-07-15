@@ -3,22 +3,20 @@
     <el-card >
       <!--面包屑导航区-->
       <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/welcome' }">产品管理</el-breadcrumb-item>
+        <el-breadcrumb-item>产品管理</el-breadcrumb-item>
         <el-breadcrumb-item>产品信息</el-breadcrumb-item>
       </el-breadcrumb>
       <!--卡片视图区域-->
       <br>
-      <el-row :gutter="20">
+      <el-row style="margin-left: 40px;margin-top: 20px">
+        <el-col :span="4">
+          <el-button size="small" type="primary" @click="add1">添加产品</el-button>
+        </el-col>
         <el-col :span="8">
-          <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getGoodsList">
+          <el-input size="small" placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getGoodsList">
             <el-button slot="append" icon="el-icon-search" @click="getGoodsList"></el-button>
           </el-input>
         </el-col>
-        <el-col :span="4">
-          <el-button type="primary" @click="add1">添加信息</el-button>
-        </el-col>
-
-
       </el-row>
 
       <!--    添加产品  -->
@@ -68,15 +66,15 @@
       </el-dialog>
 
       <!-- table表格区域 -->
-      <el-table :data="goodsList.slice((queryInfo.pagenum - 1) * queryInfo.pagesize, queryInfo.pagenum * queryInfo.pagesize)"  height="500px" border stripe>
+      <el-table :data="goodsList.slice((queryInfo.pagenum - 1) * queryInfo.pagesize, queryInfo.pagenum * queryInfo.pagesize)"  height="450px" border stripe>
         <el-table-column type="index" label="#" ></el-table-column>
-        <el-table-column  label="产品名称" prop="product_name" width="150px"></el-table-column>
+        <el-table-column  label="产品名称" prop="product_name" width="200px"></el-table-column>
         <el-table-column  label="产品型号" prop="product_version" width="75px"></el-table-column>
-        <el-table-column  label="产品编号" prop="product_number" width="75px"></el-table-column>
-        <el-table-column  label="产品所属类型ID" prop="product_type_id" width="115px"></el-table-column>
-        <el-table-column  label="产品图片地址" prop="product_pic_url" width="130px"></el-table-column >
-        <el-table-column  label="产品资料地址" prop="product_file_url" width="130px"></el-table-column>
-        <el-table-column  label="产品备注" prop="product_comment" ></el-table-column>
+        <el-table-column  label="产品编号" prop="product_number" width="100px"></el-table-column>
+        <el-table-column  label="类型ID" prop="product_type_id" width="75px"></el-table-column>
+<!--        <el-table-column  label="产品图片地址" prop="product_pic_url" width="130px"></el-table-column >-->
+<!--        <el-table-column  label="产品资料地址" prop="product_file_url" width="130px"></el-table-column>-->
+        <el-table-column  label="产品备注" prop="product_comment" width="200px"></el-table-column>
         <el-table-column  label="产品发布日期" prop="product_release_date" width="150px"></el-table-column>
         <el-table-column  label="产品更新时间" prop="product_update_time" width="150px"></el-table-column>
         <el-table-column  label="操作" width="150px">
@@ -313,6 +311,7 @@ export default {
 
 
 <style scoped>
+
 
 </style>
 

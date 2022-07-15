@@ -4,23 +4,21 @@
     <el-card >
     <!--面包屑导航区-->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/welcome' }">设备信息</el-breadcrumb-item>
-      <el-breadcrumb-item>设备管理</el-breadcrumb-item>
+      <el-breadcrumb-item>销售管理</el-breadcrumb-item>
+      <el-breadcrumb-item>设备销售管理</el-breadcrumb-item>
     </el-breadcrumb>
     <!--卡片视图区域-->
     <br>
 
-      <el-row :gutter="20">
+      <el-row style="margin-left: 40px;margin-top: 20px">
+        <el-col :span="4">
+          <el-button size="small" type="primary" @click="add1">添加设备</el-button>
+        </el-col>
         <el-col :span="8">
-          <el-input placeholder="请输入内容" v-model="query" clearable @clear="getGoodsList">
+          <el-input size="small" placeholder="请输入内容" v-model="query" clearable @clear="getGoodsList">
             <el-button slot="append"  icon="el-icon-search" @click="chaxun(query)"></el-button>
           </el-input>
         </el-col>
-        <el-col :span="4">
-          <el-button type="primary" @click="add1">添加设备</el-button>
-        </el-col>
-
-
       </el-row>
 
       <!--    添加产品  -->
@@ -72,7 +70,7 @@
       </el-dialog>
 
       <!-- table表格区域 -->
-      <el-table :data="newgoodsList.slice((queryInfo.pagenum - 1) * queryInfo.pagesize, queryInfo.pagenum * queryInfo.pagesize)"  height="500px" border stripe>
+      <el-table :data="newgoodsList.slice((queryInfo.pagenum - 1) * queryInfo.pagesize, queryInfo.pagenum * queryInfo.pagesize)"  height="450px" border stripe>
         <el-table-column type="index" label="#" ></el-table-column>
         <el-table-column  label="产品" prop="product_name" width="200px"></el-table-column>
         <el-table-column  label="客户" prop="company_name" width="150px"></el-table-column>
@@ -160,7 +158,7 @@ export default {
       //查询参数对象
       queryInfo:{
         pagenum: 1,
-        pagesize: 8,
+        pagesize: 5,
       },
       query:'',
       // 商品列表

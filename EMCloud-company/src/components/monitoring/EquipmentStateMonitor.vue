@@ -21,8 +21,8 @@
           </el-select>
           <el-button type="primary" size="small" @click="getDataByCidAndEn">查询</el-button>
         </div>
-        <div class="table" style="min-height: 500px">
-          <el-table :data="equipmentUpdateData" border stripe>
+        <div class="table">
+          <el-table :data="equipmentUpdateData" border stripe height="450px">
             <el-table-column label="设备ID" prop="equipment_id" />
             <el-table-column label="设备编号" prop="equipment_number" />
             <el-table-column label="所属产品名称" prop="product_name" />
@@ -39,14 +39,13 @@
 
           </el-table>
           <el-pagination
-            class="page"
-            background
-            layout="prev,pager, next, jumper"
-            :total="total>5000?5000:total"
-            :page-sizes="[10, 20, 30, 40]"
-            :page-size="10"
             @size-change="handleSizeChange"
-            @current-change="handleCurrentChange">
+            @current-change="handleCurrentChange"
+            :current-page="queryInfo.pagenum"
+            :page-sizes="[5, 8, 10,15]"
+            :page-size="queryInfo.pagesize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="total" background>
           </el-pagination>
         </div>
       </el-tab-pane>
@@ -100,6 +99,8 @@ export default {
       queryInfo:{
         queryType:'',
         queryEquipmentNumber:'',
+        pagenum: 1,
+        pagesize: 8,
       },
       equipmentNumberSelectList:{},
       stateInfo:{
@@ -158,6 +159,17 @@ export default {
 
   },
   methods: {
+    // 监听当前页数变化的事件
+    handleSizeChange(newSize){
+      this.queryInfo.pagesize = newSize;
+      this.queryInfo.pagenum = 1;
+      this.getData();
+    },
+    // 监听当前页码变化的事件
+    handleCurrentChange(newPage){
+      this.queryInfo.pagenum = newPage
+      this.getData();
+    },
     clearData() {
       if (this.timer) {
         clearInterval(this.timer)
@@ -192,6 +204,7 @@ export default {
       });
       getEquipmentListOfUpdateTimeByCid(params).then(res=>{
         this.equipmentUpdateData=res;
+        this.total=res.length;
       });
       this.switper();
 
@@ -211,6 +224,7 @@ export default {
         //查询某公司设备最近更新时间
         getEquipmentListOfUpdateTimeByCidAndEn(params).then(res=>{
           this.equipmentUpdateData=res;
+          this.total=res.length;
           if(res.length === 0){
             this.$message.warning("抱歉，没有查找到数据")
           }

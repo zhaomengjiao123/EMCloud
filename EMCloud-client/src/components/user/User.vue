@@ -1,16 +1,16 @@
 <template>
   <div class="fillcontain">
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-      <el-breadcrumb-item>用户</el-breadcrumb-item>
+<!--      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>-->
+      <el-breadcrumb-item>系统设置</el-breadcrumb-item>
+      <el-breadcrumb-item>用户个人信息</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card class="box-card" style="width: 800px;margin-left: 200px;margin-top: 30px">
       <div slot="header" class="clearfix">
         <span>个人信息</span>
-        <el-button type="primary"  @click="updateInfo" style="margin-left: 5% ">修改个人信息</el-button>
-        <el-button type="primary"  @click="updatePasswd" style="margin-left: 15% ">修改密码</el-button>
-        <el-button plain icon="el-icon-delete" type="danger" style="margin-left: 20%  "
+        <el-button size="small" type="primary"  @click="updateInfo" style="margin-left: 5% ">修改个人信息</el-button>
+        <el-button size="small" type="primary"  @click="updatePasswd" style="margin-left: 15% ">修改密码</el-button>
+        <el-button size="small" plain icon="el-icon-delete" type="danger" style="margin-left: 20%  "
                    @click="deleteUser(tableData[0].user_phone)" >注销账号</el-button>
       </div>
       <el-col :span="12">

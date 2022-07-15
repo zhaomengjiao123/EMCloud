@@ -3,21 +3,22 @@
     <el-card >
       <!--面包屑导航区-->
       <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/welcome' }">客户管理</el-breadcrumb-item>
         <el-breadcrumb-item>销售管理</el-breadcrumb-item>
+        <el-breadcrumb-item>销售人员管理</el-breadcrumb-item>
       </el-breadcrumb>
       <!--卡片视图区域-->
       <br>
 
-      <el-row :gutter="20">
+      <el-row style="margin-left: 40px;margin-top: 20px">
+        <el-col :span="4">
+          <el-button size="small" type="primary" @click="dialogFormVisible = true">添加销售员</el-button>
+        </el-col>
         <el-col :span="8">
-          <el-input placeholder="请输入内容" v-model="queryn" clearable @clear="getGoodsList">
+          <el-input size="small" placeholder="请输入内容" v-model="queryn" clearable @clear="getGoodsList">
             <el-button slot="append" icon="el-icon-search" @click="chaxun(queryn)"></el-button>
           </el-input>
         </el-col>
-        <el-col :span="4">
-          <el-button type="primary" @click="dialogFormVisible = true">添加销售员</el-button>
-        </el-col>
+
       </el-row>
 
       <!--    添加产品  -->
@@ -88,7 +89,7 @@ export default {
       queryInfo:{
         query: '',
         pagenum: 1,
-        pagesize: 8,
+        pagesize: 5,
       },
       queryn:'',
       newgoodsList:[],

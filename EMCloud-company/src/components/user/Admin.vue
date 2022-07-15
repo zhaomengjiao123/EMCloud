@@ -1,22 +1,22 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+<!--      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>-->
+      <el-breadcrumb-item>客户管理</el-breadcrumb-item>
       <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-      <el-breadcrumb-item>管理员</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card class="box-card">
-      <el-row :gutter="20">
+      <el-row style="margin-left: 40px;margin-top: 20px">
         <el-col :span="4">
-          <el-button type="primary" @click="addDialogVisible1 = true">添加普通用户</el-button>
+          <el-button size="small" type="primary" @click="addDialogVisible1 = true">添加普通用户</el-button>
         </el-col>
         <el-col :span="5">
-          <el-input placeholder="请输入用户手机号" v-model="queryInfo1.query1">
+          <el-input size="small" placeholder="请输入用户手机号" v-model="queryInfo1.query1">
             <el-button slot="append" icon="el-icon-search" @click="getUserByPhone" ></el-button>
           </el-input>
         </el-col>
       </el-row>
-      <el-table :data="userlist" border stripe>
+      <el-table :data="userlist" border stripe height="450px">
         <el-table-column type="index" label="序号"></el-table-column>
         <el-table-column prop="user_name" label="用户名"></el-table-column>
         <el-table-column prop="user_phone" label="手机号"></el-table-column>
@@ -27,13 +27,11 @@
           <template slot-scope="scope">
             <el-button
               type="primary"
-              icon="el-icon-edit"
               size="small"
               @click="edit(scope.row)"
             >修改</el-button>
             <el-button
               type="danger"
-              icon="el-icon-delete"
               size="small"
               @click="deleteUser(scope.row)"
             >删除</el-button>
@@ -41,16 +39,16 @@
         </el-table-column>
       </el-table>
 
+      <!-- 分页区域 -->
       <el-pagination
-        class="page"
-        background
-        layout="prev,pager, next, jumper"
-        :total="total>5000?5000:total"
-        :page-sizes="[10, 20, 30, 40]"
-        :page-size="10"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-      ></el-pagination>
+        :current-page="queryInfo.pagenum"
+        :page-sizes="[5, 8, 10,15]"
+        :page-size="queryInfo.pagesize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total" background>
+      </el-pagination>
 
     </el-card>
 
@@ -175,6 +173,7 @@ export default {
       },
       queryInfo1:{
         query1:'',
+
       },
       tableData: [
         {
@@ -187,6 +186,10 @@ export default {
         },
       ],
       optionData:[],
+      queryInfo:{
+        pagenum: 1,
+        pagesize: 8,
+      },
       optionData1:[],
       optionData2:[],
       pageSize: 8,
@@ -206,6 +209,21 @@ export default {
     this.getOptionInfo1()
   },
   methods: {
+    // 监听当前页数变化的事件
+    handleSizeChange(newSize){
+      this.queryInfo.pagesize = newSize;
+      this.queryInfo.pagenum = 1;
+      this.getUser();
+    },
+    // 监听当前页码变化的事件
+    handleCurrentChange(newPage){
+      this.queryInfo.pagenum = newPage
+      if(this.queryInfo1.query1==null){
+        this.getUser()
+      }else {
+        this.getUserByPhone()
+      }
+      },
     getOptionInfo(){
       getCompany()
         .then(res => {
@@ -231,15 +249,15 @@ export default {
         })
     },
 
-    handleSizeChange() {},
-    handleCurrentChange(val) {
-      this.currentPage = val;
-      if(this.queryInfo1.query1==null){
-        this.getUser()
-      }else {
-        this.getUserByPhone()
-      }
-    },
+    // handleSizeChange() {},
+    // handleCurrentChange(val) {
+    //   this.currentPage = val;
+    //   if(this.queryInfo1.query1==null){
+    //     this.getUser()
+    //   }else {
+    //     this.getUserByPhone()
+    //   }
+    // },
     edit(row){
       this.addDialogVisible2 = true
       let b = this.optionData1.find(item => item.depart_name === row.user_depart,).depart_id

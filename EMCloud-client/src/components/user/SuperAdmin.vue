@@ -1,17 +1,19 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+<!--      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>-->
+      <el-breadcrumb-item>客户管理</el-breadcrumb-item>
       <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-      <el-breadcrumb-item>超级管理员</el-breadcrumb-item>
     </el-breadcrumb>
+
     <el-card class="box-card">
-      <el-row :gutter="20">
+
+      <el-row style="margin-left: 40px;margin-top: 20px">
         <el-col :span="4">
-          <el-button type="primary" @click="addDialogVisible = true">添加管理员</el-button>
+          <el-button size="small" type="primary" @click="addDialogVisible = true">添加管理员</el-button>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" @click="addDialogVisible1 = true">添加普通用户</el-button>
+          <el-button size="small" type="primary" @click="addDialogVisible1 = true">添加普通用户</el-button>
         </el-col>
         <el-col :span="5">
 <!--          <el-input placeholder="请输入公司" v-model="queryInfo.query">-->
@@ -19,7 +21,7 @@
 <!--          </el-input>-->
           <el-select v-model="queryInfo.query"
                      @change="getUserByCompany"
-                     placeholder="请选择公司">
+                     placeholder="请选择公司" size="small">
             <el-option
               v-for="item in optionData"
               :key="item.company_id"
@@ -27,15 +29,14 @@
               :value="item.company_id">
             </el-option>
           </el-select>
-
         </el-col>
         <el-col :span="5">
-          <el-input placeholder="请输入用户手机号" v-model="queryInfo1.query1">
+          <el-input  size="small" placeholder="请输入用户手机号" v-model="queryInfo1.query1">
             <el-button slot="append" icon="el-icon-search" @click="getUserByPhone" ></el-button>
           </el-input>
         </el-col>
       </el-row>
-      <el-table :data="userlist" border stripe>
+      <el-table :data="userlist" height="450px" border stripe >
         <el-table-column type="index" label="序号"></el-table-column>
         <el-table-column prop="user_name" label="用户名"></el-table-column>
         <el-table-column prop="user_phone" label="手机号"></el-table-column>
@@ -48,19 +49,16 @@
           <template slot-scope="scope">
             <el-button
               type="primary"
-              icon="el-icon-edit"
               size="small"
               @click="edit(scope.row)"
-            >修改</el-button>
+            >编辑</el-button>
             <el-button
               type="danger"
-              icon="el-icon-delete"
               size="small"
               @click="deleteUser(scope.row)"
             >删除</el-button>
             <el-button
               type="warning"
-              icon="el-icon-edit"
               size="small"
               @click="updatePasswd(scope.row)"
             >重置密码</el-button>
@@ -68,16 +66,16 @@
         </el-table-column>
       </el-table>
 
+      <!-- 分页区域 -->
       <el-pagination
-        class="page"
-        background
-        layout="prev,pager, next, jumper"
-        :total="total>5000?5000:total"
-        :page-sizes="[10, 20, 30, 40]"
-        :page-size="10"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-      ></el-pagination>
+        :current-page="queryInfo.pagenum"
+        :page-sizes="[5, 8, 10,15]"
+        :page-size="queryInfo.pagesize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total" background>
+      </el-pagination>
 
     </el-card>
 
@@ -245,6 +243,11 @@ export default {
 name: "SuperAdmin",
   data(){
     return {
+      queryInfo:{
+        query: '',
+        pagenum: 1,
+        pagesize: 8,
+      },
       // intervalId:null,
       userlist: [{
         user_name: '',
@@ -300,9 +303,7 @@ name: "SuperAdmin",
       queryInfo1:{
         query1:'',
       },
-      queryInfo:{
-        query:'',
-      },
+
       optionData:[
 
       ],
@@ -378,6 +379,17 @@ name: "SuperAdmin",
           console.log(this.optionData1)
         })
     },
+    // 监听当前页数变化的事件
+    // handleSizeChange(newSize){
+    //   this.queryInfo.pagesize = newSize;
+    //   this.queryInfo.pagenum = 1;
+    //   this.getGoodsList()
+    // },
+    // 监听当前页码变化的事件
+    // handleCurrentChange(newPage){
+    //   this.queryInfo.pagenum = newPage
+    //   this.getGoodsList()
+    // },
     handleSizeChange() {},
     handleCurrentChange(val) {
       this.currentPage = val;
@@ -660,5 +672,7 @@ name: "SuperAdmin",
 .box-card{
   margin-top: 30px;
 }
+
+
 
 </style>

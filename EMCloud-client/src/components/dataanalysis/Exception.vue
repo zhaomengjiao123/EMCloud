@@ -1,9 +1,13 @@
 <template>
   <div>
     <div>
-      <el-form>
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item>数据分析</el-breadcrumb-item>
+        <el-breadcrumb-item>设备异常信息</el-breadcrumb-item>
+      </el-breadcrumb>
+<!--      <el-form>
         异常信息统计
-      </el-form>
+      </el-form>-->
     </div>
     <div>
       <el-row class="el-row-report">

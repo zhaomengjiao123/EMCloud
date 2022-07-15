@@ -1,6 +1,11 @@
 <template>
   <div class="ai-wrapper">
-    <div class="block-title">异常信息统计</div>
+    <div class="block-title" style="margin-bottom:20px">
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item>数据分析</el-breadcrumb-item>
+        <el-breadcrumb-item>设备异常分析</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
     <div class="block-left">
       <div class="block-picker">
         <el-date-picker

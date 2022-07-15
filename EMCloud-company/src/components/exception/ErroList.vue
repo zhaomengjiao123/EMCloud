@@ -1,7 +1,7 @@
 <template>
   <div class="contents">
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+<!--      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>-->
       <el-breadcrumb-item>异常监控</el-breadcrumb-item>
       <el-breadcrumb-item>设备报警</el-breadcrumb-item>
     </el-breadcrumb>
@@ -23,8 +23,8 @@
 <!--      <el-button class="el-button-back"  type="primary" size="mini" @click="back">返回</el-button>-->
 
     </div>
-    <div class="table" style="min-height: 500px">
-      <el-table :data="erroData" border stripe>
+    <div class="table">
+      <el-table :data="erroData" border stripe height="450px">
         <el-table-column label="设备ID" prop="equipment_id" />
         <el-table-column label="设备编号" prop="equipment_number" />
         <el-table-column label="报警信息" prop="erro_content" />
@@ -35,14 +35,13 @@
 
       </el-table>
       <el-pagination
-        class="page"
-        background
-        layout="prev,pager, next, jumper"
-        :total="total>5000?5000:total"
-        :page-sizes="[10, 20, 30, 40]"
-        :page-size="10"
         @size-change="handleSizeChange"
-        @current-change="handleCurrentChange">
+        @current-change="handleCurrentChange"
+        :current-page="queryInfo.pagenum"
+        :page-sizes="[5, 8, 10,15]"
+        :page-size="queryInfo.pagesize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total" background>
       </el-pagination>
     </div>
   </div>
@@ -77,6 +76,8 @@ export default {
       queryInfo:{
         queryType:'',
         queryEquipmentNumber:'',
+        pagenum: 1,
+        pagesize: 8,
       },
       equipmentNumberSelectList:{},
     }
@@ -96,6 +97,17 @@ export default {
   watch: {
   },
   methods: {
+    // 监听当前页数变化的事件
+    handleSizeChange(newSize){
+      this.queryInfo.pagesize = newSize;
+      this.queryInfo.pagenum = 1;
+      this.getData();
+    },
+    // 监听当前页码变化的事件
+    handleCurrentChange(newPage){
+      this.queryInfo.pagenum = newPage
+      this.getData();
+    },
     getData(){
       console.log("company_id:",this.company_id)
       //alert(this.company_id)
@@ -115,6 +127,8 @@ export default {
       getErroByCid(params).then(res=>{
         console.log(res)
         this.erroData = res;
+        this.total=res.length;
+
       });
     },
 
@@ -132,6 +146,8 @@ export default {
             this.$message.warning("抱歉，没有查找到数据")
           }
           this.erroData = res;
+          this.total=res.length;
+
         });
       }
 

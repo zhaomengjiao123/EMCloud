@@ -1,9 +1,13 @@
 <template>
   <div>
     <div>
-      <el-form>
-        任务信息统计
-      </el-form>
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item>数据分析</el-breadcrumb-item>
+        <el-breadcrumb-item>设备任务信息</el-breadcrumb-item>
+      </el-breadcrumb>
+<!--      <el-form>-->
+<!--        任务信息统计-->
+<!--      </el-form>-->
     </div>
     <div>
       <el-row class="el-row-report">
