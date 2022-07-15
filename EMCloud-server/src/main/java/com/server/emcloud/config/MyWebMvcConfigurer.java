@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MyWebMvcConfigurer implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/img/**").addResourceLocations("file:C:\\EMCloud\\EMCloud-server\\src\\main\\resources\\static\\images");
+        registry.addResourceHandler("/img/**").addResourceLocations("file:C:\\EMCloud\\EMCloud-server\\src\\main\\resources\\image\\");
 
     }
 }
