@@ -106,4 +106,13 @@
     and b.company_id= #{company_id}
     </select>
 
+    <select id="getTaskByEId" resultMap="BaseResultMap">
+    select a.*
+    from taskrecord a,emdb_equipment b
+    where a.AGVID=b.equipment_id
+    and b.company_id= #{company_id}
+    and b.equipment_number=#{equipment_number}
+    </select>
+
+
 </mapper>

@@ -24,4 +24,6 @@ public interface TaskRecordMapper {
     List<TaskRecord> getTaskById(String taskID);
 
     List<TaskRecord> getTaskByCompanyId(String company_id);
+
+    List<TaskRecord> getTaskByEId(String company_id, String equipment_number);
 }

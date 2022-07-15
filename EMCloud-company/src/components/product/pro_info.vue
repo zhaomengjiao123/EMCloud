@@ -1,14 +1,13 @@
-<!--  -->
 <template>
   <div>
     <el-card >
-    <!--面包屑导航区-->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/welcome' }">产品管理</el-breadcrumb-item>
-      <el-breadcrumb-item>产品信息</el-breadcrumb-item>
-    </el-breadcrumb>
-    <!--卡片视图区域-->
-    <br>
+      <!--面包屑导航区-->
+      <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item :to="{ path: '/welcome' }">产品管理</el-breadcrumb-item>
+        <el-breadcrumb-item>产品信息</el-breadcrumb-item>
+      </el-breadcrumb>
+      <!--卡片视图区域-->
+      <br>
       <el-row :gutter="20">
         <el-col :span="8">
           <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getGoodsList">
@@ -24,44 +23,44 @@
 
       <!--    添加产品  -->
       <el-dialog title="添加产品信息" width="65%" :visible.sync="dialogFormVisible" center >
-        <el-row>
-          <el-col :span="12">
-            <div class="grid-content">
-              <el-form :model="questionForm"  ref="questionForm" :rules="rules" label-position="right" label-width="150px" style="width: 400px; margin-left:10px;">
-                <el-form-item label="产品名称" prop="name">
-                  <el-input v-model="questionForm.product_name" placeholder="必填"></el-input>
-                </el-form-item>
-                <el-form-item label="产品编号" prop="number" >
-                  <el-input v-model="questionForm.product_number" placeholder="必填"></el-input>
-                </el-form-item>
-                <el-form-item label="产品图片地址" prop="pic_url">
-                  <el-input v-model="questionForm.product_pic_url" ></el-input>
-                </el-form-item>
-                <el-form-item label="产品备注" prop="comment">
-                  <el-input v-model="questionForm.product_comment" ></el-input>
-                </el-form-item>
-              </el-form>
-            </div>
-          </el-col>
-          <el-col :span="12">
-            <div class="grid-content">
-              <el-form :model="questionForm"  ref="questionForm" :rules="rules" label-position="right" label-width="150px" style="width: 400px; margin-left:10px;">
-                <el-form-item label="产品型号" prop="version">
-                  <el-input v-model="questionForm.product_version" placeholder="必填"></el-input>
-                </el-form-item>
-                <el-form-item label="产品所属类型ID" prop="type_id">
-                  <el-input v-model="questionForm.product_type_id" placeholder="必填"></el-input>
-                </el-form-item>
-                <el-form-item label="产品资料地址" prop="file_url">
-                  <el-input v-model="questionForm.product_file_url" ></el-input>
-                </el-form-item>
-                <el-form-item label="产品发布日期" prop="date" >
-                  <el-input v-model="questionForm.product_release_date" placeholder="必填"></el-input>
-                </el-form-item>
-              </el-form>
-            </div>
-          </el-col>
-        </el-row>
+        <!--        <el-row>-->
+        <!--          <el-col :span="12">-->
+        <!--            <div class="grid-content">-->
+        <el-form :model="questionForm"  ref="questionForm" :rules="rules" label-position="right" label-width="150px" style="width: 400px; margin-left:10px;">
+          <el-form-item label="产品名称" prop="name">
+            <el-input v-model="questionForm.product_name" placeholder="必填"></el-input>
+          </el-form-item>
+          <el-form-item label="产品编号" prop="number" >
+            <el-input v-model="questionForm.product_number" placeholder="必填"></el-input>
+          </el-form-item>
+          <el-form-item label="产品备注" prop="comment">
+            <el-input v-model="questionForm.product_comment" ></el-input>
+          </el-form-item>
+          <el-form-item label="产品型号" prop="version">
+            <el-input v-model="questionForm.product_version" placeholder="必填"></el-input>
+          </el-form-item>
+          <el-form-item label="产品所属类型ID" prop="type_id">
+            <el-input v-model="questionForm.product_type_id" placeholder="必填"></el-input>
+          </el-form-item>
+          <el-form-item label="产品资料地址" prop="file_url">
+            <el-input v-model="questionForm.product_file_url" ></el-input>
+          </el-form-item>
+          <el-form-item label="产品发布日期" prop="date" >
+            <el-input v-model="questionForm.product_release_date" placeholder="必填"></el-input>
+          </el-form-item>
+
+          <el-form-item label="上传图片"  prop="imageUrl" >
+            <el-upload
+              class="avatar-uploader"
+              action="http://localhost:8080/file/upload/img"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload">
+              <img  width="200px" height="150px" v-if="questionForm.product_pic_url" :src="questionForm.product_pic_url" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+        </el-form>
         <div slot="footer" ref="questionForm" class="dialog-footer">
           <el-button @click="update">取消</el-button>
           <el-button type="primary" @click=" addProduct()" >确定</el-button>
@@ -75,7 +74,12 @@
         <el-table-column  label="产品型号" prop="product_version" width="75px"></el-table-column>
         <el-table-column  label="产品编号" prop="product_number" width="75px"></el-table-column>
         <el-table-column  label="产品所属类型ID" prop="product_type_id" width="115px"></el-table-column>
-        <el-table-column  label="产品图片地址" prop="product_pic_url" width="130px"></el-table-column >
+        <el-table-column  label="产品图片地址" prop="product_pic_url" width="130px">
+          <template slot-scope="scope1">
+            <img width="80px" height="100px" v-if="scope1.row.product_pic_url" :src="scope1.row.product_pic_url" >
+          </template>
+        </el-table-column >
+
         <el-table-column  label="产品资料地址" prop="product_file_url" width="130px"></el-table-column>
         <el-table-column  label="产品备注" prop="product_comment" ></el-table-column>
         <el-table-column  label="产品发布日期" prop="product_release_date" width="150px"></el-table-column>
@@ -90,44 +94,40 @@
 
       <!--      编辑产品信息-->
       <el-dialog title="更新产品信息" width="65%" :visible.sync="editFormVisible" center >
-        <el-row>
-          <el-col :span="12">
-            <div class="grid-content">
-              <el-form :model="questionForm"  ref="questionForm" :rules="rules" label-position="right" label-width="150px" style="width: 400px; margin-left:10px;">
-                <el-form-item label="产品名称" prop="name">
-                  <el-input v-model="questionForm.product_name" placeholder="必填" :disabled="true"></el-input>
-                </el-form-item>
-                <el-form-item label="产品编号" prop="number" >
-                  <el-input v-model="questionForm.product_number" placeholder="必填"></el-input>
-                </el-form-item>
-                <el-form-item label="产品图片地址" prop="pic_url">
-                  <el-input v-model="questionForm.product_pic_url" :disabled="true"></el-input>
-                </el-form-item>
-                <el-form-item label="产品备注" prop="comment">
-                  <el-input v-model="questionForm.product_comment" :disabled="true"></el-input>
-                </el-form-item>
-              </el-form>
-            </div>
-          </el-col>
-          <el-col :span="12">
-            <div class="grid-content">
-              <el-form :model="questionForm"  ref="questionForm" :rules="rules" label-position="right" label-width="150px" style="width: 400px; margin-left:10px;">
-                <el-form-item label="产品型号" prop="version">
-                  <el-input v-model="questionForm.product_version" placeholder="必填"></el-input>
-                </el-form-item>
-                <el-form-item label="产品所属类型ID" prop="type_id">
-                  <el-input v-model="questionForm.product_type_id" placeholder="必填"></el-input>
-                </el-form-item>
-                <el-form-item label="产品资料地址" prop="file_url">
-                  <el-input v-model="questionForm.product_file_url" :disabled="true"></el-input>
-                </el-form-item>
-                <el-form-item label="产品发布日期" prop="date" >
-                  <el-input v-model="questionForm.product_release_date" placeholder="必填" :disabled="true"></el-input>
-                </el-form-item>
-              </el-form>
-            </div>
-          </el-col>
-        </el-row>
+        <el-form :model="questionForm"  ref="questionForm" :rules="rules" label-position="right" label-width="150px" style="width: 400px; margin-left:10px;">
+          <el-form-item label="产品名称" prop="name">
+            <el-input v-model="questionForm.product_name" placeholder="必填"></el-input>
+          </el-form-item>
+          <el-form-item label="产品编号" prop="number" >
+            <el-input v-model="questionForm.product_number" placeholder="必填"></el-input>
+          </el-form-item>
+          <el-form-item label="产品备注" prop="comment">
+            <el-input v-model="questionForm.product_comment" ></el-input>
+          </el-form-item>
+          <el-form-item label="产品型号" prop="version">
+            <el-input v-model="questionForm.product_version" placeholder="必填"></el-input>
+          </el-form-item>
+          <el-form-item label="产品所属类型ID" prop="type_id">
+            <el-input v-model="questionForm.product_type_id" placeholder="必填"></el-input>
+          </el-form-item>
+          <el-form-item label="产品资料地址" prop="file_url">
+            <el-input v-model="questionForm.product_file_url" ></el-input>
+          </el-form-item>
+          <el-form-item label="产品发布日期" prop="date" >
+            <el-input v-model="questionForm.product_release_date" placeholder="必填"></el-input>
+          </el-form-item>
+          <el-form-item label="上传图片"  prop="imageUrl" >
+            <el-upload
+              class="avatar-uploader"
+              action="http://localhost:8080/file/upload/img"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload">
+              <img width="200px" height="150px" v-if="questionForm.product_pic_url" :src="questionForm.product_pic_url" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+
+          </el-form-item>
+        </el-form>
         <span slot="footer" class="dialog-footer">
           <el-button @click="update">取消</el-button>
           <el-button type="primary" @click="onEdit">确定</el-button>
@@ -150,6 +150,8 @@
 
 
 <script>
+import {deleteProduct, deleteUser} from "../../api";
+
 export default {
   data () {
     return {
@@ -161,6 +163,7 @@ export default {
       },
       // 商品列表
       goodsList: [],
+      imageUrl:'',
       // 总数据条数
       total: 0,
       questionForm: {
@@ -169,11 +172,11 @@ export default {
         product_version: '',
         product_release_date: '',
         product_update_time: '',
-        product_pic_url: '',
         product_number:'',
         product_file_url: '',
         product_comment: '',
-        product_type_id: ''
+        product_type_id: '',
+        product_pic_url: '',
       },
       dialogFormVisible: false,
       editFormVisible: false,
@@ -207,6 +210,23 @@ export default {
       this.dialogFormVisible=false;
       this.editFormVisible=false;
     },
+
+    //图片回显
+    handleAvatarSuccess(res, file) {
+      console.log(res)
+      this.questionForm.product_pic_url = res
+      sessionStorage.setItem("imgUrl",this.questionForm.product_file_url)
+    },
+    //图片上传大小限制
+    beforeAvatarUpload(file) {
+      const isLt2M = file.size / 1024 / 1024 < 10;
+      if (!isLt2M) {
+        this.$message.error('上传图片大小不能超过 10MB!');
+      }
+      return isLt2M;
+    },
+
+
     getCurrentTime() {
       //获取当前时间并打印
       let yy = new Date().getFullYear();
@@ -221,7 +241,8 @@ export default {
     },
     // 根据分页获取对应的商品列表
     async getGoodsList(){
-      this.$http.get("http://121.5.74.11:8080/product/getAllProduct").then(res=>{
+      this.$http.get("product/getAllProduct").then(res=>{
+        console.log(res.data)
         this.goodsList=res.data;
         this.total=res.data.length;
       });
@@ -232,7 +253,7 @@ export default {
     //添加商品
     addProduct(){
       this.questionForm.product_update_time=this.getCurrentTime();
-      this.$http.post("http://121.5.74.11:8080/product/addProduct",this.questionForm).then(res=>{
+      this.$http.post("product/addProduct",this.questionForm).then(res=>{
         if(res.data.code){
           this.$message({
             message: '恭喜你，'+res.data.msg,
@@ -256,7 +277,7 @@ export default {
     },
     onEdit(){
       this.questionForm.product_update_time=this.getCurrentTime();
-      this.$http.post("http://121.5.74.11:8080/product/updateProduct",this.questionForm).then(res=>{
+      this.$http.post("product/updateProduct",this.questionForm).then(res=>{
         if(res.data.code){
           this.$message({
             message: '恭喜你，'+res.data.msg,
@@ -273,28 +294,34 @@ export default {
       });
     },
     async remove(row){
-      // const confirmResult = await this.$confirm('此操作将永久删除该产品属性，是否继续？','提示',{
-      //   confirmButtonText: '确定',
-      //   cancelButtonText: '取消',
-      //   type: 'warning'
-      // }).catch(err => err)
-      // // 用户取消了删除操作
-      // if(confirmResult !== 'confirm') return this.$message.info('已取消删除！')
-      // // 删除的业务逻辑
-      // console.log(row.product_attribute_id);
-      // this.$http.get("http://121.5.74.11:8080/productTypeAttribute/deleteProductTypeAttribute/detail",{params:{"product_attribute_id":row.product_attribute_id}}).then(res=>{
-      //   if(res.data.code){
-      //     this.$message({
-      //       message: '恭喜你，'+res.data.msg,
-      //       type: 'success'
-      //     });
-      //     this.getGoodsList();
-      //     //隐藏表单
-      //     this.editFormVisible = false;
-      //   }else{
-      //     this.$message.error('删除失败');
-      //   }
-      // });
+      const confirmResult = await this.$confirm('此操作将永久删除该产品属性，是否继续？','提示',{
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).catch(err => err)
+      // 用户取消了删除操作
+      if(confirmResult !== 'confirm') return this.$message.info('已取消删除！')
+      // 删除的业务逻辑
+      console.log(row.product_id);
+
+      let params = new URLSearchParams()
+      params.append('product_id', row.product_id)
+      deleteProduct(params)
+        .then(res => {
+          if (res.code == 1) {
+            this.$message({
+              message: '删除成功',
+              type: 'success'
+            })
+            this.getGoodsList()
+          } else {
+            this.$message({
+              message: '删除失败',
+              type: 'error'
+            })
+          }
+        })
+
     },
     // 监听当前页数变化的事件
     handleSizeChange(newSize){

@@ -19,4 +19,6 @@ public interface TaskRecordService {
     public List<TaskRecord> getTaskById(String taskID);
 
     public List<TaskRecord> getTaskByComapnyId(String company_id);
+
+    public List<TaskRecord> getTaskByEId(String company_id, String equipment_number);
 }
