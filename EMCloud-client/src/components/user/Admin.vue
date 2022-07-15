@@ -65,18 +65,21 @@
         <el-form-item label="电话" prop="user_tele">
           <el-input v-model="addUserForm.user_tele"></el-input>
         </el-form-item>
-        <el-form-item label="公司" prop="user_company">
-          <el-select v-model="addUserForm.user_company"
-                     @change="getOptionInfo2"
-                     placeholder="请选择公司">
-            <el-option
-              v-for="item in optionData"
-              :key="item.company_id"
-              :label="item.company_name"
-              :value="item.company_id">
-            </el-option>
-          </el-select>
-        </el-form-item>
+<!--        <el-form-item label="公司" prop="user_company">-->
+<!--          <el-input v-model="addUserForm.user_company"></el-input>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="公司" prop="user_company">-->
+<!--          <el-select v-model="addUserForm.user_company"-->
+<!--                     @change="getOptionInfo2"-->
+<!--                     placeholder="请选择公司">-->
+<!--            <el-option-->
+<!--              v-for="item in optionData"-->
+<!--              :key="item.company_id"-->
+<!--              :label="item.company_name"-->
+<!--              :value="item.company_id">-->
+<!--            </el-option>-->
+<!--          </el-select>-->
+<!--        </el-form-item>-->
         <el-form-item label="部门" prop="user_depart">
 
           <el-select v-model="addUserForm.user_depart"
@@ -215,16 +218,16 @@ export default {
     getOptionInfo1(){
       let params = new URLSearchParams()
       console.log(sessionStorage.getItem("company"))
-      params.append('company_id', sessionStorage.getItem("company"))
+      params.append('company_id', sessionStorage.getItem("company_id"))
       getDepartByCompany(params)
         .then(res => {
-          this.optionData1=res;
+          this.optionData2=res;
           console.log(this.optionData1)
         })
     },
     getOptionInfo2(){
       let params = new URLSearchParams()
-      params.append('company_id', this.addUserForm.user_company)
+      params.append('company_id', sessionStorage.getItem('company_id'))
       getDepartByCompany(params)
         .then(res => {
           this.optionData2=res;

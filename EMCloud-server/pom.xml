@@ -17,9 +17,17 @@
         <java.version>1.8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-
+        <resource>
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>**/*.png</include>
+                <include>**/*.js</include>
+                ......
+            </includes>
+        </resource>
 
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -131,9 +139,9 @@
             </exclusions>
         </dependency>
 
-
     </dependencies>
-    <build>
+
+        <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

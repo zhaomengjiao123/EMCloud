@@ -23,4 +23,5 @@ public interface ProductMapper {
     //更新产品信息
     public int updateProduct(Product product);
 
+    public int deleteProduct(String product_id);
 }

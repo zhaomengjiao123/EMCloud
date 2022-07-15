@@ -91,4 +91,28 @@ public class ProductController {
         }
     }
 
+    /**
+     * @Description: 根据产品ID 更新产品信息  更新产品类型 产品编号 产品型号 更新时间
+     * @Param: [product]
+     * @return: java.lang.Object
+     * @Author: zmj
+     * @Date: 2022/6/24
+     */
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public Object deleteProduct(HttpServletRequest req){
+        JSONObject jsonObject = new JSONObject();
+        String product_id = req.getParameter("product_id");
+        int res = productService.deleteProduct(product_id);
+
+        if (res == 1){
+            jsonObject.put(Consts.CODE, 1);
+            jsonObject.put(Consts.MSG, "删除成功");
+            return jsonObject;
+        }else {
+            jsonObject.put(Consts.CODE, 0);
+            jsonObject.put(Consts.MSG, "删除失败");
+            return jsonObject;
+        }
+    }
+
 }

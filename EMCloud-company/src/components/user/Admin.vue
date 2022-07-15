@@ -8,7 +8,11 @@
     <el-card class="box-card">
       <el-row style="margin-left: 40px;margin-top: 20px">
         <el-col :span="4">
+<<<<<<< HEAD
           <el-button size="small" type="primary" @click="addDialogVisible1 = true">添加普通用户</el-button>
+=======
+          <el-button type="primary" @click="addu()">添加普通用户</el-button>
+>>>>>>> 91238afbf978afcaf21b595b36a7f387b8e12115
         </el-col>
         <el-col :span="5">
           <el-input size="small" placeholder="请输入用户手机号" v-model="queryInfo1.query1">
@@ -63,20 +67,19 @@
         <el-form-item label="电话" prop="user_tele">
           <el-input v-model="addUserForm.user_tele"></el-input>
         </el-form-item>
-        <el-form-item label="公司" prop="user_company">
-          <el-select v-model="addUserForm.user_company"
-                     @change="getOptionInfo2"
-                     placeholder="请选择公司">
-            <el-option
-              v-for="item in optionData"
-              :key="item.company_id"
-              :label="item.company_name"
-              :value="item.company_id">
-            </el-option>
-          </el-select>
-        </el-form-item>
+<!--        <el-form-item label="公司" prop="user_company">-->
+<!--          <el-select v-model="addUserForm.user_company"-->
+<!--                     @change="getOptionInfo2"-->
+<!--                     placeholder="请选择公司">-->
+<!--            <el-option-->
+<!--              v-for="item in optionData"-->
+<!--              :key="item.company_id"-->
+<!--              :label="item.company_name"-->
+<!--              :value="item.company_id">-->
+<!--            </el-option>-->
+<!--          </el-select>-->
+<!--        </el-form-item>-->
         <el-form-item label="部门" prop="user_depart">
-
           <el-select v-model="addUserForm.user_depart"
                      placeholder="请选择部门">
             <el-option
@@ -224,6 +227,11 @@ export default {
         this.getUserByPhone()
       }
       },
+    addu(){
+      this.addDialogVisible1 = true,
+        this.addUserForm.user_company=sessionStorage.getItem('company_id')
+    },
+
     getOptionInfo(){
       getCompany()
         .then(res => {
@@ -232,17 +240,16 @@ export default {
     },
     getOptionInfo1(){
       let params = new URLSearchParams()
-      console.log(sessionStorage.getItem("company_id"))
       params.append('company_id', sessionStorage.getItem("company_id"))
       getDepartByCompany(params)
         .then(res => {
-          this.optionData1=res;
+          this.optionData2=res;
           console.log(this.optionData1)
         })
     },
     getOptionInfo2(){
       let params = new URLSearchParams()
-      params.append('company_id', this.addUserForm.user_company)
+      params.append('company_id', sessionStorage.getItem("company_id"))
       getDepartByCompany(params)
         .then(res => {
           this.optionData2=res;
@@ -321,7 +328,7 @@ export default {
       this.userlist=[
       ];
       let params = new URLSearchParams()
-      params.append('company_id', sessionStorage.getItem("company_id"))
+      params.append('company_id', sessionStorage.getItem("company"))
       getUserByCompany(params)
         .then(res => {
           this.tableData = res;
@@ -343,7 +350,7 @@ export default {
       if(this.queryInfo1.query1){
         let params = new URLSearchParams()
         params.append('user_phone', this.queryInfo1.query1)
-        params.append('company_id', sessionStorage.getItem("company_id"))
+        params.append('company_id', sessionStorage.getItem("company"))
         getUserByPhoneInCompany(params)
           .then(res => {
             this.tableData = res;

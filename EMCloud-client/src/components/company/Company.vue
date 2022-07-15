@@ -27,8 +27,9 @@
 
       </el-row>
 
+
       <!--    公司  -->
-      <el-dialog title="添加公司" width="36%" :visible.sync="dialogFormVisible" center>
+      <el-dialog title="添加公司" width="36%" :visible.sync="dialogFormVisible" center >
         <el-form :model="questionForm" ref="questionForm"  :rules="rules" label-position="right" label-width="110px" style="width: 400px; margin-left:50px;">
           <el-form-item label="公司名称" prop="name">
             <el-input v-model="questionForm.company_name" placeholder="必填" style="width: 280px"></el-input>
@@ -158,9 +159,6 @@ export default {
         province: [
           { required: true, message: '请输入公司所在省份', trigger: 'blur' },
         ],
-        city: [
-          { required: true, message: '请输入公司所在城市', trigger: 'blur' },
-        ],
       },
     }
   },
@@ -237,6 +235,7 @@ export default {
         }
         this.provinceList = newProvince
       })
+<<<<<<< HEAD
     },
     provinceChange(that){
       // 根据选中省，匹配市
@@ -257,6 +256,28 @@ export default {
         })  /* 市匹配成功*/
       }
     },
+=======
+    },
+    provinceChange(that){
+      // 根据选中省，匹配市
+      let cityCode = 0
+      let newCityArry = []
+      this.provinceList.forEach((item,index)=>{
+        if(item.name == that){
+          cityCode = item.code
+        }
+      })
+      // console.log(cityCode)
+      if(cityCode){
+        this.cityList = []
+        this.CITY.forEach((item,index)=>{
+          if(item.code == cityCode){
+            this.cityList.push(item)
+          }
+        })  /* 市匹配成功*/
+      }
+    },
+>>>>>>> 91238afbf978afcaf21b595b36a7f387b8e12115
     cityChange(that){
       let countyCode = 0
       let cityname = ''
@@ -366,7 +387,9 @@ export default {
 </script>
 
 
+<<<<<<< HEAD
 <style lang="scss" scoped>
 
+=======
+>>>>>>> 91238afbf978afcaf21b595b36a7f387b8e12115
 
-</style>
