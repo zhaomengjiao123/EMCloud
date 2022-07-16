@@ -52,7 +52,9 @@ public class SocketHandler {
     private EquipmentWarningService equipmentWarningService;
     @Autowired
     private EquipmentService equipmentService;
+    @Autowired
     private TaskRecordService taskRecordService;
+    @Autowired
     private TaskService taskService;
     static Logger log = LoggerFactory.getLogger(SocketHandler.class);
 
