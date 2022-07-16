@@ -97,7 +97,7 @@ export default {
         queryType:'',
         queryCompanyId:'',
         pagenum: 1,
-        pagesize: 8,
+        pagesize: 5,
       },
       companySelectList:{},
       stateInfo:{
@@ -188,7 +188,7 @@ export default {
           this.total=res.length;
           console.log("Update",res);
         });
-    this.switper();
+    //this.switper();
     },
 
     getCompanyList(){

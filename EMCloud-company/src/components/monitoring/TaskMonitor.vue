@@ -182,8 +182,9 @@ export default {
       getTaskByCompanyId(params).then(res=>{
         this.equipmentUpdateData=res;
         this.total=res.length;
+        console.log("uuu",res);
       });
-      this.switper();
+      //this.switper();
 
     },
 

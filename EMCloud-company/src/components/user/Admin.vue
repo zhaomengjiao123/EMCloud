@@ -240,7 +240,7 @@ export default {
       params.append('company_id', sessionStorage.getItem("company_id"))
       getDepartByCompany(params)
         .then(res => {
-          this.optionData2=res;
+          this.optionData1=res;
           console.log(this.optionData1)
         })
     },

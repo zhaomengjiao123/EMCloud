@@ -427,7 +427,7 @@ export default {
           cursor: "pointer", 			//鼠标放上去的效果
           data: this.getPointData(this.numData),
           symbolSize: function (val) {
-             return val[2] ;
+             return val[2]*4 ;
           },
           showEffectOn: 'render', //加载完毕显示特效
         },

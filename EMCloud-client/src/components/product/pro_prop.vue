@@ -85,8 +85,8 @@
         <el-table-column  label="产品预警值" prop="product_attribute_warning" width="90px"></el-table-column>
         <el-table-column  label="产品报警值" prop="product_attribute_erro" width="90px"></el-table-column>
         <el-table-column  label="产品维修值" prop="product_attribute_repair" width="90px"></el-table-column>
-        <el-table-column  label="是否监控" prop="product_attribute_monitor" width="75px"></el-table-column>
-        <el-table-column  label="对应产品类型ID" prop="product_type_id" width="115px"></el-table-column>
+<!--        <el-table-column  label="是否监控" prop="product_attribute_monitor" width="75px"></el-table-column>-->
+        <el-table-column  label="产品类型" prop="product_type_id" width="115px"></el-table-column>
         <el-table-column  label="备注" prop="product_attribute_comment"></el-table-column>
         <el-table-column  label="更新时间" prop="product_attribute_update_time" width="150px"></el-table-column >
         <el-table-column  label="操作" width="150px">
@@ -113,7 +113,7 @@
                   <el-input v-model="questionForm.product_attribute_warning" :disabled="true"></el-input>
                 </el-form-item>
                 <el-form-item label="产品属性是否监控" prop="monitor">
-                  <el-input v-model="questionForm.product_attribute_monitor" :disabled="true"></el-input>
+                  <el-input v-model="questionForm.product_attribute_monitor=1" :disabled="true"></el-input>
                 </el-form-item>
                 <el-form-item label="产品备注" prop="comment">
                   <el-input v-model="questionForm.product_attribute_comment"></el-input>

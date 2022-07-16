@@ -169,7 +169,7 @@ export default {
         this.equipmentUpdateData=res;
         console.log("Update",res);
       });
-      this.switper();
+      //this.switper();
     },
 
     getCompanyList(){

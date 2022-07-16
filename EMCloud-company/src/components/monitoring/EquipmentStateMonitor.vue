@@ -206,7 +206,7 @@ export default {
         this.equipmentUpdateData=res;
         this.total=res.length;
       });
-      this.switper();
+      //this.switper();
 
     },
 

@@ -119,7 +119,7 @@ export default {
             coordinateSystem: 'bmap',
             data: this.getPointData(this.companyEquipmentData),
             symbolSize: function (val) {
-              return val[2]*2
+              return val[2]*5
             },
             rippleEffect: {
               brushType: 'stroke'
