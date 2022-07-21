@@ -27,7 +27,6 @@ import static com.server.emcloud.socket.SocketHandler.register;
  * @Description:
  */
 @Service
-@Slf4j
 @Data
 @Component
 @NoArgsConstructor

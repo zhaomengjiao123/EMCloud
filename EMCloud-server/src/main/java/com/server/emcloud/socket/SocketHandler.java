@@ -144,8 +144,6 @@ public class SocketHandler {
                     dataInputStream.read(m);
 
                     info += new String(m,"utf-8");
-                    //System.out.println(info);
-                    //JSONObject agvJson = JSONObject.parseObject(info);
                     JSONObject jsonobject = JSONObject.fromObject(info);
 
 
