@@ -116,9 +116,6 @@ export default {
       }
     },
     getData() {
-      this.count++;
-      console.log("count:",this.count);
-      //this.pageflag = true;
       //查询在线数与不在线数
       getOnlineAndNotOnlineEquipmentNum().then(res=>{
         console.log("res:::",res)
@@ -155,35 +152,7 @@ export default {
           number: [res.exceptionCount]
         }
       });
-
-
-         // this.userOverview = res.data;
-          // this.onlineconfig = {
-          //   ...this.onlineconfig,
-          //   //number: [res.data.onlineNum]
-          //   number: [200]
-          // }
-          // this.totalconfig = {
-          //   ...this.totalconfig,
-          //   //number: [res.data.totalNum]
-          //   number: [200]
-          // }
-          // this.offlineconfig = {
-          //   ...this.offlineconfig,
-          //  //number: [res.data.offlineNum]
-          //   number: [200]
-          // }
-          // this.laramnumconfig = {
-          //   ...this.laramnumconfig,
-          //   //number: [res.data.alarmNum]
-          //   number: [200]
-          // }
-          this.switper();
-        //} else {
-          //this.pageflag = false;
-          //this.$Message.warning(res.msg);
-        //}
-      //});
+      this.switper();
     },
     //轮询
     switper() {

@@ -75,24 +75,6 @@ export default {
 
      this.switper();
 
-      //currentGET('big1').then(res => {
-        //只打印一次
-        //if (!this.timer) {
-          //console.log("设备总览", res);
-        //}
-        //if (res.success) {
-          //this.countUserNumData = res.data
-
-
-            //} else {
-            //this.pageflag = false
-            // this.$Message({
-            //   text: res.msg,
-            //   type: 'warning'
-            // })
-            // }
-           // })
-
     },
     //轮询
     switper() {
@@ -112,9 +94,6 @@ export default {
         this.timer = setInterval(looper, 3000);
       });
       this.chart.setOption(this.options)
-      // window.onresize = function(){
-      //   this.chart.resize();
-      // }
     },
     init() {
       let total = this.countUserNumData.offlineNum+this.countUserNumData.onlineNum+this.countUserNumData.abnormalEquipmentCount;
